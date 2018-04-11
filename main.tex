@@ -1,0 +1,648 @@
+\RequirePackage{ifluatex, ifxetex} % these are for the portability of this example - can be omitted in any actual document made for a certain engine
+
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0
+\else
+  % only needed for using Greek letters outside math when running PDFLaTeX - leave out otherwise
+  %\PassOptionsToPackage{LGR}{fontenc}
+  %\RequirePackage{textgreek}
+\fi
+
+
+\documentclass[globalnumbering,centeredcaptions,draftfooter]{tutthesis} % see appendix for list of options
+
+%\pagestyle{headings} % Adds titles to the header
+
+
+% ifnameyear is defined to demonstrate both versions in a single file. You may leave it out and simply use one version throughout your file.
+\newif\ifnameyear
+\nameyearfalse
+
+
+
+% ==============
+% Basic packages
+% ==============
+% You should use these unless you really know what you're doing
+
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0
+\else\usepackage[utf8]{inputenc}
+\fi
+
+\usepackage[english,finnish]{babel} % The language of the thesis last
+
+% If you are working with a minimal LateX distribution, you may have to install some extra packages. Make sure that at least babel-finnish (available in e.g. texlive-lang-european) and the basic fonts (e.g. texlive-fonts-recommended) are installed.
+
+\usepackage{babelbib} % You should use this unless you are using biblatex. Add option fixlanguage if you're writing in English (the thesis writing guide is asymmetric, requiring Finnish theses to have e.g. 'eds.' for sources in English, while requiring English theses to have all such parts in English)
+
+\ifnameyear\usepackage{natbib} % add option longnamesfirst if you want to have full author list with first citation
+\else\providecommand{\citep}{\cite} % This template is written using \citep to get name-year citations right, and in numerical mode the command is here aliased to the standard \cite. If you use numbered citations, leave this out and use \cite
+\fi
+
+
+% ===============
+% Useful packages
+% ===============
+% Packages which are not required for a thesis that follows guidelines, but may be convenient or necessary in common cases
+
+%\usepackage{microtype} % subtle but nice improvements to how text is printed
+
+%\usepackage{textcase} % may be used to keep parts of title lowercase
+
+\usepackage{array}
+\usepackage{tabularx} % e.g. multiline cells
+%\usepackage{calc} %for performing length arithmetic such as column width = text width minus some other width
+%\usepackage{longtable} % for tables spanning multiple pages
+
+%\usepackage{psfrag} % editing ps files
+%\usepackage{subfig} % parallel small figures a,b,c,...
+%\usepackage{rotating} % for rotating e.g. full-page figures
+
+%\usepackage{siunitx} % nice formatting for combinations of number and unit
+\usepackage{amsopn} % For operator names; not necessary if amsmath is used
+%\usepackage[fleqn]{amsmath} %Extensions to math handling; if you use this, you should use e.g. gather instead of equation due to a hyperref bug
+
+%\usepackage{listings} %Typesetting code
+%\lstset{basicstyle=\footnotesize\ttfamily, numbers=left}
+%\renewcommand{\lstlistingname}{Ohjelma} % Program if you're writing in English
+% If you want non-ASCII characters (e.g. in comments), check out the listingsutf8 package
+
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0
+  \usepackage[math-style=ISO]{unicode-math} %must not precede amsmath and most other math and font related packages
+\else
+  %\usepackage{bm} % The \bm command is used for bold italic variables used in some fields not to be used with unicode-math
+  %\usepackage[helvratio=1]{newtxtext} \usepackage{newtxmath}% some recommend the newtx fonts
+  \usepackage{textcomp} % symbols like \textdegree
+\fi
+
+
+% ===========================
+% Bibliographic information
+% ===========================
+% These must be set before loading pdfx or beginning document
+\author{John Doe}
+\title{Tampereen teknillisen yliopiston opinnäytepohja}
+\datesubmitted{2017}{6}{5} % year, month, day; no leading zeroes; submitted for bachelor's theses and thesisapproved for master’s
+\thesistype{Kandidaatintyö} % % Do not use ASCII apostrophe ' as it will not be substituted with the correct one (’) in the PDF metadata. Note that there are both short version (this) and a long one - "Master’s" vs. "Master of Science"
+\major{Matematiikka}
+\programme{Tekniikan ja luonnontieteiden kandidaatin tutkinto-ohjelma} % Note apostrophes on all fields for PDF metadata
+\keywords{opinnäytetyö, opinnäytteet, pohja, rakenne, muotoilu}
+
+\examiner{professori Matti Meikäläinen} %\and for plural
+%\datetopicapproved{2017}{1}{5} % only for master’s theses
+
+
+% Packages that need to be loaded late
+% ----------------------------------------------
+%\usepackage[a-2u]{pdfx} % If you're using PDFLatex and your version of pdfx is not recent enough, you may run into the inputencoding bug. In that case, load inputenc after pdfx (and replace any non-ASCII characters in the metadata with e.g. \"{a})
+
+\usepackage{hyperref} % This must (usually) be the last package you load - load this OR pdfx (which also loads hyperref). Usage of pdfx would be nice, but if you have issues with that you may fall back to just hyperref
+
+
+
+\begin{document}
+
+\maketitle
+
+
+%First, the abstract in the language of the thesis (no language selection). Note that most fields are already defined
+
+\thesisdescription{Kandidaatintyö}
+\begin{abstract}
+Tiivistelmä on suppea, 1 sivun mittainen itsenäinen esitys työstä: mikä oli ongelma, mitä tehtiin ja mitä saatiin tulokseksi.
+Kuvia, kaavioita ja taulukoita ei käytetä tiivistelmässä.
+
+Laita työn pääkielellä kirjoitettu tiivistelmä ensin ja käännös sen jälkeen.
+Suomenkieliselle kandidaatintyölle pitää olla myös englanninkielinen nimi arkistointia varten.
+\end{abstract}
+
+%Then, the abstract in the other language (explicit language selection) except for bachelor's theses
+\iffalse
+\begin{otherlanguage}{english}
+
+\title{Tampere University of Technology thesis template}
+\programme{...}
+\thesisdescription{...}
+\major{Mathematics}
+\examiner{Professor Vilma Välkky\and Professor Matti Meikäläinen}
+\keywords{thesis, template, thesis structure, thesis layout}
+
+\begin{abstract}
+The abstract is a self-contained, concise description of the thesis: what was the problem, what was done, what was the result.
+Do not include charts or tables in the abstract.
+
+First include the abstract written in the main language of the thesis and then the translation.
+A bachelor's thesis in Finnish must also have a name in English for archival.
+\end{abstract}
+\end{otherlanguage}
+\fi
+
+
+\chapter*{Alkusanat}
+
+Tämä dokumenttipohja on laadittu TTY:n opinnäytetyöohjeen vuoden 2017 version mukaan pohjautuen LaTeXin \emph{report}-dokumenttiluokkaan sekä TTY:n aiempiin pohjiin.
+
+Alkusanoissa esitetään opinnäytetyön tekemiseen liittyvät yleiset tiedot.
+Tapana on myös esittää kiitokset työn tekemiseen vaikuttaneille henkilöille ja yhteisöille.
+Alkusanat eivät kuulu arvioinnin piriin, mutta niissä ei silti ole sopivaa moittia tai kritisoida ketään.
+Alkusanojen pituus on enintään 1 sivu
+Alkusanojen lopussa on päivämäärä, jonka jälkeen työhön ei ole enää tehty korjauksia.
+
+\vspace{2\baselineskip}
+
+Tampereella, 31.5.2017
+
+\vspace{2\baselineskip}
+
+John Doe
+
+
+
+\tableofcontents
+
+\listoffigures
+%\listoftables
+
+
+
+\chapter*{Lyhenteet ja merkinnät}
+
+% This is not a "proper" table, so no table environment
+
+% Suppressed left colsep; 20% - 1 x colsep; right colpsep; left colpadding; 80% - 1 x colpadding; suppressed right colpadding
+\begin{tabular}[h]{@{} p{0.2\textwidth-\tabcolsep} p{0.8\textwidth-\tabcolsep} @{}}
+CC-lisenssi & Creative Commons -lisenssi \\
+LaTeX & ladontajärjestelmä tieteelliseen kirjoittamiseen \\
+SI-järjestelmä & ransk. \emph{Système international d'unités}, kansainvälinen mittayksikköjärjestelmä \\
+TTY & Tampereen teknillinen yliopisto \\
+URL & engl. \emph{Uniform Resource Locator}, verkkosivun osoite 
+\end{tabular}
+
+\begin{tabular}[h]{@{} p{0.15\textwidth-\tabcolsep} p{0.85\textwidth-\tabcolsep} @{}}
+$a$ & kiihtyvyys \\
+$\mathbf{F}$ & voima \\
+$m$ & massa
+\end{tabular}
+
+Työssä käytetyt lyhenteet ja merkinnät määritellään ja selitetään kootusti aakkosjärjestyksessä työn alussa ja kun ne esiintyvät tekstissä ensimmäisen kerran. Lyhenteiden kanssa käytetään tällöin sulkeita.
+
+
+
+% It may be useful to break the chapters into their own files and then do eg. \include{01-introduction} or \include{C-resultsdiscussion}
+
+\chapter{Johdanto}
+\label{ch:johdanto}
+
+Tämä mallipohja liittyy Tampereen teknillisen yliopiston (TTY) opinnäytteen kirjoitusohjeeseen \citep{Tty2017}.
+Opinnäyte tai raportti koostuu tyypillisesti seuraavista osista:
+
+\begin{tabular}[h]{l}
+Nimiölehti\\
+Tiivistelmä\\
+Abstract (englanninkielinen tiivistelmä)\\
+Alkusanat\\
+Sisällys\\
+Lyhenteet ja merkinnät\\
+1. Johdanto\\
+2. Teoreettinen tausta, lähtökohdat tai ongelman asettelu \\
+3. Tutkimusmenetelmät ja aineisto \\
+4. Tulokset ja niiden tarkastelu (mahdollisesti eri luvuissa)\\
+5. Yhteenveto tai päätelmät\\
+Lähteet\\
+Liitteet (eivät pakollisia)\\
+\end{tabular}
+
+Tämän pohjan luvussa \ref{ch:esitystyyli} käsitellään esityyliin perussäännöt liittyen kuviin, taulukoihin ja matemaattisiin merkintöihin.
+Luvuissa \ref{ch:viittaustekniikat} ja \ref{ch:yhteenveto} esitellään viittaustekniikat ja lyhyt yhteenveto.
+Liitteenä on dokumentoitu dokumenttiluokan vaihtoehtoja.
+
+
+
+\chapter{Esitystyyli}
+\label{ch:esitystyyli}
+
+Tekstin sisällön lisäksi esitystyyli vaikuttaa suuresti viestinnän onnistumiseen.
+Ulkoasu ja kirjoitustyyli antavat työstä ja kirjoittajasta kuvan, toivottavasti hyvän.
+
+\section{Teksti}
+
+Opinnäytetyö kirjoitetaan yhdelle palstalle kokoa A4 (210 mm x 297 mm) oleville arkeille.
+Opinnäytetyön tavallisen tekstin kirjasinlaji on yleensä Times New Roman (tässä LaTeX-pohjassa Times) ja kirjasinkoko 12.
+Riviväli on 16,56 pistettä (Microsoft Wordin kerroin 1,2), ja teksti tasataan molempiin reunoihin ja tavutetaan.
+Luvun otsikon kirjasin on 18 pisteen Arial (tässä pohjassa vastaava Helvetica), ja molemmin puolin on 42 pisteen väli ennen tekstiä.
+Alaluvun otsikon kirjasinkoko on 14, ja otsikon yläpuolella on 18 pisteen väli ja alapuolella 12 pisteen väli.
+
+
+Kirjoitustyylin perusohjeet ovat:
+\begin{itemize} % never start a paragraph with a list (i. e. no empty line before this)
+  \item Ajattele lukijaa aina tekstiä kirjoittaessasi ja johdattele häntä riittävästi. Anna ensin yleiskuva ja liitä siihen yksityiskohdat. 
+  \item Korosta tärkeimmät asiat, esimerkiksi nostamalla ne omiksi luvuikseen, poimimalla taulukkoon tai selittämällä kuvan avulla. Tekstissä käytä korostamiseen \emph{kursivointia} tai \textbf{lihavointia}, mutta älä korosta liikaa.
+  \item Vältä pitkiä virkkeitä ja monimutkaisia lauserakenteita. Piste on paras välimerkki. 
+  \item Suosi aktiivimuodossa olevia verbejä ja sijoita ne lauseen alkupuolelle. Älä kuitenkaan käytä yksikön 1. persoonaa (minä) kuin Alkusanoissa. 
+  \item Vältä kapulakielisiä ilmauksia ja ammattislangia. Sano suoraan. Käytä vakiintunutta teknistä sanastoa, merkintöjä ja neutraalia asiatyyliä. 
+  \item Lukujen ja alalukujen tulee olla vähintään kahden kappaleen mittaisia ja mielellään keskenään tasapainoisia. Kappale muodostuu aina useammasta kuin yhdestä virkkeestä. 
+  \item Luvut ja alaluvut numeroidaan korkeintaan kolmannelle tasolle asti, esimerkiksi 4.4.2.
+  \item Lyhenteitä ei tulisi käyttää liikaa. Käytä lyhenteissä pieniä ja isoja kirjaimia johdonmukaisesti. 
+\end{itemize}
+
+\section{Kuvat}
+
+Kaikkiin kuviin täytyy viitata tekstissä.
+Viittaus on mielellään samalla sivulla kuin kuva tai sitä ennen.
+Kuvat ja taulukot numeroidaan ja sijoitetaan pääsääntöisesti sivun yläreunaan.
+LaTeX-julkaisujärjestelmän automatiikka hoitaa kuvien sijoittelun pääsääntöisesti hyvin.
+Lukua ei saa aloittaa kuvalla, taulukolla tai luettelolla, vaan sitä ennen on oltava tekstiä.
+Kuvateksti sijoitetaan kuvan alle.
+
+Kuvan keskeinen sisältö on selitettävä tekstissä, jotta sen sanomasta ei jää epäselvyyttä.
+Analysointiohjelmistojen tuottamat kuvat vaativat useimmiten muokkausta, kuten kuva \ref{fig:kuvaajan-julkaisukelpoisuus}.
+Kuvan tekstien on oltava luettavissa, ja niiden kooksi suositellaan samaa kuin muussa tekstissä, kuitenkin vähintään 10 pistettä.
+Pyri siihen, että myös harmaasävyissä tulostettu kopio on luettava ja selkeä.
+
+\begin{figure}
+    %\includegraphics[width=0.45\textwidth]{kuvaajaA}\hfill\includegraphics[width=0.45\textwidth]{kuvaajaB}
+    \vspace*{5cm}
+    \framebox[0.45\textwidth]{Kuva jätetty pois\par}\hfill\framebox[0.45\textwidth]{Kuva jätetty pois}
+    \vspace*{5cm}
+    \caption{Kuvaaja on hyvä muokata julkaisukelpoiseksi. Vasemmalla on esitetty muokkaamaton kuvaaja ja oikealla muokattu.}
+    \label{fig:kuvaajan-julkaisukelpoisuus}
+\end{figure}
+
+\section{Taulukot}
+
+Kuvien tapaan taulukot numeroidaan ja varustetaan otsikolla, kuten taulukko \ref{tab:ohutkalvojen-hoyrystymisolosuhteet}.
+Taulukkoteksti sijoitetaan samalle sivulle taulukon kanssa ja taulukon yläpuolelle.
+Suureet, lyhenteet ja symbolit selitetään tarvittaessa tekstissä.
+Kaikkiin taulukoihin on viitattava tekstissä, mieluummin ennen taulukkoa.
+Taulukon keskeinen sanoma ja tulkintaohjeet selitetään tekstissä. 
+
+\begin{table}[ht]
+\caption{Esimerkki höyrystysolosuhteista kahdessa ohutkalvorakenteessa.}
+\label{tab:ohutkalvojen-hoyrystymisolosuhteet}
+\footnotesize
+\begin{tabularx}{\textwidth}{l | >{\raggedleft\arraybackslash}X >{\raggedleft\arraybackslash}X >{\raggedleft\arraybackslash}X >{\raggedleft\arraybackslash}X >{\raggedleft\arraybackslash}X >{\raggedleft\arraybackslash}X}
+  \hline
+  \textbf{Aine} & \textbf{Paksuus (nm)} & \textbf{Korjaus\-kerroin} & \textbf{Paine (mbar)} & \textbf{Lämpötila (\textdegree C)} & \textbf{Virta (mA)} & \textbf{Nopeus (nm/s)} \\
+  \hline \hline
+  % E.g. the mhchem package could be nice for typesetting chemical notation
+  SiO$_\textrm{2}$ & 181,0 & 1,10 & 3,0 $\cdot$ 10\textsuperscript{-5} & 90,6 & 20--23 & 0,2 \\
+  TiO$_\textrm{2}$ & 122,1 & 1,55 & 15,0 $\cdot$ 10\textsuperscript{-5} & 91,1 & 93--100 & 0,1 \\
+  \hline
+\end{tabularx}
+\end{table}
+
+Taulukon sarakkeet otsikoidaan ja suureet sekä yksiköt laitetaan näkyviin.
+Otsikkorivi kannattaa erottaa muusta taulukosta esimerkiksi lihavoinnilla ja tuplaviivalla.
+Taulukon järjestyksellä on suuri merkitys. Jokaista solua ei pidä ympäröidä reunaviivalla, koska taulukosta tulee raskaslukuinen.
+Lisää vaakaviiva taulukon ylä- ja alareunaan. Vaakaviivoja voi käyttää esimerkiksi 4–5 rivin välein, ellei tietoja muuten ole jaettu kategorioihin tai selkeys sitä vaadi. Sarakkeen numeroarvot tasataan oikealle (optimitilanteessa desimaalipilkun kohdalta), jolloin arvoja on helppo vertailla.
+Arvoja kannattaa lisäksi sisentää, jotta ne eivät ole kiinni solun oikeanpuoleisessa reunaviivassa.
+Tavoitteena on, että suureet ilmaistaan SI-yksikössä ja käytetään joko vakiintuneita etuliitteitä tai kymmenen potenssin muotoja siten, että ne voidaan laittaa otsikkoriville. Muutamia suosituksia taulukoiden ja kuvien käytöstä löydät lähteestä \citep{Salminen2012}.
+
+\section{Matemaattiset merkinnät}
+
+Käytä selvyyssyistä yleensä numeroita kuin kirjaimia lukuarvoissa, esimerkiksi ''\emph{6 työ-vaihetta}'' on selkeämpi ja parempi kuin ''\emph{kuusi työvaihetta}''.
+Tuhaterottimen käyttö selkeyttää tekstiä.
+Desimaalipilkkua edeltävä nolla tulee aina merkitä.
+Suomen kielessä käytetään virallisesti desimaalipilkkua, englannin kielessä desimaalipistettä.
+
+Numeroiden tavoin myös mittayksiköt kannattaa kirjoittaa lyhenteinä.
+Mittayksikön ja numeroarvon välissä on välilyönti, mutta niiden tulisi olla samalla rivillä\footnote{LaTeXissa tämän saa aikaan käyttämällä merkkiä ''\textasciitilde'' välilyönnin tilalla.}.
+Taulukko tai kaavio on parempi esitystapa, jos tekstin sekaan tulee runsaasti numeroarvoja.
+Usein numeroarvoihin voi liittää laadullisen määreen, ja vastaavasti kaikkiin laadullisiin määreisiin (suuri, pieni, kallis, nopea) tulisi liittää numeroarvo kuvaamaan suuruusluokkaa.
+Numeroiden kanssa ei tarvitse käyttää sijapäätettä, jos seuraava sana on samassa sijassa (taivutusmuodossa), esimerkiksi ''\emph{jakautuu 10 osaan}'' ja ''\emph{20 ja 50 sentin kolikot}''.
+On myös tapauksia, joissa sijapääte pitää merkitä, esimerkiksi ''\emph{osallistujia 7:stä eri maasta}''.
+
+Tekstissä tulee ensisijaisesti käyttää yleisesti tunnettuja ja hyvin määriteltyjä käsitteitä, joiden kirjoittamiseen on yleensä jokin vakiintunut merkintätapa tai symboli.
+Uudet käsitteet ja merkinnät pitää määritellä, kun ne esiintyvät tekstissä ensimmäisen kerran.
+Symboleissa ja mittayksiköissä isot ja pienet kirjaimet tarkoittavat eri asioita.
+Samaa symbolia ei tule käyttää monessa eri merkityksessä.
+Mittayksiköt merkitään selvästi.
+
+
+Matemaattiset merkit ja kreikkalaiset kirjaimet löytyvät LaTeXin makroista ja kaavamoodeista, kuten
+\emph{\$\textbackslash Theta(n\textasciicircum2)\$}
+tai
+\emph{\textbackslash begin\textbraceleft equation\textbraceright\ \textbackslash sin(\textbackslash frac\textbraceleft \textbackslash pi\textbraceright\{2\}) = 1 \textbackslash end\{equation\}}
+.
+Yksinkertaiset kaavat voivat olla osa virkettä (siis tekstiä) ja ilman numeroa.
+Esimerkkinä toisesta tavasta Newtonin 2. peruslaki voidaan ilmaista muodossa
+\begin{equation} % never start a paragraph with an equation (i.e. no empty line before this)
+\label{eq:Newton2} ma = F,
+\end{equation} % on the other hand, a paragraph could end with an equation, although this one doesn't
+jossa $m$ on kappaleen massa, $a$ on kiihtyvyys ja $F$ on voima.
+Huomaa, että symbolien merkitys selitetään heti kaavan yhteydessä.
+
+% instead of \eqref{} you may also use (\ref{}) if you like - the former is a convenience for adding the parentheses
+
+Matemaattinen kaava numeroidaan, jos se on omalla rivillään ja siihen viitataan muualla tekstissä, katso esimerkiksi kaava \eqref{eq:Newton2}.
+Usein numero on tavallisten sulkujen sisällä ja tasattu oikeaan laitaan, kuten tässä ohjeessa.
+Kaavassa \eqref{eq:Newton2} on käytetty englantilaisen kulttuuripiirin tapaa käyttää välimerkkejä myös kaavoissa, tässä lopun pilkkua.
+Suomenkielisessä tekstissä voi välimerkit jättää pois omalla rivillään olevista kaavoista.
+Toisinaan matemaattisen rakenteen edessä on tunniste, kuten Määritelmä 1 tai Lause 1 \citep{Ruohonen2009}.
+Numerointi voi olla juokseva läpi koko tekstin tai aina yhden luvun sisällä, siis joko (1), (2)\ldots tai (1.1), (1.2),\ldots, (2.1) (kts. liite \ref{ch:classdocumentation}).
+
+Älä aloita uutta virkettä matemaattisella symbolilla.
+Yleensä teknisfysikaalisessa tekstissä kursivoidaan muuttujat, kuten $x$ ja $y$.
+Kursivoinneissa kannattaa ainakin aluksi luottaa kaavaeditorin automatiikkaan, esimerkiksi LaTeX \citep{Oetiker2011} on siinä erinomainen.
+Sen sijaan alkeisfunktioita, erikoisfunktioita ja operaattoreita merkitään tavallisella kirjasimella: $\sin (2x+y)$, $\operatorname{grad} T$, $\operatorname{div} B$, $\frac{\lim (x^2 - 1)}{x + 1}$.
+
+
+\section{Ohjelmat ja algoritmit}
+
+Koodin kirjasinlajina käytetään tasalevyistä kirjasinlajia (jonka merkit ovat siis yhtä leveitä), esim. \texttt{var}.
+LaTeXissa käytettäväksi suositellaan \emph{Courier}-kirjasinta oletusarvoisen tasalevyisen sijasta.
+\footnote{Ohjelmakoodille, komentotulkkitiedostoille ja algoritmeille on erilaisia käytäntöjä.
+  Esimerkiksi viimeksimainituille saattaa sopivasti välistetty teksti vaihtuvan leveyden kirjasimella näyttää hyvältä.
+  Paketin \emph{listings} monipuolisiin ominaisuuksiin kannattaa tutustua.}
+
+Kun ohjelmakoodin tai algoritmin pituus on alle 10 riviä eikä siihen enää myöhemmin tekstissä viitata, se voidaan esittää kuten kaavat.
+Pidemmät, alle sivun mittainen ohjelmakoodi tai algoritmi kuvan tapaan, kuten Ohjelma \ref{lst:jarjesta}, otsikkona ''Ohjelma'' tai ''Algoritmi''.
+Tässä koodin jakautuminen eri sivuille on estetty käyttämällä \emph{listings}-paketin \emph{float}-valintaa.
+
+Koodiin on hyvä lisätä muutamia kommentteja ja sisentää se johdonmukaisesti.
+Koodin toiminta selitetään aina myös juoksevassa tekstissä pääpiirteissään, lähinnä siitä esitetään muutamia avainhuomioita.
+Esimerkiksi LaTeX-ohjelman paketti \emph{listings} \citep{Heinz2006, Oetiker2011} osaa kätevästi sisällyttää sekä oikeita kooditiedostoja että pseudokoodia tekstiin, lisätä automaattisesti rivinumeroinnin ja korostaa monet varatut sanat.
+
+
+% You could also load the code from an external file
+\iffalse % this is used as a "comment block"
+\begin{lstlisting}[float,caption={Esimerkki ohjelmakoodin esittämisestä kuvan tapaan.},label={lst:jarjesta},language=C]
+void jarjesta( Kirjainpari taulukko[], int koko )
+{
+  // Jarjestetaan taulukko siten, etta jokaisella kierroksella
+  // valitaan alkio, joka kuuluu taulukon ensimmaiseksi ja siirretaan
+  // se oikealle paikalleen.
+  for( int i = 0; i < koko; ++i )
+  {
+    // Etsitaan pienin eli lahinna aakkosten alkua oleva
+    // kirjan lopputaulukosta
+    int pienimmanKohta = i;
+    for( int j = i; j < koko; ++j )
+    {
+      if( taulukko[ j ].korvattava
+          < taulukko[ pienimmanKohta ].korvattava )
+      {
+        pienimmanKohta = j;
+      }
+    }
+    // Vaihdetaan pienin alkio omalle paikalleen
+    Kirjainpari tmp            = taulukko[ i ];
+    taulukko[ i ]              = taulukko[ pienimmanKohta ];
+    taulukko[ pienimmanKohta ] = tmp;
+  }
+  return;
+}
+\end{lstlisting}
+\else
+\label{lst:jarjesta}
+Koodiesimerkki kommentoitu pois näkyvistä tässä versiossa. Ota käyttöön paketti \texttt{listings}, jos käytät koodilistauksia.
+\fi
+
+
+\chapter{Viittaustekniikat}
+\label{ch:viittaustekniikat}
+
+Viittaus sisältää kaksi pääkohtaa: 1) tekstissä esiintyvän lähdeviitteen ja 2) lähdeluettelon, jossa on jokaisen lähteen yksilöivät (bibliografiset) tiedot.
+Tässä osiossa esitellään 2 yleistä viittausten merkintätapaa:
+\begin{enumerate}
+\ifnameyear
+  \item numeroviittausjärjestelmä (Vancouver-järjestelmä), esim. [1], [2]\ldots
+  \item nimi-vuosijärjestelmä (Harvard-järjestelmä), esim. \citep{Weber2001}, \citep{Kaunisto2003}
+\else
+  \item numeroviittausjärjestelmä (Vancouver-järjestelmä), esim. \cite{Weber2001}\cite{Kaunisto2003}
+  \item nimi-vuosijärjestelmä (Harvard-järjestelmä), esim. (Weber 2001), (Kaunisto 2003)
+\fi
+\end{enumerate}
+
+Numeroviittaus sijoitetaan hakasulkeisiin ja nimi-vuosiviittaus kaarisulkeisiin.
+Ensin mainitussa käytetään juoksevaa numerointia ja jälkimmäisessä tekijän sukunimeä ja julkaisuvuotta.
+Kumpikin viittaustapa on sallittu, ja niiden yleisyys vaihtelee aloittain.
+Valitse yksi ja ole järjestelmällinen sitä käyttäessäsi.
+
+
+\section{Lähdeviittaukset tekstissä}
+
+Lähdeviittaus sijoitetaan tekstin joukkoon mahdollisimman lähelle viittauskohtaa.
+Pääsääntönä tekstiviittaus sijoitetaan virkkeen sisälle ennen pistettä.
+
+\ifnameyear
+  \begin{quotation}
+  Weber väittää, että \ldots [1].\\
+  Cattaneo \emph{et al.} esittävät tutkimuksessaan [2] uuden\ldots\\
+  Tuloksena on \ldots [1, s.~23]. Pitää myös huomata\ldots [1, s.~33--36]
+  \end{quotation}
+
+  \begin{quotation}
+  Esitetyn teorian mukaan \ldots \citep{Weber2001}\\
+  Erityisesti on huomioitava\ldots (\citeauthor{Cattaneo2004})\\
+  \citet[s.~230]{Weber2001} on todennut \ldots
+  \end{quotation}
+    
+  \begin{quotation}
+  Alan kirjallisuudessa [1,3,5] esitetyn mukaan\ldots\\
+  Alan kirjallisuudessa [1][3][5] esitetyn mukaan\ldots\\
+  Aihetta on tutkittu ja raportoitu erittäin laajasti [6--18]\ldots
+  \end{quotation}
+    
+  \begin{quotation}
+  \ldots kirjallisuudessa \citep{Weber2001,Kaunisto2003,Cattaneo2004} on esitetty\ldots
+  \end{quotation}
+\else
+  \begin{quotation}
+  Weber väittää, että \ldots \cite{Weber2001}.\\
+  Cattaneo \emph{et al.} esittävät tutkimuksessaan \cite{Cattaneo2004} uuden\ldots\\
+  Tuloksena on \ldots \cite[s.~23]{Weber2001}. Pitää myös huomata\ldots \cite[s.~33--36]{Weber2001}
+  \end{quotation}
+
+  \begin{quotation}
+  Esitetyn teorian mukaan \ldots (Weber 2001)\\
+  Erityisesti on huomioitava\ldots (Cattaneo \emph{et al.})\\
+  Weber (2001, s.~230) on todennut \ldots
+  \end{quotation}
+    
+  \begin{quotation}
+  Alan kirjallisuudessa \cite{Weber2001,Cattaneo2004,Kaunisto2003} esitetyn mukaan\ldots\\
+  Alan kirjallisuudessa \cite{Weber2001}\cite{Cattaneo2004}\cite{Kaunisto2003} esitetyn mukaan\ldots\\
+  Aihetta on tutkittu ja raportoitu erittäin laajasti [6--18]\ldots % not really applicable when sorting bibliography alphabetically
+  \end{quotation}
+    
+  \begin{quotation}
+  \ldots kirjallisuudessa (Weber 2001; Kaunisto 2003; Cattaneo et al. 2004) on esitetty \ldots
+  \end{quotation}
+\fi
+
+Numeroviittauksiin riittävät \emph{bibtex}-lähteidenkäsittelyohjelma ja LaTeXin sisäänrakennettu \emph{cite}-komento.
+Nimi-vuosiviittauksiin tarvitaan \emph{natbib}-pakettia.
+Uudempi lähteidenkäsittelyohjelma \emph{biblatex} voi olla kiinnostava johtuen paremmasta Unicode-tuestaan ja laajemmasta lähteiden metadatasanastosta, mutta tämä tiedosto perustuu \emph{bibtexiin}, koska se on laajemmin tuettu.
+Riippuen suoritusympäristöstäsi saattaa viitteiden oikein saaminen vaatia käännöksen ajamista useamman kerran.
+
+Esimerkkiviittauksia, jotta tuotettaisiin laaja esimerkkilähdeluettelo: \citep{Weber2001} \citep{Cattaneo2004} \citep{Kaunisto2003} \citep{Li2004} \citep{Ho-Ching2003} \citep{Puhakka2004} \citep{Nissinen2011} \citep{Ohlstrom2005} \citep{OMAP4430} \citep{InjectionMolding2005} \citep{Raakakk2002} \citep{Intel2013} \citep{Davies2004} \citep{SFSISO1000A1} \citep{Keskinen2005} \citep{Sahkoturvallisuuslaki1996} \citep{Pan2013} \citep{Tty2005} \citep{ConstInorgComp2005}, \citep{Radionuklidit2003} \citep{Kalkkihiekkatiilet2004} \citep{Miettinen2005}
+
+
+\section{Lähdeluettelo}
+
+Lähteestä kerrotaan vähintään taulukon \ref{tab:bibliografiset-tiedot} mukaiset tiedot mainitussa järjestyksessä pilkuin eroteltuina, jos ne tiedetään.
+
+\begin{table}[ht!]
+\caption{Julkaisujen tärkeimmät bibliografiset tiedot.}
+\label{tab:bibliografiset-tiedot}
+% A simple table for which plain tabular is enough
+\begin{tabular}{l l | l l}
+\hline
+\textbf{\#} & \textbf{Numeroviittaus} & \# & \textbf{Nimi-vuosiviittaus} \\
+\hline \hline
+1. & tekijät, & 1. & tekijät,\\
+& & 2. & (julkaisuaika suluissa) \\
+2. & otsikko, & 3. & otsikko, \\
+3. & julkaisija, & 4. & julkaisija, \\
+4. & julkaisuaika, & \\
+5. & sivut, & 5. & sivut, \\
+6. & verkko-osoite, jos on & 6. & verkko-osoite, jos on \\
+\hline
+\end{tabular}
+\end{table}
+
+Tässä on esimerkkinä viittaus lehtiartikkeliin molemmilla tavoilla.
+
+\begin{quotation}
+\small
+\begin{enumerate}
+  \renewcommand*\labelenumi{[\theenumi]}
+  \setcounter{enumi}{99}
+  \item K. Keutzer, A.R. Newton, J.M. Rabaey, A. Sangiovanni-Vincentelli, System-level design: orthogonalization of concerns and platform-based design, IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems, vol.19, no.12, Dec 2000, s.1523--1543.
+\end{enumerate}
+\end{quotation}
+
+\begin{quotation}
+Keutzer, K., Newton, A.R., Rabaey, J.M. \& Sangiovanni-Vincentelli A. (2000). System-level design: orthogonalization of concerns and platform-based design. IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems. Vol.19(12), s.1523--1543.
+\end{quotation}
+
+Opinnäytteissä lähdeluettelo kannattaa järjestää aakkosjärjestykseen ensimmäisen kirjoittajan sukunimen perusteella.
+
+
+
+\chapter{Yhteenveto}
+\label{ch:yhteenveto}
+
+Ohjeilla pyritään mahdollisimman selkeään ja täsmälliseen tekstiin, joka on tärkeää kaikissa kirjallisissa raporteissa.
+Tämän dokumenttipohjan ja vastaavan Word-pohjan avulla töillä on yhtenäinen ja selkeä ulkoasu.
+
+Jokaisella kirjoituksella ja esityksellä pitää olla yhteenveto.
+Tätä asiaa korostetaan lisäämällä sellainen tähänkin pohjaan, vaikkakin lyhyenä ja hieman keinotekoisesti.
+Tiivis yhteenvetotaulukko auttaa kertaamaan tärkeimmät kohdat.
+
+
+
+\addto\extrasenglish{\btxifchangecaseoff} % Controls the case-changing for English titles. Make sure that case is preserved for abbreviations and proper nouns, e.g. title={The {ABC} of {Tex}: An Introduction to the Typesetting System}
+
+\ifnameyear
+  \bibliographystyle{babapaliktutnat}
+\else
+  \bibliographystyle{bababbrtut}
+\fi
+\bibliography{references}
+
+
+
+
+\appendix
+
+\chapter{Tutthesis-asiakirjaluokan käyttö}
+\label{ch:classdocumentation}
+
+\section{Asiakirjaluokan valinnat}
+
+Luokkaa ladattaessa asetettavat valinnat:
+
+\begin{tabular}[h]{@{} p{0.3\textwidth-\tabcolsep} p{0.7\textwidth-\tabcolsep} @{}}
+\texttt{oneside}, \texttt{twoside} & Kuten \texttt{report}-luokassa \\
+\texttt{draft}, \texttt{final} & Kuten \texttt{report}-luokassa \\
+\texttt{globalnumbering} & Mikäli asetettu, numeroidaan kuvat, taulukot ja kaavat juoksevasti asiakirjan läpi käyttämättä lukujen numeroita. Huomaa, että numeroitavia kohteita voi olla muitakin; joillekin paketeille vastaava valinta on mahdollisesti asetettava erikseen. \\
+\texttt{centeredcaptions} & Mikäli asetettu, kuva- ja taulukkotekstit näytetään keskitettynä\\
+\texttt{draftfooter} & Mikäli asetettu, näytetään otsikko ja tulostuspäivämäärä alatunnisteessa. Tästä voi olla hyötyä luonnoksia tulostettaessa. Valinta \texttt{draft} asettaa myös tämän valinnan.
+\end{tabular}
+
+Luokan uudelleenmäärittämiä komentoja:
+
+\begin{tabular}[h]{@{} p{0.3\textwidth-\tabcolsep} p{0.7\textwidth-\tabcolsep} @{}}
+  \verb|\maketitle| & Tekee otsikkosivun annetuista bibliografisista tiedoista. Normaalisti otsikko asetellaan vasemmalle tavutettuna (ilman tasausta), mutta pitkät otsikot voivat näyttää paremmalta molemmin puolin tasatussa ja tavutetussa muodossa, joka tuotetaan kun käytetään \texttt{justified}-valintaa
+\end{tabular}
+
+Lisäksi asettamalla asiakirjan alussa sivutyylin komennolla \verb|\pagestyle{headings}| saa otsikot ylämarginaaliin, ei kuitenkaan luvun ensimmäisellä sivulla.
+
+\section{Viittaukset}
+Ota käyttöön \texttt{natbib}-paketti, jos haluat käyttää nimi-vuosiviittauksia.
+Myös uudempi \texttt{biblatex}-järjestelmä voi olla kiinnostava.
+Se toimii paremmin Unicoden kanssa, ja siinä on rikkaampi metadatasanasto (esimerkiksi ''kokonaissivumäärä''- ja ''verkkolähde viitattu''-kentät).
+Sen kanssa voi kuitenkin esiintyä jotain yhteensopivuusongelmia, ja jos esimerkiksi aikoo julkaista joskus tieteellisiä töitä, on vanhan \texttt{bibtex}in käyttö yleensä pakollista.
+Lisäksi monet tietojärjestelmät tuottavat \texttt{bib}-tiedostoja vain \texttt{bibtex}-kentillä.
+
+
+\section{Tekstin muotoilu otsikoissa}
+
+Jos käytät yhtään monimutkaisempaa matemaattista merkintää kuin kaavassa \eqref{eq:Newton2}, monimutkaisia merkintätapoja otsikoissasi tai vieraita merkkejä, on suositeltavaa PDFLatexin sijaan uudempaa moottoria.
+XeTeX ja LuaTeX tukevat OpenType-fontteja (1996) Type 1:n (1984) tai vanhemman LaTeX-oletusarvon OT1:n sijaan.
+
+Otsikoissa ei pitäisi olla varsinaista matematiikkaa, mutta joskus merkintätavat kuten yläindeksit ovat tarpeen.
+Älä käytä LaTeXin matematiikkamoodia, sillä kirjasimet ja PDF-kirjanmerkit eivät toimi sen kanssa oikein.
+Matemaattisia tunnisteita joissa suurilla tai pienillä kirjaimilla on väliä ei pitäisi muuttaa suuriksi kirjaimiksi otsikoissa.
+Esimerkkejä alla.
+
+\subsection{100 m\texttwosuperior\ -projekti}
+
+Numero kaksi yläindeksinä on laajasti tuettu ja saatavilla fonteissa, toisin kuin monet muut yläindeksimerkit.
+
+\newcommand*{\varx}{x}
+\subsection{Ratkaise \textit{\protect\varx}.} % \protect prevents uppercasing in chapter headings, on this level we could also do just \textit{x}
+
+Muuttuja kursiivina osion otsikossa on varsin yksinkertaista tuottaa, mutta isoja kirjaimia käyttävissä otsikoissa on pidettävä huoli, ettei muuttujaa muuteta isoksi kirjaimeksi.
+
+% Most fonts don't have the plussuperior glyph available, so we'll have to fake it. If you're using LuaTeX and you have the GNU Free fonts available, you could define a fallback with fontspec (being careful about sans/serif variants)
+\newcommand*{\plussuperior}{\textsuperscript{+}}
+% The name plussuperior is not arbitrary - hyperref psdextra recognizes it
+
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0
+  \newcommand*{\tbeta}{β}
+  \subsection{\protect\tbeta\plussuperior-hajoaminen} % you could also load the package textcase and use \protect\NoCaseChange{β}
+\else\ifx\textgreekfontmap\undefined\else
+  \subsection{\protect\textbeta\plussuperior-hajoaminen}
+  Huomaa, että PDFLatexia käyttäessä kreikkalaiset kirjaimet otsikoissa näyttävät väärältä, sillä pääteviivattomat lihavoidut kursivoimattomat pienet kreikkalaiset kirjaimet eivät ole saatavilla yleisissä Type 1 -kirjasimissa.
+\fi\fi
+
+
+\section{Matematiikkamoodi}
+
+Tämä osio toimii matematiikan syöttämisen demonstraationa ja testinä.
+Vastaava tekstimoodin ladonta on annettu vertailun vuoksi, mutta sitä ei luonnollisesti tulisi käyttää matematiikkaan.
+Lihavoitua matematiikamoodia ei suositella käytettäväksi, koska useimmista matematiikkafonteista ei ole lihavoitua versiota, mutta se on sisällytetty esimerkkiin täydellisyyden vuoksi.
+
+Yksikirjaimiset tunnisteet:
+
+\ifx \setmathfont \undefined % if unicode-math not loaded
+\begin{tabular}{@{} l l l l l l l l @{}}
+Moodi & Oletus & \emph{Upright}  & \emph{Italic} & \emph{Bold}       & \emph{Sans-serif}   & \emph{Teletype}\\
+\emph{Text} & a       & --       & \textit{a} & \textbf{a} & \textsf{a} & \texttt{a} \\
+\emph{math} & $a$     & $\mathrm{a}$ & $\mathit{a}$ & $\mathbf{a}$ & $\mathsf{a}$ & $\mathtt{a}$ \\
+\emph{Math, bold} & {\mathversion{bold}$a$} & {\mathversion{bold}$\mathrm{a}$} & {\mathversion{bold}$\mathit{a}$} & {\mathversion{bold}$\mathbf{a}$} & {\mathversion{bold}$\mathsf{a}$} & --
+\end{tabular}
+\else % unicode-math loaded and we can use the identifier variants for better typesetting
+\begin{tabular}{@{} l l l l l l l l @{}}
+Moodi & Oletus & \emph{Upright}  & \emph{Italic}    & \emph{Bold}       & \emph{Sans-serif}   & \emph{Teletype}\\
+\emph{Text} & a       & --       & \textit{a} & \textbf{a} & \textsf{a} & \texttt{a} \\
+\emph{Math} & $a$     & $\symrm{a}$ & $\symit{a}$ & $\symbf{a}$ & $\symsf{a}$ & $\symtt{a}$ \\
+\emph{Math, bold} & {\mathversion{bold}$a$} & {\mathversion{bold}$\symup{a}$} & {\mathversion{bold}$\symit{a}$} & {\mathversion{bold}$\symbf{a}$} & {\mathversion{bold}$\symsf{a}$} & --
+\end{tabular}
+\fi
+
+Monikirjaimiset tunnisteet:
+
+\begin{tabular}{@{} l l l l l l l l @{}}
+Moodi & Oletus & \emph{Upright}  & \emph{Italic}    & \emph{Bold}       & \emph{Sans-serif}   & \emph{Teletext}\\
+\emph{Text} & NP       & --       & \textit{NP} & \textbf{NP} & \textsf{NP} & \texttt{NP} \\
+\emph{Math} & --   & $\mathrm{NP}$ & $\mathit{NP}$ & $\mathbf{NP}$ & $\mathsf{NP}$ & $\mathtt{NP}$ \\
+\emph{Math, bold} & -- & {\mathversion{bold}$\mathrm{NP}$} & {\mathversion{bold}$\mathit{NP}$} & {\mathversion{bold}$\mathbf{NP}$} & {\mathversion{bold}$\mathsf{NP}$} & --
+\end{tabular}
+
+Paketti \emph{unicode-math} sallii myös lihavoidun ja/tai kursivoidun pääteviivattoman matemaattisen tekstin.
+
+
+\end{document}
