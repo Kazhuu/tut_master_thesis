@@ -86,10 +86,9 @@
 \thesistype{Diplomityö} % % Do not use ASCII apostrophe ' as it will not be substituted with the correct one (’) in the PDF metadata. Note that there are both short version (this) and a long one - "Master’s" vs. "Master of Science"
 \major{Ohjelmistotuotanto}
 \programme{Tietotekniikan koulutusohjelma} % Note apostrophes on all fields for PDF metadata
-\keywords{Ohjelmistotuotanto,IEC 61850, MMS, raportointi}
-
 \examiner{Professori Kari Systä} %\and for plural
 %\datetopicapproved{2017}{1}{5} % only for master’s theses
+\keywords{Ohjelmistotuotanto, IEC 61850, MMS, AMQP, raportointi}
 
 
 % Packages that need to be loaded late
@@ -109,7 +108,7 @@
 
 
 \begin{abstract}
-Kirjoita yleiskataus IEC 61850 -standardista tähän ja vähän mitä sen määrittämä MMS-protokolla tekee. Sitten voisi mennä raporttien tilausmahdollisuuksiin ja sitä kautta miksi käytetään raporttien tilausta ja missä muodossa raportit tulevat.
+Kirjoita yleiskataus tiivistelmä työstä tähän. Kerro lyhyesti mitä työssä tullaan tekemään.
 
 Karin kommentteja:
 \begin{quote}
@@ -160,10 +159,9 @@ Mauri Mustonen
 
 
 % List of figures and tables.
-\iffalse
-\listoffigures
-\listoftables
-\fi
+%\listoffigures
+%\listoftables
+
 
 
 \chapter*{Lyhenteet ja merkinnät}
@@ -176,43 +174,16 @@ AMQP & Advanced Message Queuing Protocol \\
 \end{tabular}
 
 
-% It may be useful to break the chapters into their own files and then do eg. \include{01-introduction} or \include{C-resultsdiscussion}
-\chapter{Johdanto}
-\label{ch:johdanto}
-
-\begin{tabular}[h]{l}
-Nimiölehti\\
-Tiivistelmä\\
-Abstract (englanninkielinen tiivistelmä)\\
-Alkusanat\\
-Sisällys\\
-Lyhenteet ja merkinnät\\
-1. Johdanto\\
-2. Teoreettinen tausta, lähtökohdat tai ongelman asettelu \\
-3. Tutkimusmenetelmät ja aineisto \\
-4. Tulokset ja niiden tarkastelu (mahdollisesti eri luvuissa)\\
-5. Yhteenveto tai päätelmät\\
-Lähteet\\
-Liitteet (eivät pakollisia)\\
-\end{tabular}
-
-
-\chapter{IEC 61850 -standardi}
-
-\chapter{Advanced Message Queuing Protocol}
-
-\chapter{Toteutus}
-
-
-
-
-
-
-\chapter{Yhteenveto}
-\label{ch:yhteenveto}
-
-Kirjoita tähän yhteenveto työstä ja sen lopputuloksista.
-
+% Each chapter is it's own file and included here.
+\include{johdanto}
+\include{mms-protokolla}
+\include{iec61850-standardi}
+\include{advanced-message-queuing-protocol}
+\include{lahtokohdat-ja-tarve}
+\include{toteutettavan-arkkitehtuurin-suunnittelu}
+\include{ohjelmiston-toteutus}
+\include{tilaava-asiakasohjelmisto}
+\include{yhteenveto-ja-tulokset}
 
 
 % This adds used sources chapter.
@@ -224,7 +195,6 @@ Kirjoita tähän yhteenveto työstä ja sen lopputuloksista.
   \bibliographystyle{bababbrtut}
 \fi
 \bibliography{references}
-
 
 
 % Starts the appendix part.
