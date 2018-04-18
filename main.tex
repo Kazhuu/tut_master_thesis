@@ -81,14 +81,14 @@
 % ===========================
 % These must be set before loading pdfx or beginning document
 \author{Mauri Mustonen}
-\title{IEC 61850 -standardin MMS raportien tilaus ja jatkoprosessointi}
-\datesubmitted{2018}{4}{12} % year, month, day; no leading zeroes; submitted for bachelor's theses and thesisapproved for master’s
+\title{Sähköaseman älykkään elektroniikkalaitteen viestien tilaus ja prosessointi}
+\datesubmitted{2018}{4}{19} % year, month, day; no leading zeroes; submitted for bachelor's theses and thesisapproved for master’s
 \thesistype{Diplomityö} % % Do not use ASCII apostrophe ' as it will not be substituted with the correct one (’) in the PDF metadata. Note that there are both short version (this) and a long one - "Master’s" vs. "Master of Science"
 \major{Ohjelmistotuotanto}
 \programme{Tietotekniikan koulutusohjelma} % Note apostrophes on all fields for PDF metadata
 \examiner{Professori Kari Systä} %\and for plural
 %\datetopicapproved{2017}{1}{5} % only for master’s theses
-\keywords{Ohjelmistotuotanto, IEC 61850, MMS, AMQP, raportointi}
+\keywords{Ohjelmistotuotanto, IEC 61850, MMS, AMQP}
 
 
 % Packages that need to be loaded late
@@ -140,7 +140,7 @@ Mistä tämän diplomityönaiheen sain ja kiittää eri ihmisiä ketä työssä 
 
 \vspace{2\baselineskip}
 
-Tampereella, 12.4.2018
+Tampereella, 19.4.2018
 
 \vspace{2\baselineskip}
 
@@ -173,64 +173,81 @@ AMQP & Advanced Message Queuing Protocol \\
 Kirjoita tähän johdantoa työstä ja aiheesta. Kuinka työ valittiin ja miksi tekijä valitsi tämän työn. Kirjoita myös mitä tehtiin. Kokonaiskuva työstä pitäisi saada johdannosta.
 
 
-\chapter{MMS-protokolla}
-\label{ch:mms-protokolla}
-Selitä lyhyesti mikä on MMS-protokolla ja vähän sen tietotyypeistä. Tämän tarkoitus on pohjustaa tulevaa IEC 61850 abstraktien olioiden (ACSI) sovitusta tämän protokollan päälle. Voi pilkkoa tarvittaessa aliotsikoihin.
+\chapter{Teoria}
+\label{ch:teoria}
+Tähän kohtaan kirjoittaa teoriaa mitä tarvitaan työn toteutuksen ymmärtämisen kannalta. Kaikki työssä tarvittava teoria kuvataan tämän otsikon alla.
 
+\section{MMS-protokolla}
+Selitä lyhyesti mikä on MMS-protokolla ja vähän sen tietotyypeistä. Tämän tarkoitus on pohjustaa tulevaa IEC 61850 abstraktien olioiden (ACSI) sovitusta tämän protokollan päälle.
 
-\chapter{IEC 61850 -standardi}
-\label{ch:iec 61850 -standardi}
+\section{IEC 61850 -standardi}
 Kirjoitta yleisesti mikä on IEC 61850 -standardi ja mitä varten se on olemassa. Kerro myös kuinka standardi on pilkottu pienempiin dokumentteihin ja mitä kukin käsittelee.
 
-\section{Standardin abstraktimääritykset}
+\subsection{Standardin määrittämä abstraktimalli}
 Kirjoita tähän mitä standardin IEC 61850-7-2 osuudessa määritellään abstraktoimalla fyysisiä laitteita ja palveluita rajapinnoiksi ja olioiksi. Käsittelee standardin Abstract communication service interface (ACSI).
 
-\section{Raportointi}
-Kirjoita tähän IEC 61850 standardin määrittästä abstraktista raportointimallista. Tätä raportointi mekanismia tullaan käyttämään raporttien tilauksessa ja täytyy ymmärtää toteuttettavan ohjelmiston kannalta.
+\subsection{Viestiblokin konfigurointi ja tilaus}
+Kirjoita tähän IEC 61850 -standardin määrittästä abstraktista raportointimallista. Tätä raportointi mekanismia tullaan käyttämään raporttien tilauksessa ja sen konfigurointi täytyy ymmärtää toteuttettavan ohjelmiston kannalta.
 
-\section{Sovitus MMS-protokollaan}
+\subsection{Viestin rakenne}
+Kirjoita tähän standardin määritämästä viestin rakenteesta ja mitä tietoa se sisältää. Kerro myös sen vaihtoehtoisista kentistä.
+
+\subsection{Abstraktimallin sovitus MMS-protokollaan}
 Kirjoita kuinka ylempi ACSI sovitetaan MMS-protokollan palveluiksi ja tietotyypeiksi standardin IEC 61850-8-1 osuuden mukaan. Tähän myös miten raportointi toimii MMS-protokollan päällä.
 
-
-\chapter{Advanced Message Queuing Protocol}
-\label{ch:advanced message queuing protocol}
+\section{Advanced Message Queuing Protocol}
 Kirjoita tähän AMQP määrittävästä standardista, mikä sen tarkoitus on ja mihin sitä voidaan käyttää.
 
-\section{Viestien välitysmekanismit}
+\subsection{Viestien välitysmekanismit}
 Mitä mekanismeja AMQP tarjoaa viestien välittämiseen osapuolille. Näitä on jono, reititys suoraan osapuolien välillä ja viestin julkaisu ja tilaaminen.
 
-\section{Tilaus ja julkaisu -mallin osat}
+\subsection{Tilaus ja julkaisu -mallin osat}
 Kirjoita tähän AMQP tarjoamista viestien julkaisu ja tilaus -mallin osista osapuolten kesken. Kerro mitä eri osat tekevät ja mikä niiden tehtävä viestien välittämisessä on. Englanniksi osia ovat esim. exchange, queue, publisher ja consumer.
 
 
-\chapter{Lähtökohdat ja tarve}
-\label{ch:lähtökohdat ja tarve}
-Kirjoita tähän siitä miksi tällainen toteutus tarvitaan ja miksi. Pohjusta miksi suunniteltava ohjelmisto tarvitaan toteuttaa yritykseen johon työn teen. Ohjelmiston tarkoitus olisi tilata IEC 61850 -standardin määrittämiä raportteja ja muokata ne uuteen muotoon (JSON) ja julkaista ne eteenpäin jonoon toiselle tilaavalle ohjelmalle käyttäen AMQP-standardin määrittämää viestintää. Jonon tilaava asiakasohjelmisto voi olla mikä tahansa muu ohjelmisto.
+\chapter{Alkutilanne}
+\label{ch:alkutilanne}
+Pohjusta miksi suunniteltava ohjelmisto tarvitaan toteuttaa yritykseen johon työn teen. Alustava suunniteltu ohjelmiston toteutus olisi tilata IEC 61850 -standardin määrittämiä raportteja ja muokata ne uuteen muotoon ja julkaista ne eteenpäin tilaavalle ohjelmalle käyttäen AMQP-standardin määrittämää viestintää. Jonon tilaava asiakasohjelmisto voi olla mikä tahansa muu ohjelmisto. Viestien lopullinen muoto voisi olla JSON.
 
-Kirjoita tätä ensin ja listaa eksplisiittisesti mitä ollaan tekemässä ja vaatimuksia. Voi aloitaa heti kirjoittaa ennen kun työn otsikon päättää. Aseta työlle isoja tutkimuskysymyksiä.
 \section{Kokonaiskuva}
-\section{Kysymykset}
-Mikä olisi sopiva arkkitehtuuri tällaisen tilanteen hoitamiseen?
+Kirjoita tähän osioon kokonaiskuva alkutilanteesta missä oltiin ennen työn aloittamista. Selvennä kuvilla alkutilanteen arkkitehtuuria.
 
-\section{Tilaava asiakasohjelmisto}
+\section{Ratkaistavat ongelmat}
+Kirjoita tähän mitä ongelmia edellisen toteutuksen kanssa on ja mitä yritään ratkoa. Mainitse suorituskykyongelmista Rubylla ja libiec61850-kirjastoa käyttäen.
+
+\section{Tutkimuskysymykset}
+Esitä tässä työlle asetettuja tutkimuskysymyksiä. Näitä voisi olla esim. seuraavat:
+\begin{itemize}
+	\item Mikä on syynä huonoon suorituskykyyn alkutilanteen toteutuksella?
+	\item Kuinka suorituskyky paremmaksi verrattuna nykyiseen toteutukseen?
+	\item Mitkä ohjelmiston arkkitehtuurin suunnittelumallit (design patterns) olisivat sopivia tämän kaltaisen ongelman ratkaisemiseen? Mitä niistä pitäisi käyttää ja mitä ei?
+	\item Mikä olisi sopiva lopullisen prosessoidun tiedon muoto?
+	\item Kuinka järjestelmä hajautetaan niin että tiedon siirto eri osapuolten välillä on mahdollista ja joustavaa (push vs pull, message queue jne.)?
+\end{itemize}
 
 
-\chapter{Toteutettavan arkkitehtuurin suunnittelu}
-\label{ch:toteutettavan arkkitehtuurin suunnittelu}
+\chapter{Suunnittelu}
+\label{ch:suunnittelu}
 Kirjoittaa tähän kuinka toteutettava arkkitehtuuri suunniteltiin ja kuinka päätöksiin päädytiin. Kirjoitusta myös miten tilattuja raportteja käsitellään ja kuinka niitä julkaistaan eteenpäin. Tarkoituksena olisi saada raportit nykyaikaiseen JSON muotoon.
 
-\section{Raporttien tilaajaohjelmisto}
-Kirjoita mitä asiakasohjelman pitää tehdä jotta raportit saadaan tilattua ja mitä parametrejä ohjelmisto tarvitsee toimiakseen. Lisäksi yleisesti mitä ohjelman pitää tehdä ennen raporttien tilausta ja loppullisen halutun muodon saavuttamista.
+\section{Suorituskyvyn parantaminen}
+Miksi entisen toteutuksen suorituskyky on huono ja mitä voitaisiin tehdä sen parantamisesksi. Kirjoita vaikutuksista tähän ja mihin tuloksiin päädyttiin.
 
-\section{Uudelleenjulkaistujen raporttien formaatti}
-Kirjoita tähän mihin muotoon raportit lopussa tallennetaan esim. JSON. Miksi tähän valintaan päädyttiin. Kerro myös kuinka raportin alkuperäistä rakennetta muokattiin uuteen muotoon sopivaksi.
+\section{Järjestelmän hajautus}
+Lähde erilaisista hajautukista (pull vs pull, message queue) ja päätä mikä sopii tähän toteutukseen parhaiten ja miksi. 
 
-\section{Raporttien uudelleenjulkaisu}
-Kirjoita tähän siitä kuinka AMQP-standardin tilaus ja julkaisu -mallia käytetään raporttien uudelleenjulkaisuun, jotta toinen asiakasohjelma voi niitä ottaa vastaan.
+\section{Ohjelmiston parametrisointi}
+Kirjoita mitä asiakasohjelman pitää tehdä jotta raportit saadaan tilattua ja mitä parametrejä ohjelmisto tarvitsee toimiakseen. Kuinka käyttäjä kontrolloi ohjelman eri asetuksia?
+
+\section{Arkkitehtuurin suunnittelu}
+Määritä ohjelman tarkempaa arkkitehtuuria mitä voidaan käyttää asetettujen ja yllämainittujen asioiden saavuttamiseen ja tarkentamiseen. Mitä jos käyttäjä tilaa monta viestiblokkia, niin missä järjestykssä asiat tehdään jne.
+
+\section{Prosessoidun viestin muoto}
+Kirjoita tähän mihin muotoon viestit lopussa tallennetaan esim. JSON. Miksi tähän valintaan päädyttiin. Kerro myös kuinka raportin alkuperäistä rakennetta muokattiin uuteen muotoon sopivaksi.
 
 
-\chapter{Ohjelmiston toteutus}
-\label{ch:ohjelmiston toteutus}
+\chapter{Toteutus}
+\label{ch:toteutus}
 Kirjoita tähän osioon siitä kuinka suunniteltu arkkitehtuuri toteutettiin ja millä tekniikoilla. Tämä osio käyttää lyhyitä koodiesimerkkejä hyväkseen selittämään lukijalle kuinka toteutus tehtiin, jotta lukija voisi itse toteuttaa samanlaisen ohjelmiston.
 
 \section{Ohjelmiston toteutuksen valinta}
@@ -240,7 +257,7 @@ Kirjoita tähän miksi päädyttiin tietynlaiseen ohjelmiston toteuttamiseen. Ty
 Kirjoita tähän mikä kieli valittiin toteutuksen tekemiseen ja miksi tämä. Alustava suunnitelma on toteuttaa C-kielellä.
 
 \section{RabbitMQ}
-Kirjoita tähän RabbitMQ toteutuksesta. Kirjasto toteuttaa AMQP standardin määrittämiä eri viestintämalleja. Kerro kuinka sitä hyödynnetään tässä työssä ja vähän sen että mitä vaatii.
+Kirjoita tähän RabbitMQ toteutuksesta. Kirjasto toteuttaa AMQP-standardin määrittämiä eri viestintämalleja. Kerro kuinka sitä hyödynnetään tässä työssä ja vähän sen että mitä vaatii.
 
 \section{Käytettävät kirjastot}
 Kirjoita tähän erilaisista kirjastoista mitä toteutukseen valittiin ja miksi. Alaotsikoita voi lisätä jos toteutukseen tarvitaan muita kirjastoja.
@@ -257,15 +274,13 @@ Joku kirjasto JSON formatointiin C-kielelle. Näkyy olevan parikin vaihtoehtoa. 
 \section{Jatkokehitys}
 Kirjoita tähän ideoita mitä jää jatkokehitykseen ja mitä ohjelmistossa on puutteita tai mitä jäi tekemättä.
 
+\chapter{Tulokset}
+\label{ch:tulokset}
+Kirjoita tähän lopputuloksen analysoinnista ja peilaa saatuja tuloksia työlle alussa asetettuihin kysymyksiin. Mitä jäi saavuttamatta, mitä saavutettiin ja miten hyvin? Mitä olisi voinut parantaa? Voi jakaa aliotsikoihin jos tarvetta.
 
-\chapter{Tilaava asiakasohjelmisto}
-\label{ch:tilaava asiakasohjelmisto}
-Kirjoita tähän jonon tilaajan asiakasohjelmasta. Työssä asiakasohjelmistoa ei toteuteta. Vain julkaisijan osuus, mutta voisi esimerkkinä toteuttaa simppelin asiakasohjelman, joka vain tulostaisi saadut viestit. Tai vaihtoehtoisesti kirjoittaa miten asiakasohjelma saa tilattua tietoa pienen esimerkin kautta.
-
-
-\chapter{Yhteenveto ja tulokset}
-\label{ch:yhteenveto ja tulokset}
-Kirjoita tähän ensin arviointi ja yhteenveto työstä ja sen lopputuloksista. Mitä hyötyjä työnantaja työstä saa ja jatkokehitysideoita. Mitä työssä meni hyvin ja mitä olisi voinut tehdä toisin. Peilaa myös tuloksia asetettuihin kysymyksiin alussa ja miten niihin päästiin. Sulje työn ympyrä tässä kappaleessa peilaamalla alkutilannetta loppuun.
+\chapter{Yhteenveto}
+\label{ch:yhteenveto}
+Kirjoita tähän ensin arviointi ja yhteenveto työstä ja sen lopputuloksista. Mitä hyötyjä työnantaja työstä saa ja jatkokehitysideoita. Mitä työssä meni hyvin ja mitä olisi voinut tehdä toisin?
 
 
 % This can be deleted later.
