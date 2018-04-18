@@ -168,15 +168,106 @@ AMQP & Advanced Message Queuing Protocol \\
 
 
 % Each chapter is it's own file and included here.
-\include{johdanto}
-\include{mms-protokolla}
-\include{iec61850-standardi}
-\include{advanced-message-queuing-protocol}
-\include{lahtokohdat-ja-tarve}
-\include{toteutettavan-arkkitehtuurin-suunnittelu}
-\include{ohjelmiston-toteutus}
-\include{tilaava-asiakasohjelmisto}
-\include{yhteenveto-ja-tulokset}
+\chapter{Johdanto}
+\label{ch:johdanto}
+Kirjoita tähän johdantoa työstä ja aiheesta. Kuinka työ valittiin ja miksi tekijä valitsi tämän työn. Kirjoita myös mitä tehtiin. Kokonaiskuva työstä pitäisi saada johdannosta.
+
+
+\chapter{MMS-protokolla}
+\label{ch:mms-protokolla}
+Selitä lyhyesti mikä on MMS-protokolla ja vähän sen tietotyypeistä. Tämän tarkoitus on pohjustaa tulevaa IEC 61850 abstraktien olioiden (ACSI) sovitusta tämän protokollan päälle. Voi pilkkoa tarvittaessa aliotsikoihin.
+
+
+\chapter{IEC 61850 -standardi}
+\label{ch:iec 61850 -standardi}
+Kirjoitta yleisesti mikä on IEC 61850 -standardi ja mitä varten se on olemassa. Kerro myös kuinka standardi on pilkottu pienempiin dokumentteihin ja mitä kukin käsittelee.
+
+\section{Standardin abstraktimääritykset}
+Kirjoita tähän mitä standardin IEC 61850-7-2 osuudessa määritellään abstraktoimalla fyysisiä laitteita ja palveluita rajapinnoiksi ja olioiksi. Käsittelee standardin Abstract communication service interface (ACSI).
+
+\section{Raportointi}
+Kirjoita tähän IEC 61850 standardin määrittästä abstraktista raportointimallista. Tätä raportointi mekanismia tullaan käyttämään raporttien tilauksessa ja täytyy ymmärtää toteuttettavan ohjelmiston kannalta.
+
+\section{Sovitus MMS-protokollaan}
+Kirjoita kuinka ylempi ACSI sovitetaan MMS-protokollan palveluiksi ja tietotyypeiksi standardin IEC 61850-8-1 osuuden mukaan. Tähän myös miten raportointi toimii MMS-protokollan päällä.
+
+
+\chapter{Advanced Message Queuing Protocol}
+\label{ch:advanced message queuing protocol}
+Kirjoita tähän AMQP määrittävästä standardista, mikä sen tarkoitus on ja mihin sitä voidaan käyttää.
+
+\section{Viestien välitysmekanismit}
+Mitä mekanismeja AMQP tarjoaa viestien välittämiseen osapuolille. Näitä on jono, reititys suoraan osapuolien välillä ja viestin julkaisu ja tilaaminen.
+
+\section{Tilaus ja julkaisu -mallin osat}
+Kirjoita tähän AMQP tarjoamista viestien julkaisu ja tilaus -mallin osista osapuolten kesken. Kerro mitä eri osat tekevät ja mikä niiden tehtävä viestien välittämisessä on. Englanniksi osia ovat esim. exchange, queue, publisher ja consumer.
+
+
+\chapter{Lähtökohdat ja tarve}
+\label{ch:lähtökohdat ja tarve}
+Kirjoita tähän siitä miksi tällainen toteutus tarvitaan ja miksi. Pohjusta miksi suunniteltava ohjelmisto tarvitaan toteuttaa yritykseen johon työn teen. Ohjelmiston tarkoitus olisi tilata IEC 61850 -standardin määrittämiä raportteja ja muokata ne uuteen muotoon (JSON) ja julkaista ne eteenpäin jonoon toiselle tilaavalle ohjelmalle käyttäen AMQP-standardin määrittämää viestintää. Jonon tilaava asiakasohjelmisto voi olla mikä tahansa muu ohjelmisto.
+
+Kirjoita tätä ensin ja listaa eksplisiittisesti mitä ollaan tekemässä ja vaatimuksia. Voi aloitaa heti kirjoittaa ennen kun työn otsikon päättää. Aseta työlle isoja tutkimuskysymyksiä.
+\section{Kokonaiskuva}
+\section{Kysymykset}
+Mikä olisi sopiva arkkitehtuuri tällaisen tilanteen hoitamiseen?
+
+\section{Tilaava asiakasohjelmisto}
+
+
+\chapter{Toteutettavan arkkitehtuurin suunnittelu}
+\label{ch:toteutettavan arkkitehtuurin suunnittelu}
+Kirjoittaa tähän kuinka toteutettava arkkitehtuuri suunniteltiin ja kuinka päätöksiin päädytiin. Kirjoitusta myös miten tilattuja raportteja käsitellään ja kuinka niitä julkaistaan eteenpäin. Tarkoituksena olisi saada raportit nykyaikaiseen JSON muotoon.
+
+\section{Raporttien tilaajaohjelmisto}
+Kirjoita mitä asiakasohjelman pitää tehdä jotta raportit saadaan tilattua ja mitä parametrejä ohjelmisto tarvitsee toimiakseen. Lisäksi yleisesti mitä ohjelman pitää tehdä ennen raporttien tilausta ja loppullisen halutun muodon saavuttamista.
+
+\section{Uudelleenjulkaistujen raporttien formaatti}
+Kirjoita tähän mihin muotoon raportit lopussa tallennetaan esim. JSON. Miksi tähän valintaan päädyttiin. Kerro myös kuinka raportin alkuperäistä rakennetta muokattiin uuteen muotoon sopivaksi.
+
+\section{Raporttien uudelleenjulkaisu}
+Kirjoita tähän siitä kuinka AMQP-standardin tilaus ja julkaisu -mallia käytetään raporttien uudelleenjulkaisuun, jotta toinen asiakasohjelma voi niitä ottaa vastaan.
+
+
+\chapter{Ohjelmiston toteutus}
+\label{ch:ohjelmiston toteutus}
+Kirjoita tähän osioon siitä kuinka suunniteltu arkkitehtuuri toteutettiin ja millä tekniikoilla. Tämä osio käyttää lyhyitä koodiesimerkkejä hyväkseen selittämään lukijalle kuinka toteutus tehtiin, jotta lukija voisi itse toteuttaa samanlaisen ohjelmiston.
+
+\section{Ohjelmiston toteutuksen valinta}
+Kirjoita tähän miksi päädyttiin tietynlaiseen ohjelmiston toteuttamiseen. Työssä on mietitty komentorivipohjaista toteutusta. Lisäksi mille alustalle ohjelmisto suunnitellaan Windows vai Linux.
+
+\section{Kielen valinta}
+Kirjoita tähän mikä kieli valittiin toteutuksen tekemiseen ja miksi tämä. Alustava suunnitelma on toteuttaa C-kielellä.
+
+\section{RabbitMQ}
+Kirjoita tähän RabbitMQ toteutuksesta. Kirjasto toteuttaa AMQP standardin määrittämiä eri viestintämalleja. Kerro kuinka sitä hyödynnetään tässä työssä ja vähän sen että mitä vaatii.
+
+\section{Käytettävät kirjastot}
+Kirjoita tähän erilaisista kirjastoista mitä toteutukseen valittiin ja miksi. Alaotsikoita voi lisätä jos toteutukseen tarvitaan muita kirjastoja.
+
+\subsection{libiec61850}
+IEC 61850 -standardin toteuttava C-kirjasto joka tekee raskaan työn standardin määrittämien palveluiden toteuttamiseen ja muodostamiseen. Kirjasto tarjoaa rajapinnat serveri- ja asiakasohjelmiston toteuttamiseen, mutta vain asiakasohjelmiston rajapintoja käytetään. Kirjasto tarjoaa myös rajapinnat haluttujen raporttien tilaamista varten. Kirjaston nettisivu täältä: http://libiec61850.com/libiec61850/.
+
+\subsection{rabbitmq-c}
+RabbitMQ:n rajapinnan toteuttava kirjasto C-kielen ohjelmille. Kirjastolla voidaan toteuttaa julkaisevia ja tilaavia ohjelmistoja. Kirjastosta käytetään julkaisevan puolen toteutusta. Kirjasto löytyy täältä: https://github.com/alanxz/rabbitmq-c.
+
+\subsection{JSON-formatointi}
+Joku kirjasto JSON formatointiin C-kielelle. Näkyy olevan parikin vaihtoehtoa. Perustele tähän valinta ja miksi.
+
+\section{Jatkokehitys}
+Kirjoita tähän ideoita mitä jää jatkokehitykseen ja mitä ohjelmistossa on puutteita tai mitä jäi tekemättä.
+
+
+\chapter{Tilaava asiakasohjelmisto}
+\label{ch:tilaava asiakasohjelmisto}
+Kirjoita tähän jonon tilaajan asiakasohjelmasta. Työssä asiakasohjelmistoa ei toteuteta. Vain julkaisijan osuus, mutta voisi esimerkkinä toteuttaa simppelin asiakasohjelman, joka vain tulostaisi saadut viestit. Tai vaihtoehtoisesti kirjoittaa miten asiakasohjelma saa tilattua tietoa pienen esimerkin kautta.
+
+
+\chapter{Yhteenveto ja tulokset}
+\label{ch:yhteenveto ja tulokset}
+Kirjoita tähän ensin arviointi ja yhteenveto työstä ja sen lopputuloksista. Mitä hyötyjä työnantaja työstä saa ja jatkokehitysideoita. Mitä työssä meni hyvin ja mitä olisi voinut tehdä toisin. Peilaa myös tuloksia asetettuihin kysymyksiin alussa ja miten niihin päästiin. Sulje työn ympyrä tässä kappaleessa peilaamalla alkutilannetta loppuun.
+
+
 % This can be deleted later.
 \include{muistiinpanot}
 
