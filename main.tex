@@ -168,119 +168,14 @@ AMQP & Advanced Message Queuing Protocol \\
 
 
 % Each chapter is it's own file and included here.
-\chapter{Johdanto}
-\label{ch:johdanto}
-Kirjoita tähän johdantoa työstä ja aiheesta. Kuinka työ valittiin ja miksi tekijä valitsi tämän työn. Kirjoita myös mitä tehtiin. Kokonaiskuva työstä pitäisi saada johdannosta.
-
-
-\chapter{Teoria}
-\label{ch:teoria}
-Tähän kohtaan kirjoittaa teoriaa mitä tarvitaan työn toteutuksen ymmärtämisen kannalta. Kaikki työssä tarvittava teoria kuvataan tämän otsikon alla.
-
-\section{MMS-protokolla}
-Selitä lyhyesti mikä on MMS-protokolla ja vähän sen tietotyypeistä. Tämän tarkoitus on pohjustaa tulevaa IEC 61850 abstraktien olioiden (ACSI) sovitusta tämän protokollan päälle.
-
-\section{IEC 61850 -standardi}
-Kirjoitta yleisesti mikä on IEC 61850 -standardi ja mitä varten se on olemassa. Kerro myös kuinka standardi on pilkottu pienempiin dokumentteihin ja mitä kukin käsittelee.
-
-\subsection{Standardin määrittämä abstraktimalli}
-Kirjoita tähän mitä standardin IEC 61850-7-2 osuudessa määritellään abstraktoimalla fyysisiä laitteita ja palveluita rajapinnoiksi ja olioiksi. Käsittelee standardin Abstract communication service interface (ACSI).
-
-\subsection{Viestiblokin konfigurointi ja tilaus}
-Kirjoita tähän IEC 61850 -standardin määrittästä abstraktista raportointimallista. Tätä raportointi mekanismia tullaan käyttämään raporttien tilauksessa ja sen konfigurointi täytyy ymmärtää toteuttettavan ohjelmiston kannalta.
-
-\subsection{Viestin rakenne}
-Kirjoita tähän standardin määritämästä viestin rakenteesta ja mitä tietoa se sisältää. Kerro myös sen vaihtoehtoisista kentistä.
-
-\subsection{Abstraktimallin sovitus MMS-protokollaan}
-Kirjoita kuinka ylempi ACSI sovitetaan MMS-protokollan palveluiksi ja tietotyypeiksi standardin IEC 61850-8-1 osuuden mukaan. Tähän myös miten raportointi toimii MMS-protokollan päällä.
-
-\section{Advanced Message Queuing Protocol}
-Kirjoita tähän AMQP määrittävästä standardista, mikä sen tarkoitus on ja mihin sitä voidaan käyttää.
-
-\subsection{Viestien välitysmekanismit}
-Mitä mekanismeja AMQP tarjoaa viestien välittämiseen osapuolille. Näitä on jono, reititys suoraan osapuolien välillä ja viestin julkaisu ja tilaaminen.
-
-\subsection{Tilaus ja julkaisu -mallin osat}
-Kirjoita tähän AMQP tarjoamista viestien julkaisu ja tilaus -mallin osista osapuolten kesken. Kerro mitä eri osat tekevät ja mikä niiden tehtävä viestien välittämisessä on. Englanniksi osia ovat esim. exchange, queue, publisher ja consumer.
-
-
-\chapter{Alkutilanne}
-\label{ch:alkutilanne}
-Pohjusta miksi suunniteltava ohjelmisto tarvitaan toteuttaa yritykseen johon työn teen. Alustava suunniteltu ohjelmiston toteutus olisi tilata IEC 61850 -standardin määrittämiä raportteja ja muokata ne uuteen muotoon ja julkaista ne eteenpäin tilaavalle ohjelmalle käyttäen AMQP-standardin määrittämää viestintää. Jonon tilaava asiakasohjelmisto voi olla mikä tahansa muu ohjelmisto. Viestien lopullinen muoto voisi olla JSON.
-
-\section{Kokonaiskuva}
-Kirjoita tähän osioon kokonaiskuva alkutilanteesta missä oltiin ennen työn aloittamista. Selvennä kuvilla alkutilanteen arkkitehtuuria.
-
-\section{Ratkaistavat ongelmat}
-Kirjoita tähän mitä ongelmia edellisen toteutuksen kanssa on ja mitä yritään ratkoa. Mainitse suorituskykyongelmista Rubylla ja libiec61850-kirjastoa käyttäen.
-
-\section{Tutkimuskysymykset}
-Esitä tässä työlle asetettuja tutkimuskysymyksiä. Näitä voisi olla esim. seuraavat:
-\begin{itemize}
-	\item Mikä on syynä huonoon suorituskykyyn alkutilanteen toteutuksella?
-	\item Kuinka suorituskyky paremmaksi verrattuna nykyiseen toteutukseen?
-	\item Mitkä ohjelmiston arkkitehtuurin suunnittelumallit (design patterns) olisivat sopivia tämän kaltaisen ongelman ratkaisemiseen? Mitä niistä pitäisi käyttää ja mitä ei?
-	\item Mikä olisi sopiva lopullisen prosessoidun tiedon muoto?
-	\item Kuinka järjestelmä hajautetaan niin että tiedon siirto eri osapuolten välillä on mahdollista ja joustavaa (push vs pull, message queue jne.)?
-\end{itemize}
-
-
-\chapter{Suunnittelu}
-\label{ch:suunnittelu}
-Kirjoittaa tähän kuinka toteutettava arkkitehtuuri suunniteltiin ja kuinka päätöksiin päädytiin. Kirjoitusta myös miten tilattuja raportteja käsitellään ja kuinka niitä julkaistaan eteenpäin. Tarkoituksena olisi saada raportit nykyaikaiseen JSON muotoon.
-
-\section{Suorituskyvyn parantaminen}
-Miksi entisen toteutuksen suorituskyky on huono ja mitä voitaisiin tehdä sen parantamisesksi. Kirjoita vaikutuksista tähän ja mihin tuloksiin päädyttiin.
-
-\section{Järjestelmän hajautus}
-Lähde erilaisista hajautukista (pull vs pull, message queue) ja päätä mikä sopii tähän toteutukseen parhaiten ja miksi. 
-
-\section{Ohjelmiston parametrisointi}
-Kirjoita mitä asiakasohjelman pitää tehdä jotta raportit saadaan tilattua ja mitä parametrejä ohjelmisto tarvitsee toimiakseen. Kuinka käyttäjä kontrolloi ohjelman eri asetuksia?
-
-\section{Arkkitehtuurin suunnittelu}
-Määritä ohjelman tarkempaa arkkitehtuuria mitä voidaan käyttää asetettujen ja yllämainittujen asioiden saavuttamiseen ja tarkentamiseen. Mitä jos käyttäjä tilaa monta viestiblokkia, niin missä järjestykssä asiat tehdään jne.
-
-\section{Prosessoidun viestin muoto}
-Kirjoita tähän mihin muotoon viestit lopussa tallennetaan esim. JSON. Miksi tähän valintaan päädyttiin. Kerro myös kuinka raportin alkuperäistä rakennetta muokattiin uuteen muotoon sopivaksi.
-
-
-\chapter{Toteutus}
-\label{ch:toteutus}
-Kirjoita tähän osioon siitä kuinka suunniteltu arkkitehtuuri toteutettiin ja millä tekniikoilla. Tämä osio käyttää lyhyitä koodiesimerkkejä hyväkseen selittämään lukijalle kuinka toteutus tehtiin, jotta lukija voisi itse toteuttaa samanlaisen ohjelmiston.
-
-\section{Ohjelmiston toteutuksen valinta}
-Kirjoita tähän miksi päädyttiin tietynlaiseen ohjelmiston toteuttamiseen. Työssä on mietitty komentorivipohjaista toteutusta. Lisäksi mille alustalle ohjelmisto suunnitellaan Windows vai Linux.
-
-\section{Kielen valinta}
-Kirjoita tähän mikä kieli valittiin toteutuksen tekemiseen ja miksi tämä. Alustava suunnitelma on toteuttaa C-kielellä.
-
-\section{RabbitMQ}
-Kirjoita tähän RabbitMQ toteutuksesta. Kirjasto toteuttaa AMQP-standardin määrittämiä eri viestintämalleja. Kerro kuinka sitä hyödynnetään tässä työssä ja vähän sen että mitä vaatii.
-
-\section{Käytettävät kirjastot}
-Kirjoita tähän erilaisista kirjastoista mitä toteutukseen valittiin ja miksi. Alaotsikoita voi lisätä jos toteutukseen tarvitaan muita kirjastoja.
-
-\subsection{libiec61850}
-IEC 61850 -standardin toteuttava C-kirjasto joka tekee raskaan työn standardin määrittämien palveluiden toteuttamiseen ja muodostamiseen. Kirjasto tarjoaa rajapinnat serveri- ja asiakasohjelmiston toteuttamiseen, mutta vain asiakasohjelmiston rajapintoja käytetään. Kirjasto tarjoaa myös rajapinnat haluttujen raporttien tilaamista varten. Kirjaston nettisivu täältä: http://libiec61850.com/libiec61850/.
-
-\subsection{rabbitmq-c}
-RabbitMQ:n rajapinnan toteuttava kirjasto C-kielen ohjelmille. Kirjastolla voidaan toteuttaa julkaisevia ja tilaavia ohjelmistoja. Kirjastosta käytetään julkaisevan puolen toteutusta. Kirjasto löytyy täältä: https://github.com/alanxz/rabbitmq-c.
-
-\subsection{JSON-formatointi}
-Joku kirjasto JSON formatointiin C-kielelle. Näkyy olevan parikin vaihtoehtoa. Perustele tähän valinta ja miksi.
-
-\section{Jatkokehitys}
-Kirjoita tähän ideoita mitä jää jatkokehitykseen ja mitä ohjelmistossa on puutteita tai mitä jäi tekemättä.
-
-\chapter{Tulokset}
-\label{ch:tulokset}
-Kirjoita tähän lopputuloksen analysoinnista ja peilaa saatuja tuloksia työlle alussa asetettuihin kysymyksiin. Mitä jäi saavuttamatta, mitä saavutettiin ja miten hyvin? Mitä olisi voinut parantaa? Voi jakaa aliotsikoihin jos tarvetta.
-
-\chapter{Yhteenveto}
-\label{ch:yhteenveto}
-Kirjoita tähän ensin arviointi ja yhteenveto työstä ja sen lopputuloksista. Mitä hyötyjä työnantaja työstä saa ja jatkokehitysideoita. Mitä työssä meni hyvin ja mitä olisi voinut tehdä toisin?
+\include{johdanto}
+\include{teoria}
+\include{alkutilanne}
+\include{suunnittelu}
+\include{toteutus}
+\include{arviointi}
+\include{tulokset}
+\include{yhteenveto}
 
 
 % This can be deleted later.

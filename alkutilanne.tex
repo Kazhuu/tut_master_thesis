@@ -1,0 +1,19 @@
+\chapter{Alkutilanne}
+\label{ch:alkutilanne}
+Pohjusta miksi suunniteltava ohjelmisto tarvitaan toteuttaa yritykseen johon työn teen. Alustava suunniteltu ohjelmiston toteutus olisi tilata IEC 61850 -standardin määrittämiä raportteja ja muokata ne uuteen muotoon ja julkaista ne eteenpäin tilaavalle ohjelmalle käyttäen AMQP-standardin määrittämää viestintää. Jonon tilaava asiakasohjelmisto voi olla mikä tahansa muu ohjelmisto. Viestien lopullinen muoto voisi olla JSON.
+
+\section{Kokonaiskuva}
+Kirjoita tähän osioon kokonaiskuva alkutilanteesta missä oltiin ennen työn aloittamista. Selvennä kuvilla alkutilanteen arkkitehtuuria.
+
+\section{Ratkaistavat ongelmat}
+Kirjoita tähän mitä ongelmia edellisen toteutuksen kanssa on ja mitä yritään ratkoa. Mainitse suorituskykyongelmista Rubylla ja libiec61850-kirjastoa käyttäen.
+
+\section{Tutkimuskysymykset}
+Esitä tässä työlle asetettuja tutkimuskysymyksiä. Näitä voisi olla esim. seuraavat:
+\begin{itemize}
+	\item Mikä on syynä huonoon suorituskykyyn alkutilanteen toteutuksella?
+	\item Kuinka suorituskyky paremmaksi verrattuna nykyiseen toteutukseen?
+	\item Mitkä ohjelmiston arkkitehtuurin suunnittelumallit (design patterns) olisivat sopivia tämän kaltaisen ongelman ratkaisemiseen? Mitä niistä pitäisi käyttää ja mitä ei?
+	\item Mikä olisi sopiva lopullisen prosessoidun tiedon muoto?
+	\item Kuinka järjestelmä hajautetaan niin että tiedon siirto eri osapuolten välillä on mahdollista ja joustavaa (push vs pull, message queue jne.)?
+\end{itemize}
