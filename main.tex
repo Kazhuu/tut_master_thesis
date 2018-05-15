@@ -8,6 +8,9 @@
   %\RequirePackage{textgreek}
 \fi
 
+% Own environment definitions.
+\newenvironment{it} {\itshape}
+
 
 \documentclass[globalnumbering,centeredcaptions,draftfooter]{tutthesis} % see appendix for list of options
 
@@ -162,8 +165,10 @@ Mauri Mustonen
 % This is not a "proper" table, so no table environment
 % Suppressed left colsep; 20% - 1 x colsep; right colpsep; left colpadding; 80% - 1 x colpadding; suppressed right colpadding
 \begin{tabular}[h]{@{} p{0.2\textwidth-\tabcolsep} p{0.8\textwidth-\tabcolsep} @{}}
-MMS & Manufacturing Message Specification \\
-AMQP & Advanced Message Queuing Protocol \\
+	IED & engl. \emph{Intelligent Electronic Device}, konfiguroitava sähköaseman älykäs elektroninen laite, joka toteuttaa aseman toiminnallisuutta \\
+	RCB & engl. \emph{Report Control Block}, raporttien konfigurointiin ja tilaukseen tarkoitettu lohko asiakasohjelmalle \\ 
+	MMS & engl. \emph{Manufacturing Message Specification} \\
+	AMQP & engl. \emph{Advanced Message Queuing Protocol} \\
 \end{tabular}
 
 

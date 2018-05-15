@@ -1,9 +1,27 @@
 \chapter{Alkutilanne}
 \label{ch:alkutilanne}
-Pohjusta miksi suunniteltava ohjelmisto tarvitaan toteuttaa yritykseen johon työn teen. Alustava suunniteltu ohjelmiston toteutus olisi tilata IEC 61850 -standardin määrittämiä raportteja ja muokata ne uuteen muotoon ja julkaista ne eteenpäin tilaavalle ohjelmalle käyttäen AMQP-standardin määrittämää viestintää. Jonon tilaava asiakasohjelmisto voi olla mikä tahansa muu ohjelmisto. Viestien lopullinen muoto voisi olla JSON.
+
+\begin{it}
+	Pohjusta miksi suunniteltava ohjelmisto tarvitaan toteuttaa yritykseen johon työn teen. Alustava suunniteltu ohjelmiston toteutus olisi tilata IEC 61850 -standardin määrittämiä raportteja ja muokata ne uuteen muotoon ja julkaista ne eteenpäin tilaavalle ohjelmalle käyttäen AMQP-standardin määrittämää viestintää. Jonon tilaava asiakasohjelmisto voi olla mikä tahansa muu ohjelmisto. Viestien lopullinen muoto voisi olla JSON.
+\end{it}
+
+Nykyisin sähköasemilla älykkäillä elektronisilla laitteilla (engl. \emph{Intelligent Electronic Devices, IED}) asemilla voidaan toteuttaa tuhansia eri datapisteitä, jotka kuvaavat aseman toiminnallisuutta ja konfiguroitavuutta. Tämän konfiguroitavuuden ansiosta IED:tä voidaan asemalla käyttää erilaisina sähkölaitteina, kuten sulakkeina tai muuntajina. IEC~61850 -standardin abstraktit datamallit määrittävät IED:n datapisteiden rakenteet, muodot ja tyypit. Standardin mukaan erillisistä datapisteistä voidaan muodostaa datajoukkoja (engl. \emph{data set}). Datajoukkot ovat helppo tapa kuvata halutut datapisteet yhdeksi yhteinäiseksi joukoksi. Asiakas-palvelin-arkkitehtuurissa asiakkaan on mahdollista tilata datajoukkoja raporteina konfiguroitavilla parametreilla, jotka konfiguroidaan ennen tilausta. Asiakkaan tekemän tilauksen jälkeen palvelin lähettää raportteja asiakkaalle niin kauan kunnes yhteys katkeaa, tai asiakas lopettaa tilauksen. Raporttien konfigurointi ja tilaus tehdään erillisellä raportointilohkolla (engl. \emph{Report Control Block, RCB}). Lohkolla voi konfiguroida mm. raportin sisältämiä vaihtoehtoisia kenttiä ja erilaisia liipaisimia raportin generointiin.
+
+Tulevissa kappaleissa pohjustetaan työn alussa olemassa olevan ohjelmiston arkkitehtuuria, mitkä olivat sen komponentit ja niiden toiminnallisuus. Tämän jälkeen pohditaan toteutuksen ongelmia, ja mitä työssä pyritään ratkaisemaan uudella toteutuksella. Asetettujen tutkimuskysymysten ja ongelmien kautta pyritään löytämään uudelle ohjelmiston arkkitehtuurille pohjaa ja ratkaisua siihen liittyviin päätöksiin.
 
 \section{Kokonaiskuva}
-Kirjoita tähän osioon kokonaiskuva alkutilanteesta missä oltiin ennen työn aloittamista. Selvennä kuvilla alkutilanteen arkkitehtuuria.
+\begin{it}
+	Kirjoita tähän osioon kokonaiskuva alkutilanteesta missä oltiin ennen työn aloittamista. Selvennä kuvilla alkutilanteen arkkitehtuuria.
+\end{it}
+
+Alkuperäisessä toteutuksessa asiakasohjelmisto oli toteutettu Ruby-ohjelmointikielellä. IEC~61850 -standardin määrittämien palveluiden ja tietorakenteiden toteutukseen käytettiin avoimen lähdekoodin libIEC61850-kirjastoa\footnote{\url{http://libiec61850.com}}. Kirjasto on ohjelmoitu C-kielellä ja sen avulla voidaan toteuttaa kumpikin palvelin- ja asiakasohjelmisto. Kirjasto abstraktoi standardin määrittämiä palveluita ja tietorakenteita ohjelmoijalle helpoiksi funktioiksi ja C-kielen rakenteiksi. Normaalisti C-koodin funktioiden kutsuminen Rubysta suoraan ei ole mahdollista ilman erillistä liitosta. Tämän takia Rubyyn oli tehty laajennos libIEC61850-kirjastoon käyttäen Rubylle saatavaa ruby-ffi -kirjastoa\footnote{\url{https://github.com/ffi/ffi}} (engl. \emph{Foreign Function Interface, FFI}). Liitoksen avulla libIEC61850-kirjasto voi hoitaa standardin vaatiman toiminnan ja Ruby-ohjelmisto keskittyy vaadittuun toiminnallisuuteen.
+
+\subsection{Raportien tilaus libIEC61850-kirjastolla}
+\begin{it}
+	Tämä osio käsittelee vain raporttien tilausmekanismia libIEC61850-kirjaston toteutuksen kannalta ja muu alempi toiminnallisuus käsitellään aikaisemmassa teoriaosuudessa.
+\end{it}
+
+
 
 \section{Ratkaistavat ongelmat}
 Kirjoita tähän mitä ongelmia edellisen toteutuksen kanssa on ja mitä yritään ratkoa. Mainitse suorituskykyongelmista Rubylla ja libiec61850-kirjastoa käyttäen.
