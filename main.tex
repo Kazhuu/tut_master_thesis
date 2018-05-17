@@ -85,8 +85,8 @@
 % These must be set before loading pdfx or beginning document
 \author{Mauri Mustonen}
 \title{Sähköaseman älykkään elektroniikkalaitteen viestien tilaus ja prosessointi}
-\datesubmitted{2018}{4}{19} % year, month, day; no leading zeroes; submitted for bachelor's theses and thesisapproved for master’s
-\thesistype{Diplomityö} % % Do not use ASCII apostrophe ' as it will not be substituted with the correct one (’) in the PDF metadata. Note that there are both short version (this) and a long one - "Master’s" vs. "Master of Science"
+\datesubmitted{2018}{5}{17} % year, month, day; no leading zeroes; submitted for bachelor's theses and thesisapproved for master’s
+\thesistype{Diplomityö} % Do not use ASCII apostrophe ' as it will not be substituted with the correct one (’) in the PDF metadata. Note that there are both short version (this) and a long one - "Master’s" vs. "Master of Science"
 \major{Ohjelmistotuotanto}
 \programme{Tietotekniikan koulutusohjelma} % Note apostrophes on all fields for PDF metadata
 \examiner{Professori Kari Systä} %\and for plural
@@ -111,7 +111,9 @@
 
 
 \begin{abstract}
-Kirjoita yleiskataus tiivistelmä työstä tähän. Kerro lyhyesti mitä työssä tullaan tekemään.
+\begin{it}
+	Kirjoita yleiskataus tiivistelmä työstä tähän. Kerro lyhyesti mitä työssä tullaan tekemään.
+\end{it}
 \end{abstract}
 
 
@@ -137,17 +139,7 @@ A bachelor's thesis in Finnish must also have a name in English for archival.
 \fi
 
 
-\chapter*{Alkusanat}
-
-Mistä tämän diplomityönaiheen sain ja kiittää eri ihmisiä ketä työssä oli sidoshenkilöinä.
-
-\vspace{2\baselineskip}
-
-Tampereella, 19.4.2018
-
-\vspace{2\baselineskip}
-
-Mauri Mustonen
+\include{alkusanat}
 
 
 % Create table of content.
@@ -155,21 +147,11 @@ Mauri Mustonen
 
 
 % List of figures and tables.
-%\listoffigures
-%\listoftables
+% \listoffigures
+% \listoftables
 
 
-
-\chapter*{Lyhenteet ja merkinnät}
-
-% This is not a "proper" table, so no table environment
-% Suppressed left colsep; 20% - 1 x colsep; right colpsep; left colpadding; 80% - 1 x colpadding; suppressed right colpadding
-\begin{tabular}[h]{@{} p{0.2\textwidth-\tabcolsep} p{0.8\textwidth-\tabcolsep} @{}}
-	IED & engl. \emph{Intelligent Electronic Device}, konfiguroitava sähköaseman älykäs elektroninen laite, joka toteuttaa aseman toiminnallisuutta \\
-	RCB & engl. \emph{Report Control Block}, raporttien konfigurointiin ja tilaukseen tarkoitettu lohko asiakasohjelmalle \\ 
-	MMS & engl. \emph{Manufacturing Message Specification} \\
-	AMQP & engl. \emph{Advanced Message Queuing Protocol} \\
-\end{tabular}
+\include{lyhenteet_ja_merkinnat}
 
 
 % Each chapter is it's own file and included here.
@@ -184,7 +166,7 @@ Mauri Mustonen
 
 
 % This can be deleted later.
-\include{muistiinpanot}
+% \include{muistiinpanot}
 
 
 % This adds used sources chapter.
