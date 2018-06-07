@@ -2,12 +2,65 @@
 \label{ch:teoria}
 \begin{it}
 	Tähän kohtaan kirjoittaa teoriaa mitä tarvitaan työn toteutuksen ymmärtämisen kannalta. Kaikki työssä tarvittava teoria kuvataan tämän otsikon alla.
+
+	Tämän lukemalla lukija ymmärtää:
+	\begin{itemize}
+		\item Mikä on standardin ja sähköaseman relaatio ja kuinka ne liittyvät toisiinsa?
+		\item Mikä on IEC standardi ja työn kannalta sen tärkeimmät piirtteet.
+		\item Kuinka viestien tilaus tapahtuu standardin mukaan?
+		\item Kuinka standardi määrittää viestien rakenteen ja parameterit?
+		\item Mikä on MMS-protokolla ja kuinka mallinnus standardin objekteista tehdään sille?
+	\end{itemize}
 \end{it}
+
+Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan. Teoriaosuuden kokonaan lukemalla lukija ymmärtää mitä IEC 61850 -standardi tarkoittaa sähköasemien kannalta ja mitä kaikkea se määrittää. Kuinka standardi määrittää tilattavat viestit ja mitä malleja ja palveluita niihin liittyy. Viestien malli ja toiminta on tärkeä ymmärtää työssä toteutetun ohjelman toiminnan kannalta. Työn lopullisessa toteutuksessa viestit prosessoitiin ja julkaistiin jonopalvelimelle myöhempää käyttöä varten. Teorian lopussa lukija perehdytetään jonopalvelimen toteukseen liityvään teoriaan. Myöskin tämän osuuden teoria on tärkeä ymmärtää ohjelman sisäisen toiminnan kannalta.
 
 \section{IEC 61850 -standardi}
 \begin{it}
 	Kirjoitta yleisesti mikä on IEC 61850 -standardi ja mitä varten se on olemassa. Kerro myös kuinka standardi on pilkottu pienempiin dokumentteihin ja mitä kukin käsittelee.
 \end{it}
+
+Sähköasemilla nykypäivänä käytössä olevilla älykkäillä elektronisilla laitteilla (engl. IED) toteutetaan aseman kontrollointi ja suojaus. Aseman suojauksen lisäksi siihen kuuluu myös asemalta lähtevät sähkölinjat. Jotta suojaus ja ohjaus olisi mahdollista täytyy aseman eri laitteiden kommunikoida verkon yli keskenään ja erilliselle kontrolliasemalle \cite[s.~1]{Brunner2008}. Maailmanlaajuisesti määritetty IEC 61850 -standardi määrittä yhteiset säännöt eri valmistajien laitteiden välille kuinka kommunikointi toteutetaan. Ilman yhteisiä sääntöjä jokainen valmistaja olisi vapaa toteuttamaan omat säännöt ja protokollat. Seurauksena olisi, että laitteet eivät olisi keskenään yhteensopivia eri valmistajien välillä. Standardin on tarkoitus poistaa tämä ja määrittää yhteiset pelisäännöt kommunikoinnin toteuttamiseen aseman kommunikointiin liittyen eri laitteiden välillä.
+
+Standardi on määritetty käytettäväksi myös tulevaisuudessa pohjana uusille toteutuksille. Standardi määrittää kaiken abstraktilla tasolla teknisestä toteutuksesta riippumatta. Tämän jälkeen abstraktit mallit ja palvelut voidaan mallintaa eri tekniikoille, joka mahdollistaa sen. \cite[s.~2]{Brunner2008}
+
+\subsection{Standardin historia}
+\begin{it}
+	Kirjoita tähän standardin historiaa ja kuinka se muodostui. Pohdi kuitenkin ensin onko tämä lukijan kannalta tärkeää ja tarvittavaa tietoa.
+\end{it}
+
+\subsection{Standardin eri osat}
+IEC 61850 -standardi on todella laaja ja tämän takia se on pilkottu 10 erilliseen pääkohtaan ja näiden alakohtiin. Jokainen pääkohta ja niiden ala-kohdat on pilkottu erillisiin dokumentteihin. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin eri osat ja niiden englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006}.
+
+\begin{table}[ht!]
+	\caption{IEC 61850 -standardin eri dokumentit \cite[s.~2]{Mackiewicz2006}.}
+	\label{tab:iec61850-dokumentin-osat}
+	\begin{tabular}{l | l}
+		\hline
+		\textbf{Numero} & \textbf{Otsikko englanniksi} \\
+		\hline \hline
+		1 & Introduction and Overview \\
+		2 & Glossary of terms \\
+		3 & General Requirements \\
+		4 & System and Project Management  \\
+		5 & \parbox[t]{10cm}{Communication Requirements for Functions and Device Models} \\
+		6 & \parbox[t]{10cm}{Configuration Description Language for Communication in Electrical Substations Related to IEDs} \\
+		7 & \parbox[t]{10cm}{Basic Communication Structure for Substation and Feeder Equipment} \\
+		7.1 & Principles and Models \\
+		7.2 & Abstract Communication Service Interface (ACSI) \\
+		7.3 & Common Data Classes (CDC) \\
+		7.4 & Compatible logical node classes and data classes \\
+		8 & Specific Communication Service Mapping (SCSM) \\
+		8.1 & \parbox[t]{10cm}{Mappings to MMS(ISO/IEC 9506 – Part 1 and Part 2) and to ISO/IEC 8802-3} \\
+		9 & Specific Communication Service Mapping (SCSM) \\
+		9.1 & \parbox[t]{10cm}{Sampled Values over Serial Unidirectional Multidrop Point-to-Point Link} \\
+		9.2 & Sampled Values over ISO/IEC 8802-3 \\
+		10 & Conformance Testing \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Standrin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty kieli. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osa 7 ja sen alakohdat 7.1--7.4 käsittelevät standardin abstraktia mallia ja kuinka se rakentuu. Tämä lyhennetään standardissa ACSI (engl. Abstract Communication Service Interface), ja samaa lyhennettä käytetään tässä työssä. Osa 8--9 ja niiden alakohdissa käsitellään abstraktimallien mallintamista erillisille protokollille, jolloin malleista tulee tekniikasta riippuvaisia. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä.
 
 \subsection{Standardin määrittämä abstraktimalli}
 \begin{it}
