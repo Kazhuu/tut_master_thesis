@@ -20,7 +20,7 @@ Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan. Teo
 	Kirjoitta yleisesti mikä on IEC 61850 -standardi ja mitä varten se on olemassa. Kerro myös kuinka standardi on pilkottu pienempiin dokumentteihin ja mitä kukin käsittelee.
 \end{it}
 
-Sähköasemilla nykypäivänä käytössä olevilla älykkäillä elektronisilla laitteilla (engl. IED) toteutetaan aseman kontrollointi ja suojaus. Aseman suojauksen lisäksi siihen kuuluu myös asemalta lähtevät sähkölinjat. Jotta suojaus ja ohjaus olisi mahdollista täytyy aseman eri laitteiden kommunikoida verkon yli keskenään ja erilliselle kontrolliasemalle \cite[s.~1]{Brunner2008}. Maailmanlaajuisesti määritetty IEC 61850 -standardi määrittä yhteiset säännöt eri valmistajien laitteiden välille kuinka kommunikointi toteutetaan. Ilman yhteisiä sääntöjä jokainen valmistaja olisi vapaa toteuttamaan omat säännöt ja protokollat. Seurauksena olisi, että laitteet eivät olisi keskenään yhteensopivia eri valmistajien välillä. Standardin on tarkoitus poistaa tämä ja määrittää yhteiset pelisäännöt kommunikoinnin toteuttamiseen aseman kommunikointiin liittyen eri laitteiden välillä.
+Sähköasemilla nykypäivänä käytössä olevilla älykkäillä elektronisilla laitteilla (engl. IED) toteutetaan aseman kontrollointi ja suojaus. Aseman suojauksen lisäksi siihen kuuluu myös asemalta lähtevät sähkölinjat. Jotta suojaus ja ohjaus olisi mahdollista täytyy aseman eri laitteiden kommunikoida verkon yli keskenään ja erilliselle kontrolliasemalle \cite[s.~1]{Brunner2008}. Maailmanlaajuisesti määritetty IEC 61850 -standardi määrittä yhteiset säännöt eri valmistajien laitteiden välille kuinka kommunikointi toteutetaan \cite[s.~10]{IEC61850-7-1}. Ilman yhteisiä sääntöjä jokainen valmistaja olisi vapaa toteuttamaan omat säännöt ja protokollat. Seurauksena olisi, että laitteet eivät olisi keskenään yhteensopivia eri valmistajien välillä. Standardin on tarkoitus poistaa tämä ja määrittää yhteiset pelisäännöt kommunikoinnin toteuttamiseen aseman kommunikointiin liittyen eri laitteiden välillä \cite[s.~1]{Kaneda2008} .
 
 Standardi on määritetty käytettäväksi myös tulevaisuudessa pohjana uusille toteutuksille. Standardi määrittää kaiken abstraktilla tasolla teknisestä toteutuksesta riippumatta. Tämän jälkeen abstraktit mallit ja palvelut voidaan mallintaa eri tekniikoille, joka mahdollistaa sen. \cite[s.~2]{Brunner2008}
 
@@ -60,12 +60,29 @@ IEC 61850 -standardi on todella laaja ja tämän takia se on pilkottu 10 erillis
 	\end{tabular}
 \end{table}
 
-Standrin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty kieli. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osa 7 ja sen alakohdat 7.1--7.4 käsittelevät standardin abstraktia mallia ja kuinka se rakentuu. Tämä lyhennetään standardissa ACSI (engl. Abstract Communication Service Interface), ja samaa lyhennettä käytetään tässä työssä. Osa 8--9 ja niiden alakohdissa käsitellään abstraktimallien mallintamista erillisille protokollille, jolloin malleista tulee tekniikasta riippuvaisia. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä.
+Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty kieli. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osa 7 ja sen alakohdat 7.1--7.4 käsittelevät standardin abstraktia mallia ja kuinka se rakentuu. Tämä lyhennetään standardissa ACSI (engl. Abstract Communication Service Interface), ja samaa lyhennettä käytetään tässä työssä. Osa 8--9 ja niiden alakohdissa käsitellään abstraktimallien mallintamista erillisille protokollille, jolloin malleista tulee kyseisestä tekniikasta riippuvaisia. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty standardin eri osat ja niiden relaatiot toisiinsa.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/iec-61850-series-and-relations.png}
+	\caption{IEC 61850 -standardin osat ja niiden väliset relaatiot \cite[s.~14]{IEC61850-7-1}.}
+	\label{fig:iec61850-osat-ja-relaatiot}
+\end{figure}
 
 \subsection{Standardin määrittämä abstraktimalli}
 \begin{it}
 	Kirjoita tähän mitä standardin IEC 61850-7-2 osuudessa määritellään abstraktoimalla fyysisiä laitteita ja palveluita rajapinnoiksi ja olioiksi. Käsittelee standardin Abstract communication service interface (ACSI).
 \end{it}
+
+IEC 61850 -standardin määrittämät konseptit ja abstraktimallit voidaan käyttää myös mallintamaan:
+\begin{itemize}
+	\item vesivoimalaitos,
+	\item sähköasemien välistä kommunikointia,
+	\item informaation välitys hajautetun automaation välillä,
+	\item informaation välitys sähköaseman ja ohjauskeskuksen välillä,
+	\item informaation välitys mittaukseen,
+	\item tilan monitorointia ja diagnosointia, ja
+	\item informaation välitys konfigurointiin tarkoitetulle tekniikalle \cite[s.~11]{IEC61850-7-1}.
+\end{itemize}
 
 \subsection{Viestiblokin konfigurointi ja tilaus}
 \begin{it}
