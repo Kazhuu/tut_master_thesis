@@ -29,9 +29,9 @@ Tärkeä osa standardia on sähköaseman systeemin abstrahointi mallien kautta. 
 \subsection{Standardin eri osat}
 
 \begin{it}
-	Kirjoita tähän vielä korkealla tasolla kuinka standardi määrittää abstraktimallit ja tämän jälkeen nämä määritellään jollekin jo olemassa olevalle protokollalle. Tässä vaiheessa mainitse jo että MMS-protokolla on käytössä tässä työssä. Tällä on tarkoitus että käyttäjä saa kokonaiskuvan mitä standardi tekee. Tämän jälkeen mene enemmän detailt tasoon tulevissa kappaleissa. Tässä pohjusta yleisesti.
+	Kirjoita tähän aseman funktioiden, fyysisen laitteiden ja loogisten noodien suhteesta toisiinsa. Kuva myös piirrä ja mallia ja tietoa tähän ota \cite[s.~19]{IEC61850-1}
 \end{it}
-
+	
 IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, josta jokainen käsittelee tiettyä asiaa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on myös esitetty standardin eri osat ja niiden väliset relaatiot.
 
 \begin{table}[ht!]
@@ -74,9 +74,28 @@ Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen va
 	Piirrä tähän itse esimerkkikuva kuinka standardi mallintaa fyysisen laitteeen loogisiksi laitteiksi. Ota mallia standarin 7-1 kuvasta sivulla 17.
 
 	Kirjoita tähän siitä miten 7-4 osassa on esitetty luokkia ja kuinka ne liittyy 7-3 osan luokkiin. Kuinka näistä muodostetaan instansseja ja mistä arvot tulevat. Tämän jälkeen voisi selittää kuinka polku dataan muodostuu. Tämä voi varmaan olla omana otsikkonaan.
+	
+	Kirjoita että loogisen noodin data objektit ja attribuutit voidaan kategorisoida 5 eri ryhmään:
+	\begin{itemize}
+		\item yleinen loogisen noodin informaatio,
+		\item tila informaatio,
+		\item asetukset, 
+		\item mitatut arvot ja
+		\item ohjaus \cite[s.~25]{IEC61850-1}.
+	\end{itemize}
 \end{it}
 
-IEC 61850 -standardin abstrahoinnin lähtökohta on sähköaseman kokonaisen systeemin funktioiden pilkkomin pienemmiksi yksilöiksi. Tarkoituksena yksilöiden käyttö informaation vaihtoon. Abstrahoidun yksilöt voidaan tämän jälkeen esittää yhdellä IED laitteella.
+IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman systeemin funktionaalisuudet pieniksi yksilöiksi. Pilkotut yksilöt abstraktoidaan ja pidetään sopivan kokoisina, jotta ne voidaan konfiguroida esitettäväksi erillisellä IED-laiteella. Esimerkkinä pilkkomisesta voi olla sähköaseman korkean jännitelinjan katkaisija (engl. circuit breaker). Yksi katkaisija vastaisi yhtä pilkottua yksilöä, jonka IED voisi esittää. Näitä pilkottuja yksilöitä kutsutaan standardissa nimellä looginen noodi (engl. logical node ja lyhennetään LN). Loogiset noodit siis mallinetaan jostakin systeemin käsiteellisestä osasta. Loogisia noodeja käytetään rakentamaan looginen laite (engl. logic device, lyhennetään LD). Looginen laite on aseman ohjausyksikkö ja jokin fyysisen laitteen osa, joka toteuttaa loogisten noodien ohjauksen yhtäaikaa. Toisin sanoen loogista laitetta käytetään loogisten noodien yhteiseen ohjaukseen. Looginen laite siis vastaa aseman fyysistä laitetta, joka on kytketty aseman verkkoon ja sillä on IP-osoite. Yksi aseman fyysinen laite voi hoitaa monen loogisen laitteen funktionaalisuuden. Kuvassa X on esitetty standardin eri mallien hierarkia.
+
+\begin{it}
+	Sijoita kuva standardin malleista ja niiden relaatioista tähän. Mallia ota ja viite tänne \cite[s.~2]{Camachi2017} \cite[s.~24]{IEC61850-1}
+\end{it}
+
+Tässä vaiheessa on hyvä mainita, että standardi pyrkii esittämään aseman toiminnallisuutta hierarkialla ja oliopohjaisesti. Oliopohjaisesti siten, että  standardi määrittää luokkia erilaisille loogisille noodeille. Esimerkiksi katkaisijalle on määritelty luokka nimeltä XCBR (circuit braker). Kun aseman toiminnallisuutta esitetään konfiguraatiossa ja IED-laitteella, luokia instanssioidaan tarpeen mukaan. Standardi määrittää todella paljon erilaisia valmiita luokkia erilaisille loogisille laitteille valmiina käytettäväksi. Standardi myös määrittää laajenoksien mahdollisuudet luokkia käyttäen. Kaikki määritetyt luokat loogisille noodeille voi löytää standardin osasta 7-4. 
+
+Standarissa looginen noodi koostuu data objekteista (engl. data object, lyhennetään DO) ja data objekti monesta data attribuutista (engl. data attribute, lyhennetään DA). Data objekti on tapa koostaa yhteen samaan asiaan liittyvät data attribuutit. Data attribuutit ovat laitteen konfiguroitavia ja luettavia datapisteitä. Data attribuutit kuvaavat fyysisen laitteen tilaa ja mittausarvoja. Esimerkiksi mitattua jännitettä tai katkaisimen tilaa (kiinni tai auki). Kaikki kyseiselle luokalle määritetyt data objektit ja data attribuutit standardi määrittää luokkien määrityksissä dokumentilla 7-3 ja 7-4.
+
+Kaikki edellä mainitut elementit siis muodostavat fyysisestä sähköasemasta hierarkisen olipohjaisen mallin. Hierarkiassa elementit menevät seuraavassa järjestyksessä: logical device (LD) $\rightarrow$ logical node (LN) $\rightarrow$ data object (DO) $\rightarrow$ data attribute (DA).
 
 IEC 61850 -standardin määrittämät konseptit ja abstraktimallit voidaan käyttää myös mallintamaan:
 \begin{itemize}
@@ -88,6 +107,12 @@ IEC 61850 -standardin määrittämät konseptit ja abstraktimallit voidaan käyt
 	\item tilan monitorointia ja diagnosointia, ja
 	\item informaation välitys konfigurointiin tarkoitetulle tekniikalle \cite[s.~11]{IEC61850-7-1}.
 \end{itemize}
+
+
+\subsection{Standardin luokkien rakenne}
+\begin{it}
+	Kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu.
+\end{it}
 
 \subsection{Viestiblokin konfigurointi ja tilaus}
 \begin{it}
