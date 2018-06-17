@@ -32,7 +32,7 @@ Tärkeä osa standardia on sähköaseman systeemin abstrahointi mallien kautta. 
 	Kirjoita tähän aseman funktioiden, fyysisen laitteiden ja loogisten noodien suhteesta toisiinsa. Kuva myös piirrä ja mallia ja tietoa tähän ota \cite[s.~19]{IEC61850-1}
 \end{it}
 	
-IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, josta jokainen käsittelee tiettyä asiaa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on myös esitetty standardin eri osat ja niiden väliset relaatiot. Kuvaan on merkitty katkoviivalla ne osat, jotka eivät ole työn kannalta tärkeitä. Ja yhtenäisellä viivalla ne, jotka ovat.
+IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, josta jokainen käsittelee tiettyä asiaa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ovat.
 
 \begin{table}[ht!]
 	\caption{IEC 61850 -standardin pääkohtien ja niiden alakohtien dokumentit.}
@@ -59,17 +59,13 @@ IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu 
 	\end{tabular}
 \end{table}
 
-Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty XML (engl. Extensible Markup Language) -pohjainen kieli \cite[s.~7--8]{IEC61850-6}. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osat 7.1--7.4 käsittelevät standardin abstraktia mallia ja kuinka se rakentuu. Tämä lyhennetään standardissa ACSI (engl. Abstract Communication Service Interface), ja samaa lyhennettä käytetään tässä työssä \cite[s.~72]{IEC61850-7-1}. Osissa 8--9 ja niiden alakohdissa käsitellään abstraktimallien mallintamista erillisille protokollille, jolloin malleista tulee kyseisestä tekniikasta riippuvaisia. Abstrakteja malleja ja niiden mallintamista tekniikalle käsitellään teoriassa tuonnempana. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä ja sitä ei teoriassa sen takia käsitellä. \cite[s.~15]{IEC61850-7-1}
-
-\begin{it}
-	Piirrä tämä kuva itse uudestaan ja ota mallia täältä 
-\end{it}
-
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/iec61850-series-parts-and-relations.png}
 	\caption{IEC 61850 -standardin osat ja niiden väliset relaatiot \cite[s.~14]{IEC61850-7-1} \cite[s.~22]{IEC61850-1}.}
 	\label{fig:iec61850-osat-ja-relaatiot}
 \end{figure}
+
+Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty XML (engl. Extensible Markup Language) -pohjainen kieli \cite[s.~7--8]{IEC61850-6}. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osat 7.1--7.4 käsittelevät standardin abstraktia mallia ja kuinka se rakentuu. Tämä lyhennetään standardissa ACSI (engl. Abstract Communication Service Interface), ja samaa lyhennettä käytetään tässä työssä \cite[s.~72]{IEC61850-7-1}. Osissa 8--9 ja niiden alakohdissa käsitellään abstraktimallien mallintamista erillisille protokollille, jolloin malleista tulee kyseisestä tekniikasta riippuvaisia. Abstrakteja malleja ja niiden mallintamista tekniikalle käsitellään teoriassa tuonnempana. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä ja sitä ei teoriassa sen takia käsitellä. \cite[s.~15]{IEC61850-7-1}
 
 \subsection{Standardin määrittämä abstraktimalli}
 \begin{it}
