@@ -1,16 +1,14 @@
 \chapter{Teoria}
 \label{ch:teoria}
-\begin{it}
-	Tähän kohtaan kirjoittaa teoriaa mitä tarvitaan työn toteutuksen ymmärtämisen kannalta. Kaikki työssä tarvittava teoria kuvataan tämän otsikon alla.
-\end{it}
-
 Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan. Teoriaosuuden kokonaan lukemalla lukija ymmärtää mitä IEC 61850 -standardi tarkoittaa sähköasemien kannalta ja mitä kaikkea se määrittää. Kuinka standardi määrittää viestien tilauksen, ja mitä malleja ja palveluita niihin liittyy. Työn lopullisessa toteutuksessa viestit prosessoitiin ja julkaistiin jonopalvelimelle myöhempää käyttöä varten. Teorian lopussa lukija perehdytetään jonopalvelimen toteukseen liityvään teoriaan. Teoriaosuus lukemalla lukija varmistaa että, ymmärtää ohjelmiston suunnittelu- ja toteutusvaiheessa käsitellyt käsitteet ja aiheet.
 
 
-\section{IEC 61850 -standardi}
-Sähköasemilla nykypäivänä käytössä olevilla älykkäillä elektronisilla laitteilla (engl. IED) toteutetaan aseman kontrollointi ja suojaus. Aseman suojauksen lisäksi siihen kuuluu myös asemalta lähtevät sähkölinjat. Jotta suojaus ja ohjaus olisi mahdollista täytyy aseman eri laitteiden kommunikoida verkon yli keskenään ja erilliselle kontrolliasemalle \cite[s.~1]{Brunner2008}. Maailmanlaajuisesti määritetty IEC 61850 -standardi määrittä yhteiset säännöt eri valmistajien laitteiden välille kuinka kommunikointi toteutetaan \cite[s.~10]{IEC61850-7-1}. Ilman yhteisiä sääntöjä jokainen valmistaja olisi vapaa toteuttamaan omat säännöt ja protokollat. Seurauksena olisi, että laitteet eivät olisi keskenään yhteensopivia eri valmistajien välillä. Standardin on tarkoitus poistaa tämä ja määrittää yhteiset pelisäännöt kommunikoinnin toteuttamiseen aseman kommunikointiin liittyen eri laitteiden välillä \cite[s.~1]{Kaneda2008}.
+\section{IEC 61850 -standardi yhteiseen kommunikointiin}
+Sähköasemilla nykypäivänä käytössä olevilla älykkäillä elektronisilla laitteilla (engl. Intelligent Electronic Device, lyhennetään IED) toteutetaan aseman toiminnalisuuden funktioita. Aseman toiminnallisuuteen liittyy sen kontrollointi ja suojaus. Aseman komponenttien suojauksen lisäksi, siihen kuuluu myös asemalta lähtevät sähkölinjat. Hyvä esimerkki sähköaseman suojauksesta on korkeajännitelinjan katkaisija, joka katkaisee virran linjasta vikatilanteissa, kuten linjan poikkimeno kaatuneen puun tai pylvään takia. Fyysistä katkaisijaa ohjaa aseman automatiikka, joka toteutetaan IED-laitteilla. Eli IED-laite voi olla kytketty fyysisesti ohjattavaan laitteeseen \cite[s.~63--64]{IEC61850-7-1}. Koko sähköaseman toiminnallisuus koostuu monesta funktiosta, jotka on jaettu monelle IED-laitteelle. Jotta systeemi pystyy toimimaan, täytyy IED-laitteiden kommunikoida keskenään ja vaihtaa informaatiota toistensa kanssa. IED-laitteiden täytyy myös kommunikoida asemalta ulospäin erilliselle ohjausasemalle monitorointia ja etäohjausta varten \cite[s.~1]{Brunner2008}. On selvää, että monimutkaisen systeemin ja monen valmistajien kesken tarvitaan yhteiset säännöt yhteistä kommunikointia varten.
 
-Tärkeä osa standardia on sähköaseman systeemin abstrahointi mallien kautta. Standardi määrittää kuinka abstraktit mallit määritellään aseman oikeista laiteista. Näitä malleja sitten käytetään IED-laitteiden konfiguroinin ja tiedonvälityksen määrittämisessä. Abstraktimallien ansiosta standardi on myös pohjana tulevaisuuden muutoksille. Uusien tekniikoiden ilmaantuessa, voidaan standardin abstraktimallit mallintaa erilliselle tekniikalle, joka mahdollistaa sen \cite[s.~2]{Brunner2008}.
+Maailmanlaajuisesti määritetty IEC 61850 -standardi määrittää sähköaseman sisäisen kommunikoinnin IED-laitteiden välillä. Standardi määrittää myös kommunikointisäännöt asemalta lähtevään liikenteeseen, kuten toiselle sähköasemalle ja ohjausasemalle \cite[s.~10]{IEC61850-7-1}. Ilman yhteisiä sääntöjä jokainen valmistaja olisi vapaa toteuttamaan omat säännöt ja protokollat kommunikointiin. Seurauksena tästä olisi, että laitteet eivät olisi keskenään yhteensopivia eri valmistajien välillä. Standardin on tarkoitus poistaa tämä ja määrittää yhteiset pelisäännöt kommunikoinnin toteuttamiseen \cite[s.~1]{Kaneda2008}.
+
+Todella tärkeä ja iso osa standardia on sähköaseman systeemin funktioiden abstrahointi mallien kautta. Standardi määrittää tarkasti kuinka abstraktit mallit määritellään aseman oikeista laiteista ja niiden ominaisuuksista. Tarkoituksena on tehdä mallit tekniikasta ja toteutuksesta riippumattomaksi. Tämän jälkeen abstrahoidut mallit mallinnetaan erikseen jollekin tekniikalle, joka sen mahdollistaa. Abtrahoituja malleja käytetään myös määrittämään sähköaseman IED-laitteiden ja aseman muiden osien konfigurointi. Abstrahoitujen mallien ansiosta standardi on pohjana tulevaisuuden laajennoksille ja tekniikoille. Uusien tekniikoiden ilmaantuessa, voidaan standardin lisätä  osa, joka  mallintaa abstraktimallit kyseiselle tekniikalle \cite[s.~2]{Brunner2008}.
 
 
 \subsection{Standardin historia}
@@ -19,12 +17,8 @@ Tärkeä osa standardia on sähköaseman systeemin abstrahointi mallien kautta. 
 \end{it}
 
 
-\subsection{Standardin eri osat}
-\begin{it}
-	Kirjoita tähän aseman funktioiden, fyysisen laitteiden ja loogisten noodien suhteesta toisiinsa. Kuva myös piirrä ja mallia ja tietoa tähän ota \cite[s.~19]{IEC61850-1}
-\end{it}
-	
-IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, josta jokainen käsittelee tiettyä asiaa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ole.
+\subsection{Standardin eri osat ja niiden merkitykset}	
+IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, josta jokainen käsittelee omaa asiaa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot toisiinsa. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat tämän työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ole.
 
 \begin{table}[ht!]
 	\caption{IEC 61850 -standardin pääkohtien ja niiden alakohtien dokumentit.}
@@ -57,34 +51,17 @@ IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu 
 	\label{fig:iec61850-osat-ja-relaatiot}
 \end{figure}
 
-Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty XML (engl. Extensible Markup Language) -pohjainen kieli \cite[s.~7--8]{IEC61850-6}. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osat 7.1--7.4 käsittelevät standardin abstraktia mallia ja kuinka se rakentuu. Tämä lyhennetään standardissa ACSI (engl. Abstract Communication Service Interface), ja samaa lyhennettä käytetään tässä työssä \cite[s.~72]{IEC61850-7-1}. Osissa 8--9 ja niiden alakohdissa käsitellään abstraktimallien mallintamista erillisille protokollille, jolloin malleista tulee kyseisestä tekniikasta riippuvaisia. Abstrakteja malleja ja niiden mallintamista tekniikalle käsitellään teoriassa tuonnempana. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä ja sitä ei teoriassa sen takia käsitellä. \cite[s.~15]{IEC61850-7-1}
+Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty XML (engl. Extensible Markup Language) -pohjainen kieli \cite[s.~7--8]{IEC61850-6}. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osat 7.1--7.4 käsittelevät standardin abstraktia mallia, niiden palveluita ja kuinka se rakentuu. Abstrahoidut palvelut standardissa lyhennetään ACSI (engl. Abstract Communication Service Interface), ja samaa lyhennettä käytetään tässä työssä \cite[s.~72]{IEC61850-7-1}. Osissa 8--9 ja niiden alakohdissa käsitellään abstraktimallien mallintamista erillisille protokollille, jolloin malleista tulee kyseisestä tekniikasta riippuvaisia. Abstrakteja malleja ja niiden mallintamista tekniikalle käsitellään teoriassa erikseen. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä, ja sitä ei teoriassa sen takia käsitellä. \cite[s.~15]{IEC61850-7-1}
 
 
-\subsection{Standardin määrittämä abstraktimalli}
+\subsection{Abstraktimalli ja sen osat}
 \begin{it}
-	Kirjoita tähän mitä standardin IEC 61850-7-2 osuudessa määritellään abstraktoimalla fyysisiä laitteita ja palveluita rajapinnoiksi ja olioiksi. Käsittelee standardin Abstract communication service interface (ACSI).
+	Kirjoita tähän aseman funktioiden, fyysisen laitteiden ja loogisten noodien suhteesta toisiinsa. Kuva myös piirrä ja mallia ja tietoa tähän ota \cite[s.~19]{IEC61850-1}. Tälle tarve jos teksti ei ole muuten tarpeeksi ymmärrettävä.
 
-	Piirrä tähän itse esimerkkikuva kuinka standardi mallintaa fyysisen laitteeen loogisiksi laitteiksi. Ota mallia standarin 7-1 kuvasta sivulla 17.
-
-	Kirjoita tähän siitä miten 7-4 osassa on esitetty luokkia ja kuinka ne liittyy 7-3 osan luokkiin. Kuinka näistä muodostetaan instansseja ja mistä arvot tulevat. Tämän jälkeen voisi selittää kuinka polku dataan muodostuu. Tämä voi varmaan olla omana otsikkonaan.
-	
-	Kirjoita että loogisen noodin data objektit ja attribuutit voidaan kategorisoida 5 eri ryhmään:
-	\begin{itemize}
-		\item yleinen loogisen noodin informaatio,
-		\item tila informaatio,
-		\item asetukset, 
-		\item mitatut arvot ja
-		\item ohjaus \cite[s.~25]{IEC61850-1}.
-	\end{itemize}
-	
-	Kirjoita datamallin kuvasta mitä kentät siinä on kun samalla selittää mallien rakenteesta ja suhteesta.
-	
-	Mainitse että loogiset noodit esittävät dataa oikeasta laitteesta, joka on kytketty isäntälaitteeseen fyysisesti \cite[s.~63--64]{IEC61850-7-1}.
-	
-	Voisiko tähän kirjoittaa miten mappaus johonkin tekniikkaan tapahtuu ja kuinka kommunikaatio sitten tapahtuu oikeasti. Samalla selittää ACSI-mallista jotain. Hyvä kuva standardissa löytyy tästä löytyy \cite[s.~76]{IEC61850-7-1}.
+	Piirrä tähän itse esimerkkikuva kuinka standardi mallintaa fyysisen laitteen loogisiksi laitteiksi. Ota mallia standarin 7-1 kuvasta sivulla 17.
 \end{it}
 
-IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman systeemin funktionaalisuudet pieniksi yksilöiksi. Pilkotut yksilöt abstraktoidaan ja pidetään sopivan kokoisina, jotta ne voidaan konfiguroida esitettäväksi erillisellä IED-laiteella. Esimerkkinä pilkkomisesta voi olla sähköaseman korkean jännitelinjan katkaisija (engl. circuit breaker). Yksi katkaisija vastaisi yhtä pilkottua yksilöä, jonka IED voisi esittää. Näitä pilkottuja yksilöitä kutsutaan standardissa nimellä looginen noodi (engl. logical node ja lyhennetään LN). Loogiset noodit siis mallinetaan jostakin systeemin käsiteellisestä osasta. Loogisia noodeja käytetään rakentamaan looginen laite (engl. logic device, lyhennetään LD). Looginen laite on aseman ohjausyksikkö ja jokin fyysisen laitteen osa, joka toteuttaa loogisten noodien ohjauksen yhtäaikaa. Toisin sanoen loogista laitetta käytetään loogisten noodien yhteiseen ohjaukseen. Looginen laite siis vastaa aseman fyysistä laitetta, joka on kytketty aseman verkkoon ja sillä on IP-osoite. Yksi aseman fyysinen laite voi hoitaa monen loogisen laitteen funktionaalisuuden. Kuvassa \ref{fig:iec61850-data-modeling} on esitetty standardin eri mallien hierarkia \cite[s.~2]{Camachi2017} \cite[s.~24]{IEC61850-1}.
+IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman toiminnalisuuden funktiot pieniksi yksilöiksi. Pilkotut yksilöt abstrahoidaan ja pidetään sopivan kokoisina, jotta ne voidaan konfiguroida esitettäväksi erillisellä IED-laiteella. Yksi aseman funktio voidaan hajauttaa monelle eri IED-laitteelle. Esimerkiksi linjan suojaukseen liittyvät komponentit, katkaisija (engl. circuit braker) ja ylivirtasuoja (engl. overcurrent protection) omilla IED-laitteillaan. Toimiakseen, laitteiden täytyy vaihtaa informaatiota keskenään \cite[s.~31]{IEC61850-7-1}. Näitä pilkottuja yksilöitä kutsutaan standardissa nimellä looginen noodi (engl. logical node ja lyhennetään LN). Loogiset noodit siis mallinetaan jostakin systeemin käsiteellisestä osasta. Loogisia noodeja käytetään rakentamaan looginen laite (engl. logic device, lyhennetään LD). Looginen laite on aseman ohjausyksikkö ja jokin fyysisen laitteen osa, joka toteuttaa loogisten noodien ohjauksen yhtäaikaa. Ylläolevasta esimerkistä looginen laite olisi aseman linjan suojaukseen liittyvät osat sisältä laite. Looginen laite siis vastaa aseman fyysistä laitetta, joka on kytketty aseman verkkoon ja sillä on IP-osoite. Yksi aseman fyysinen laite voi hoitaa monen loogisen laitteen funktionaalisuuden. Kuvassa \ref{fig:iec61850-data-modeling} on esitetty standardin mallin eri osien hierarkia ja kuinka ne rakentuvat \cite[s.~2]{Camachi2017} \cite[s.~24]{IEC61850-1}.
 
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/iec61850-data-modeling.png}
@@ -92,28 +69,32 @@ IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman systeemin fun
 	\label{fig:iec61850-data-modeling}
 \end{figure}
 
-Tässä vaiheessa on hyvä mainita, että standardi pyrkii esittämään aseman toiminnallisuutta hierarkialla ja oliopohjaisesti. Oliopohjaisesti siten, että  standardi määrittää luokkia erilaisille loogisille noodeille. Esimerkiksi katkaisijalle on määritelty luokka nimeltä XCBR (circuit braker). Kun aseman toiminnallisuutta esitetään konfiguraatiossa ja IED-laitteella, luokia instanssioidaan tarpeen mukaan. Standardi määrittää todella paljon erilaisia valmiita luokkia erilaisille loogisille laitteille valmiina käytettäväksi. Standardi myös määrittää laajenoksien mahdollisuudet luokkia käyttäen. Kaikki määritetyt luokat loogisille noodeille voi löytää standardin osasta 7-4. 
-
-Standarissa looginen noodi koostuu data objekteista (engl. data object, lyhennetään DO) ja data objekti monesta data attribuutista (engl. data attribute, lyhennetään DA). Data objekti on tapa koostaa yhteen samaan asiaan liittyvät data attribuutit. Data attribuutit ovat laitteen konfiguroitavia ja luettavia datapisteitä. Data attribuutit kuvaavat fyysisen laitteen tilaa ja mittausarvoja. Esimerkiksi mitattua jännitettä tai katkaisimen tilaa (kiinni tai auki). Kaikki kyseiselle luokalle määritetyt data objektit ja data attribuutit standardi määrittää luokkien määrityksissä dokumentilla 7-3 ja 7-4.
-
-Kaikki edellä mainitut elementit siis muodostavat fyysisestä sähköasemasta hierarkisen olipohjaisen mallin. Hierarkiassa elementit menevät seuraavassa järjestyksessä: logical device (LD) $\rightarrow$ logical node (LN) $\rightarrow$ data object (DO) $\rightarrow$ data attribute (DA).
-
-IEC 61850 -standardin määrittämät konseptit ja abstraktimallit voidaan käyttää myös mallintamaan:
+Standardin määrittämissä osien hierarkiassa looginen laite on ylin yksilö, joka sisältää loogisia noodeja. Kuvassa \ref{fig:iec61850-data-modeling} IEDx ja LDx vastaavasti. Looginen noodi sisältää data objekteja (engl. data object, lyhennetään DO). Kuvassa \ref{fig:iec61850-data-modeling} loogiset noodit XCBR1 ja MMXU1. Ja data objektit Pos ja TotW. Data objekti sisältää data attribuutteja (engl. data attribute, lyhennetään DA). Kuvassa \ref{fig:iec61850-data-modeling} StVal, Mag, q ja t. Data objekti on tapa koostaa yhteen samaan asiaan liittyvät data attribuutit. Data attribuutit ovat laitteen konfiguroitavia ja luettavia datapisteitä. Data attribuutit kuvaavat esimerkiksi fyysisen laitteen tilaa ja mittausarvoja. Esimerkiksi mitattua jännitettä tai katkaisimen tilaa (kiinni tai auki). Standardin määrittämät data- objektit ja attribuutit voidaan lajitella 5 eri ryhmään:
 \begin{itemize}
-	\item vesivoimalaitos,
-	\item sähköasemien välistä kommunikointia,
-	\item informaation välitys hajautetun automaation välillä,
-	\item informaation välitys sähköaseman ja ohjauskeskuksen välillä,
-	\item informaation välitys mittaukseen,
-	\item tilan monitorointia ja diagnosointia, ja
-	\item informaation välitys konfigurointiin tarkoitetulle tekniikalle \cite[s.~11]{IEC61850-7-1}.
+	\item yleinen loogisen noodin informaatio,
+	\item tila informaatio,
+	\item asetukset, 
+	\item mitatut arvot ja
+	\item ohjaus \cite[s.~25]{IEC61850-1}.
 \end{itemize}
 
+Tässä vaiheessa on hyvä mainita, että standardi pyrkii esittämään aseman funktioiden toiminnallisuutta hierarkialla ja oliopohjaisesti. Oliopohjaisesti siten, että standardi määrittää valmiita luokkia erilaisille loogisille noodeille. Esimerkiksi katkaisijalle on määritelty luokka nimeltä XCBR (circuit braker) \cite[s.~105--106]{IEC61850-7-4}. Ja mittaukselle MMXU (measurement) \cite[s.~57--58]{IEC61850-7-4}. Kun aseman toiminnallisuutta esitetään konfiguraatiossa ja IED-laitteella, luokia instanssioidaan tarpeen mukaan. Esimerkiksi kuvassa \ref{fig:iec61850-data-modeling} aikaisemmin mainitut loogisen noodin luokat on instansioitu nimellä XCBR1 ja MMXU1.
 
-\subsection{Standardin luokkien rakenne}
+Standardi määrittää todella paljon erilaisia valmiita luokkia erilaisille loogisille noodeille valmiina käytettäväksi. Standardi myös määrittää laajenoksien mahdollisuudet luokkia käyttäen. Kaikki määritetyt luokat loogisille noodeille voi löytää standardin osasta 7-4. Kuinka standardi tarkemmin rakentaa luokat ja niiden attribuutit, käsitellään teoriassa omana kohtanaan tuonnempana.
+
+
+\subsection{Loogisen noodin luokan ja kenttien rakentuminen}
 \begin{it}
 	Kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu. Tietoa luokkien polkuun voi ottaa täältä ja kuvakin on hyvä \cite[s.~93--95]{IEC61850-7-1}.
 	Mallia loogisen noodin rakentamiseen voi myös ottaa \cite[s.~27]{IEC61850-7-1}.
+
+	Kirjoita tähän siitä miten 7-4 osassa on esitetty luokkia ja kuinka ne liittyy 7-3 osan luokkiin. Kuinka näistä muodostetaan instansseja ja mistä arvot tulevat. Tämän jälkeen voisi selittää kuinka polku dataan muodostuu.
+\end{it}
+
+
+\subsection{Abstrakti kommunikointi ja ACSI}
+\begin{it}
+	Voisiko tähän kirjoittaa miten mappaus johonkin tekniikkaan tapahtuu ja kuinka kommunikaatio sitten tapahtuu oikeasti. Samalla selittää ACSI-mallista jotain. Hyvä kuva standardissa löytyy tästä löytyy \cite[s.~76]{IEC61850-7-1}. Voisiko tämän heittää johonkin omana otsikkonaan?
 \end{it}
 
 
