@@ -2,18 +2,9 @@
 \label{ch:teoria}
 \begin{it}
 	Tähän kohtaan kirjoittaa teoriaa mitä tarvitaan työn toteutuksen ymmärtämisen kannalta. Kaikki työssä tarvittava teoria kuvataan tämän otsikon alla.
-
-	Tämän lukemalla lukija ymmärtää:
-	\begin{itemize}
-		\item Mikä on standardin ja sähköaseman relaatio ja kuinka ne liittyvät toisiinsa?
-		\item Mikä on IEC standardi ja työn kannalta sen tärkeimmät piirtteet.
-		\item Kuinka viestien tilaus tapahtuu standardin mukaan?
-		\item Kuinka standardi määrittää viestien rakenteen ja parameterit?
-		\item Mikä on MMS-protokolla ja kuinka mallinnus standardin objekteista tehdään sille?
-	\end{itemize}
 \end{it}
 
-Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan. Teoriaosuuden kokonaan lukemalla lukija ymmärtää mitä IEC 61850 -standardi tarkoittaa sähköasemien kannalta ja mitä kaikkea se määrittää. Kuinka standardi määrittää tilattavat viestit ja mitä malleja ja palveluita niihin liittyy. Viestien malli ja toiminta on tärkeä ymmärtää työssä toteutetun ohjelman toiminnan kannalta. Työn lopullisessa toteutuksessa viestit prosessoitiin ja julkaistiin jonopalvelimelle myöhempää käyttöä varten. Teorian lopussa lukija perehdytetään jonopalvelimen toteukseen liityvään teoriaan. Myöskin tämän osuuden teoria on tärkeä ymmärtää ohjelman sisäisen toiminnan kannalta.
+Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan. Teoriaosuuden kokonaan lukemalla lukija ymmärtää mitä IEC 61850 -standardi tarkoittaa sähköasemien kannalta ja mitä kaikkea se määrittää. Kuinka standardi määrittää viestien tilauksen, ja mitä malleja ja palveluita niihin liittyy. Työn lopullisessa toteutuksessa viestit prosessoitiin ja julkaistiin jonopalvelimelle myöhempää käyttöä varten. Teorian lopussa lukija perehdytetään jonopalvelimen toteukseen liityvään teoriaan. Teoriaosuus lukemalla lukija varmistaa että, ymmärtää ohjelmiston suunnittelu- ja toteutusvaiheessa käsitellyt käsitteet ja aiheet.
 
 
 \section{IEC 61850 -standardi}
@@ -33,7 +24,7 @@ Tärkeä osa standardia on sähköaseman systeemin abstrahointi mallien kautta. 
 	Kirjoita tähän aseman funktioiden, fyysisen laitteiden ja loogisten noodien suhteesta toisiinsa. Kuva myös piirrä ja mallia ja tietoa tähän ota \cite[s.~19]{IEC61850-1}
 \end{it}
 	
-IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, josta jokainen käsittelee tiettyä asiaa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ovat.
+IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, josta jokainen käsittelee tiettyä asiaa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ole.
 
 \begin{table}[ht!]
 	\caption{IEC 61850 -standardin pääkohtien ja niiden alakohtien dokumentit.}
@@ -87,6 +78,10 @@ Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen va
 	\end{itemize}
 	
 	Kirjoita datamallin kuvasta mitä kentät siinä on kun samalla selittää mallien rakenteesta ja suhteesta.
+	
+	Mainitse että loogiset noodit esittävät dataa oikeasta laitteesta, joka on kytketty isäntälaitteeseen fyysisesti \cite[s.~63--64]{IEC61850-7-1}.
+	
+	Voisiko tähän kirjoittaa miten mappaus johonkin tekniikkaan tapahtuu ja kuinka kommunikaatio sitten tapahtuu oikeasti. Samalla selittää ACSI-mallista jotain. Hyvä kuva standardissa löytyy tästä löytyy \cite[s.~76]{IEC61850-7-1}.
 \end{it}
 
 IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman systeemin funktionaalisuudet pieniksi yksilöiksi. Pilkotut yksilöt abstraktoidaan ja pidetään sopivan kokoisina, jotta ne voidaan konfiguroida esitettäväksi erillisellä IED-laiteella. Esimerkkinä pilkkomisesta voi olla sähköaseman korkean jännitelinjan katkaisija (engl. circuit breaker). Yksi katkaisija vastaisi yhtä pilkottua yksilöä, jonka IED voisi esittää. Näitä pilkottuja yksilöitä kutsutaan standardissa nimellä looginen noodi (engl. logical node ja lyhennetään LN). Loogiset noodit siis mallinetaan jostakin systeemin käsiteellisestä osasta. Loogisia noodeja käytetään rakentamaan looginen laite (engl. logic device, lyhennetään LD). Looginen laite on aseman ohjausyksikkö ja jokin fyysisen laitteen osa, joka toteuttaa loogisten noodien ohjauksen yhtäaikaa. Toisin sanoen loogista laitetta käytetään loogisten noodien yhteiseen ohjaukseen. Looginen laite siis vastaa aseman fyysistä laitetta, joka on kytketty aseman verkkoon ja sillä on IP-osoite. Yksi aseman fyysinen laite voi hoitaa monen loogisen laitteen funktionaalisuuden. Kuvassa \ref{fig:iec61850-data-modeling} on esitetty standardin eri mallien hierarkia \cite[s.~2]{Camachi2017} \cite[s.~24]{IEC61850-1}.
@@ -117,7 +112,7 @@ IEC 61850 -standardin määrittämät konseptit ja abstraktimallit voidaan käyt
 
 \subsection{Standardin luokkien rakenne}
 \begin{it}
-	Kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu.
+	Kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu. Tietoa luokkien polkuun voi ottaa täältä ja kuvakin on hyvä \cite[s.~93--95]{IEC61850-7-1}.
 	Mallia loogisen noodin rakentamiseen voi myös ottaa \cite[s.~27]{IEC61850-7-1}.
 \end{it}
 
