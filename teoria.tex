@@ -1,6 +1,6 @@
 \chapter{Teoria}
 \label{ch:teoria}
-Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan. Teoriaosuuden kokonaan lukemalla lukija ymmärtää mitä IEC 61850 -standardi tarkoittaa sähköasemien kannalta ja mitä kaikkea se määrittää. Kuinka standardi määrittää viestien tilauksen, ja mitä malleja ja palveluita niihin liittyy. Työn lopullisessa toteutuksessa viestit prosessoitiin ja julkaistiin jonopalvelimelle myöhempää käyttöä varten. Teorian lopussa lukija perehdytetään jonopalvelimen toteukseen liityvään teoriaan. Teoriaosuus lukemalla lukija varmistaa että, ymmärtää ohjelmiston suunnittelu- ja toteutusvaiheessa käsitellyt käsitteet ja aiheet.
+Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan. Teoriaosuuden kokonaan lukemalla lukija ymmärtää, mitä IEC 61850 -standardi tarkoittaa sähköasemien kannalta ja mitä kaikkea se määrittää. Kuinka standardi määrittää viestien tilauksen, ja mitä malleja ja palveluita niihin liittyy. Työn lopullisessa toteutuksessa viestit prosessoitiin ja julkaistiin jonopalvelimelle myöhempää käyttöä varten. Teorian lopussa lukija perehdytetään jonopalvelimen toteukseen liityvään teoriaan. Teoriaosuus lukemalla lukija varmistaa että, ymmärtää ohjelmiston suunnittelu- ja toteutusvaiheessa käsitellyt käsitteet ja aiheet.
 
 
 \section{IEC 61850 -standardi yhteiseen kommunikointiin}
@@ -80,21 +80,54 @@ Standardin määrittämissä osien hierarkiassa looginen laite on ylin yksilö, 
 
 Tässä vaiheessa on hyvä mainita, että standardi pyrkii esittämään aseman funktioiden toiminnallisuutta hierarkialla ja oliopohjaisesti. Oliopohjaisesti siten, että standardi määrittää valmiita luokkia erilaisille loogisille noodeille. Esimerkiksi katkaisijalle on määritelty luokka nimeltä XCBR (circuit braker) \cite[s.~105--106]{IEC61850-7-4}. Ja mittaukselle MMXU (measurement) \cite[s.~57--58]{IEC61850-7-4}. Kun aseman toiminnallisuutta esitetään konfiguraatiossa ja IED-laitteella, luokia instanssioidaan tarpeen mukaan. Esimerkiksi kuvassa \ref{fig:iec61850-data-modeling} aikaisemmin mainitut loogisen noodin luokat on instansioitu nimellä XCBR1 ja MMXU1.
 
-Standardi määrittää todella paljon erilaisia valmiita luokkia erilaisille loogisille noodeille valmiina käytettäväksi. Standardi myös määrittää laajenoksien mahdollisuudet luokkia käyttäen. Kaikki määritetyt luokat loogisille noodeille voi löytää standardin osasta 7-4. Kuinka standardi tarkemmin rakentaa luokat ja niiden attribuutit, käsitellään teoriassa omana kohtanaan tuonnempana.
+Standardi määrittää todella paljon erilaisia valmiita luokkia erilaisille loogisille noodeille valmiina käytettäväksi. Standardi myös määrittää laajenoksien mahdollisuudet luokkia käyttäen. Kaikki määritetyt luokat loogisille noodeille voi löytää standardin osasta 7-4.
 
 
-\subsection{Loogisen noodin luokan ja kenttien rakentuminen}
+\subsection{Loogisen noodin luokkien ja attribuuttien rakentuminen}
 \begin{it}
-	Kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu. Tietoa luokkien polkuun voi ottaa täältä ja kuvakin on hyvä \cite[s.~93--95]{IEC61850-7-1}.
+	Kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu.
 	Mallia loogisen noodin rakentamiseen voi myös ottaa \cite[s.~27]{IEC61850-7-1}.
 
 	Kirjoita tähän siitä miten 7-4 osassa on esitetty luokkia ja kuinka ne liittyy 7-3 osan luokkiin. Kuinka näistä muodostetaan instansseja ja mistä arvot tulevat. Tämän jälkeen voisi selittää kuinka polku dataan muodostuu.
+
+	Kuvat:
+	Kuva tai taulukko common data classin kentistä, logical noden kentistä mitä käytetään.
+	Kuva lopullisen loogisen noodin luokan attribuuteista.
 \end{it}
+
+IEC 61850 -standardissa määritettyjen luokkien rakennetta on lähestytty oliopohjaisesti. Kaikki luokat määritellään standardissa taulukoilla, joissa on standardoitu kentän nimi, tyyppi, selitys ja onko kenttä optionaalinen Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin luokista eri tarkoituksiin. 
+
+Loogisen noodin luokan kentät, kuten Pos, rakentuvat standardin yleisistä luokista (engl. Common Data Class, lyhennetään CDC). CDC-luokat ovat luokkia jotka sisältävät data attribuutteja, ja ovat yhteisiä monelle eri määritykselle. CDC-luokkien määritykset löytyy standardin osasta 7-3.
+
+Kuvassa \ref{fig:xcbr-class} on esitetty standardin XCBR-luokan määritys taulukkomuodossa. Taulukko määrittää luokan kentät ja niiden nimet. Taulukon viimeinen sarake M/O/C, kertoo onko kenttä pakollinen (Mandatory, M), optionaalinen (Optional, O), vai konditionaalinen (Conditional, C). Taulun
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/xcbr-class.png}
+	\caption{IEC 61850 -standardin katkaisijaluokan XCBR -määritys \cite[s.~106]{IEC61850-7-4}.}
+	\label{fig:xcbr-class}
+\end{figure}
+
+
+\subsection{Attribuuttien viittaus hierarkiassa}
+\begin{it}
+	Kirjoita tähän kuinka standardin määrittämään hierarkiaan polut objektien instansseihin määrittyvät. Tietoa luokkien polkuun voi ottaa täältä ja kuvakin on hyvä \cite[s.~93--95]{IEC61850-7-1}.
+\end{it}
+
+IEC 61850 -standardi määrittää tarkasti kuinka hierarkian eri kohtia viitataan IED-laitteessa. Viitteitä käytetään kun IED-laitteelle tehdään ACSI-määritysten mukaisia palvelukutsuja, esimerkiksi jonkin attribuutin arvon asettaminen tai lukeminen. Viitteen avulla IED-laite tietää, mihin loogisen noodin instanssiin ja sen data attribuuttiin palvelypyyntö kohdennetaan. Kuvassa \ref{fig:iec61850-data-reference} esitetty, kuinka standardi määrittää viitteen muodostumisen loogisesta laitteesta data attribuuttiin asti.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/iec61850-data-reference.png}
+	\caption{IEC 61850 -standardin määrittämä attribuutin viitteen rakenne \cite[s.~93]{IEC61850-7-1}.}
+	\label{fig:iec61850-data-reference}
+\end{figure}
+
 
 
 \subsection{Abstrakti kommunikointi ja ACSI}
 \begin{it}
 	Voisiko tähän kirjoittaa miten mappaus johonkin tekniikkaan tapahtuu ja kuinka kommunikaatio sitten tapahtuu oikeasti. Samalla selittää ACSI-mallista jotain. Hyvä kuva standardissa löytyy tästä löytyy \cite[s.~76]{IEC61850-7-1}. Voisiko tämän heittää johonkin omana otsikkonaan?
+	
+	Voisiko tähän myös laittaa kuva kuinka osat on pilkottu eri IED-laitteille ja niiden välinen kommunikoninti. Mallia \cite[s.~31]{IEC61850-7-1}.
 \end{it}
 
 

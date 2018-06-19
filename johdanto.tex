@@ -13,13 +13,15 @@
 		\item Mihin työ keskittyy kaikesta eniten?
 		\item Mikä on työn tausta ennen työn aloittamista?
 	\end{itemize}
+	
+	Tämä teksti tarvitsee vielä hiomista ja huomiota. On kuitenkin suuntaa antava miltä lopullinen tulee näyttämään.
 \end{it}
 
 Tämä diplomityö on tehty Alsus Oy:lle, työn tekohetkellä tekijän työpaikalle vuonna 2018. Tekijä valitsi työn aiheen mielenkiinnon ja ajankohdan sopiivuden takia. Työ liittyi sopivasti ajanhetkellä sen hetkisiin työtehtäviin.
 
-Nykypäivänä sähköverkot ovat iso yhteiskuntaa ja sen sujuvaa toimivuutta. Ilman sähköä ei moni asia nykypäivänä toimisi niinkuin se on. Sähköä tarvitaan joka paikassa ja tietotekniikan lisääntyessä vieläkin enemmän. Nykypäivän sähköverkko koostuu useista erillisitä komponenteista, joita on mm. sähköntuontantolaitos, sähkölinjat ja sähköasemat. Sähköasemien tehtävä verkossa on toteuttaa erilaisia toiminnallisuuksia, kuten muuntaja, jakaminen ja verkon toiminnan tarkkailu. Nykyisin sähköasemat eivät tarvitse henkilökuntaa paikalle, kuin houltotehtävissä. Asemien toiminnallisuutta voidaan seurata etänä, vian tai huollon tarpeen sattuessa, huoltomies käy tarkistamassa asian paikanpäällä. Sähköaseman yksi tärkeä tehtävä on tarkkailla verkon toimivuutta ja vikatilanteen tapahtuessa esim. katkaista linjasta virrat pois vikatilanteen sattuessa. Vikatilanne voisi olla esim. kaapelin poikkimeno ja virta pääsisi tätä kautta maihin. Tässä tapauksessa sähköaseman katkaisee linjan virran ja linja jää odottamaan huoltoa.
+Nykypäivänä sähköverkot ovat iso yhteiskuntaa ja sen sujuvaa toimivuutta. Ilman sähköä ei moni asia nykypäivänä toimisi niinkuin se on. Sähköä tarvitaan joka paikassa ja tietotekniikan lisääntyessä vieläkin enemmän. Nykypäivän sähköverkko koostuu useista erillisitä komponenteista, joita on mm. sähköntuontantolaitos, sähkölinjat ja sähköasemat. Sähköasemien tehtävä verkossa on toteuttaa erilaisia toiminnallisuuksia, kuten muuntaja, jakaminen ja verkon toiminnan tarkkailu. Nykyisin sähköasemat eivät tarvitse henkilökuntaa paikalle, kuin houltotehtävissä. Asemien toiminnallisuutta voidaan seurata etänä. Vian tai huollon tarpeen sattuessa, huoltomies käy tarkistamassa asian paikanpäällä. Sähköaseman yksi tärkeä tehtävä on tarkkailla verkon toimivuutta ja vikatilanteen tapahtuessa esimerkiksi katkaista linjasta virrat pois vikatilanteen sattuessa. Vikatilanne voisi olla kaapelin poikkimeno ja virta pääsisi tätä kautta maihin.
 
-Sähköasemien funktionaalisuutta nykypäivänä toteuttaa ns. älykkäät elektroniikka laitteet (engl. Intelligent Electronic Devices), lyhenteenä IED. IED:t voidaan kytkeä ja konfiguroida toteuttamaan monta eri funktionaalisuutta. Konfigurointi tapahtuu erillisillä konfigurointitiedostoilla. IED:t voivat kommunikoida ethernet-verkon yli aseman muun logiikan ja muiden IED-laitteiden kanssa. Nykypäivänä verkon nopeus ja mahdollistaa reaaliaikaisen kommunikoinnin asemilla sen eri laitteiden välillä. IED voidaa esim. konfiguroida hoitamaan sähkölinjan kytkimenä oloa, joka myös tarkkailee linjan toimintaa mittaamalla konfiguroituja arvoja, kuten jännitettä ja virtaa. Vikatilanteen sattuessa IED katkaisee linjan enemmän vahingon välttämiseksi. Linjan korjauksen jälkeen virta kytketään takaisin päälle.
+Sähköasemien funktionaalisuutta nykypäivänä toteuttaa niin sanottu älykäs elektroniikkalaite (engl. Intelligent Electronic Device, lyhennetään IED). IED voidaan kytkeä ja konfiguroida toteuttamaan monta aseman eri funktionaalisuutta. IED:t voivat kommunikoida verkon yli aseman muun logiikan ja muiden IED-laitteiden kanssa. Nykypäivänä verkon nopeus ja mahdollistaa reaaliaikaisen kommunikoinnin asemilla sen eri laitteiden välillä. IED voidaan esimerkiksi konfiguroida hoitamaan sähkölinjan kytkimenä oloa, joka myös tarkkailee linjan toimintaa mittaamalla konfiguroituja arvoja, kuten jännitettä ja virtaa. Vikatilanteen sattuessa IED katkaisee linjan virrasta enemmän vahingon välttämiseksi. Linjan korjauksen jälkeen virta kytketään takaisin päälle.
 
 Monen eri toimijan toimiessa laitteita tuottavalla allalla ja sähköasema suuren elektronisen laitteiden määrän takia. On määritetty maailmanlaajuinen standardi IEC 61850 määrittämään koko aseman laitteiden välistä kommunikointiprokollia varten. Standari määrittää eri valmistajien IED:laitteille samat yhteiset kommunikointiprotokollat joita noudattamalla eri valmistajien laitteet sopivat yhteen.
 
@@ -27,15 +29,15 @@ Standardi määrittää mallit erilaisten viestien tilaukseen, jolla tilaaja voi
 
 \section{Tausta}
 
-Aikaisemmin mainitusta asiakasohjelmisto oli jo olemassa protoversio, joka pystyi tilaamaan, prosessoimaan ja tallentamaan saatuja viestejä. Ohjelmassa oli kuitenkin suorituskykyongelmia ja eikä se tukenut kaikkia standardin määrittämiä ominaisuuksia. Niinpä uudellelle asiakasohjelman toteutukselle oli tarve, joka myös korjaisi entisen toteutuksen ongelmat.
+Aikaisemmin mainitusta asiakasohjelmisto oli jo olemassa protoversio ennen työn aloittamista. Ohjelmisto pystyi tilaamaan, prosessoimaan ja tallentamaan saatuja viestejä tietokantaan. Ohjelmassa oli kuitenkin suorituskykyongelmia ja eikä se tukenut kaikkia standardin määrittämiä ominaisuuksia. Niinpä uudellelle asiakasohjelman suunnittelulle ja toteutukselle oli tarve, joka myös korjaisi entisen toteutuksen ongelmat.
 
 \section{Laajuus}
 
-Työssä keskitytään uuden asiakasohjelman suunnitteluun toteutukseen tutkimusta tekemällä erilaisista arkkitehtuureista ja näistä valitsemalla parhaimman tilanteeseen sopien. Tutkimusta tehdään myös protoversion pohjalta selvittämään mikä aiheuttaa hitautta ja kuinka tämä voidaan ratkaista. Samalla käydään läpi entisen toteutuksen arkkitehtuuria, kuinka siitä saataisiin joustavampi ja se tarjoaisi myös laajennusmahdollisuuksia tulevaisuutta varten.
+Työssä keskityttiin uuden asiakasohjelman suunnitteluun toteutukseen. Työssä tehtiin tutkimusta vertailemalla erilaisia arkkitehtuureita ja näistä valitsemalla tarpeisiin sopiva. Tutkimusta tehtiin myös protoversioon, selvittämään sen suorityskykyongelmia ja kuinka nämä voitiin ottaa huomioon uudessa ohjelmistossa. Samalla käytiin läpi entisen toteutuksen arkkitehtuuria, tarkoituksena miettiä laajennusmahdollisuuksia tulevaisuutta varten uudelle toteutukselle.
 
 \section{Tavoitteet}
 
-Tavoitteena työssä on suunnitella ja toteuttaa asiakasohjelmisto, joka kokonaan korvaa entisen protoversion, ja toteuttaa kaikki standardin määrittämät toiminnallisuudet. Ohjelmiston pitäisi myös olla suorituskykyinen ja siinä ei saa olla samoja ongelmia kuin protoversiossa. Uuden toteutuksen pitäisi myös olla laajennettavissa uusille ominaisuuksille ja vaatimuksille.
+Tavoitteena työssä on toteuttaa uusi asiakasohjelmisto, joka kokonaan korvaisi entisen protoversion, ja toteuttaa kaikki standardin määrittämät toiminnallisuudet. Ohjelmiston pitäisi myös olla suorituskykyinen ja siinä ei saa olla samoja ongelmia kuin protoversiossa. Uuden toteutuksen pitäisi myös olla laajennettavissa uusille ominaisuuksille ja vaatimuksille.
 
 \section{Työn rakenne}
 
