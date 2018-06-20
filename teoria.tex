@@ -85,10 +85,8 @@ Standardi määrittää todella paljon erilaisia valmiita luokkia erilaisille lo
 
 \subsection{Loogisen noodin luokkien ja attribuuttien rakentuminen}
 \begin{it}
-	Kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu.
+	Ennen kirjoittamista lue 7-2 osuus ja selvitä meta-luokat standardista ja mitä ne pohjalla määrittävät ennen CDC-luokkia. Sen jälkeen kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu.
 	Mallia loogisen noodin rakentamiseen voi myös ottaa \cite[s.~27]{IEC61850-7-1}.
-
-	Kirjoita tähän siitä miten 7-4 osassa on esitetty luokkia ja kuinka ne liittyy 7-3 osan luokkiin. Kuinka näistä muodostetaan instansseja ja mistä arvot tulevat. Tämän jälkeen voisi selittää kuinka polku dataan muodostuu.
 
 	Kuvat:
 	Kuva tai taulukko common data classin kentistä, logical noden kentistä mitä käytetään.
@@ -109,18 +107,19 @@ Kuvassa \ref{fig:xcbr-class} on esitetty standardin XCBR-luokan määritys taulu
 
 
 \subsection{Attribuuttien viittaus hierarkiassa}
-\begin{it}
-	Kirjoita tähän kuinka standardin määrittämään hierarkiaan polut objektien instansseihin määrittyvät. Tietoa luokkien polkuun voi ottaa täältä ja kuvakin on hyvä \cite[s.~93--95]{IEC61850-7-1}.
-\end{it}
-
-IEC 61850 -standardi määrittää tarkasti kuinka hierarkian eri kohtia viitataan IED-laitteessa. Viitteitä käytetään kun IED-laitteelle tehdään ACSI-määritysten mukaisia palvelukutsuja, esimerkiksi jonkin attribuutin arvon asettaminen tai lukeminen. Viitteen avulla IED-laite tietää, mihin loogisen noodin instanssiin ja sen data attribuuttiin palvelypyyntö kohdennetaan. Kuvassa \ref{fig:iec61850-data-reference} esitetty, kuinka standardi määrittää viitteen muodostumisen loogisesta laitteesta data attribuuttiin asti.
+IEC 61850 -standardi määrittää tarkasti kuinka hierarkian eri kohtia viitataan IED-laitteessa. Viitteitä käytetään kun IED-laitteelle tehdään standardin osan 7-2 ACSI-määritysten mukaisia palvelukutsuja. Esimerkiksi jonkin attribuutin arvon asettaminen (SetDataValues) tai lukeminen (GetDataValues). Viitteen avulla IED-laite tietää, mihin loogisen noodin instanssiin ja sen data attribuuttiin palvelypyyntö kohdennetaan. Kuvassa \ref{fig:iec61850-data-reference} on esitetty kuinka standardi määrittää viitteen muodostumisen loogisesta laitteesta data attribuuttiin asti \cite[s.~93]{IEC61850-7-1}.
 
 \begin{figure}
-	\includegraphics[width=1\textwidth]{pictures/iec61850-data-reference.png}
-	\caption{IEC 61850 -standardin määrittämä attribuutin viitteen rakenne \cite[s.~93]{IEC61850-7-1}.}
+	\includegraphics[width=0.5\textwidth]{pictures/iec61850-data-reference.png}
+	\caption{IEC 61850 -standardin määrittämä viitteen rakenne.}
 	\label{fig:iec61850-data-reference}
 \end{figure}
 
+Viite muodostuu suoraan laitteessa olevien luokkien instanssien nimien ja hierarkian mukaan. Loogisen laitteen (LD) ja loogisen noodin (LN) erottimena käytetään kauttaviivaa, ja muiden osien erottimena käytetään pistettä. Loogisella laitteella voi olla käyttäjän oma määrittämä nimi, mutta kuitenkin alle 65 merkkiä. Loogisen laitteen nimeen standardi ei puutu \cite[s.~94]{IEC61850-7-1}. Loogisen noodin instanssin nimi koostuu alku-, keski- ja loppuosasta. Alkuosan käyttäjä voi itse päättää, kuvassa \ref{fig:iec61850-data-reference} "\emph{Q0}". Voi sisältää numeroita ja kirjaimia, mutta täytyy alkaa kirjaimella. Keskiosan täytyy olla loogisen luokan nimi, josta instanssi on tehty. Tässä tapauksessa jo aikaisemmin mainittu katkaisijan luokka, XCBR. Tämä osuus on aina 4 kirjainta pitkä ja on aina isoilla kirjaimilla. Loppuosa on instanssin numeerinen arvo, joka ei sisällä kirjaimia. Loppuosan käyttäjä voi itse päättää, jonka ei tarvitse välttämättä olla juokseva numero. Alku- ja loppuosaan muotoon standardi ei anna määrityksiä \cite[s.~93]{IEC61850-7-1}. Alku- ja loppuosan yhteenlaskettu merkkien pituus täytyy olla alle 13 merkkiä. Data objektien (DO) ja attribuuttien (DA) niminä käytetään standardin määrittämiä nimiä, jotka määritetään niitä vastaavissa luokissa osissa 7-3 ja 7-4. \cite[s.~181--182]{IEC61850-7-2}
+
+Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle, jotka ovat serveri- ja looginen laite -näkyvyysalueet. Serverinäkyvyysalueelle viitataan ottamalla viittauksesta pois loogisen laitteen nimi. Eli kuvassa \ref{fig:iec61850-data-reference} viittaus tulisi muotoon "\emph{/Q0XCBR1.Pos.Mag}". Edellemainittua viittausta käytetään silloin, kun loogisen noodin instanssi sijaitsee loogisen laitteen ulkopuolella, mutta kuitenkin serverillä. Looginen laite -näkyvyysalueessa viittaus sisältää loogisen laitteen nimen ennen kauttaviivaa, toisin kuin serveri-näkyvyysalueessa. Esimerkiksi kuvassa \ref{fig:iec61850-data-reference} oleva viittaus "\emph{OmaLD/Q0XCBR1.Pos.Mag}". Loogisen laitteen -näkyvyysaluetta käytetään silloin kun loogisen noodin instanssi sijaitsee loogisen laitteen sisällä sen hierarkiassa. Tässä työssä jatkossa käytetään pelkästään loogisen laitteen -näkyvyysaluetta. \cite[s.~183]{IEC61850-7-2}
+
+Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituusmääritykset ovat voimassa kummallekin edelle mainitulle näkyvyysalueen viittaukselle. Ennen kauttaviivaa saa olla maksimissaan 64 merkkiä. Tämän jälkeen kauttaviiva, josta seuraa uudelleen maksimissaan 64 merkkiä. Eli koko viittauksen maksimipituus saa olla enintään 129 merkkiä, kauttaviiva mukaan lukien. \cite[s.~183]{IEC61850-7-2}
 
 
 \subsection{Abstrakti kommunikointi ja ACSI}
