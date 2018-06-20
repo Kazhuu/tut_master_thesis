@@ -115,7 +115,7 @@ IEC 61850 -standardi määrittää tarkasti kuinka hierarkian eri kohtia viitata
 	\label{fig:iec61850-data-reference}
 \end{figure}
 
-Viite muodostuu suoraan laitteessa olevien luokkien instanssien nimien ja hierarkian mukaan. Loogisen laitteen (LD) ja loogisen noodin (LN) erottimena käytetään kauttaviivaa, ja muiden osien erottimena käytetään pistettä. Loogisella laitteella voi olla käyttäjän oma määrittämä nimi, mutta kuitenkin alle 65 merkkiä. Loogisen laitteen nimeen standardi ei puutu \cite[s.~94]{IEC61850-7-1}. Loogisen noodin instanssin nimi koostuu alku-, keski- ja loppuosasta. Alkuosan käyttäjä voi itse päättää, kuvassa \ref{fig:iec61850-data-reference} "\emph{Q0}". Voi sisältää numeroita ja kirjaimia, mutta täytyy alkaa kirjaimella. Keskiosan täytyy olla loogisen luokan nimi, josta instanssi on tehty. Tässä tapauksessa jo aikaisemmin mainittu katkaisijan luokka, XCBR. Tämä osuus on aina 4 kirjainta pitkä ja on aina isoilla kirjaimilla. Loppuosa on instanssin numeerinen arvo, joka ei sisällä kirjaimia. Loppuosan käyttäjä voi itse päättää, jonka ei tarvitse välttämättä olla juokseva numero. Alku- ja loppuosaan muotoon standardi ei anna määrityksiä \cite[s.~93]{IEC61850-7-1}. Alku- ja loppuosan yhteenlaskettu merkkien pituus täytyy olla alle 13 merkkiä. Data objektien (DO) ja attribuuttien (DA) niminä käytetään standardin määrittämiä nimiä, jotka määritetään niitä vastaavissa luokissa osissa 7-3 ja 7-4. \cite[s.~181--182]{IEC61850-7-2}
+Viite muodostuu suoraan laitteessa olevien luokkien instanssien nimien ja hierarkian mukaan. Loogisen laitteen (LD) ja loogisen noodin (LN) erottimena käytetään kauttaviivaa, ja muiden osien erottimena käytetään pistettä. Loogisella laitteella voi olla käyttäjän oma määrittämä nimi, mutta kuitenkin alle 65 merkkiä. Loogisen laitteen nimeen standardi ei puutu. Loogisen noodin instanssin nimi koostuu alku-, keski- ja loppuosasta. Alkuosan käyttäjä voi itse päättää, kuvassa \ref{fig:iec61850-data-reference} "\emph{Q0}". Voi sisältää numeroita ja kirjaimia, mutta täytyy alkaa kirjaimella. Keskiosan täytyy olla loogisen luokan nimi, josta instanssi on tehty. Tässä tapauksessa jo aikaisemmin mainittu katkaisijan luokka, XCBR. Tämä osuus on aina 4 kirjainta pitkä ja on aina isoilla kirjaimilla. Loppuosa on instanssin numeerinen arvo, joka ei sisällä kirjaimia. Loppuosan käyttäjä voi itse päättää, jonka ei tarvitse välttämättä olla juokseva numero. Alku- ja loppuosaan muotoon standardi ei anna määrityksiä. Alku- ja loppuosan yhteenlaskettu merkkien pituus täytyy olla alle 13 merkkiä. Data objektien (DO) ja attribuuttien (DA) niminä käytetään standardin määrittämiä nimiä, jotka määritetään niitä vastaavissa luokissa osissa 7-3 ja 7-4. Riippuen viittauksesta, näistä muodostuu loogisen noodin referenssi, data objektin referenssi ja data attribuutin referenssi. \cite[s.~181--182]{IEC61850-7-2} \cite[s.~93--95]{IEC61850-7-1}
 
 Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle, jotka ovat serveri- ja looginen laite -näkyvyysalueet. Serverinäkyvyysalueelle viitataan ottamalla viittauksesta pois loogisen laitteen nimi. Eli kuvassa \ref{fig:iec61850-data-reference} viittaus tulisi muotoon "\emph{/Q0XCBR1.Pos.Mag}". Edellemainittua viittausta käytetään silloin, kun loogisen noodin instanssi sijaitsee loogisen laitteen ulkopuolella, mutta kuitenkin serverillä. Looginen laite -näkyvyysalueessa viittaus sisältää loogisen laitteen nimen ennen kauttaviivaa, toisin kuin serveri-näkyvyysalueessa. Esimerkiksi kuvassa \ref{fig:iec61850-data-reference} oleva viittaus "\emph{OmaLD/Q0XCBR1.Pos.Mag}". Loogisen laitteen -näkyvyysaluetta käytetään silloin kun loogisen noodin instanssi sijaitsee loogisen laitteen sisällä sen hierarkiassa. Tässä työssä jatkossa käytetään pelkästään loogisen laitteen -näkyvyysaluetta. \cite[s.~183]{IEC61850-7-2}
 
@@ -130,11 +130,19 @@ Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituu
 \end{it}
 
 
-\subsection{Viestiblokin konfigurointi ja tilaus}
+\subsection{Viestien tilaus ja tilauksen konfigurointi}
 \begin{it}
 	Kirjoita tähän IEC 61850 -standardin määrittästä abstraktista raportointimallista. Tätä raportointi mekanismia tullaan käyttämään raporttien tilauksessa ja sen konfigurointi täytyy ymmärtää toteuttettavan ohjelmiston kannalta. Käy läpi mitä asiakasohjelman täytyy tehdä ja mikä on tapahtumien järjestys jotta raportteja voidaan edes tilata.
 	Hyvä kuva ja selitys missä järjestyksessä asiat tapahtuu asiakkaan ja serverin välillä. Ja yleistä tietoa raportoinnista löytyy \cite[s.~40--44]{IEC61850-7-1}.
 \end{it}
+
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/iec61850-urcb-communication.png}
+	\caption{Puskuroitu viestien tilausprosessi asiakkaan ja serverin välillä.}
+	\label{fig:iec61850-urcb-communication}
+\end{figure}
+
 
 
 \subsection{Viestin rakenne}
