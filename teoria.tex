@@ -117,7 +117,7 @@ IEC 61850 -standardi määrittää tarkasti kuinka hierarkian eri kohtia viitata
 
 Viite muodostuu suoraan laitteessa olevien luokkien instanssien nimien ja hierarkian mukaan. Loogisen laitteen (LD) ja loogisen noodin (LN) erottimena käytetään kauttaviivaa, ja muiden osien erottimena käytetään pistettä. Loogisella laitteella voi olla käyttäjän oma määrittämä nimi, mutta kuitenkin alle 65 merkkiä. Loogisen laitteen nimeen standardi ei puutu. Loogisen noodin instanssin nimi koostuu alku-, keski- ja loppuosasta. Alkuosan käyttäjä voi itse päättää, kuvassa \ref{fig:iec61850-data-reference} "\emph{Q0}". Voi sisältää numeroita ja kirjaimia, mutta täytyy alkaa kirjaimella. Keskiosan täytyy olla loogisen luokan nimi, josta instanssi on tehty. Tässä tapauksessa jo aikaisemmin mainittu katkaisijan luokka, XCBR. Tämä osuus on aina 4 kirjainta pitkä ja on aina isoilla kirjaimilla. Loppuosa on instanssin numeerinen arvo, joka ei sisällä kirjaimia. Loppuosan käyttäjä voi itse päättää, jonka ei tarvitse välttämättä olla juokseva numero. Alku- ja loppuosaan muotoon standardi ei anna määrityksiä. Alku- ja loppuosan yhteenlaskettu merkkien pituus täytyy olla alle 13 merkkiä. Data objektien (DO) ja attribuuttien (DA) niminä käytetään standardin määrittämiä nimiä, jotka määritetään niitä vastaavissa luokissa osissa 7-3 ja 7-4. Riippuen viittauksesta, näistä muodostuu loogisen noodin referenssi, data objektin referenssi ja data attribuutin referenssi. \cite[s.~181--182]{IEC61850-7-2} \cite[s.~93--95]{IEC61850-7-1}
 
-Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle, jotka ovat serveri- ja looginen laite -näkyvyysalueet. Serverinäkyvyysalueelle viitataan ottamalla viittauksesta pois loogisen laitteen nimi. Eli kuvassa \ref{fig:iec61850-data-reference} viittaus tulisi muotoon "\emph{/Q0XCBR1.Pos.Mag}". Edellemainittua viittausta käytetään silloin, kun loogisen noodin instanssi sijaitsee loogisen laitteen ulkopuolella, mutta kuitenkin serverillä. Looginen laite -näkyvyysalueessa viittaus sisältää loogisen laitteen nimen ennen kauttaviivaa, toisin kuin serveri-näkyvyysalueessa. Esimerkiksi kuvassa \ref{fig:iec61850-data-reference} oleva viittaus "\emph{OmaLD/Q0XCBR1.Pos.Mag}". Loogisen laitteen -näkyvyysaluetta käytetään silloin kun loogisen noodin instanssi sijaitsee loogisen laitteen sisällä sen hierarkiassa. Tässä työssä jatkossa käytetään pelkästään loogisen laitteen -näkyvyysaluetta. \cite[s.~183]{IEC61850-7-2}
+Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle, jotka ovat palvelin- ja looginen laite -näkyvyysalueet. Serverinäkyvyysalueelle viitataan ottamalla viittauksesta pois loogisen laitteen nimi. Eli kuvassa \ref{fig:iec61850-data-reference} viittaus tulisi muotoon "\emph{/Q0XCBR1.Pos.Mag}". Edellemainittua viittausta käytetään silloin, kun loogisen noodin instanssi sijaitsee loogisen laitteen ulkopuolella, mutta kuitenkin palvelimelta. Looginen laite -näkyvyysalueessa viittaus sisältää loogisen laitteen nimen ennen kauttaviivaa, toisin kuin palvelin-näkyvyysalueessa. Esimerkiksi kuvassa \ref{fig:iec61850-data-reference} oleva viittaus "\emph{OmaLD/Q0XCBR1.Pos.Mag}". Loogisen laitteen -näkyvyysaluetta käytetään silloin kun loogisen noodin instanssi sijaitsee loogisen laitteen sisällä sen hierarkiassa. Tässä työssä jatkossa käytetään pelkästään loogisen laitteen -näkyvyysaluetta. \cite[s.~183]{IEC61850-7-2}
 
 Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituusmääritykset ovat voimassa kummallekin edelle mainitulle näkyvyysalueen viittaukselle. Ennen kauttaviivaa saa olla maksimissaan 64 merkkiä. Tämän jälkeen kauttaviiva, josta seuraa uudelleen maksimissaan 64 merkkiä. Eli koko viittauksen maksimipituus saa olla enintään 129 merkkiä, kauttaviiva mukaan lukien. \cite[s.~183]{IEC61850-7-2}
 
@@ -130,30 +130,60 @@ Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituu
 \end{it}
 
 
+\subsection{Data attribuutteista muodostuvat datajoukot}
+\begin{it}
+	Kirjoita tähän kuinka standardin mukaisia data settejä muodostetaan ja mitä ne ovat. Kirjoita tähän myös FCD ja FCDA lyhenteistä ja mitä ne tarkoittavat. Anna esimerkki kuinka data setit muodostuu vaikka kuvalla. Näitä tietoja tarvitaan kun käsitellään raportointilohkoja ja niiden tarkailevia data attribuutteja.
+\end{it}
+
+
 \subsection{Viestien tilaus ja tilauksen konfigurointi}
 \begin{it}
 	Kirjoita tähän IEC 61850 -standardin määrittästä abstraktista raportointimallista. Tätä raportointi mekanismia tullaan käyttämään raporttien tilauksessa ja sen konfigurointi täytyy ymmärtää toteuttettavan ohjelmiston kannalta. Käy läpi mitä asiakasohjelman täytyy tehdä ja mikä on tapahtumien järjestys jotta raportteja voidaan edes tilata.
-	Hyvä kuva ja selitys missä järjestyksessä asiat tapahtuu asiakkaan ja serverin välillä. Ja yleistä tietoa raportoinnista löytyy \cite[s.~40--44]{IEC61850-7-1}.
+	Hyvä kuva ja selitys missä järjestyksessä asiat tapahtuu asiakkaan ja palvelimen välillä. Ja yleistä tietoa raportoinnista löytyy \cite[s.~40--44]{IEC61850-7-1}.
+	
+	Kirjoita data attribuuttien liipaisimiin enemmän laadun muutoksesta mitä tarkoittaa ja viite sinne.
+	
+	Mainita dataseteistä tähän kunhan ensin kirjoittanut niistä teorian.
 \end{it}
 
 IEC 61850 -standardi määrittää erilaisia liipaisimia data attribuuteille, joita voidaan käyttää liipaisemaan jokin tapahtuma IED-laitteessa. Standardi määrittää seuraavia liipaisimia data attribuuteille:
 \begin{itemize}
-	\item datan muutos (engl. data change, standardissa lyhenne dchg),  
-\end{itemize}}]
+	\item datan muutos (engl. data change, standardissa lyhenne \emph{dchg}),
+	\item laadun muutos (engl. quality change, standardissa lyhenne \emph{qchg}), ja
+	\item datan päivitys (engl. data update, standardissa lyhenne \emph{dupd}).
+\end{itemize}
+Edellä mainituissa ero datan muutoksen ja päivityksen välillä on se, että datan päivitys liipaisee tapahtuman, vaikka attribuutin uusi arvo olisi sama. Datan muutos ei liipaise tapahtumaa, jos uusi arvo on sama kuin edellinen arvo. Laadun muutos tarkoittaa, että data attribuuttin liitetty laatuarvo muuttuu. Laatuarvo kertoo, voiko attribuutin arvoon luottaa. \cite[s.~90]{IEC61850-7-1}
+
+Standardi määrittää kaksi mahdollisesti liipaistavaa tapahtumaa IED-laitteessa, jotka ovat raportointi ja lokitus. Lokitus on IED-laiteessa tapahtuvien tapahtumien lokitusta myöhempää käyttöä ja tarkastelua varten. Esimerkiksi attribuutin arvon muutos. Raportointi on tapahtuma, jossa generoidaan viesti tapahtuman liipaisseista attribuuteista. Tämä viesti lähetetään niitä tilaaville asiakkaille. Jos tilaavaa asiakasta ei ole, viestiä ei generoida. Standardi käyttää sanaa "raportti" (engl. ja standardissa report) näiden viestien kuvaamiseen. Kuitenkin tässä työssä on käytetty sanaa "viesti" tästä eteenpäin "raportin" sijaan. Tämä sen takia, koska suomenkielessä raportti-sana voi tarkoittaa lukijalle muuta merkitystä, kuin verkon yli asiakkaan ja palvelimen välistä viestiä. Tässä työssä keskitytään edelle mainittuihin viesteihin, ei lokitukseen. Ja lopullinen ohjelmisto nimenomaan käsitteli yllämainittuja viestejä.
+
+Standardi määrittelee kaksi luokkaa viestien tilaamisen ja konfigurointiin. Luokat ovat puskuroitu viestintälohko (engl. \emph{Buffered Report Control Block}, lyhennetään \textbf{BRCB}) ja ei puskuroitu lohko (engl. \emph{Unbuffered Report Control Block}, lyhennetään \textbf{URCB}). Tekstissä kumpaakin luokkaan viitatessa käytetään lyhennettä \textbf{RCB}. Ainoa ero luokkien välillä on, että BRCB puskuroi viestejä jonkin aikaa yhteyden katkettua. Yhteyden palautuessa, se lähettää puskuroidut viestit järjestyksessä asiakkaalle. BRCB takaa viestien järjestyksen ja saatavuuden. URCB lähettää viestejä asiakkaalle ilman puskurointia. Yhteyden katketessa, viestit menetetään. IED-laitetta konfiguroitaessa, luokista tehdään instansseja asiakkaiden tarpeen mukaan. Standardi määrittää, että tilaavan asiakkaan on varattava yksi RCB-instanssi itselleen ja tänä aikana muut asiakkaat eivät voi kyseistä RCB:tä käyttää. Niinpä IED-laitteelle on määritettävä RCB-instansseja sen käyttötarkoitusten mukaan.
+
+RCB-luokat sisältävät attribuutteja, joita asiakas konfiguroi ennen tilausta omien tarpeiden mukaan. Tämän jälkeen asiakas varaa RCB:n kirjoittamalla konfiguroidut arvot ja asettamalla kentän \textbf{RptEna} arvoksi \textbf{TRUE}. Tämän jälkeen RCB on varattu kyseiselle asiakkaalle ja IED-laite aloittaa data attribuuttien tarkkailun. Asiakas jää odottamaan viestien tuloa palvelimelta ilman erillistä kyselyä. Jos konfiguroitu liipaisin liipaisee tapahtuman, RCB lähettää viestin asiakkaalle. Kuvassa \ref{fig:iec61850-brcb-communication} on esitetty yllämainittu prosessi asiakkaan ja palvelimen välillä käyttäen puskuroitua BRCB-luokkaa. Kuvassa yhteyden katketessa, palvelin puskuroi viestejä. Yhteyden palautuessa samalta asiakkaalta, palvelin lähettää viestit oikeassa järjestyksessä asiakkaalle. Tilaus lopetetaan asiakkaan pyynnöstä tai yhteyden ollessa poikki tarpeeksi kauan.
 
 \begin{figure}
-	\includegraphics[width=1\textwidth]{pictures/iec61850-urcb-communication.png}
-	\caption{Puskuroitu viestien tilausprosessi asiakkaan ja serverin välillä.}
-	\label{fig:iec61850-urcb-communication}
+	\includegraphics[width=1\textwidth]{pictures/iec61850-brcb-communication.png}
+	\caption{Puskuroitu viestien tilausprosessi asiakkaan ja palvelimen välillä.}
+	\label{fig:iec61850-brcb-communication}
 \end{figure}
 
 
-
-\subsection{Viestin rakenne}
+\subsection{RCB-luokan ja lähetetyn viestin rakenne}
 \begin{it}
-	Kirjoita tähän standardin määritämästä viestin rakenteesta ja mitä tietoa se sisältää. Kerro myös sen vaihtoehtoisista kentistä.
+	Kirjoita tähän standardin määritämästä viestin ja BRCB luokan rakenteesta ja mitä tietoa se sisältää. Kerro myös sen vaihtoehtoisista kentistä.
 	Mainitse että standardissa käytetään UTC-aikaa aikakentissä \cite[s.~50]{IEC61850-7-1}.
 \end{it}
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/iec61850-brcb-class-definition.png}
+	\caption{Puskuroidun raportointioluokan (BRCB) määritys \cite[s.~94]{IEC61850-7-2}.}
+	\label{fig:iec61850-brcb-class-definition}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/iec61850-report-format.png}
+	\caption{Standardin määrittämä lähetetyn viestin formaatti \cite[s.~104]{IEC61850-7-2}.}
+	\label{fig:iec61850-report-format}
+\end{figure}
 
 
 \section{Abstraktimallin sovitus MMS-protokollaan}
