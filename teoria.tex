@@ -11,12 +11,6 @@ Maailmanlaajuisesti määritetty IEC 61850 -standardi määrittää sähköasema
 Todella tärkeä ja iso osa standardia on sähköaseman systeemin funktioiden abstrahointi mallien kautta. Standardi määrittää tarkasti kuinka abstraktit mallit määritellään aseman oikeista laiteista ja niiden ominaisuuksista. Tarkoituksena on tehdä mallit tekniikasta ja toteutuksesta riippumattomaksi. Tämän jälkeen abstrahoidut mallit mallinnetaan erikseen jollekin tekniikalle, joka sen mahdollistaa. Abtrahoituja malleja käytetään myös määrittämään sähköaseman IED-laitteiden ja aseman muiden osien konfigurointi. Abstrahoitujen mallien ansiosta standardi on pohjana tulevaisuuden laajennoksille ja tekniikoille. Uusien tekniikoiden ilmaantuessa, voidaan standardin lisätä  osa, joka  mallintaa abstraktimallit kyseiselle tekniikalle \cite[s.~2]{Brunner2008}.
 
 
-\subsection{Standardin historia}
-\begin{it}
-	Kirjoita tähän standardin historiaa ja kuinka se muodostui. Pohdi kuitenkin ensin onko tämä lukijan kannalta tärkeää ja tarvittavaa tietoa.
-\end{it}
-
-
 \subsection{Standardin eri osat ja niiden merkitykset}	
 IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, josta jokainen käsittelee omaa asiaa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot toisiinsa. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat tämän työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ole.
 
@@ -122,17 +116,43 @@ Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle,
 Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituusmääritykset ovat voimassa kummallekin edelle mainitulle näkyvyysalueen viittaukselle. Ennen kauttaviivaa saa olla maksimissaan 64 merkkiä. Tämän jälkeen kauttaviiva, josta seuraa uudelleen maksimissaan 64 merkkiä. Eli koko viittauksen maksimipituus saa olla enintään 129 merkkiä, kauttaviiva mukaan lukien. \cite[s.~183]{IEC61850-7-2}
 
 
+\subsection{Attribuuttien funktionaalinen rajoitus ja niistä muodostetut datajoukot}
+\begin{it}
+	Kirjoita tähän kuinka standardin mukaisia data settejä muodostetaan ja mitä ne ovat. Kirjoita tähän myös FCD ja FCDA lyhenteistä ja mitä ne tarkoittavat. Anna esimerkki kuinka data setit muodostuu vaikka kuvalla. Näitä tietoja tarvitaan kun käsitellään raportointilohkoja ja niiden tarkailevia data attribuutteja.
+	
+	Kirjoita tähän myös funktionaalisista rajoitteista, mitä standardi määrittää data attribuuteille. Ja kuinka näitä käytetään FCD ja FCDA ryhmien muodostamiseen. Funktionaalisesta rajoitteesta ja FCD ja FCDA asioista on tietoa \cite[s.~54--55]{IEC61850-7-2}.
+\end{it}
+
+Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit. Luokat määrittää myös jokaiselle data attribuutille aikaisemmin mainittun funktionaalinen rajoitteen (engl. \emph{functional constraint}, lyhennetään \textbf{FC}). Funktionaalinen rajoite kuvaa attribuutin käyttötarkoitusta ja sitä mitä palveluita attribuuttiin voidaan käyttää. Funktionaalinen rajoite voidaan ymmärtää niin sanottuna suodattimena data objektin data attribuuteille. Esimerkiksi kaikki attribuutit, jotka liittyvät laitteen tilaan (engl. status), niillä on funktionaalinen rajoite ST (standardissa engl. status information). Standardi määrittää paljon erilaisia funktionaalisia rajoitteita, jotka ovat kaikki kahden ison kirjaimen yhdistelmiä. Taulukossa \ref{tab:iec61850-functional-constraints} on esitetty joitain tärkeimpiä funktionaalisia rajoitteita. Funktionaalinen rajoite myös määrittä onko attribuutti kirjoitettava tai luettava.
+
+\begin{table}[ht!]
+	\caption{Osa IEC 61850 -standardin määrittämistä funktionaalisista rajoitteitteista (FC) \cite[s.~54]{IEC61850-7-2}.}
+	\label{tab:iec61850-functional-constraints}
+	\begin{tabular}{l | l | l | l}
+		\hline
+		\textbf{Lyhenne} & \textbf{Selite} & \textbf{Luettava} & \textbf{Kirjoitettava} \\
+		\hline \hline
+		ST & Laitteen tilatieto (status) & Kyllä & Ei \\
+		MX & Mittaustieto (measurands) & Kyllä & Ei \\
+		CF & Laitteen asetusarvo (configuration) & Kyllä & Kyllä \\
+		DC & Selitystieto (description) & Kyllä & Kyllä \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Funktionaalisia rajoitteita käytetään, kun IED-laitteeseen tehdään ACSI-palveluiden mukaisia kutsuja. Esimerkiksi jos halutaan lukea kuvassa \ref{fig:iec61850-data-reference} OmaLD/Q0XCBR1.Pos polussa olevan data objektin kaikki tilan arvot yhdellä kutsulla, käytettäisiin ST funktionaalista rajoitetta taulukosta \ref{tab:iec61850-functional-constraints}. Kutsu jättää lukematta kaikki muut data objektin attribuutit.
+
+Funktionaalista rajoitetta voidaan käyttää suodattamaan data attribuutteja data objektista ja niiden ali data objekteista. Standardi määrittä lyhtenteen FCD (engl. Functional Constrained Data), jota käytetään silloin kun hierarkian ensimmäistä data objektia suodatetaan funktionaalisella rajoitteella. Aikaisemmin mainittu OmaLD/Q0XCBR1.Pos funktionaalisella rajoitteella ST, on FCD-suodatus. Tässä Pos on ensimmäinen data objekti Q0XCBR1 loogisen noodin jälkeen.
+
+\begin{it}
+	Kirjoita yllä olevaan kappaleeseen vielä FCDA määrityksestä ja sitten tämän jälkeen kuinka FCD ja FCDA määrityksiä käytetään datajoukkojen rakentamiseen IED-laitteeseen.
+\end{it}	
+
 \subsection{Abstrakti kommunikointi ja ACSI}
 \begin{it}
 	Voisiko tähän kirjoittaa miten mappaus johonkin tekniikkaan tapahtuu ja kuinka kommunikaatio sitten tapahtuu oikeasti. Samalla selittää ACSI-mallista jotain. Hyvä kuva standardissa löytyy tästä löytyy \cite[s.~76]{IEC61850-7-1}. Voisiko tämän heittää johonkin omana otsikkonaan?
 	
 	Voisiko tähän myös laittaa kuva kuinka osat on pilkottu eri IED-laitteille ja niiden välinen kommunikoninti. Mallia \cite[s.~31]{IEC61850-7-1}.
-\end{it}
-
-
-\subsection{Data attribuutteista muodostuvat datajoukot}
-\begin{it}
-	Kirjoita tähän kuinka standardin mukaisia data settejä muodostetaan ja mitä ne ovat. Kirjoita tähän myös FCD ja FCDA lyhenteistä ja mitä ne tarkoittavat. Anna esimerkki kuinka data setit muodostuu vaikka kuvalla. Näitä tietoja tarvitaan kun käsitellään raportointilohkoja ja niiden tarkailevia data attribuutteja.
 \end{it}
 
 
