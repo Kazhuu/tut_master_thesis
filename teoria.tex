@@ -8,7 +8,7 @@ Sähköasemilla nykypäivänä käytössä olevilla älykkäillä elektronisilla
 
 Maailmanlaajuisesti määritetty IEC 61850 -standardi määrittää sähköaseman sisäisen kommunikoinnin IED-laitteiden välillä. Standardi määrittää myös kommunikointisäännöt asemalta lähtevään liikenteeseen, kuten toiselle sähköasemalle ja ohjausasemalle \cite[s.~10]{IEC61850-7-1}. Ilman yhteisiä sääntöjä jokainen valmistaja olisi vapaa toteuttamaan omat säännöt ja protokollat kommunikointiin. Seurauksena tästä olisi, että laitteet eivät olisi keskenään yhteensopivia eri valmistajien välillä. Standardin on tarkoitus poistaa tämä ja määrittää yhteiset pelisäännöt kommunikoinnin toteuttamiseen \cite[s.~1]{Kaneda2008}.
 
-Todella tärkeä ja iso osa standardia on sähköaseman systeemin funktioiden abstrahointi mallien kautta. Standardi määrittää tarkasti kuinka abstraktit mallit määritellään aseman oikeista laiteista ja niiden ominaisuuksista. Tarkoituksena on tehdä mallit tekniikasta ja toteutuksesta riippumattomaksi. Tämän jälkeen abstrahoidut mallit mallinnetaan erikseen jollekin tekniikalle, joka sen mahdollistaa. Abtrahoituja malleja käytetään myös määrittämään sähköaseman IED-laitteiden ja aseman muiden osien konfigurointi. Abstrahoitujen mallien ansiosta standardi on pohjana tulevaisuuden laajennoksille ja tekniikoille. Uusien tekniikoiden ilmaantuessa, voidaan standardin lisätä  osa, joka  mallintaa abstraktimallit kyseiselle tekniikalle \cite[s.~2]{Brunner2008}.
+Todella tärkeä ja iso osa standardia on sähköaseman systeemin funktioiden abstrahointi mallien kautta. Standardi määrittää tarkasti kuinka abstraktit mallit määritellään aseman oikeista laiteista ja niiden ominaisuuksista. Tarkoituksena on tehdä mallit tekniikasta ja toteutuksesta riippumattomaksi. Tämän jälkeen abstrahoidut mallit mallinnetaan erikseen jollekin tekniikalle, joka sen mahdollistaa. Abtrahoituja malleja käytetään myös määrittämään sähköaseman IED-laitteiden ja aseman muiden osien konfigurointi. Abstrahoitujen mallien ansiosta standardi on pohjana tulevaisuuden laajennoksille ja tekniikoille. Uusien tekniikoiden ilmaantuessa, voidaan standardin lisätä  osa, joka  mallintaa abstraktimallit kyseiselle tekniikalle \cite[s.~2]{Brunner2008}. Teoriassa ensin käsitellään standardin asioita abstraktilla tasolla, liittämättä sitä mihinkään tekniseen toteutukseen. Vasta tämän jälkeen se liitetään erikseen tekniikkaan mitä työssä käytettiin.
 
 
 \subsection{Standardin eri osat ja niiden merkitykset}	
@@ -142,10 +142,10 @@ Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit.
 
 Funktionaalisia rajoitteita käytetään, kun IED-laitteeseen tehdään ACSI-palveluiden mukaisia kutsuja. Esimerkiksi jos halutaan lukea kuvassa \ref{fig:iec61850-data-reference} OmaLD/Q0XCBR1.Pos polussa olevan data objektin kaikki tilan arvot yhdellä kutsulla, käytettäisiin ST funktionaalista rajoitetta taulukosta \ref{tab:iec61850-functional-constraints}. Kutsu jättää lukematta kaikki muut data objektin attribuutit.
 
-Funktionaalista rajoitetta voidaan käyttää suodattamaan data attribuutteja data objektista ja niiden ali data objekteista. Standardi määrittä lyhtenteen FCD (engl. Functional Constrained Data), jota käytetään silloin kun hierarkian ensimmäistä data objektia suodatetaan funktionaalisella rajoitteella. Aikaisemmin mainittu OmaLD/Q0XCBR1.Pos funktionaalisella rajoitteella ST, on FCD-suodatus. Tässä Pos on ensimmäinen data objekti Q0XCBR1 loogisen noodin jälkeen.
+Funktionaalista rajoitetta voidaan käyttää suodattamaan data attribuutteja data objektista ja niiden ali data objekteista. Toisin sanoen hierarkiassa referenssipisteestä alaspäin oleviin kentiin. Standardi määrittä lyhtenteen FCD (engl. Functional Constrained Data), jota käytetään silloin kun hierarkian ensimmäistä data objektia suodatetaan funktionaalisella rajoitteella. Aikaisemmin mainittu OmaLD/Q0XCBR1.Pos funktionaalisella rajoitteella ST, on FCD-suodatus. Tässä Pos on ensimmäinen data objekti Q0XCBR1 loogisen noodin jälkeen.
 
 \begin{it}
-	Kirjoita yllä olevaan kappaleeseen vielä FCDA määrityksestä ja sitten tämän jälkeen kuinka FCD ja FCDA määrityksiä käytetään datajoukkojen rakentamiseen IED-laitteeseen.
+	Kirjoita yllä olevaan kappaleeseen vielä FCDA määrityksestä ja sitten tämän jälkeen kuinka FCD ja FCDA määrityksiä käytetään datajoukkojen rakentamiseen IED-laitteeseen. Piirrä tähän myös kuva, josta tulee esille FCD:n ja FCDA:n erot ja kuinka se suodattaa.
 \end{it}	
 
 \subsection{Abstrakti kommunikointi ja ACSI}
@@ -162,8 +162,6 @@ Funktionaalista rajoitetta voidaan käyttää suodattamaan data attribuutteja da
 	Hyvä kuva ja selitys missä järjestyksessä asiat tapahtuu asiakkaan ja palvelimen välillä. Ja yleistä tietoa raportoinnista löytyy \cite[s.~40--44]{IEC61850-7-1}.
 	
 	Kirjoita data attribuuttien liipaisimiin enemmän laadun muutoksesta mitä tarkoittaa ja viite sinne.
-	
-	Mainita dataseteistä tähän kunhan ensin kirjoittanut niistä teorian.
 \end{it}
 
 IEC 61850 -standardi määrittää erilaisia liipaisimia data attribuuteille, joita voidaan käyttää liipaisemaan jokin tapahtuma IED-laitteessa. Standardi määrittää seuraavia liipaisimia data attribuuteille:
@@ -172,13 +170,15 @@ IEC 61850 -standardi määrittää erilaisia liipaisimia data attribuuteille, jo
 	\item laadun muutos (engl. quality change, standardissa lyhenne \emph{qchg}), ja
 	\item datan päivitys (engl. data update, standardissa lyhenne \emph{dupd}).
 \end{itemize}
-Edellä mainituissa ero datan muutoksen ja päivityksen välillä on se, että datan päivitys liipaisee tapahtuman, vaikka attribuutin uusi arvo olisi sama. Datan muutos ei liipaise tapahtumaa, jos uusi arvo on sama kuin edellinen arvo. Laadun muutos tarkoittaa, että data attribuuttin liitetty laatuarvo muuttuu. Laatuarvo kertoo, voiko attribuutin arvoon luottaa. \cite[s.~90]{IEC61850-7-1}
+Edellä mainituissa ero datan muutoksen ja päivityksen välillä on se, että datan päivitys liipaisee tapahtuman, vaikka attribuutin uusi arvo olisi sama. Datan muutos ei liipaise tapahtumaa, jos uusi arvo on sama kuin edellinen arvo. Laadun muutos tarkoittaa, että data attribuuttiin liitetty laatuarvo muuttuu. Laatuarvo kertoo, voiko attribuutin arvoon luottaa. \cite[s.~90]{IEC61850-7-1}
 
-Standardi määrittää kaksi mahdollisesti liipaistavaa tapahtumaa IED-laitteessa, jotka ovat raportointi ja lokitus. Lokitus on IED-laiteessa tapahtuvien tapahtumien lokitusta myöhempää käyttöä ja tarkastelua varten. Esimerkiksi attribuutin arvon muutos. Raportointi on tapahtuma, jossa generoidaan viesti tapahtuman liipaisseista attribuuteista. Tämä viesti lähetetään niitä tilaaville asiakkaille. Jos tilaavaa asiakasta ei ole, viestiä ei generoida. Standardi käyttää sanaa "raportti" (engl. ja standardissa report) näiden viestien kuvaamiseen. Kuitenkin tässä työssä on käytetty sanaa "viesti" tästä eteenpäin "raportin" sijaan. Tämä sen takia, koska suomenkielessä raportti-sana voi tarkoittaa lukijalle muuta merkitystä, kuin verkon yli asiakkaan ja palvelimen välistä viestiä. Tässä työssä keskitytään edelle mainittuihin viesteihin, ei lokitukseen. Ja lopullinen ohjelmisto nimenomaan käsitteli yllämainittuja viestejä.
+Standardi määrittää kaksi mahdollisesti liipaistavaa tapahtumaa IED-laitteessa, jotka ovat raportointi ja lokitus. Lokitus on IED-laiteessa tapahtuvien tapahtumien lokitusta myöhempää käyttöä ja tarkastelua varten. Esimerkiksi attribuutin arvon muutos. Raportointi on tapahtuma, jossa generoidaan viesti tapahtuman liipaisseista attribuuteista. Tämä viesti lähetetään niitä tilaaville asiakkaille. Jos tilaavaa asiakasta ei ole, viestiä ei generoida. Standardi käyttää sanaa "raportti" (engl. ja standardissa report) näiden viestien kuvaamiseen. Kuitenkin tässä työssä on käytetty sanaa "viesti" tästä eteenpäin "raportin" sijaan. Tämä sen takia, koska suomenkielessä raportti-sana voi tarkoittaa lukijalle muuta merkitystä, kuin verkon yli asiakkaan ja palvelimen välistä viestiä. Tässä työssä keskitytään edelle mainittuihin viesteihin, ei lokitukseen. Ja lopullinen ohjelmisto nimenomaan käsitteli näitä viestejä.
 
 Standardi määrittelee kaksi luokkaa viestien tilaamisen ja konfigurointiin. Luokat ovat puskuroitu viestintälohko (engl. \emph{Buffered Report Control Block}, lyhennetään \textbf{BRCB}) ja ei puskuroitu lohko (engl. \emph{Unbuffered Report Control Block}, lyhennetään \textbf{URCB}). Tekstissä kumpaakin luokkaan viitatessa käytetään lyhennettä \textbf{RCB}. Ainoa ero luokkien välillä on, että BRCB puskuroi viestejä jonkin aikaa yhteyden katkettua. Yhteyden palautuessa, se lähettää puskuroidut viestit järjestyksessä asiakkaalle. BRCB takaa viestien järjestyksen ja saatavuuden. URCB lähettää viestejä asiakkaalle ilman puskurointia. Yhteyden katketessa, viestit menetetään. IED-laitetta konfiguroitaessa, luokista tehdään instansseja asiakkaiden tarpeen mukaan. Standardi määrittää, että tilaavan asiakkaan on varattava yksi RCB-instanssi itselleen ja tänä aikana muut asiakkaat eivät voi kyseistä RCB:tä käyttää. Niinpä IED-laitteelle on määritettävä RCB-instansseja sen käyttötarkoitusten mukaan.
 
-RCB-luokat sisältävät attribuutteja, joita asiakas konfiguroi ennen tilausta omien tarpeiden mukaan. Tämän jälkeen asiakas varaa RCB:n kirjoittamalla konfiguroidut arvot ja asettamalla kentän \textbf{RptEna} arvoksi \textbf{TRUE}. Tämän jälkeen RCB on varattu kyseiselle asiakkaalle ja IED-laite aloittaa data attribuuttien tarkkailun. Asiakas jää odottamaan viestien tuloa palvelimelta ilman erillistä kyselyä. Jos konfiguroitu liipaisin liipaisee tapahtuman, RCB lähettää viestin asiakkaalle. Kuvassa \ref{fig:iec61850-brcb-communication} on esitetty yllämainittu prosessi asiakkaan ja palvelimen välillä käyttäen puskuroitua BRCB-luokkaa. Kuvassa yhteyden katketessa, palvelin puskuroi viestejä. Yhteyden palautuessa samalta asiakkaalta, palvelin lähettää viestit oikeassa järjestyksessä asiakkaalle. Tilaus lopetetaan asiakkaan pyynnöstä tai yhteyden ollessa poikki tarpeeksi kauan.
+Jokainen RCB-instanssi kytketään johonkin muodostettuun datajoukkoon, jota se tarkkailee ja josta viestit generoidaan. Yhteen datajoukkoon voi olla kytkettynä monta RCB-instanssia. Jolloin yhden data attribuutin liipaistessa, jokainen siihen kytketty RCB generoi viestin asiakkaalle.
+
+RCB-luokat sisältävät attribuutteja, joita asiakas konfiguroi ennen tilausta omien tarpeidensa mukaan. Tämän jälkeen asiakas varaa RCB:n kirjoittamalla konfiguroidut arvot ja asettamalla kentän RptEna arvoksi tosi (katso taulukko \ref{tab:iec61850-brcb-class-definition}). Tämän jälkeen RCB on varattu kyseiselle asiakkaalle ja IED-laite aloittaa datajoukon attribuuttien tarkkailun. Asiakas jää odottamaan viestien tuloa palvelimelta ilman erillistä kyselyä. Jos konfiguroitu liipaisin liipaisee tapahtuman, RCB lähettää viestin asiakkaalle. Kuvassa \ref{fig:iec61850-brcb-communication} on esitetty yllämainittu prosessi asiakkaan ja palvelimen välillä käyttäen puskuroitua BRCB-luokkaa. Kuvassa yhteyden katketessa, palvelin puskuroi viestejä. Yhteyden palautuessa samalta asiakkaalta, palvelin lähettää viestit oikeassa järjestyksessä asiakkaalle. Tilaus lopetetaan asiakkaan pyynnöstä tai yhteyden ollessa poikki tarpeeksi kauan.
 
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/iec61850-brcb-communication.png}
@@ -187,17 +187,83 @@ RCB-luokat sisältävät attribuutteja, joita asiakas konfiguroi ennen tilausta 
 \end{figure}
 
 
-\subsection{RCB-luokan ja lähetetyn viestin rakenne}
+\subsection{Raportointi-luokan määritys ja toiminta}
 \begin{it}
-	Kirjoita tähän standardin määritämästä viestin ja BRCB luokan rakenteesta ja mitä tietoa se sisältää. Kerro myös sen vaihtoehtoisista kentistä.
+	Kirjoita tähän standardin määritämästä BRCB luokan rakenteesta ja mitä tietoa se sisältää.
 	Mainitse että standardissa käytetään UTC-aikaa aikakentissä \cite[s.~50]{IEC61850-7-1}.
 \end{it}
 
-\begin{figure}
-	\includegraphics[width=1\textwidth]{pictures/iec61850-brcb-class-definition.png}
-	\caption{Puskuroidun raportointioluokan (BRCB) määritys \cite[s.~94]{IEC61850-7-2}.}
-	\label{fig:iec61850-brcb-class-definition}
-\end{figure}
+BRCB-luokalla on erilaisia attribuutteja, joita asiakas voi kirjoittaa ja lukea ennen tilauksen aloittamista. Taulukossa \ref{tab:iec61850-brcb-class-definition} on esitetty standardin määrittämän BRCB-luokan attribuutit, attribuutin nimi englanniksi ja sen selite. Taulukossa ei ole esitetty attribuuttien tyyppejä, koska ne voi lukija tarvittaessa tarkemmin lukea standardin omasta määrityksestä. Ja standardissa muutenkin kuvataan luokan eri attribuuttien toiminta paljon perusteellisemmin. Tässä työssä riittää että lukija ymmärtää luokan päätoiminnan hyvin. URCB-luokka on melkein samanalainen kuin taulukossa \ref{tab:iec61850-brcb-class-definition} määritetty BRCB-luokka. Tarkka määritys ja BRCB ja URCB luokkien erot löytyvät standardin osasta 7-2 \cite[s.~93--118]{IEC61850-7-2}.
+
+\begin{table}[ht!]
+	\caption{BRCB-luokan määritetyt attribuutit ja niiden selitteet \cite[s.~94--103]{IEC61850-7-2}.}
+	\label{tab:iec61850-brcb-class-definition}
+	\begin{tabular}{l | l | l}
+		\hline
+		\textbf{Attribuutti} & \textbf{Englanniksi} & \textbf{Selite} \\
+		\hline \hline
+		BRCBName & BRCB name & Objektin nimi \\
+		BRCBRef & BRCB reference & Objektin referenssi \\
+		RptID & Report identifier & \parbox[t]{7.5cm}{RCB-instanssin yksilöivä id lähetettyihin viesteihin, asiakas voi asettaa} \\
+		RptEna & Report enable & Varaa RCB:n ja aloittaa viestien lähetyksen \\
+		DatSet & Data set reference & Tarkailtavan datajoukon referenssi \\
+		ConfRev & Configuration revision & \parbox[t]{7.5cm}{Juokseva configuraation numerointi, muutos kasvattaa numerointia} \\
+		OptFlds & Optional fields & Mitä optionaalisia kenttiä viestiin lisätään \\
+		BufTm & Buffer time & \parbox[t]{7.5cm}{Puskurointiaika, ennen viestin lähetystä. Tänä aikana tapahtuvat liipaisut yhdistetään samaan viestiin} \\
+		SqNum & Sequence number & Juokseva lähetetyn viestin numerointi \\
+		TrgOps & Trigger options & Millä liipaisimilla viesti lähetetään \\
+		IntgPd & Integrity period & \parbox[t]{7.5cm}{Periodisen viestien väli millisekunteina, arvolla 0 ei käytössä} \\
+		GI & General-interrogation & \parbox[t]{7.5cm}{Käynnistää yleiskyselyn, joka sisältää kaikki datajoukon attribuutit seuraavaan viestiin} \\
+		PurgeBuf & Purge buffer & Puhdistaa lähettämättömät viestit puskurista \\
+		EntryID & Entry identifier & \parbox[t]{7.5cm}{Puskurissa olevan viimeisimmän viestin id. Arvo 0 tarkoittaa tyhjää puskuria} \\
+		TimeOfEntry & Time of entry & \parbox[t]{7.5cm}{Puskurissa olevan viimeisimmän viestin aikaleima} \\
+		ResvTms & Reservation time & \parbox[t]{7.5cm}{Varausaika millisekunteina, arvo -1 tarkoittaa konfiguraation aikaista varausta ja 0 että ei varausta} \\
+		Owner & Owner & \parbox[t]{7.5cm}{Yksilöi varaavan asiakkaan, yleensä IP-osoite tai IED-laitteen nimi. Arvo 0 että RCB on vapaa tai ei omistajaa} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+RCB-luokan TrgOps-attribuutti on binääritietue, jossa yksittäinen bitti ilmaisee mikä liipaisin voi aiheuttaa viestin lähettämisen. Asiakas voi päättää mitä liipaisimia haluaa käyttää. TrgOps sisältää seuraavat liipaisimet:
+\begin{itemize}
+	\item datan muutos (engl. data change, standardissa lyhenne \emph{dchg}),
+	\item laadun muutos (engl. quality change, standardissa lyhenne \emph{qchg}), ja
+	\item datan päivitys (engl. data update, standardissa lyhenne \emph{dupd}),
+	\item yleinen kysely (enlg. \emph{general-interrogation}, standardissa lyhenne GI), ja 
+	\item jatkuva viestintä väliajoin (engl. \emph{intergrity}).
+\end{itemize}
+
+Kolme ensimmäistä dchg, qchg ja dupd ovat aikaisemmin määrittettyjen data attribuuttien liipaisimia. Asiakas voi tilata viestejä esimerkiksi vain data muutoksista ja ei muista. RCB-luokka määrittää data attribuuttien liipaisimien lisäksi vielä kaksi liipaisinta lisää, yleinen kysely ja jatkuva viestintä väliajoin. Yleinen kysely on viesti, johon RCB sisällyttää kaikki datajoukon attribuutit. Ja jonka asiakas voi liipaista asettamalla luokan attribuutin GI arvoksi tosi ja TrgOps attribuutissa liipaisin on päällä. Tällöin RCB käynnistää viestin generoinnin ja lähettää sen asiakkaalle. Jos liipaisin ei ole päällä TrgOps attribuutissa, ja GI arvoksi asetetaan tosi. RCB ei generoi viestiä. Viestin lähetyksen jälkeen RCB itse asettaa GI:n arvoksi epätosi. Jatkuva viestintä on viestin lähettäminen asiakkaalle tietyn väliajoin, johon sisältyy kaikki datajoukon attribuutit, kuten yleisessä kyselyssä. Toiminnon saa päälle kun asiakas asettaa RCB-luokassa attribuutit IntgPd arvoksi muu kuin 0, ja TrgOps attribuutin arvossa kyseinen liipaisin on päällä. Attribuutti IntgPd kertoo minkä väliajoin viesti generoidaan ja lähetetään asiakkaalle. Jos IntgPd arvo on muu kuin 0 ja TrgOps atribuutissa liipaisin ei ole päällä, ei viestiä generoida ja lähetetä asiakkaalle väliajoin.
+
+Viestien tilaus aloitetaan kun asiakas kirjoittaa RptEna-attribuutin arvoksi tosi. Tilauksen aikana kirjoitus joihinkin attribuutteihin muuttuu, verrattuna ennen tilausta. Esimerkiksi yleisen kyselyn tekeminen on mahdollista tilauksen aikana kirjoittamalla GI:n arvoksi tosi. Tilauksen aikana kirjoittamalla TrgOps-attribuutin aiheuttaa puskurin tyhjentämisen. Ja Attribuutin OptFlds kirjoitus aiheuttaa epäonnistuneen vastauksen palvelimelta.
+
+RCB-luokan attribuuttin OptFlds avulla asiakas voi asettaa mitä vaihtoehtoisia kenttiä viestiin sisällytetään. Attribuutin OptFlds on binääritietue, niin kuin ja TrgOps ja taulukossa \ref{tab:iec61850-optional-fields-definition} on esitetty sen asetettavat arvot \cite[s.~98]{IEC61850-7-2}.
+
+\begin{table}[ht!]
+	\caption{RCB-luokan OptFlds attribuutin arvot ja niiden selitteet,}
+	\label{tab:iec61850-optional-fields-definition}
+	\begin{tabular}{l | l}
+		\hline
+		\textbf{Arvo} & \textbf{Selite} \\
+		\hline \hline
+		sequence-number & Jos tosi, sisällytä RCB-luokan attribuutti SqNum viestiin \\
+		report-time-stamp & Jos tosi, sisällytä RCB-luokan attribuutti TimeOfEntry viestiin \\
+		reason-for-inclusion & Jos tosi, sisällytä syy miksi arvo(t) sisällytettiin viestiin \\
+		data-set-name & Jos tosi, sisällytä RCB-luokan attribuutti DatSet viestiin \\
+		data-reference & \parbox[t]{10cm}{Jos tosi, sisällytä datajoukon liipaisseen kohdan rakentamiseen käytetty FCD- tai FCDA-referenssi viestiin} \\
+		buffer-overflow & \parbox[t]{10cm}{Jos tosi, sisällytä viestiin tieto onko puskuri vuotanut yli kentällä BufOvfl (engl. buffer overflow)} \\
+		entryID & Jos tosi, sisällytä RCB-luokan attribuutti EntryID viestiin \\
+		conf-revision & Jos tosi, sisällytä RCB-luokan attribuutti ConfRev viestiin \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Kuinka attribuutit vaikuttavat viestin rakenteeseen ja mitä syitä arvon tai arvojen sisältymiseen viestissä voi olla, käsitellään seuraavassa kohdassa.
+
+
+\subsection{Viestin rakenne ja muoto}
+\begin{it}
+	Kirjoita tähän standardin määritämästä viestin rakenteesta ja mitä optionaaliset kentät siihen vaikuttavat. Lisäksi selitä ReasonForInclusion arvosta ja mitä vaihtoehtoja sille on \cite[s.~28--29]{IEC61850-7-2}.
+\end{it}
 
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/iec61850-report-format.png}
