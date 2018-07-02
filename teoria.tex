@@ -261,11 +261,7 @@ Kuinka attribuutit vaikuttavat viestin rakenteeseen ja mitä syitä arvon tai ar
 
 
 \subsection{Viestin rakenne ja muoto}
-\begin{it}
-	Kirjoita tähän standardin määritämästä viestin rakenteesta ja mitä optionaaliset kentät siihen vaikuttavat. Lisäksi selitä ReasonForInclusion arvosta ja mitä vaihtoehtoja sille on \cite[s.~28--29]{IEC61850-7-2}.
-\end{it}
-
-Kuvassa \ref{fig:iec61850-report-format} on esitetty standardin määrittämän viestin rakenne ja kuinka optionaaliset kentät vaikuttavat viestin sisältöön \cite[s.~104]{IEC61850-7-2}.
+Kuvassa \ref{fig:iec61850-report-format} on esitetty standardin määrittämän viestin rakenne ja kuinka optionaaliset kentät vaikuttavat viestin sisältöön \cite[s.~104]{IEC61850-7-2}. Kuvasta voi helposti nähdä mitä kohtia optionaaliset kentät viestiin lisäävät.
 
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/iec61850-report-format.png}
@@ -273,7 +269,18 @@ Kuvassa \ref{fig:iec61850-report-format} on esitetty standardin määrittämän 
 	\label{fig:iec61850-report-format}
 \end{figure}
 
-dvdfv
+Viestin kenttiä SqNun, SubSqNum ja MoreSegmentsFollow käytetään kertomaan asiakkaalle, jos päätason viesti on liian pitkä ja se on pilkottu alaosiin. Kenttä SqNum on RCB-instanssin samanniminen kenttä ja on juokseva numerointi päätason viesteille. Kenttä SubSqNum on juokseva numerointi alkaen 0, jos päätason viesti, eli saman SqNum arvon sisältävä viesti on pilkottu osiin. Kentän MoreSegmentsFollow ollessa tosi asiakas tietää että päätason viesti on pilkottu osiin ja seuraava osa on odotettavissa palvelimelta. Kun viestin kaikki osat on lähetetty, palvelin asettaa viimeisessä viestissä kentän MoreSegmentsFollow arvoksi epätosi ja seuraavassa päätason viestissä SubSqNum kentän arvoksi 0. \cite[s.~105--106]{IEC61850-7-2}
+
+Puskuroidun BRCB-instanssin puskurin täyttyessä viesteistä, esimerkiksi laiterajoitteesta johtuen. Asettaa RCB-instanssi seuraavaan viestiin kentän BufOvlf arvoksi tosi. Tästä kentästä asiakas voi päätellä onko tapahtunut tiedon menetystä. Kenttä sisällytetään viestiin vain jos RCB-instanssin OptFlds-attribuutissa on buffer-overflow bitti asetettu arvoksi tosi. \cite[s.~106--107]{IEC61850-7-2}
+
+Tärkein rakenne viestistä on ymmärtää kuinka liipaissut datajoukon alko viestiin on lisätty. Yksi viesti voi sisältää 1:stä n:ään kappaletta alkioita. Tämä arvo riippuu onko RCB-instanssilla käytössä puskurointiaika BufTm. Tämän ajan sisällä liipaiseet datajoukon alkiot sisällytetään samaan viestiin. Jokainen sisällytetty alkio voi sisältää kentät DataRef tai ReasonCode. Jokaiselle alkiolle pakollinen tieto on Value. Tärkeä tieto Value kentästä on ymmärtää, että se voi sisältää yhden tai monta data attribuutin arvoa. Tämä riippuu onko datajoukon liippaissut alkio FCD vai FCDA referenssi. Viittauksen ollessa FCDA-referenssi, joka sisältää vain yhden data-attribuutin. Sisältää Value-kenttä vain kyseisen data attribuutin arvon. Jos viittaus on FCD tai FCDA-referenssi, joka sisältää monta data attribuuttia. Sisältää Value-kenttä kaikki kyseiset arvot, vaikka niistä olisi liipaissut vain yksi attribuutti. Kuvassa X on esitetty malli kuinka sama liipaisu aiheuttaa eri viestin generoinnin kahteen eri RCB-instanssiin eri attribuuteilla Value-kentään. \cite[s.~107--108]{IEC61850-7-1}
+
+\begin{it}
+	Piirrä tähän kuva ottaen mallia \cite[s.~108]{IEC61850-7-2}. Ja selitä ylläolevaan viitaten kuinka Value kenttä sisältää eri arvoja FCD ja FCDA referenssistä riippuen.
+\end{it}
+
+Jokaisessa viestin datajoukon alkiossa oleva vaihtoehtoinen kenttä ReasonCode kertoo, miksi alkio on sisällytetty viestiin. Kentä kertoo mikä RCB-instanssin TrgOps-attribuutilla asetetuista liipaisimista liipaisi tapahtuman ja aiheutti alkion sisällytyksen viestiin. Kentän arvot ovat suoraan verrattavissa TrgOps-attribuutin arvoihin. \cite[s.~28--29]{IEC61850-7-2}
+
 
 \section{Abstraktimallin sovitus MMS-protokollaan}
 \begin{it}
