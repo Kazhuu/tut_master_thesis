@@ -207,7 +207,7 @@ BRCB-luokalla on erilaisia attribuutteja, joita asiakas voi kirjoittaa ja lukea 
 		RptID & Report identifier & \parbox[t]{7.5cm}{RCB-instanssin yksilöivä id lähetettyihin viesteihin, asiakas voi asettaa} \\
 		RptEna & Report enable & Varaa RCB:n ja aloittaa viestien lähetyksen \\
 		DatSet & Data set reference & Tarkailtavan datajoukon referenssi \\
-		ConfRev & Configuration revision & \parbox[t]{7.5cm}{Juokseva configuraation numerointi, muutos kasvattaa numerointia} \\
+		ConfRev & Configuration revision & \parbox[t]{7.5cm}{Juokseva konfiguraation numerointi, muutos kasvattaa numerointia} \\
 		OptFlds & Optional fields & Mitä optionaalisia kenttiä viestiin lisätään \\
 		BufTm & Buffer time & \parbox[t]{7.5cm}{Puskurointiaika, ennen viestin lähetystä. Tänä aikana tapahtuvat liipaisut yhdistetään samaan viestiin} \\
 		SqNum & Sequence number & Juokseva lähetetyn viestin numerointi \\
@@ -265,12 +265,15 @@ Kuinka attribuutit vaikuttavat viestin rakenteeseen ja mitä syitä arvon tai ar
 	Kirjoita tähän standardin määritämästä viestin rakenteesta ja mitä optionaaliset kentät siihen vaikuttavat. Lisäksi selitä ReasonForInclusion arvosta ja mitä vaihtoehtoja sille on \cite[s.~28--29]{IEC61850-7-2}.
 \end{it}
 
+Kuvassa \ref{fig:iec61850-report-format} on esitetty standardin määrittämän viestin rakenne ja kuinka optionaaliset kentät vaikuttavat viestin sisältöön \cite[s.~104]{IEC61850-7-2}.
+
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/iec61850-report-format.png}
-	\caption{Standardin määrittämä lähetetyn viestin formaatti \cite[s.~104]{IEC61850-7-2}.}
+	\caption{Standardin määrittämä lähetetyn viestin rakenne.}
 	\label{fig:iec61850-report-format}
 \end{figure}
 
+dvdfv
 
 \section{Abstraktimallin sovitus MMS-protokollaan}
 \begin{it}
