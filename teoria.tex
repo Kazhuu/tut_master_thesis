@@ -217,7 +217,7 @@ BRCB-luokalla on erilaisia attribuutteja, joita asiakas voi kirjoittaa ja lukea 
 		PurgeBuf & Purge buffer & Puhdistaa lähettämättömät viestit puskurista \\
 		EntryID & Entry identifier & \parbox[t]{7.5cm}{Puskurissa olevan viimeisimmän viestin id. Arvo 0 tarkoittaa tyhjää puskuria} \\
 		TimeOfEntry & Time of entry & \parbox[t]{7.5cm}{Puskurissa olevan viimeisimmän viestin aikaleima} \\
-		ResvTms & Reservation time & \parbox[t]{7.5cm}{Varausaika millisekunteina, arvo -1 tarkoittaa konfiguraation aikaista varausta ja 0 että ei varausta} \\
+		ResvTms & Reservation time & \parbox[t]{7.5cm}{Instanssin varausaika sekunteina kun yhteys katkeaa, arvo -1 tarkoittaa konfiguraation aikaista varausta ja 0 että ei varausta} \\
 		Owner & Owner & \parbox[t]{7.5cm}{Yksilöi varaavan asiakkaan, yleensä IP-osoite tai IED-laitteen nimi. Arvo 0 että RCB on vapaa tai ei omistajaa} \\
 		\hline
 	\end{tabular}
@@ -277,7 +277,15 @@ Tärkein rakenne viestistä on ymmärtää kuinka liipaissut datajoukon alko vie
 
 \begin{it}
 	Piirrä tähän kuva ottaen mallia \cite[s.~108]{IEC61850-7-2}. Ja selitä ylläolevaan viitaten kuinka Value kenttä sisältää eri arvoja FCD ja FCDA referenssistä riippuen.
+
+	Kirjoita tähän vielä RCB-instansin viittauksesta että siihen käytetään funktionaalista rajoitetta puskuroidulle BR ja ei puskuroidulle RP \cite[s.~75]{IEC61850-8-1}.
 \end{it}
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/iec61850-data-set-reporting.png}
+	\caption{BRCB-instanssi tarkkailee sille määritettyä datajoukoa ja generoi viestin tapahtuman liipaistessa.}
+	\label{fig:iec61850-data-set-reporting}
+\end{figure}
 
 Jokaisessa viestin datajoukon alkiossa oleva vaihtoehtoinen kenttä ReasonCode kertoo, miksi alkio on sisällytetty viestiin. Kentä kertoo mikä RCB-instanssin TrgOps-attribuutilla asetetuista liipaisimista liipaisi tapahtuman ja aiheutti alkion sisällytyksen viestiin. Kentän arvot ovat suoraan verrattavissa TrgOps-attribuutin arvoihin. \cite[s.~28--29]{IEC61850-7-2}
 
