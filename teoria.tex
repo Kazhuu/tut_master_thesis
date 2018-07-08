@@ -1,6 +1,6 @@
 \chapter{Teoria}
 \label{ch:teoria}
-Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan. Teoriaosuuden kokonaan lukemalla lukija ymmärtää, mitä IEC 61850 -standardi tarkoittaa sähköasemien kannalta ja mitä kaikkea se määrittää. Kuinka standardi määrittää viestien tilauksen, ja mitä malleja ja palveluita niihin liittyy. Työn lopullisessa toteutuksessa viestit prosessoitiin ja julkaistiin jonopalvelimelle myöhempää käyttöä varten. Teorian lopussa lukija perehdytetään jonopalvelimen toteukseen liityvään teoriaan. Teoriaosuus lukemalla lukija varmistaa että, ymmärtää ohjelmiston suunnittelu- ja toteutusvaiheessa käsitellyt käsitteet ja aiheet.
+Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan. Teoriaosuuden kokonaan lukemalla lukija ymmärtää, mitä IEC 61850 -standardi tarkoittaa sähköasemien kannalta ja mitä kaikkea se määrittää. Kuinka standardi määrittää viestien tilauksen, ja mitä malleja ja palveluita niihin liittyy. Työn lopullisessa toteutuksessa viestit prosessoitiin ja julkaistiin jonopalvelimelle muille ohjelmille saataviksi. Teorian lopussa lukija perehdytetään jonopalvelimen toteukseen liityvään teoriaan. Teoriaosuus lukemalla lukija varmistaa, että ymmärtää ohjelmiston suunnittelu- ja toteutusvaiheessa käsitellyt käsitteet ja aiheet.
 
 
 \section{IEC 61850 -standardi yhteiseen kommunikointiin}
@@ -8,11 +8,11 @@ Sähköasemilla nykypäivänä käytössä olevilla älykkäillä elektronisilla
 
 Maailmanlaajuisesti määritetty IEC 61850 -standardi määrittää sähköaseman sisäisen kommunikoinnin IED-laitteiden välillä. Standardi määrittää myös kommunikointisäännöt asemalta lähtevään liikenteeseen, kuten toiselle sähköasemalle ja ohjausasemalle \cite[s.~10]{IEC61850-7-1}. Ilman yhteisiä sääntöjä jokainen valmistaja olisi vapaa toteuttamaan omat säännöt ja protokollat kommunikointiin. Seurauksena tästä olisi, että laitteet eivät olisi keskenään yhteensopivia eri valmistajien välillä. Standardin on tarkoitus poistaa tämä ja määrittää yhteiset pelisäännöt kommunikoinnin toteuttamiseen \cite[s.~1]{Kaneda2008}.
 
-Todella tärkeä ja iso osa standardia on sähköaseman systeemin funktioiden abstrahointi mallien kautta. Standardi määrittää tarkasti kuinka abstraktit mallit määritellään aseman oikeista laiteista ja niiden ominaisuuksista. Tarkoituksena on tehdä mallit tekniikasta ja toteutuksesta riippumattomaksi. Tämän jälkeen abstrahoidut mallit mallinnetaan erikseen jollekin tekniikalle, joka sen mahdollistaa. Abtrahoituja malleja käytetään myös määrittämään sähköaseman IED-laitteiden ja aseman muiden osien konfigurointi. Abstrahoitujen mallien ansiosta standardi on pohjana tulevaisuuden laajennoksille ja tekniikoille. Uusien tekniikoiden ilmaantuessa, voidaan standardin lisätä  osa, joka  mallintaa abstraktimallit kyseiselle tekniikalle \cite[s.~2]{Brunner2008}. Teoriassa ensin käsitellään standardin asioita abstraktilla tasolla, liittämättä sitä mihinkään tekniseen toteutukseen. Vasta tämän jälkeen se liitetään erikseen tekniikkaan mitä työssä käytettiin.
+Todella tärkeä ja iso osa standardia on sähköaseman systeemin funktioiden abstrahointi mallien kautta. Standardi määrittää tarkasti kuinka abstraktit mallit määritellään aseman oikeista laiteista ja niiden ominaisuuksista. Tarkoituksena on tehdä mallit tekniikasta ja toteutuksesta riippumattomaksi. Tämän jälkeen abstrahoidut mallit mallinnetaan erikseen jollekin tekniikalle, joka sen mahdollistaa. Abtrahoituja malleja käytetään myös määrittämään sähköaseman IED-laitteiden ja aseman muiden osien konfigurointi. Abstrahoitujen mallien ansiosta standardi on pohjana tulevaisuuden laajennoksille ja tekniikoille. Uusien tekniikoiden ilmaantuessa, voidaan standardin lisätä  osa, joka  mallintaa abstraktimallit kyseiselle tekniikalle \cite[s.~2]{Brunner2008}. Tulevassa teoriassa ensin käsitellään standardin määrittämää abstraktia tasoa, liittämättä sitä mihinkään tekniseen toteutukseen. Vasta tämän jälkeen se liitetään erikseen tekniikkaan mitä työssä käytettiin. Abstraktien mallien ja niiden toimivuuden ymmärtäminen on lukijalle tärkeää työn toteutuksen ymmärtämiseksi.
 
 
 \subsection{Standardin eri osat ja niiden merkitykset}	
-IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, josta jokainen käsittelee omaa asiaa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot toisiinsa. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat tämän työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ole.
+IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, joista jokainen käsittelee omaa asiaansa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot toisiinsa. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat tämän työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ole. Kuvassa käytetään standardin osien englanninkielisiä otsikoita.
 
 \begin{table}[ht!]
 	\caption{IEC 61850 -standardin pääkohtien ja niiden alakohtien dokumentit.}
@@ -45,7 +45,7 @@ IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu 
 	\label{fig:iec61850-osat-ja-relaatiot}
 \end{figure}
 
-Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty XML (engl. Extensible Markup Language) -pohjainen kieli \cite[s.~7--8]{IEC61850-6}. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osat 7.1--7.4 käsittelevät standardin abstraktia mallia, niiden palveluita ja kuinka se rakentuu. Abstrahoidut palvelut standardissa lyhennetään ACSI (engl. Abstract Communication Service Interface), ja samaa lyhennettä käytetään tässä työssä \cite[s.~72]{IEC61850-7-1}. Osissa 8--9 ja niiden alakohdissa käsitellään abstraktimallien mallintamista erillisille protokollille, jolloin malleista tulee kyseisestä tekniikasta riippuvaisia. Abstrakteja malleja ja niiden mallintamista tekniikalle käsitellään teoriassa erikseen. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä, ja sitä ei teoriassa sen takia käsitellä. \cite[s.~15]{IEC61850-7-1}
+Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty XML (engl. Extensible Markup Language) -pohjainen kieli \cite[s.~7--8]{IEC61850-6}. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osat 7-1--7-4 käsittelevät standardin abstraktia mallia, niiden palveluita ja kuinka se rakentuu. Abstrahoidut palvelut ja mallit standardissa lyhennetään ACSI (engl. Abstract Communication Service Interface), ja samaa lyhennettä käytetään tässä työssä \cite[s.~72]{IEC61850-7-1}. Osissa 8--9 ja niiden alakohdissa käsitellään abstraktimallien mallintamista erillisille protokollille, jolloin malleista tulee kyseisestä tekniikasta riippuvaisia. Abstrakteja malleja ja niiden mallintamista tekniikalle käsitellään teoriassa erikseen. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä, ja sitä ei teoriassa sen tarkemmin käsitellä. \cite[s.~15]{IEC61850-7-1}
 
 
 \subsection{Abstraktimalli ja sen osat}
@@ -72,32 +72,87 @@ Standardin määrittämissä osien hierarkiassa looginen laite on ylin yksilö, 
 	\item ohjaus \cite[s.~25]{IEC61850-1}.
 \end{itemize}
 
-Tässä vaiheessa on hyvä mainita, että standardi pyrkii esittämään aseman funktioiden toiminnallisuutta hierarkialla ja oliopohjaisesti. Oliopohjaisesti siten, että standardi määrittää valmiita luokkia erilaisille loogisille noodeille. Esimerkiksi katkaisijalle on määritelty luokka nimeltä XCBR (circuit braker) \cite[s.~105--106]{IEC61850-7-4}. Ja mittaukselle MMXU (measurement) \cite[s.~57--58]{IEC61850-7-4}. Kun aseman toiminnallisuutta esitetään konfiguraatiossa ja IED-laitteella, luokia instanssioidaan tarpeen mukaan. Esimerkiksi kuvassa \ref{fig:iec61850-data-modeling} aikaisemmin mainitut loogisen noodin luokat on instansioitu nimellä XCBR1 ja MMXU1.
+Tässä vaiheessa on hyvä mainita, että standardi pyrkii esittämään aseman funktioiden toiminnallisuutta hierarkialla ja oliopohjaisesti. Oliopohjaisesti siten, että standardi määrittää valmiita luokkia erilaisille loogisille noodeille. Esimerkiksi katkaisijalle on määritelty luokka nimeltä XCBR (circuit braker) \cite[s.~105--106]{IEC61850-7-4}. Ja mittaukselle MMXU (measurement) \cite[s.~57--58]{IEC61850-7-4}. Kun aseman toiminnallisuutta esitetään konfiguraatiossa ja IED-laitteella, näitä luokia instanssioidaan tarpeen mukaan, jotta haluttu funktionaalisuus voidaan esittää. Esimerkiksi kuvassa \ref{fig:iec61850-data-modeling} aikaisemmin mainitu XCBR-luokka on instanssioitu nimellä XCBR1 olioksi, ja MMXU-luokka nimellä MMXU1.
 
-Standardi määrittää todella paljon erilaisia valmiita luokkia erilaisille loogisille noodeille valmiina käytettäväksi. Standardi myös määrittää laajenoksien mahdollisuudet luokkia käyttäen. Kaikki määritetyt luokat loogisille noodeille voi löytää standardin osasta 7-4.
+Standardi määrittää todella paljon erilaisia valmiita luokkia erilaisille loogisille noodeille valmiina käytettäväksi. Standardi myös määrittää laajennoksien mahdollisuudet luokkia käyttäen. Kaikki määritetyt luokat loogisille noodeille voi löytää standardin osasta 7-4.
 
 
 \subsection{Loogisen noodin luokkien ja attribuuttien rakentuminen}
 \begin{it}
 	Ennen kirjoittamista lue 7-2 osuus ja selvitä meta-luokat standardista ja mitä ne pohjalla määrittävät ennen CDC-luokkia. Sen jälkeen kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu.
 	Mallia loogisen noodin rakentamiseen voi myös ottaa \cite[s.~27]{IEC61850-7-1}.
+	
+	Tähän voi myös mainita ConstructedDataAttribute tyypeistä kuten Vector. Mutta ei tarvitse mennä sen syvemmin asiaan. Mainitsee että kaikki tiedot eri tyypeistä löytyy standardista. Pitää asian vain loogisen noodin ja CDC-luokkien tasolla.
+	
+	Jos haluaa mainita tässä myös LLN0 mitä tarkoittaa ja miten määritetään. Jokaisessa LD pitää olla vain yksi LLN0 instanssi \cite[s.~38]{IEC61850-7-2}.
 
 	Kuvat:
 	Kuva tai taulukko common data classin kentistä, logical noden kentistä mitä käytetään.
 	Kuva lopullisen loogisen noodin luokan attribuuteista.
 \end{it}
 
-IEC 61850 -standardissa määritettyjen luokkien rakennetta on lähestytty oliopohjaisesti. Kaikki luokat määritellään standardissa taulukoilla, joissa on standardoitu kentän nimi, tyyppi, selitys ja onko kenttä optionaalinen Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin luokista eri tarkoituksiin. 
+IEC 61850 -standardissa määritettyjen luokkien rakennetta on lähestytty oliopohjaisesti. Kaikki luokat määritellään standardissa taulukoilla, joissa on standardoitu kentän nimi, tyyppi, selitys ja onko kenttä optionaalinen. Tässä teoriaosuudessa esitetään esimerkkinä kuinka standardin pohjalta instansioitu looginen noodi ja sen alitason data objektit ja data attribuutit rakentuvat. Esimerkkinä käytetään aikaisemmin esitettyä kuvan \ref{fig:iec61850-data-modeling} mallia katkaisijan instanssia XCBR1. Seuraavassa esimerkissä hierarkiassa mennään ylhäältä alaspäin.
 
-Loogisen noodin luokan kentät, kuten Pos, rakentuvat standardin yleisistä luokista (engl. Common Data Class, lyhennetään CDC). CDC-luokat ovat luokkia jotka sisältävät data attribuutteja, ja ovat yhteisiä monelle eri määritykselle. CDC-luokkien määritykset löytyy standardin osasta 7-3.
+Kuvassa \ref{fig:iec61850-data-modeling} oleville fyysiselle- ja loogiselle laitteelle ei ole olemassa luokkia. Ainoastaan loogiselle laitteelle määritellään yksilöivä nimi, jotta sen alle määritettyjä olioita voidaan viitata. Fyysisen laitteen, eli IED:n yksilöi sille määritetty IP-osoite. Määrityksiä ja mitä luokkia instansioidaan IED-laitteeseen, määritellään sille annetussa XML-pohjaisessa konfiguraatiotiedostossa. Tämän standardi määrittää aikaisemmin mainittussa standardin osassa 6.
 
-Kuvassa \ref{fig:xcbr-class} on esitetty standardin XCBR-luokan määritys taulukkomuodossa. Taulukko määrittää luokan kentät ja niiden nimet. Taulukon viimeinen sarake M/O/C, kertoo onko kenttä pakollinen (Mandatory, M), optionaalinen (Optional, O), vai konditionaalinen (Conditional, C). Taulun
+Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin luokista eri tarkoituksiin. Sähköaseman suunnitteleva insinööri voi ottaa näistä mitä tahansa luokkia ja instansioida niitä IED-laitteeseen, jotta saadaan aikaiseksi haluttu toiminnalisuus. Taulukossa \ref{tab:iec61850-xcbr-class-definition} on esitetty XCBR-luokan määritys. Taulukosta voi nähdä luokan instannsille määritetyt kenttien nimet ja viimeinen sarake M/O/C, kertoo onko kenttä pakollinen (Mandatory, M), optionaalinen (Optional, O), vai konditionaalinen (Conditional, C).
 
-\begin{figure}
-	\includegraphics[width=1\textwidth]{pictures/xcbr-class.png}
+\begin{table}[ht!]
 	\caption{IEC 61850 -standardin katkaisijaluokan XCBR -määritys \cite[s.~106]{IEC61850-7-4}.}
-	\label{fig:xcbr-class}
-\end{figure}
+	\label{tab:iec61850-xcbr-class-definition}
+	\begin{tabular}{l | l | l | l}
+		\hline
+		\textbf{Data objektin nimi} & \textbf{Englanniksi} & \textbf{CDC-luokka} & M/O/C \\
+		\hline \hline
+		\multicolumn{4}{l}{\textbf{Selitys}} \\
+		\hline
+		EEName & External equipment name plate & DPL & O \\
+		\hline
+		\multicolumn{4}{l}{\textbf{Tila informaatio}} \\
+		\hline
+		EEHealt & External equipment health & ENS & O \\
+		LocKey & Local or remote key & SPS & O \\
+		Loc & Local control behaviour & SPS & M \\
+		OpCnt & Operation counter & INS & M \\
+		CBOpCap & Circuit breaker operating capability & ENS & O \\
+		POWCap & Point on wave switching capability & ENS & O \\
+		MaxOpCap & Circuit breaker operating capability & INS & O \\
+		Dsc & Discrepancy & SPS & O \\
+		\hline
+		\multicolumn{4}{l}{\textbf{Mitatut arvot}} \\
+		\hline
+		SumSwARs & Sum of switched amperes, resettable & BRC & O \\
+		\hline
+		\multicolumn{4}{l}{\textbf{Kontrollit}} \\
+		\hline
+		LocSta & Switching authority at station level & SPC & O \\
+		Pos & Switch position & DPC & M \\
+		BlkOpn & Block opening & SPC & M \\
+		BlkCls & Block closing & SPC & M \\
+		ChaMotEna & Charger motor enabled & SPC & O \\
+		\hline
+		\multicolumn{4}{l}{\textbf{Asetukset}} \\
+		\hline
+		CBTmms & Closing time of braker & ING & O \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Loogisen noodin luokan kentät, kuten Pos, rakentuvat standardin yleisistä luokista (engl. Common Data Class, lyhennetään CDC). CDC-luokat ovat luokkia jotka sisältävät data attribuutteja, ja ovat yhteisiä monelle eri loogisen noodin luokalle. CDC-luokkien määritykset löytyy standardin osasta 7-3. Taulukossa \ref{tab:iec61850-CDP-class-definition} on esitetty Pos-attribuutin, DPC-luokan määritys (enlg. controllable double point).
+
+\begin{table}[ht!]
+	\caption{IEC 61850 -standardin CDP-luokan määritys \cite[s.~44]{IEC61850-7-3}.}
+	\label{tab:iec61850-CDP-class-definition}
+	\begin{tabular}{l | l | l }
+		\hline
+		\textbf{Data attribuutin nimi} & \textbf{FC} & \textbf{Liipaisin} \\
+		\hline
+		\multicolumn{3}{l}{\textbf{}} \\
+		\hline
+		CBTmms & Closing time of braker & ING \\
+		\hline
+	\end{tabular}
+\end{table}
 
 
 \subsection{Attribuuttien viittaus hierarkiassa}
@@ -113,7 +168,7 @@ Viite muodostuu suoraan laitteessa olevien luokkien instanssien nimien ja hierar
 
 Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle, jotka ovat palvelin- ja looginen laite -näkyvyysalueet. Serverinäkyvyysalueelle viitataan ottamalla viittauksesta pois loogisen laitteen nimi. Eli kuvassa \ref{fig:iec61850-data-reference} viittaus tulisi muotoon "\emph{/Q0XCBR1.Pos.Mag}". Edellemainittua viittausta käytetään silloin, kun loogisen noodin instanssi sijaitsee loogisen laitteen ulkopuolella, mutta kuitenkin palvelimelta. Looginen laite -näkyvyysalueessa viittaus sisältää loogisen laitteen nimen ennen kauttaviivaa, toisin kuin palvelin-näkyvyysalueessa. Esimerkiksi kuvassa \ref{fig:iec61850-data-reference} oleva viittaus "\emph{OmaLD/Q0XCBR1.Pos.Mag}". Loogisen laitteen -näkyvyysaluetta käytetään silloin kun loogisen noodin instanssi sijaitsee loogisen laitteen sisällä sen hierarkiassa. Tässä työssä jatkossa käytetään pelkästään loogisen laitteen -näkyvyysaluetta. \cite[s.~183]{IEC61850-7-2}
 
-Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituusmääritykset ovat voimassa kummallekin edelle mainitulle näkyvyysalueen viittaukselle. Ennen kauttaviivaa saa olla maksimissaan 64 merkkiä. Tämän jälkeen kauttaviiva, josta seuraa uudelleen maksimissaan 64 merkkiä. Eli koko viittauksen maksimipituus saa olla enintään 129 merkkiä, kauttaviiva mukaan lukien. \cite[s.~183]{IEC61850-7-2}
+Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituusmääritykset ovat voimassa kummallekin edelle mainitulle näkyvyysalueen viittaukselle. Ennen kauttaviivaa saa olla maksimissaan 64 merkkiä. Tämän jälkeen kauttaviiva, josta seuraa uudelleen maksimissaan 64 merkkiä. Eli koko viittauksen maksimipituus saa olla enintään 129 merkkiä, kauttaviiva mukaan lukien. \cite[s.~24,183]{IEC61850-7-2}
 
 
 \subsection{Attribuuttien funktionaalinen rajoitus ja niistä muodostetut datajoukot}
@@ -123,7 +178,7 @@ Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituu
 	Kirjoita tähän myös funktionaalisista rajoitteista, mitä standardi määrittää data attribuuteille. Ja kuinka näitä käytetään FCD ja FCDA ryhmien muodostamiseen. Funktionaalisesta rajoitteesta ja FCD ja FCDA asioista on tietoa \cite[s.~54--55]{IEC61850-7-2}.
 \end{it}
 
-Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit. Luokat määrittää myös jokaiselle data attribuutille aikaisemmin mainittun funktionaalinen rajoitteen (engl. \emph{functional constraint}, lyhennetään \textbf{FC}). Funktionaalinen rajoite kuvaa attribuutin käyttötarkoitusta ja sitä mitä palveluita attribuuttiin voidaan käyttää. Funktionaalinen rajoite voidaan ymmärtää niin sanottuna suodattimena data objektin data attribuuteille. Esimerkiksi kaikki attribuutit, jotka liittyvät laitteen tilaan (engl. status), niillä on funktionaalinen rajoite ST (standardissa engl. status information). Standardi määrittää paljon erilaisia funktionaalisia rajoitteita, jotka ovat kaikki kahden ison kirjaimen yhdistelmiä. Taulukossa \ref{tab:iec61850-functional-constraints} on esitetty joitain tärkeimpiä funktionaalisia rajoitteita. Funktionaalinen rajoite myös määrittä onko attribuutti kirjoitettava tai luettava.
+Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit. Luokat määrittää myös jokaiselle data attribuutille aikaisemmin mainittun funktionaalisen rajoitteen (engl. \emph{functional constraint}, lyhennetään \textbf{FC}). Funktionaalinen rajoite kuvaa attribuutin käyttötarkoitusta ja sitä mitä palveluita attribuuttiin voidaan käyttää. Funktionaalinen rajoite voidaan ymmärtää niin sanottuna suodattimena data objektin data attribuuteille. Esimerkiksi kaikki attribuutit, jotka liittyvät laitteen tilaan (engl. status), niillä on funktionaalinen rajoite ST (standardissa engl. status information). Standardi määrittää paljon erilaisia funktionaalisia rajoitteita, jotka ovat kaikki kahden ison kirjaimen yhdistelmiä. Taulukossa \ref{tab:iec61850-functional-constraints} on esitetty joitain tärkeimpiä funktionaalisia rajoitteita. Funktionaalinen rajoite myös määrittä onko attribuutti kirjoitettava tai luettava.
 
 \begin{table}[ht!]
 	\caption{Osa IEC 61850 -standardin määrittämistä funktionaalisista rajoitteitteista (FC) \cite[s.~54]{IEC61850-7-2}.}
