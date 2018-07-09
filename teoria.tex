@@ -63,11 +63,11 @@ IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman toiminnalisuu
 	\label{fig:iec61850-data-modeling}
 \end{figure}
 
-Standardin määrittämissä osien hierarkiassa looginen laite on ylin yksilö, joka sisältää loogisia noodeja. Kuvassa \ref{fig:iec61850-data-modeling} IEDx ja LDx vastaavasti. Looginen noodi sisältää data objekteja (engl. data object, lyhennetään DO). Kuvassa \ref{fig:iec61850-data-modeling} loogiset noodit XCBR1 ja MMXU1. Ja data objektit Pos ja TotW. Data objekti sisältää data attribuutteja (engl. data attribute, lyhennetään DA). Kuvassa \ref{fig:iec61850-data-modeling} StVal, Mag, q ja t. Data objekti on tapa koostaa yhteen samaan asiaan liittyvät data attribuutit. Data attribuutit ovat laitteen konfiguroitavia ja luettavia datapisteitä. Data attribuutit kuvaavat esimerkiksi fyysisen laitteen tilaa ja mittausarvoja. Esimerkiksi mitattua jännitettä tai katkaisimen tilaa (kiinni tai auki). Standardin määrittämät data- objektit ja attribuutit voidaan lajitella 5 eri ryhmään:
+Standardin määrittämissä osien hierarkiassa looginen laite on ylin yksilö, joka sisältää loogisia noodeja. Kuvassa \ref{fig:iec61850-data-modeling} IEDx ja LDx vastaavasti. Looginen noodi sisältää data objekteja (engl. data object, lyhennetään DO). Kuvassa \ref{fig:iec61850-data-modeling} loogiset noodit XCBR1 ja MMXU1. Ja data objektit Pos ja TotW. Data objekti sisältää data attribuutteja (engl. data attribute, lyhennetään DA). Kuvassa \ref{fig:iec61850-data-modeling} Mag, StVal, q ja t. Data objekti on tapa koostaa yhteen samaan asiaan liittyvät data attribuutit. Data attribuutit ovat laitteen konfiguroitavia ja luettavia datapisteitä. Data attribuutit kuvaavat esimerkiksi fyysisen laitteen tilaa ja mittausarvoja. Esimerkiksi mitattua jännitettä tai katkaisimen tilaa (kiinni tai auki). Standardin määrittämät data- objektit ja attribuutit voidaan lajitella 5 eri ryhmään:
 \begin{itemize}
 	\item yleinen loogisen noodin informaatio,
 	\item tila informaatio,
-	\item asetukset, 
+	\item asetukset,
 	\item mitatut arvot ja
 	\item ohjaus \cite[s.~25]{IEC61850-1}.
 \end{itemize}
@@ -95,7 +95,7 @@ IEC 61850 -standardissa määritettyjen luokkien rakennetta on lähestytty oliop
 
 Kuvassa \ref{fig:iec61850-data-modeling} oleville fyysiselle- ja loogiselle laitteelle ei ole olemassa luokkia. Ainoastaan loogiselle laitteelle määritellään yksilöivä nimi, jotta sen alle määritettyjä olioita voidaan viitata. Fyysisen laitteen, eli IED:n yksilöi sille määritetty IP-osoite. Määrityksiä ja mitä luokkia instansioidaan IED-laitteeseen, määritellään sille annetussa XML-pohjaisessa konfiguraatiotiedostossa. Tämän standardi määrittää aikaisemmin mainittussa standardin osassa 6.
 
-Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin luokista eri tarkoituksiin. Sähköaseman suunnitteleva insinööri voi ottaa näistä mitä tahansa luokkia ja instansioida niitä IED-laitteeseen, jotta saadaan aikaiseksi haluttu toiminnalisuus. Taulukossa \ref{tab:iec61850-xcbr-class-definition} on esitetty XCBR-luokan määritys. Taulukosta voi nähdä luokan instannsille määritetyt kenttien nimet ja viimeinen sarake M/O/C, kertoo onko kenttä pakollinen (Mandatory, M), optionaalinen (Optional, O), vai konditionaalinen (Conditional, C).
+Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin luokista eri tarkoituksiin. Sähköaseman suunnitteleva insinööri voi ottaa näistä mitä tahansa luokkia ja instansioida niitä IED-laitteeseen, jotta saadaan aikaiseksi haluttu toiminnallisuus. Taulukossa \ref{tab:iec61850-xcbr-class-definition} on esitetty XCBR-luokan määritys. Taulukosta voi nähdä luokan instannsille määritetyt kenttien nimet ja viimeinen sarake M/O/C, kertoo onko kenttä pakollinen (Mandatory, M), optionaalinen (Optional, O), vai konditionaalinen (Conditional, C).
 
 \begin{table}[ht!]
 	\caption{IEC 61850 -standardin katkaisijaluokan XCBR -määritys \cite[s.~106]{IEC61850-7-4}.}
@@ -138,18 +138,47 @@ Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin 
 	\end{tabular}
 \end{table}
 
-Loogisen noodin luokan kentät, kuten Pos, rakentuvat standardin yleisistä luokista (engl. Common Data Class, lyhennetään CDC). CDC-luokat ovat luokkia jotka sisältävät data attribuutteja, ja ovat yhteisiä monelle eri loogisen noodin luokalle. CDC-luokkien määritykset löytyy standardin osasta 7-3. Taulukossa \ref{tab:iec61850-CDP-class-definition} on esitetty Pos-attribuutin, DPC-luokan määritys (enlg. controllable double point).
+Loogisen noodin luokan kentät, kuten Pos, rakentuvat standardin yleisistä luokista (engl. Common Data Class, lyhennetään CDC). CDC-luokat ovat luokkia jotka sisältävät data attribuutteja, ja ovat yhteisiä monelle eri loogisen noodin luokalle. CDC-luokkien määritykset löytyy standardin osasta 7-3. Taulukossa \ref{tab:iec61850-CDP-class-definition} on esitetty XCBR-luokan Pos-attribuutin, DPC-luokan määritys (engl. controllable double point) \cite[s.~44]{IEC61850-7-3}.
 
 \begin{table}[ht!]
-	\caption{IEC 61850 -standardin CDP-luokan määritys \cite[s.~44]{IEC61850-7-3}.}
+	\caption{IEC 61850 -standardin DPC-luokan määritys \cite[s.~44]{IEC61850-7-3}.}
 	\label{tab:iec61850-CDP-class-definition}
-	\begin{tabular}{l | l | l }
+	\begin{tabular}{l | l | l | l}
 		\hline
-		\textbf{Data attribuutin nimi} & \textbf{FC} & \textbf{Liipaisin} \\
+		\textbf{Data attribuutin nimi} & \textbf{Tyyppi} & \textbf{FC} & \textbf{Liipaisin (TrgOp)} \\
 		\hline
-		\multicolumn{3}{l}{\textbf{}} \\
+		\multicolumn{4}{l}{\textbf{Tila ja ohjaus}} \\
 		\hline
-		CBTmms & Closing time of braker & ING \\
+		origin & Originator & ST &  \\
+		ctlNum & INT8U & ST &  \\
+		stVal & CODEC ENUM & ST & dchg \\
+		q & Quality & ST & qchg \\
+		t & TimeStamp & ST &  \\
+		stSeld & BOOLEAN & ST & dchg \\
+		opRcvd & BOOLEAN & OR & dchg \\
+		opOk & BOOLEAN & OR & dchg \\
+		tOpOk & TimeStamp & OR &  \\
+		\hline
+		\multicolumn{4}{l}{\textbf{Vaihtoehtoinen ja estäminen}} \\
+		\hline
+		subEna & BOOLEAN & SV &  \\
+		subVal & CODED ENUM & SV &  \\
+		subQ & Quality & SV &  \\
+		subID & VISIBLE STRING64 & SV &  \\
+		blkEna & BOOLEAN & BL &  \\
+		\hline
+		\multicolumn{4}{l}{\textbf{Asetukset, selitys ja laajennos}} \\
+		\hline
+		pulseConfig & PulseConfig & CF & dchg \\
+		ctlModel & CtlModels & CF & dchg \\
+		sboTimeOut & INT32U & CF & dchg \\
+		sboClass & SboClassses & CF & dchg \\
+		operTimeout & INT32U & CF & dchg \\
+		d & VISIBLE STRING255 & DC &  \\
+		dU & UNICODE STRING255 & DC &  \\
+		cdcNs & VISIBLE STRING255 & EX &  \\
+		cdcName & VISIBLE STRING255 & EX &  \\
+		dataNs & VISIBLE STRING255 & EX &  \\
 		\hline
 	\end{tabular}
 \end{table}
