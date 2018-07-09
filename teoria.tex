@@ -49,12 +49,6 @@ Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen va
 
 
 \subsection{Abstraktimalli ja sen osat}
-\begin{it}
-	Kirjoita tähän aseman funktioiden, fyysisen laitteiden ja loogisten noodien suhteesta toisiinsa. Kuva myös piirrä ja mallia ja tietoa tähän ota \cite[s.~19]{IEC61850-1}. Tälle tarve jos teksti ei ole muuten tarpeeksi ymmärrettävä.
-
-	Piirrä tähän itse esimerkkikuva kuinka standardi mallintaa fyysisen laitteen loogisiksi laitteiksi. Ota mallia standarin 7-1 kuvasta sivulla 17.
-\end{it}
-
 IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman toiminnalisuuden funktiot pieniksi yksilöiksi. Pilkotut yksilöt abstrahoidaan ja pidetään sopivan kokoisina, jotta ne voidaan konfiguroida esitettäväksi erillisellä IED-laiteella. Yksi aseman funktio voidaan hajauttaa monelle eri IED-laitteelle. Esimerkiksi linjan suojaukseen liittyvät komponentit, katkaisija (engl. circuit braker) ja ylivirtasuoja (engl. overcurrent protection) omilla IED-laitteillaan. Toimiakseen, laitteiden täytyy vaihtaa informaatiota keskenään \cite[s.~31]{IEC61850-7-1}. Näitä pilkottuja yksilöitä kutsutaan standardissa nimellä looginen noodi (engl. logical node ja lyhennetään LN). Loogiset noodit siis mallinetaan jostakin systeemin käsiteellisestä osasta. Loogisia noodeja käytetään rakentamaan looginen laite (engl. logic device, lyhennetään LD). Looginen laite on aseman ohjausyksikkö ja jokin fyysisen laitteen osa, joka toteuttaa loogisten noodien ohjauksen yhtäaikaa. Ylläolevasta esimerkistä looginen laite olisi aseman linjan suojaukseen liittyvät osat sisältä laite. Looginen laite siis vastaa aseman fyysistä laitetta, joka on kytketty aseman verkkoon ja sillä on IP-osoite. Yksi aseman fyysinen laite voi hoitaa monen loogisen laitteen funktionaalisuuden. Kuvassa \ref{fig:iec61850-data-modeling} on esitetty standardin mallin eri osien hierarkia ja kuinka ne rakentuvat \cite[s.~2]{Camachi2017} \cite[s.~24]{IEC61850-1}.
 
 \begin{figure}
@@ -78,19 +72,6 @@ Standardi määrittää todella paljon erilaisia valmiita luokkia erilaisille lo
 
 
 \subsection{Loogisen noodin luokkien ja attribuuttien rakentuminen}
-\begin{it}
-	Ennen kirjoittamista lue 7-2 osuus ja selvitä meta-luokat standardista ja mitä ne pohjalla määrittävät ennen CDC-luokkia. Sen jälkeen kirjoita tähän kuinka standardin loogiset noodit rakentuvat. Kerro mitä common data classes sisältää ja kuinka ne määrittää data monessa paikassa käytetyt data attribuutit. Tämän jälkeen kuinka loogisen noodin luokat rakennetaan käyttämällä CDC määrityksiä \cite[s.~26]{IEC61850-1}. Ota tähän myös kuvia taulukosta ja rakenna esimerkkinä yksi looginen noodi niitä käyttäen. Tätä samaa mallia voi myöhemmin käyttää määrittämään kuinka referensssipolut luokkien nimillä rakentuu.
-	Mallia loogisen noodin rakentamiseen voi myös ottaa \cite[s.~27]{IEC61850-7-1}.
-	
-	Tähän voi myös mainita ConstructedDataAttribute tyypeistä kuten Vector. Mutta ei tarvitse mennä sen syvemmin asiaan. Mainitsee että kaikki tiedot eri tyypeistä löytyy standardista. Pitää asian vain loogisen noodin ja CDC-luokkien tasolla.
-	
-	Jos haluaa mainita tässä myös LLN0 mitä tarkoittaa ja miten määritetään. Jokaisessa LD pitää olla vain yksi LLN0 instanssi \cite[s.~38]{IEC61850-7-2}.
-
-	Kuvat:
-	Kuva tai taulukko common data classin kentistä, logical noden kentistä mitä käytetään.
-	Kuva lopullisen loogisen noodin luokan attribuuteista.
-\end{it}
-
 IEC 61850 -standardissa määritettyjen luokkien rakennetta on lähestytty oliopohjaisesti. Kaikki luokat määritellään standardissa taulukoilla, joissa on standardoitu kentän nimi, tyyppi, selitys ja onko kenttä optionaalinen. Tässä teoriaosuudessa esitetään esimerkkinä kuinka standardin pohjalta instansioitu looginen noodi ja sen alitason data objektit ja data attribuutit rakentuvat. Esimerkkinä käytetään aikaisemmin esitettyä kuvan \ref{fig:iec61850-data-modeling} mallia katkaisijan instanssia XCBR1. Seuraavassa esimerkissä hierarkiassa mennään ylhäältä alaspäin.
 
 Kuvassa \ref{fig:iec61850-data-modeling} oleville fyysiselle- ja loogiselle laitteelle ei ole olemassa luokkia. Ainoastaan loogiselle laitteelle määritellään yksilöivä nimi, jotta sen alle määritettyjä olioita voidaan viitata. Fyysisen laitteen, eli IED:n yksilöi sille määritetty IP-osoite. Määrityksiä ja mitä luokkia instansioidaan IED-laitteeseen, määritellään sille annetussa XML-pohjaisessa konfiguraatiotiedostossa. Tämän standardi määrittää aikaisemmin mainittussa standardin osassa 6.
@@ -102,7 +83,7 @@ Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin 
 	\label{tab:iec61850-xcbr-class-definition}
 	\begin{tabular}{l | l | l | l}
 		\hline
-		\textbf{Data objektin nimi} & \textbf{Englanniksi} & \textbf{CDC-luokka} & M/O/C \\
+		\textbf{Data objektin nimi} & \textbf{Englanniksi} & \textbf{CDC-luokka} & \textbf{M/O/C} \\
 		\hline \hline
 		\multicolumn{4}{l}{\textbf{Selitys}} \\
 		\hline
@@ -138,11 +119,11 @@ Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin 
 	\end{tabular}
 \end{table}
 
-Loogisen noodin luokan kentät, kuten Pos, rakentuvat standardin yleisistä luokista (engl. Common Data Class, lyhennetään CDC). CDC-luokat ovat luokkia jotka sisältävät data attribuutteja, ja ovat yhteisiä monelle eri loogisen noodin luokalle. CDC-luokkien määritykset löytyy standardin osasta 7-3. Taulukossa \ref{tab:iec61850-CDP-class-definition} on esitetty XCBR-luokan Pos-attribuutin, DPC-luokan määritys (engl. controllable double point) \cite[s.~44]{IEC61850-7-3}.
+Loogisen noodin luokan kentät, kuten Pos, rakentuvat standardin yleisistä luokista (engl. Common Data Class, lyhennetään CDC). CDC-luokat ovat luokkia jotka sisältävät data attribuutteja, ja ovat yhteisiä monelle eri loogisen noodin luokalle. CDC-luokkien määritykset löytyy standardin osasta 7-3 \cite[s.~26]{IEC61850-1}. Taulukossa \ref{tab:iec61850-DPC-class-definition} on esitetty XCBR-luokan Pos-attribuutin, DPC-luokan määritys (engl. controllable double point) \cite[s.~44]{IEC61850-7-3}.
 
 \begin{table}[ht!]
 	\caption{IEC 61850 -standardin DPC-luokan määritys \cite[s.~44]{IEC61850-7-3}.}
-	\label{tab:iec61850-CDP-class-definition}
+	\label{tab:iec61850-DPC-class-definition}
 	\begin{tabular}{l | l | l | l}
 		\hline
 		\textbf{Data attribuutin nimi} & \textbf{Tyyppi} & \textbf{FC} & \textbf{Liipaisin (TrgOp)} \\
@@ -183,6 +164,14 @@ Loogisen noodin luokan kentät, kuten Pos, rakentuvat standardin yleisistä luok
 	\end{tabular}
 \end{table}
 
+Taulukossa \ref{tab:iec61850-DPC-class-definition} voi nähdä data attribuutit stVal, q ja t. Jotka voi myös nähdä kuvassa \ref{fig:iec61850-data-modeling} XCBR-luokan instanssin XCBR1 alla. Tällä periaatteella standardi rakentaa kaikki muutkin mallit hierarkisesti toisiinsa ja sen avulla voidaan selvittää mitä data objekteja looginen noodi sisältää, mitä data attribuutteja mikäkin data objekti sisältää. Taulukossa \ref{tab:iec61850-DPC-class-definition} on esitetty myös attribuuttien tyypit. Jotkin näistä ovat hyvin kuvaavia kuten INT8U tarkoittaa 8-bitin pituista etumerkitöntä kokonaislukua (engl. unsigned interger). Standardi määrittää myös erilaisia rakennettuja attribuuttiluokkia (enlg. constructed attribute classes), joille on määritetty vielä ali data attribuutteja. Hyvä esimerkki taulukosta \ref{tab:iec61850-DPC-class-definition} on data attribuutti q, jonka tyyppi on Quality. Standardin mukaan tällä tyypillä on vielä aliattribuutteina mm. validity, detailQual jne \cite[s.~11]{IEC61850-7-3}. Tyyppejä on paljon enemmänkin ja niitä ei käsitellä sen enempää. Lukija voi tarvittaessa tarkistaa eri tyypit helposti standardista.
+
+Joillakin CDC-luokkien attribuutteina voi olla vielä muita CDC-luokkia. Tällöin standardissa puhutaan yleisistä aliluokista (engl. sub data object). Esimerkkinä tästä on CDC-luokka WYE, jolla on attribuuttina phsA niminen kenttä, joka on tyyppiä CMV. CMV on CDC-luokka, jolla on taas omat data attribuuttinsa. \cite[s.~51,61]{IEC61850-7-2} \cite[s.~36]{IEC61850-7-3}
+
+Taulukossa \ref{tab:iec61850-DPC-class-definition} on myös määritetty funktionaaliset rajoitteet (engl. Functional constraint, lyhennetään FC), sekä mahdolliset liipaiseimet (engl. trigger options, lyhennetään TrgOp)jokaiselle data attribuutille. Nämä kaksi asiaa käsitellään teoriassa tuonnempana.
+
+Kaikkien yllämainittujen luokkien kenttien määritysten lisäksi standardi määrittää palveluita jokaiselle luokkatyypille erikseen. Määritetyt palvelut ovat abstrakteja ja ne mallinetaan tekniikalle erillisellä standardin osalla. Esimerkkinä palveluista kaikille data objekteille on mm. GetDataValues, joka palauttaa kaikki data objektin attribuuttien arvot. SetDataValues kirjoittaa annetut data attribuuttien arvot. Ja GetDataDirectory palauttaa kaikki data attribuuttien viitteet kyseisessä data objekstissa. Näitä ja muita abstrahoituja malleja viitataan standardissa lyhentellää ACSI (engl. abstract communication service interface) \cite[s.~15,45--46]{IEC61850-7-2} \cite[s.~26]{IEC61850-7-1}.
+
 
 \subsection{Attribuuttien viittaus hierarkiassa}
 IEC 61850 -standardi määrittää tarkasti kuinka hierarkian eri kohtia viitataan IED-laitteessa. Viitteitä käytetään kun IED-laitteelle tehdään standardin osan 7-2 ACSI-määritysten mukaisia palvelukutsuja. Esimerkiksi jonkin attribuutin arvon asettaminen (SetDataValues) tai lukeminen (GetDataValues). Viitteen avulla IED-laite tietää, mihin loogisen noodin instanssiin ja sen data attribuuttiin palvelypyyntö kohdennetaan. Kuvassa \ref{fig:iec61850-data-reference} on esitetty kuinka standardi määrittää viitteen muodostumisen loogisesta laitteesta data attribuuttiin asti \cite[s.~93]{IEC61850-7-1}.
@@ -193,21 +182,15 @@ IEC 61850 -standardi määrittää tarkasti kuinka hierarkian eri kohtia viitata
 	\label{fig:iec61850-data-reference}
 \end{figure}
 
-Viite muodostuu suoraan laitteessa olevien luokkien instanssien nimien ja hierarkian mukaan. Loogisen laitteen (LD) ja loogisen noodin (LN) erottimena käytetään kauttaviivaa, ja muiden osien erottimena käytetään pistettä. Loogisella laitteella voi olla käyttäjän oma määrittämä nimi, mutta kuitenkin alle 65 merkkiä. Loogisen laitteen nimeen standardi ei puutu. Loogisen noodin instanssin nimi koostuu alku-, keski- ja loppuosasta. Alkuosan käyttäjä voi itse päättää, kuvassa \ref{fig:iec61850-data-reference} "\emph{Q0}". Voi sisältää numeroita ja kirjaimia, mutta täytyy alkaa kirjaimella. Keskiosan täytyy olla loogisen luokan nimi, josta instanssi on tehty. Tässä tapauksessa jo aikaisemmin mainittu katkaisijan luokka, XCBR. Tämä osuus on aina 4 kirjainta pitkä ja on aina isoilla kirjaimilla. Loppuosa on instanssin numeerinen arvo, joka ei sisällä kirjaimia. Loppuosan käyttäjä voi itse päättää, jonka ei tarvitse välttämättä olla juokseva numero. Alku- ja loppuosaan muotoon standardi ei anna määrityksiä. Alku- ja loppuosan yhteenlaskettu merkkien pituus täytyy olla alle 13 merkkiä. Data objektien (DO) ja attribuuttien (DA) niminä käytetään standardin määrittämiä nimiä, jotka määritetään niitä vastaavissa luokissa osissa 7-3 ja 7-4. Riippuen viittauksesta, näistä muodostuu loogisen noodin referenssi, data objektin referenssi ja data attribuutin referenssi. \cite[s.~181--182]{IEC61850-7-2} \cite[s.~93--95]{IEC61850-7-1}
+Viite muodostuu suoraan laitteessa olevien luokkien instanssien nimien ja hierarkian mukaan. Loogisen laitteen (LD) ja loogisen noodin (LN) erottimena käytetään kauttaviivaa, ja muiden osien erottimena käytetään pistettä. Loogisella laitteella voi olla käyttäjän oma määrittämä nimi, mutta kuitenkin alle 65 merkkiä. Loogisen laitteen nimeen standardi ei puutu. Loogisen noodin instanssin nimi koostuu alku-, keski- ja loppuosasta. Alkuosan käyttäjä voi itse päättää, kuvassa \ref{fig:iec61850-data-reference} "\emph{Q0}". Voi sisältää numeroita ja kirjaimia, mutta täytyy alkaa kirjaimella. Keskiosan täytyy olla loogisen luokan nimi, josta instanssi on tehty. Tässä tapauksessa jo aikaisemmin mainittu katkaisijan luokka, XCBR. Tämä osuus on aina 4 kirjainta pitkä ja on aina isoilla kirjaimilla. Loppuosa on instanssin numeerinen arvo, joka ei sisällä kirjaimia. Loppuosan käyttäjä voi itse päättää, jonka ei tarvitse välttämättä olla juokseva numero. Alku- ja loppuosaan muotoon standardi ei anna määrityksiä. Alku- ja loppuosan yhteenlaskettu merkkien pituus täytyy olla alle 13 merkkiä. Data objektien (DO) ja attribuuttien (DA) niminä käytetään standardin määrittämiä nimiä, jotka määritetään niitä vastaavissa luokissa osissa 7-3 ja 7-4 (katso taulukkot \ref{tab:iec61850-xcbr-class-definition} ja \ref{tab:iec61850-DPC-class-definition}). Riippuen viittauksesta, näistä muodostuu loogisen noodin referenssi, data objektin referenssi ja data attribuutin referenssi. \cite[s.~181--182]{IEC61850-7-2} \cite[s.~93--95]{IEC61850-7-1}
 
-Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle, jotka ovat palvelin- ja looginen laite -näkyvyysalueet. Serverinäkyvyysalueelle viitataan ottamalla viittauksesta pois loogisen laitteen nimi. Eli kuvassa \ref{fig:iec61850-data-reference} viittaus tulisi muotoon "\emph{/Q0XCBR1.Pos.Mag}". Edellemainittua viittausta käytetään silloin, kun loogisen noodin instanssi sijaitsee loogisen laitteen ulkopuolella, mutta kuitenkin palvelimelta. Looginen laite -näkyvyysalueessa viittaus sisältää loogisen laitteen nimen ennen kauttaviivaa, toisin kuin palvelin-näkyvyysalueessa. Esimerkiksi kuvassa \ref{fig:iec61850-data-reference} oleva viittaus "\emph{OmaLD/Q0XCBR1.Pos.Mag}". Loogisen laitteen -näkyvyysaluetta käytetään silloin kun loogisen noodin instanssi sijaitsee loogisen laitteen sisällä sen hierarkiassa. Tässä työssä jatkossa käytetään pelkästään loogisen laitteen -näkyvyysaluetta. \cite[s.~183]{IEC61850-7-2}
+Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle, jotka ovat palvelin- ja looginen laite -näkyvyysalueet. Serverinäkyvyysalueelle viitataan ottamalla viittauksesta pois loogisen laitteen nimi. Eli kuvassa \ref{fig:iec61850-data-reference} viittaus tulisi muotoon "\emph{/Q0XCBR1.Pos.StVal}". Edellemainittua viittausta käytetään silloin, kun loogisen noodin instanssi sijaitsee loogisen laitteen ulkopuolella, mutta kuitenkin palvelimella. Looginen laite -näkyvyysalueessa viittaus sisältää loogisen laitteen nimen ennen kauttaviivaa, toisin kuin palvelin-näkyvyysalueessa. Esimerkiksi kuvassa \ref{fig:iec61850-data-reference} oleva viittaus "\emph{OmaLD/Q0XCBR1.Pos.StVal}". Loogisen laitteen -näkyvyysaluetta käytetään silloin kun loogisen noodin instanssi sijaitsee loogisen laitteen sisällä sen hierarkiassa. Tässä työssä jatkossa käytetään pelkästään loogisen laitteen -näkyvyysaluetta. \cite[s.~183]{IEC61850-7-2}
 
 Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituusmääritykset ovat voimassa kummallekin edelle mainitulle näkyvyysalueen viittaukselle. Ennen kauttaviivaa saa olla maksimissaan 64 merkkiä. Tämän jälkeen kauttaviiva, josta seuraa uudelleen maksimissaan 64 merkkiä. Eli koko viittauksen maksimipituus saa olla enintään 129 merkkiä, kauttaviiva mukaan lukien. \cite[s.~24,183]{IEC61850-7-2}
 
 
 \subsection{Attribuuttien funktionaalinen rajoitus ja niistä muodostetut datajoukot}
-\begin{it}
-	Kirjoita tähän kuinka standardin mukaisia data settejä muodostetaan ja mitä ne ovat. Kirjoita tähän myös FCD ja FCDA lyhenteistä ja mitä ne tarkoittavat. Anna esimerkki kuinka data setit muodostuu vaikka kuvalla. Näitä tietoja tarvitaan kun käsitellään raportointilohkoja ja niiden tarkailevia data attribuutteja.
-	
-	Kirjoita tähän myös funktionaalisista rajoitteista, mitä standardi määrittää data attribuuteille. Ja kuinka näitä käytetään FCD ja FCDA ryhmien muodostamiseen. Funktionaalisesta rajoitteesta ja FCD ja FCDA asioista on tietoa \cite[s.~54--55]{IEC61850-7-2}.
-\end{it}
-
-Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit. Luokat määrittää myös jokaiselle data attribuutille aikaisemmin mainittun funktionaalisen rajoitteen (engl. \emph{functional constraint}, lyhennetään \textbf{FC}). Funktionaalinen rajoite kuvaa attribuutin käyttötarkoitusta ja sitä mitä palveluita attribuuttiin voidaan käyttää. Funktionaalinen rajoite voidaan ymmärtää niin sanottuna suodattimena data objektin data attribuuteille. Esimerkiksi kaikki attribuutit, jotka liittyvät laitteen tilaan (engl. status), niillä on funktionaalinen rajoite ST (standardissa engl. status information). Standardi määrittää paljon erilaisia funktionaalisia rajoitteita, jotka ovat kaikki kahden ison kirjaimen yhdistelmiä. Taulukossa \ref{tab:iec61850-functional-constraints} on esitetty joitain tärkeimpiä funktionaalisia rajoitteita. Funktionaalinen rajoite myös määrittä onko attribuutti kirjoitettava tai luettava.
+Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit. Luokat määrittää myös jokaiselle data attribuutille aikaisemmin taulukossa \ref{tab:iec61850-DPC-class-definition} mainitun funktionaalisen rajoitteen (engl. \emph{functional constraint}, lyhennetään FC). Funktionaalinen rajoite kuvaa attribuutin käyttötarkoitusta ja sitä mitä palveluita attribuuttiin voidaan käyttää. Funktionaalinen rajoite voidaan ymmärtää niin sanottuna suodattimena data objektin data attribuuteille. Esimerkiksi kaikki attribuutit, jotka liittyvät laitteen tilaan (engl. status), niillä on funktionaalinen rajoite ST (standardissa engl. status information). Standardi määrittää paljon erilaisia funktionaalisia rajoitteita, jotka ovat kaikki kahden ison kirjaimen yhdistelmiä. Taulukossa \ref{tab:iec61850-functional-constraints} on esitetty joitain tärkeimpiä funktionaalisia rajoitteita. Funktionaalinen rajoite myös määrittä onko attribuutti kirjoitettava tai luettava.
 
 \begin{table}[ht!]
 	\caption{Osa IEC 61850 -standardin määrittämistä funktionaalisista rajoitteitteista (FC) \cite[s.~54]{IEC61850-7-2}.}
@@ -224,37 +207,21 @@ Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit.
 	\end{tabular}
 \end{table}
 
-Funktionaalisia rajoitteita käytetään, kun IED-laitteeseen tehdään ACSI-palveluiden mukaisia kutsuja. Esimerkiksi jos halutaan lukea kuvassa \ref{fig:iec61850-data-reference} OmaLD/Q0XCBR1.Pos polussa olevan data objektin kaikki tilan arvot yhdellä kutsulla, käytettäisiin ST funktionaalista rajoitetta taulukosta \ref{tab:iec61850-functional-constraints}. Kutsu jättää lukematta kaikki muut data objektin attribuutit.
+Funktionaalisia rajoitteita käytetään, kun IED-laitteeseen tehdään ACSI-palveluiden mukaisia kutsuja. Esimerkiksi jos halutaan lukea kuvassa \ref{fig:iec61850-data-reference} OmaLD/Q0XCBR1.Pos polussa olevan data objektin kaikki tilan arvot yhdellä kutsulla, käytettäisiin funktionaalista rajoitetta ST taulukosta \ref{tab:iec61850-functional-constraints}. Kutsu jättää lukematta kaikki muut data objektin attribuutit, paitsi ne joilla funktionaalinen rajoite on ST. Esimerkkinä taulukon \ref{tab:iec61850-DPC-class-definition} mukaan tulisi vain kentät origin, ctlNum, stVal, q, t, ja stSeld, ja näiden kenttien mahdolliset ala attribuutit.
 
-Funktionaalista rajoitetta voidaan käyttää suodattamaan data attribuutteja data objektista ja niiden ali data objekteista. Toisin sanoen hierarkiassa referenssipisteestä alaspäin oleviin kentiin. Standardi määrittä lyhtenteen FCD (engl. Functional Constrained Data), jota käytetään silloin kun hierarkian ensimmäistä data objektia suodatetaan funktionaalisella rajoitteella. Aikaisemmin mainittu OmaLD/Q0XCBR1.Pos funktionaalisella rajoitteella ST, on FCD-suodatus. Tässä Pos on ensimmäinen data objekti Q0XCBR1 loogisen noodin jälkeen.
+Funktionaalista rajoitetta voidaan käyttää suodattamaan data attribuutteja data objektista ja niiden ali data objekteista. Toisin sanoen hierarkiassa referenssipisteestä alaspäin oleviin kentiin. Standardi määrittä lyhtenteen FCD (engl. functional constrained data), jota käytetään silloin kun hierarkian ensimmäistä data objektia suodatetaan funktionaalisella rajoitteella, ei ali data objekteja. Aikaisemmin mainittu OmaLD/Q0XCBR1.Pos funktionaalisella rajoitteella ST, on FCD-suodatus. Tässä Pos on ensimmäinen data objekti Q0XCBR1 loogisen noodin jälkeen. Tämän lisäksi määritetään lyhenne FCDA (engl. functional constrained data attribute), jota käytetään silloin kun viitteessa funktionaalisella rajoitteella suodatetaan ensimmäistä data objektia alempia kohtia. Alempia kohtia voi olla mm. ali data objektit ja rakennetut attribuutit, joilla on vielä omia data attribuutteja. FCDA-viite on myös silloin kun viitataan vain yhteen data attribuuttiin sen funktionaalisella rajoitteella. Ainoa ero FCD ja FCDA -viitteiden luokittelun välillä on että FCD kohdistuu ensinmäiseen data objektiin hierarkiassa ja FCDA sitä alempiin kohtiin. \cite[s.~55]{IEC61850-7-2} \cite[s.~63]{IEC61850-8-1}
 
-\begin{it}
-	Kirjoita yllä olevaan kappaleeseen vielä FCDA määrityksestä ja sitten tämän jälkeen kuinka FCD ja FCDA määrityksiä käytetään datajoukkojen rakentamiseen IED-laitteeseen. Piirrä tähän myös kuva, josta tulee esille FCD:n ja FCDA:n erot ja kuinka se suodattaa.
-\end{it}	
-
-\subsection{Abstrakti kommunikointi ja ACSI}
-\begin{it}
-	Voisiko tähän kirjoittaa miten mappaus johonkin tekniikkaan tapahtuu ja kuinka kommunikaatio sitten tapahtuu oikeasti. Samalla selittää ACSI-mallista jotain. Hyvä kuva standardissa löytyy tästä löytyy \cite[s.~76]{IEC61850-7-1}. Voisiko tämän heittää johonkin omana otsikkonaan?
-	
-	Voisiko tähän myös laittaa kuva kuinka osat on pilkottu eri IED-laitteille ja niiden välinen kommunikoninti. Mallia \cite[s.~31]{IEC61850-7-1}.
-\end{it}
+FCD- ja FCDA -viitteitä käytetään rakentamaan datajoukkoja IED-laitteelle. Datajoukko koostuu siis joukosta FCD- ja FCDA -viitteitä. Jokaisella viitteellä on jokin funktionaalinen rajoite, joka suodattaa viitteen alla olevat attribuutit ja sisällyttää ne kyseiseen datajoukkoon. Datajoukkoja IED-laitteessa käytetään muodostamaan joukkoja tärkeistä data attribuuteista, joita voidaan esimerkiksi lukea ja kirjoittaa yhdellä kutsulla, muutoksia tilata viesteinä ja lokittaa myöhempää käyttöä varten. Näitä määrityksiä käytetään myöhemmin viestien liipaisemiseen ja mitä kenttiä viesteihin sisältyy. Standardi määrittää että datajoukot nimetään ja sijoitetaan jonkin loogisen noodin alle, jotta siihen voidaan viitata. Esimerkkinä viittaus "MyLD/LLN0.Testi1", joka viittaa datajoukkoon nimeltä Testi1, ja joka sijaitsee loogisessa noodissa LLN0. \cite[s.~61--68]{IEC61850-7-2}
 
 
 \subsection{Viestien tilaus ja tilauksen konfigurointi}
-\begin{it}
-	Kirjoita tähän IEC 61850 -standardin määrittästä abstraktista raportointimallista. Tätä raportointi mekanismia tullaan käyttämään raporttien tilauksessa ja sen konfigurointi täytyy ymmärtää toteuttettavan ohjelmiston kannalta. Käy läpi mitä asiakasohjelman täytyy tehdä ja mikä on tapahtumien järjestys jotta raportteja voidaan edes tilata.
-	Hyvä kuva ja selitys missä järjestyksessä asiat tapahtuu asiakkaan ja palvelimen välillä. Ja yleistä tietoa raportoinnista löytyy \cite[s.~40--44]{IEC61850-7-1}.
-	
-	Kirjoita data attribuuttien liipaisimiin enemmän laadun muutoksesta mitä tarkoittaa ja viite sinne.
-\end{it}
-
-IEC 61850 -standardi määrittää erilaisia liipaisimia data attribuuteille, joita voidaan käyttää liipaisemaan jokin tapahtuma IED-laitteessa. Standardi määrittää seuraavia liipaisimia data attribuuteille:
+IEC 61850 -standardi määrittää erilaisia liipaisimia data attribuuteille, joita voidaan käyttää liipaisemaan jokin tapahtuma IED-laitteessa. Esimerkiksi DPC-luokan määritys taulukossa \ref{tab:iec61850-DPC-class-definition}. Standardi määrittää seuraavia liipaisimia data attribuuteille:
 \begin{itemize}
 	\item datan muutos (engl. data change, standardissa lyhenne \emph{dchg}),
 	\item laadun muutos (engl. quality change, standardissa lyhenne \emph{qchg}), ja
 	\item datan päivitys (engl. data update, standardissa lyhenne \emph{dupd}).
 \end{itemize}
-Edellä mainituissa ero datan muutoksen ja päivityksen välillä on se, että datan päivitys liipaisee tapahtuman, vaikka attribuutin uusi arvo olisi sama. Datan muutos ei liipaise tapahtumaa, jos uusi arvo on sama kuin edellinen arvo. Laadun muutos tarkoittaa, että data attribuuttiin liitetty laatuarvo muuttuu. Laatuarvo kertoo, voiko attribuutin arvoon luottaa. \cite[s.~90]{IEC61850-7-1}
+Edellä mainituissa ero datan muutoksen ja päivityksen välillä on se, että datan päivitys liipaisee tapahtuman, vaikka attribuutin uusi arvo olisi sama. Datan muutos ei liipaise tapahtumaa, jos uusi arvo on sama kuin edellinen arvo. Laadun muutos tarkoittaa, että data attribuuttiin liitetty laatuarvo muuttuu. Laatuarvo kertoo, voiko attribuutien arvoihin luottaa. \cite[s.~90]{IEC61850-7-1}
 
 Standardi määrittää kaksi mahdollisesti liipaistavaa tapahtumaa IED-laitteessa, jotka ovat raportointi ja lokitus. Lokitus on IED-laiteessa tapahtuvien tapahtumien lokitusta myöhempää käyttöä ja tarkastelua varten. Esimerkiksi attribuutin arvon muutos. Raportointi on tapahtuma, jossa generoidaan viesti tapahtuman liipaisseista attribuuteista. Tämä viesti lähetetään niitä tilaaville asiakkaille. Jos tilaavaa asiakasta ei ole, viestiä ei generoida. Standardi käyttää sanaa "raportti" (engl. ja standardissa report) näiden viestien kuvaamiseen. Kuitenkin tässä työssä on käytetty sanaa "viesti" tästä eteenpäin "raportin" sijaan. Tämä sen takia, koska suomenkielessä raportti-sana voi tarkoittaa lukijalle muuta merkitystä, kuin verkon yli asiakkaan ja palvelimen välistä viestiä. Tässä työssä keskitytään edelle mainittuihin viesteihin, ei lokitukseen. Ja lopullinen ohjelmisto nimenomaan käsitteli näitä viestejä.
 
@@ -272,11 +239,6 @@ RCB-luokat sisältävät attribuutteja, joita asiakas konfiguroi ennen tilausta 
 
 
 \subsection{Raportointi-luokan määritys ja toiminta}
-\begin{it}
-	Kirjoita tähän standardin määritämästä BRCB luokan rakenteesta ja mitä tietoa se sisältää.
-	Mainitse että standardissa käytetään UTC-aikaa aikakentissä \cite[s.~50]{IEC61850-7-1}.
-\end{it}
-
 BRCB-luokalla on erilaisia attribuutteja, joita asiakas voi kirjoittaa ja lukea ennen tilauksen aloittamista. Taulukossa \ref{tab:iec61850-brcb-class-definition} on esitetty standardin määrittämän BRCB-luokan attribuutit, attribuutin nimi englanniksi ja sen selite. Taulukossa ei ole esitetty attribuuttien tyyppejä, koska ne voi lukija tarvittaessa tarkemmin lukea standardin omasta määrityksestä. Ja standardissa muutenkin kuvataan luokan eri attribuuttien toiminta paljon perusteellisemmin. Tässä työssä riittää että lukija ymmärtää luokan päätoiminnan hyvin. URCB-luokka on melkein samanalainen kuin taulukossa \ref{tab:iec61850-brcb-class-definition} määritetty BRCB-luokka. Tarkka määritys ja BRCB ja URCB luokkien erot löytyvät standardin osasta 7-2 \cite[s.~93--118]{IEC61850-7-2}.
 
 \begin{table}[ht!]
@@ -318,7 +280,7 @@ RCB-luokan TrgOps-attribuutti on binääritietue, jossa yksittäinen bitti ilmai
 
 Kolme ensimmäistä dchg, qchg ja dupd ovat aikaisemmin määrittettyjen data attribuuttien liipaisimia. Asiakas voi tilata viestejä esimerkiksi vain data muutoksista ja ei muista. RCB-luokka määrittää data attribuuttien liipaisimien lisäksi vielä kaksi liipaisinta lisää, yleinen kysely ja jatkuva viestintä väliajoin. Yleinen kysely on viesti, johon RCB sisällyttää kaikki datajoukon attribuutit. Ja jonka asiakas voi liipaista asettamalla luokan attribuutin GI arvoksi tosi ja TrgOps attribuutissa liipaisin on päällä. Tällöin RCB käynnistää viestin generoinnin ja lähettää sen asiakkaalle. Jos liipaisin ei ole päällä TrgOps attribuutissa, ja GI arvoksi asetetaan tosi. RCB ei generoi viestiä. Viestin lähetyksen jälkeen RCB itse asettaa GI:n arvoksi epätosi. Jatkuva viestintä on viestin lähettäminen asiakkaalle tietyn väliajoin, johon sisältyy kaikki datajoukon attribuutit, kuten yleisessä kyselyssä. Toiminnon saa päälle kun asiakas asettaa RCB-luokassa attribuutit IntgPd arvoksi muu kuin 0, ja TrgOps attribuutin arvossa kyseinen liipaisin on päällä. Attribuutti IntgPd kertoo minkä väliajoin viesti generoidaan ja lähetetään asiakkaalle. Jos IntgPd arvo on muu kuin 0 ja TrgOps atribuutissa liipaisin ei ole päällä, ei viestiä generoida ja lähetetä asiakkaalle väliajoin.
 
-Viestien tilaus aloitetaan kun asiakas kirjoittaa RptEna-attribuutin arvoksi tosi. Tilauksen aikana kirjoitus joihinkin attribuutteihin muuttuu, verrattuna ennen tilausta. Esimerkiksi yleisen kyselyn tekeminen on mahdollista tilauksen aikana kirjoittamalla GI:n arvoksi tosi. Tilauksen aikana kirjoittamalla TrgOps-attribuutin aiheuttaa puskurin tyhjentämisen. Ja Attribuutin OptFlds kirjoitus aiheuttaa epäonnistuneen vastauksen palvelimelta.
+Viestien tilaus aloitetaan kun asiakas kirjoittaa RptEna-attribuutin arvoksi tosi. Tilauksen aikana kirjoitus joihinkin RCB-instanssin attribuutteihin muuttuu, verrattuna ennen tilausta. Esimerkiksi yleisen kyselyn tekeminen on mahdollista tilauksen aikana kirjoittamalla GI:n arvoksi tosi. Tilauksen aikana kirjoittamalla TrgOps-attribuutin aiheuttaa puskurin tyhjentämisen. Ja Attribuutin OptFlds kirjoitus aiheuttaa epäonnistuneen vastauksen palvelimelta.
 
 RCB-luokan attribuuttin OptFlds avulla asiakas voi asettaa mitä vaihtoehtoisia kenttiä viestiin sisällytetään. Attribuutin OptFlds on binääritietue, niin kuin ja TrgOps ja taulukossa \ref{tab:iec61850-optional-fields-definition} on esitetty sen asetettavat arvot \cite[s.~98]{IEC61850-7-2}.
 
@@ -359,7 +321,7 @@ Puskuroidun BRCB-instanssin puskurin täyttyessä viesteistä, esimerkiksi laite
 
 Tärkein rakenne viestistä on ymmärtää kuinka liipaissut datajoukon alkio viestiin on lisätty. Yksi viesti voi sisältää 1:stä n:ään kappaletta alkioita. Tämä arvo riippuu onko RCB-instanssilla käytössä puskurointiaika BufTm. Tämän ajan sisällä liipaiseet datajoukon alkiot sisällytetään samaan viestiin. Jokainen sisällytetty alkio voi sisältää kentät DataRef tai ReasonCode. Jokaiselle alkiolle pakollinen tieto on Value. Tärkeä tieto Value kentästä on ymmärtää, että se voi sisältää yhden tai monta data attribuutin arvoa. Tämä riippuu viittaako datajoukon liippaissut alkion FCD- vai FCDA-referenssi kuinka moneen data attribuuttiin. Viittauksen ollessa FCDA-referenssi, joka sisältää vain yhden data-attribuutin. Sisältää Value-kenttä vain kyseisen data attribuutin arvon. Jos viittaus on FCD tai FCDA-referenssi, joka sisältää monta data attribuuttia. Sisältää Value-kenttä kaikki kyseiset arvot referenssin alapuolelta hierarkiassa, vaikka niistä olisi liipaissut vain yksi attribuutti. Tätä tapahtumaa on selitetty tarkemmin alla ja kuvassa \ref{fig:iec61850-data-set-reporting} on esitetty malli kuinka yksi attribuutin liipaisu aiheuttaa eri viestin generoinnin kahdelta eri RCB-instanssilta. Viesteissä Value-kenttä sisältää eri arvot samasta tapahtumasta. \cite[s.~107--108]{IEC61850-7-1}
 
-Kuvassa \ref{fig:iec61850-data-set-reporting} on määritetty kaksi datajoukkoa MyLD/LLN0.Testi1 ja MyLD/LLN0.Testi2. Joista Testi1 sisältää 9 eri FCDA-referenssiä funktionaalisella rajoitteella ST. Ja Testi2 sisältää kaksi FCD-referenssiä funktionaalisella rajoitteella ST. Nyt IED-laitteessa attribuutissa MyLD/XCBR1.Pos.stVa tapahtuu arvon muutos uuteen. Tämä liipaisee tapahtuman IED-laitteessa ja se huomaa että attribuutti on viitattuna kahdessa eri datajoukossa. Näitä kahta datajoukkoa viittaa kaksi BRCB-instanssia MyLD/LLN0.myBRCB01 ja MyLD/LLN0.myBRCB02. Joista kummatkin on tilattu (RptEna on tosi) ja TrgOps kenttä sisältää data-change liipaiseminen. Eli tapahtuma liipaisee viestin generoinnin ja lähettämisen asiakkaalle. Kuvassa on esitetty RCB-instanssien sen hetkiset asetetut arvot. RCB-instanssit generoivat tapahtumasta kaksi viestiä, joiden arvot voi myös nähdä kuvassa. Tärkeänä aikaisemmin mainittu viestin Value-kenttä, joka voi sisältää useamman kuin yhden arvon. Instanssilta myBRCB01 tuleva viesti sisältää stVal attribuutin arvon, koska vain se liipaisi kyseisessä datajoukossa tapahtuman ja sillä ei ole muita aliattribuutteja. Instanssilta myBRCB02 tuleva viesti sisältää kaikki Pos-instanssin (Common Data Class -luokka) alla olevat funktionaalisella rajoitteella ST olevat attribuutit, vaikka muutos tapahtui vain stVal attribuuttiin. Eli Value-kenttä sisältää arvot attribuuteille stVal, q, t, origin, ctlNum, stSeld \cite[s.~108]{IEC61850-7-2}.
+Kuvassa \ref{fig:iec61850-data-set-reporting} on määritetty kaksi datajoukkoa MyLD/LLN0.Testi1 ja MyLD/LLN0.Testi2. Joista Testi1 sisältää 9 eri FCDA-referenssiä funktionaalisella rajoitteella ST. Ja Testi2 sisältää kaksi FCD-referenssiä funktionaalisella rajoitteella ST. Nyt IED-laitteessa attribuutissa MyLD/XCBR1.Pos.stVa tapahtuu arvon muutos uuteen. Tämä liipaisee tapahtuman IED-laitteessa ja se huomaa että attribuutti on viitattuna kahdessa eri datajoukossa. Näitä kahta datajoukkoa viittaa kaksi BRCB-instanssia MyLD/LLN0.myBRCB01 ja MyLD/LLN0.myBRCB02. Joista kummatkin on tilattu (RptEna on tosi) ja TrgOps kenttä sisältää data-change liipaiseminen. Eli tapahtuma liipaisee viestin generoinnin ja lähettämisen asiakkaalle. Kuvassa on esitetty RCB-instanssien sen hetkiset asetetut arvot. RCB-instanssit generoivat tapahtumasta kaksi viestiä, joiden arvot voi myös nähdä kuvassa. Tärkeänä aikaisemmin mainittu viestin Value-kenttä, joka voi sisältää useamman kuin yhden arvon. Instanssilta myBRCB01 tuleva viesti sisältää stVal attribuutin arvon, koska vain se liipaisi kyseisessä datajoukossa tapahtuman ja sillä ei ole muita aliattribuutteja. Instanssilta myBRCB02 tuleva viesti sisältää kaikki Pos-instanssin (Common Data Class -luokka) alla olevat funktionaalisella rajoitteella ST olevat attribuutit, vaikka muutos tapahtui vain stVal attribuuttiin. Eli Value-kenttä sisältää arvot attribuuteille stVal, q, t, origin, ctlNum, stSeld. \cite[s.~108]{IEC61850-7-2} \cite[s.~40--44]{IEC61850-7-1}
 
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/iec61850-data-set-reporting.png}
@@ -369,21 +331,16 @@ Kuvassa \ref{fig:iec61850-data-set-reporting} on määritetty kaksi datajoukkoa 
 
 Jokaisessa viestin datajoukon alkiossa oleva vaihtoehtoinen kenttä ReasonCode kertoo, miksi alkio on sisällytetty viestiin. Kentä kertoo mikä RCB-instanssin TrgOps-attribuutilla asetetuista liipaisimista liipaisi tapahtuman ja aiheutti alkion sisällytyksen viestiin. Kentän arvot ovat suoraan verrattavissa TrgOps-attribuutin arvoihin. Esimerkin tästä voi nähdä kuvassa \ref{fig:iec61850-data-set-reporting} myBRCB01-instansilta tulevalta viestiltä, joka sisältää ReasonCode-kentän ja sillä on arvo data-change. Toinen viesti kuvassa ei sisällä ReasonCode-kenttää, koska sitä ei ole laitettu päälle RCB-instanssin OptFlds-attribuutista.\cite[s.~28--29]{IEC61850-7-2}
 
-Standardin osassa 8-1 \cite{IEC61850-8-1} standardin abstrahoidut mallit mallinnetaan MMS-protokollalle. Tässä mallinnuksessa määritetään että RCB-instanseihin viittaminen referensillä vaatii funktionaalisen rajoitteen. Funktionaalinen rajoite puskuroidulle BRCB-instanssille on BR ja puskuroimattomalle URCB-instanssille RP. Kuvassa \ref{fig:iec61850-data-set-reporting} voi nähdä esimerkin tästä. Eli MyLD/LLN0.myBRCB01 referenssissä olevaa BRCB-instanssia viitataan MyLD/LLN0.BR.myBRCB01 referenssillä. \cite[s.~75]{IEC61850-8-1}
+Standardin osassa 8-1 \cite{IEC61850-8-1} standardin abstrahoidut mallit mallinnetaan MMS-protokollalle. Tässä mallinnuksessa määritetään että RCB-instanseihin viittaminen referensillä vaatii funktionaalisen rajoitteen. 
 
-\begin{it}
-	Tarkista vielä funktionaalinen rajoitteen viittaus RCB-instansseille. Pitäisikö kuvassa tämä vaihtaa käyttämään \$-merkkiä pisteen sijaan ja kirjoittaa että aihetta käsitellään tulevissa kappaleissa MMS-protokollan yhteydessä. Vai pitäisikö tämä kokonaan siirtää tästä pois ja vaan sanoa että tämä käsitellään tulevissa kappaleissa?
-\end{it}
 
-\section{Abstraktimallin sovitus MMS-protokollaan}
+\subsection{Abstraktimallin sovitus MMS-protokollaan}
 \begin{it}
 	Kirjoita kuinka ylempi ACSI sovitetaan MMS-protokollan palveluiksi ja tietotyypeiksi standardin IEC 61850-8-1 osuuden mukaan. Tähän myös miten raportointi toimii MMS-protokollan päällä.
-\end{it}
 
+	Kirjoita tähän kuinka aiempi viittaus muuttuu eri muotoon ja käyttää \$-merkkiä . sijaan. Kirjoita myöns siitä koska viite sisältää funktionaalisen rajoitteen, niin miten funktionaalinen rajoite puskuroidulle BRCB-instanssille on BR ja puskuroimattomalle URCB-instanssille RP. Kuvassa \ref{fig:iec61850-data-set-reporting} voi nähdä esimerkin tästä. Eli MyLD/LLN0.myBRCB01 referenssissä olevaa BRCB-instanssia viitataan MyLD/LLN0.BR.myBRCB01 referenssillä. \cite[s.~75]{IEC61850-8-1}
 
-\subsection{MMS-protokolla}
-\begin{it}
-	Selitä lyhyesti mikä on MMS-protokolla ja vähän sen tietotyypeistä. Tämän tarkoitus on pohjustaa tulevaa IEC 61850 abstraktien olioiden (ACSI) sovitusta tämän protokollan päälle.
+	Pohdi pitääkö tämän takia aikaisemmassa kuvassa viite korjata \$ muotoon, eikä pisteellä.
 \end{it}
 
 

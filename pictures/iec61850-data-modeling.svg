@@ -29,7 +29,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="372.72112"
+     inkscape:cx="234.86398"
      inkscape:cy="579.88145"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -39,7 +39,14 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     showguides="false" />
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="227.91964,199.76042"
+       orientation="1,0"
+       id="guide1812"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -82,7 +89,7 @@
        x="2.9088213"
        y="97.201096" />
     <rect
-       style="opacity:1;fill:#38e0ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.45014018;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       style="opacity:1;fill:#38e0ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.45;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
        id="rect1141"
        width="120.73374"
        height="71.247795"
@@ -412,85 +419,85 @@
            x="271.42856"
            y="528.23395" /></flowRegion><flowPara
          id="flowPara1315">IEDx</flowPara></flowRoot>    <path
-       style="opacity:1;fill:#fff500;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.47169596;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
-       d="m 145.85867,91.957185 c -4.03321,0 -7.28017,2.98184 -7.28017,6.68581 v 1.539315 l -22.73833,12.48516 23.06293,-7.75955 c 0.91713,2.72782 3.67635,4.6992 6.95557,4.6992 h 53.93784 c 4.03321,0 7.28016,-2.98183 7.28016,-6.6858 v -4.278325 c 0,-3.70397 -3.24695,-6.68581 -7.28016,-6.68581 z"
+       style="opacity:1;fill:#fff500;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.52278829;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       d="m 152.71384,91.957185 c -4.95426,0 -8.9427,2.98184 -8.9427,6.68581 v 1.539315 l -27.93097,12.48516 28.32969,-7.75955 c 1.12657,2.72782 4.51591,4.6992 8.54398,4.6992 h 66.25535 c 4.95425,0 8.94269,-2.98183 8.94269,-6.6858 v -4.278325 c 0,-3.70397 -3.98844,-6.68581 -8.94269,-6.68581 z"
        id="rect1339"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.32019234px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2080048"
-       x="143.00006"
+       x="144.91869"
        y="103.88393"
        id="text1321"><tspan
          sodipodi:role="line"
          id="tspan1319"
-         x="143.00006"
+         x="144.91869"
          y="103.88393"
-         style="stroke-width:0.2080048">Data Attribute</tspan></text>
+         style="stroke-width:0.2080048">Data attribuutti, DA</tspan></text>
     <path
-       style="opacity:1;fill:#00ac0e;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.47169596;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
-       d="m 145.85867,114.87387 c -4.03321,0 -7.28017,2.98185 -7.28017,6.68581 v 0.53748 l -21.31764,3.84891 21.38305,0.78123 c 0.47118,3.28014 3.51031,5.79651 7.21476,5.79651 h 53.93784 c 4.03321,0 7.28016,-2.98224 7.28016,-6.68621 v -4.27792 c 0,-3.70396 -3.24695,-6.68581 -7.28016,-6.68581 z"
+       style="opacity:1;fill:#00ac0e;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.52296174;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       d="m 152.41272,114.87387 c -4.95754,0 -8.94864,2.98185 -8.94864,6.68581 v 0.53748 l -26.20322,3.84891 26.28362,0.78123 c 0.57916,3.28014 4.3148,5.79651 8.86824,5.79651 h 66.29931 c 4.95754,0 8.94863,-2.98224 8.94863,-6.68621 v -4.27792 c 0,-3.70396 -3.99109,-6.68581 -8.94863,-6.68581 z"
        id="rect1352"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.32019234px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2080048"
-       x="147.70657"
+       x="144.91869"
        y="125.9941"
        id="text1325"><tspan
          sodipodi:role="line"
          id="tspan1323"
-         x="147.70657"
+         x="144.91869"
          y="125.9941"
-         style="stroke-width:0.2080048">Data Object</tspan></text>
+         style="stroke-width:0.2080048">Data objekti, DO</tspan></text>
     <path
-       style="opacity:1;fill:#67ff5f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.47169596;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
-       d="m 145.85867,136.93619 c -3.69233,0 -6.72392,2.4996 -7.21029,5.76401 l -18.55102,-1.83588 18.48114,6.69312 v 0.34249 c 0,3.70396 3.24696,6.68579 7.28017,6.68579 h 53.93784 c 4.03321,0 7.28016,-2.98183 7.28016,-6.68579 v -4.27792 c 0,-3.70397 -3.24695,-6.68582 -7.28016,-6.68582 z"
+       style="opacity:1;fill:#67ff5f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.52459615;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       d="m 151.96089,136.93619 c -4.56696,0 -8.31665,2.4996 -8.91823,5.76401 l -22.9453,-1.83588 22.85886,6.69312 v 0.34249 c 0,3.70396 4.01609,6.68579 9.00467,6.68579 h 66.71438 c 4.98857,0 9.00464,-2.98183 9.00464,-6.68579 v -4.27792 c 0,-3.70397 -4.01607,-6.68582 -9.00464,-6.68582 z"
        id="rect1354"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.32019234px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2080048"
-       x="145.88448"
+       x="144.91869"
        y="148.0563"
        id="text1329"><tspan
          sodipodi:role="line"
          id="tspan1327"
-         x="145.88448"
+         x="144.91869"
          y="148.0563"
-         style="stroke-width:0.2080048">Logical Node</tspan></text>
+         style="stroke-width:0.2080048">Looginen noodi, LN</tspan></text>
     <path
-       style="opacity:1;fill:#38e0ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.47169596;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
-       d="m 145.85867,159.83867 c -3.62592,0 -6.61486,2.4108 -7.18185,5.58891 l -15.84777,-3.34149 15.74945,8.64316 v 0.0736 c 0,3.70397 3.24696,6.68582 7.28017,6.68582 h 53.93784 c 4.03321,0 7.28016,-2.98185 7.28016,-6.68582 v -4.27832 c 0,-3.70397 -3.24695,-6.6858 -7.28016,-6.6858 z"
+       style="opacity:1;fill:#38e0ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.52669603;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       d="m 151.54232,159.83867 c -4.52079,0 -8.24739,2.4108 -8.95432,5.58891 l -19.75895,-3.34149 19.63637,8.64316 v 0.0736 c 0,3.70397 4.0483,6.68582 9.0769,6.68582 h 67.24954 c 5.0286,0 9.07688,-2.98185 9.07688,-6.68582 v -4.27832 c 0,-3.70397 -4.04828,-6.6858 -9.07688,-6.6858 z"
        id="rect1371"
        inkscape:connector-curvature="0" />
     <text
        id="text1375"
        y="170.95903"
-       x="142.51256"
+       x="144.91869"
        style="font-style:normal;font-weight:normal;font-size:8.32019234px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2080048"
        xml:space="preserve"><tspan
          style="stroke-width:0.2080048"
          y="170.95903"
-         x="142.51256"
+         x="144.91869"
          id="tspan1373"
-         sodipodi:role="line">Logical Device</tspan></text>
+         sodipodi:role="line">Looginen laite</tspan></text>
     <path
-       style="opacity:1;fill:#ffc664;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.47169596;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
-       d="m 125.77037,180.99665 12.80813,10.44371 v 1.42475 c 0,3.70397 3.24696,6.68581 7.28017,6.68581 h 53.93784 c 4.03321,0 7.28016,-2.98184 7.28016,-6.68581 v -4.27831 c 0,-3.70397 -3.24695,-6.68582 -7.28016,-6.68582 h -53.93784 c -3.16262,0 -5.84109,1.83372 -6.85035,4.41116 z"
+       style="opacity:1;fill:#ffc664;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.52679169;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       d="m 125.77974,181.02106 16.01704,10.41626 v 1.421 c 0,3.69424 4.06044,6.66824 9.10412,6.66824 h 67.45126 c 5.04368,0 9.10411,-2.974 9.10411,-6.66824 v -4.26706 c 0,-3.69424 -4.06043,-6.66825 -9.10411,-6.66825 H 150.9009 c -3.95497,0 -7.3045,1.8289 -8.56662,4.39957 z"
        id="rect1382"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.32019234px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2080048"
-       x="140.15625"
+       x="144.91869"
        y="193.02126"
        id="text1337"><tspan
          sodipodi:role="line"
          id="tspan1335"
-         x="140.15625"
+         x="144.91869"
          y="193.02126"
-         style="stroke-width:0.2080048">Physical Device</tspan></text>
+         style="stroke-width:0.2080048">Fyysinen laite</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1.96539974;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 4.5587191,203.60408 H 126.42632"
