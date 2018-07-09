@@ -366,12 +366,12 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.82136033"
      inkscape:cx="190.18855"
-     inkscape:cy="598.06616"
+     inkscape:cy="13.669784"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="2560"
-     inkscape:window-height="1386"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1" />
@@ -1049,7 +1049,7 @@
            y="17.401245"
            x="34.613228"
            id="tspan1603"
-           sodipodi:role="line">Viitataan MyLD/LLN0.BR.myBRCB01</tspan></text>
+           sodipodi:role="line">Viitataan MyLD/LLN0$BR$myBRCB01</tspan></text>
     </g>
     <g
        id="g1632"
@@ -1073,7 +1073,7 @@
            id="tspan1625"
            x="34.613228"
            y="159.05409"
-           style="stroke-width:0.26458332">Viitataan MyLD/LLN0.BR.myBRCB02</tspan></text>
+           style="stroke-width:0.26458332">Viitataan MyLD/LLN0$BR$myBRCB02</tspan></text>
     </g>
     <g
        id="g1818"

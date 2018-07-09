@@ -331,21 +331,16 @@ Kuvassa \ref{fig:iec61850-data-set-reporting} on määritetty kaksi datajoukkoa 
 
 Jokaisessa viestin datajoukon alkiossa oleva vaihtoehtoinen kenttä ReasonCode kertoo, miksi alkio on sisällytetty viestiin. Kentä kertoo mikä RCB-instanssin TrgOps-attribuutilla asetetuista liipaisimista liipaisi tapahtuman ja aiheutti alkion sisällytyksen viestiin. Kentän arvot ovat suoraan verrattavissa TrgOps-attribuutin arvoihin. Esimerkin tästä voi nähdä kuvassa \ref{fig:iec61850-data-set-reporting} myBRCB01-instansilta tulevalta viestiltä, joka sisältää ReasonCode-kentän ja sillä on arvo data-change. Toinen viesti kuvassa ei sisällä ReasonCode-kenttää, koska sitä ei ole laitettu päälle RCB-instanssin OptFlds-attribuutista.\cite[s.~28--29]{IEC61850-7-2}
 
-Standardin osassa 8-1 \cite{IEC61850-8-1} standardin abstrahoidut mallit mallinnetaan MMS-protokollalle. Tässä mallinnuksessa määritetään että RCB-instanseihin viittaminen referensillä vaatii funktionaalisen rajoitteen. 
+Kuvassa \ref{fig:iec61850-data-set-reporting} on esitetty erilainen viittaus RCB-luokkan instansseihin, kuin tähän asti on esitetty. Syynä on mallinnus erilliselle protokollalle, jota käsitellään seuraavassa osiossa tarkemmin.
 
 
 \subsection{Abstraktimallin sovitus MMS-protokollaan}
-\begin{it}
-	Kirjoita kuinka ylempi ACSI sovitetaan MMS-protokollan palveluiksi ja tietotyypeiksi standardin IEC 61850-8-1 osuuden mukaan. Tähän myös miten raportointi toimii MMS-protokollan päällä.
 
-	Kirjoita tähän kuinka aiempi viittaus muuttuu eri muotoon ja käyttää \$-merkkiä . sijaan. Kirjoita myöns siitä koska viite sisältää funktionaalisen rajoitteen, niin miten funktionaalinen rajoite puskuroidulle BRCB-instanssille on BR ja puskuroimattomalle URCB-instanssille RP. Kuvassa \ref{fig:iec61850-data-set-reporting} voi nähdä esimerkin tästä. Eli MyLD/LLN0.myBRCB01 referenssissä olevaa BRCB-instanssia viitataan MyLD/LLN0.BR.myBRCB01 referenssillä. \cite[s.~75]{IEC61850-8-1}
+Tähän asti käsitellyt IEC 61850 -standardin mallit ja palvelut ovat olleet abstrahoituja. Nyt abstrahoidut mallit ja palvelut voidaan mallintaa tekniikalle erillisillä standardin osalla. Tämän työn kannalta käytetty mallinnus ja tekniikka oli MMS-protokolla (engl. Manufacturing Message Specification). Tästä mallinuksesta on tarkemmin määritetty IEC 61850 -standardin osassa 8-1 \cite{IEC61850-8-1}. MMS-protokolla on maailmanlaajuinen ISO 9506 -standardi. MMS on viestintä standardi, joka on määritetty toimivaksi TCP/IP:n pinon päällä \cite{MMS-protocol-stack-and-API}. Tämän työn kannalta lukijan ei ole tarvitse ymmärtää MMS-protokollaa. Ja ei ihan tarkasti kuinka eri mallit ja palvelut siihen mallinnetaan. Tässä teoriaosuudessa käsitellään työn kannalta tärkeitä tietoja, mitä mallinnuksesta MMS-protokollalle tarvitsee tietää. Kaikkein tärkeintä kuitenkin työn ymmärtämisen kannalta on ymmärtää kaikki edelle esitetty teoria abstrahoiduista malleista ja palveluista, ja niiden toiminnasta.
 
-	Pohdi pitääkö tämän takia aikaisemmassa kuvassa viite korjata \$ muotoon, eikä pisteellä.
-\end{it}
+IEC 61850 -standardin ACSI mallinnuksessa aikaisemmin esitetty instanssien viittaus hierarkiassa muuttuu ja nyt viittaus sisältää myös funktionaalisen rajoitteen. Kuvassa \ref{fig:iec61850-data-reference} oleva viite "OmaLD/Q0XCBR1.Pos.stVal" funktionaalisella rajoitteella ST, muuttuu muotoo "OmaLD/Q0XCBR1\$ST\$Pos\$stVal". Tässä viittauksessa pisteet (.) korvataan dollari-merkillä (\$). Ja kaksikirjaiminen funktionaalinen rajoite sijoitetaan loogisen noodin ja ensimmäisen data objektin nimien väliin. Muuten viittaus säilyy identtisenä alkuperäiseen ja samat rajoitteet ja nimeämiskäytännöt ovat voimassa edelleen. \cite[s.~34--35, 111]{IEC61850-8-1}
 
-Edellä kuvattu IEC 61850 -standardin osat voidaan mallintaa erillisille tekniikoille. Tämän työn kannalta käytetty mallinnus oli MMS-protokolla (engl. Manufacturing Message Specification). Tästä mallinuksesta on tarkemmin määritetty IEC 61850 -standardin osassa 8-1 \cite{IEC61850-8-1}. MMS-protokolla on maailmanlaajuinen ISO 9506 -standardi. MMS on viestintä standardi, joka on määritetty TCP/IP:n päälle \cite{MMS-protocol-stack-and-API}. Tämän työn kannalta ei ole tärkeä ymmärtää MMS-standardia sen tarkemmin. Lukijalle riittää tieto että MMS-kommunikointi toimii TCP/IP:n päällä ja IED-laite yksilöidään IP-osoiteella.
-
-IEC 61850 -standardin ACSI mallinnuksessa edellä esitetty instanssien viittaus hierarkiassa muuttuu ja nyt viittaus sisältää myös funktionaalisen rajoitteen. Kuvassa \ref{fig:iec61850-data-reference} oleva viite "OmaLD/Q0XCBR1.Pos.stVal" funktionaalisella rajoitteella ST, muuttuu muotoo "OmaLD/Q0XCBR1\$ST\$Pos\$stVal".
+Tämän uuden viittauksen takia jokaiselle viitattavalle kohteelle täytyy olla funktionaalinen rajoite. Niinpä esimerkiksi RCB-luokkien instansseille täytyy olla myös funktionaalinen rajoite. Puskuroitua RCB-instanssia viitataan funktionaalisella rajoitteella BR. Ja puskuroimatonta funktionaalisella rajoitteella RP. Esimerkin tästä viittauksesta voi nähdä aikaisemmin mainitusta kuvasta \ref{fig:iec61850-data-set-reporting}. \cite[s.~32--34, 75]{IEC61850-8-1}
 
 
 \section{Advanced Message Queuing Protocol}
