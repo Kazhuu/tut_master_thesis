@@ -12,7 +12,7 @@ Todella tärkeä ja iso osa standardia on sähköaseman systeemin funktioiden ab
 
 
 \subsection{Standardin eri osat ja niiden merkitykset}	
-IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, joista jokainen käsittelee omaa asiaansa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot toisiinsa. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat tämän työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ole. Kuvassa käytetään standardin osien englanninkielisiä otsikoita.
+IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, joista jokainen käsittelee omaa asiaansa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \cite{IEC61850series, New-documents-by-IEC-TC-57} \cite[s.~13]{IEC61850-1}. Tämän työn kirjoitushetkellä standardiin kuului lisäki paljon muitakin dokumentteja, esimerkiksi uusiin mallinnuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \cite[s.~2]{Mackiewicz2006} \cite{IEC61850series}. Kuvassa \ref{fig:iec61850-osat-ja-relaatiot} on esitetty kaikki standardin eri osat ja niiden väliset relaatiot toisiinsa \cite[s.~14]{IEC61850-7-1} \cite[s.~22]{IEC61850-1}. Kuvaan on merkitty yhteinäisellä viivalla ne osat, jotka ovat tämän työn kannalta tärkeitä. Ja katkoviivalla ne, jotka eivät ole. Kuvassa käytetään standardin osien englanninkielisiä otsikoita.
 
 \begin{table}[ht!]
 	\caption{IEC 61850 -standardin pääkohtien ja niiden alakohtien dokumentit.}
@@ -41,7 +41,7 @@ IEC 61850 -standardi on todella laaja kokonaisuus. Tämän takia se on pilkottu 
 
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/iec61850-series-parts-and-relations.png}
-	\caption{IEC 61850 -standardin osat ja niiden väliset relaatiot \cite[s.~14]{IEC61850-7-1} \cite[s.~22]{IEC61850-1}.}
+	\caption{IEC 61850 -standardin osat ja niiden väliset relaatiot.}
 	\label{fig:iec61850-osat-ja-relaatiot}
 \end{figure}
 
@@ -76,10 +76,10 @@ IEC 61850 -standardissa määritettyjen luokkien rakennetta on lähestytty oliop
 
 Kuvassa \ref{fig:iec61850-data-modeling} oleville fyysiselle- ja loogiselle laitteelle ei ole olemassa luokkia. Ainoastaan loogiselle laitteelle määritellään yksilöivä nimi, jotta sen alle määritettyjä olioita voidaan viitata. Fyysisen laitteen, eli IED:n yksilöi sille määritetty IP-osoite. Määrityksiä ja mitä luokkia instansioidaan IED-laitteeseen, määritellään sille annetussa XML-pohjaisessa konfiguraatiotiedostossa. Tämän standardi määrittää aikaisemmin mainittussa standardin osassa 6.
 
-Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin luokista eri tarkoituksiin. Sähköaseman suunnitteleva insinööri voi ottaa näistä mitä tahansa luokkia ja instansioida niitä IED-laitteeseen, jotta saadaan aikaiseksi haluttu toiminnallisuus. Taulukossa \ref{tab:iec61850-xcbr-class-definition} on esitetty XCBR-luokan määritys. Taulukosta voi nähdä luokan instannsille määritetyt kenttien nimet ja viimeinen sarake M/O/C, kertoo onko kenttä pakollinen (Mandatory, M), optionaalinen (Optional, O), vai konditionaalinen (Conditional, C).
+Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin luokista eri tarkoituksiin. Sähköaseman suunnitteleva insinööri voi ottaa näistä mitä tahansa luokkia ja instansioida niitä IED-laitteeseen, jotta saadaan aikaiseksi haluttu toiminnallisuus. Taulukossa \ref{tab:iec61850-xcbr-class-definition} on esitetty XCBR-luokan määritys. Taulukosta voi nähdä luokan instannsille määritetyt kenttien nimet ja viimeinen sarake M/O/C, kertoo onko kenttä pakollinen (Mandatory, M), optionaalinen (Optional, O), vai konditionaalinen (Conditional, C) \cite[s.~106]{IEC61850-7-4}.
 
 \begin{table}[ht!]
-	\caption{IEC 61850 -standardin katkaisijaluokan XCBR -määritys \cite[s.~106]{IEC61850-7-4}.}
+	\caption{IEC 61850 -standardin katkaisijaluokan XCBR -määritys.}
 	\label{tab:iec61850-xcbr-class-definition}
 	\begin{tabular}{l | l | l | l}
 		\hline
@@ -122,7 +122,7 @@ Standardissa osassa 7-4 on lista kaikista sen määrittämistä loogisen noodin 
 Loogisen noodin luokan kentät, kuten Pos, rakentuvat standardin yleisistä luokista (engl. Common Data Class, lyhennetään CDC). CDC-luokat ovat luokkia jotka sisältävät data attribuutteja, ja ovat yhteisiä monelle eri loogisen noodin luokalle. CDC-luokkien määritykset löytyy standardin osasta 7-3 \cite[s.~26]{IEC61850-1}. Taulukossa \ref{tab:iec61850-DPC-class-definition} on esitetty XCBR-luokan Pos-attribuutin, DPC-luokan määritys (engl. controllable double point) \cite[s.~44]{IEC61850-7-3}.
 
 \begin{table}[ht!]
-	\caption{IEC 61850 -standardin DPC-luokan määritys \cite[s.~44]{IEC61850-7-3}.}
+	\caption{IEC 61850 -standardin DPC-luokan määritys.}
 	\label{tab:iec61850-DPC-class-definition}
 	\begin{tabular}{l | l | l | l}
 		\hline
@@ -190,10 +190,10 @@ Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituu
 
 
 \subsection{Attribuuttien funktionaalinen rajoitus ja niistä muodostetut datajoukot}
-Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit. Luokat määrittää myös jokaiselle data attribuutille aikaisemmin taulukossa \ref{tab:iec61850-DPC-class-definition} mainitun funktionaalisen rajoitteen (engl. \emph{functional constraint}, lyhennetään FC). Funktionaalinen rajoite kuvaa attribuutin käyttötarkoitusta ja sitä mitä palveluita attribuuttiin voidaan käyttää. Funktionaalinen rajoite voidaan ymmärtää niin sanottuna suodattimena data objektin data attribuuteille. Esimerkiksi kaikki attribuutit, jotka liittyvät laitteen tilaan (engl. status), niillä on funktionaalinen rajoite ST (standardissa engl. status information). Standardi määrittää paljon erilaisia funktionaalisia rajoitteita, jotka ovat kaikki kahden ison kirjaimen yhdistelmiä. Taulukossa \ref{tab:iec61850-functional-constraints} on esitetty joitain tärkeimpiä funktionaalisia rajoitteita. Funktionaalinen rajoite myös määrittä onko attribuutti kirjoitettava tai luettava.
+Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit. Luokat määrittää myös jokaiselle data attribuutille aikaisemmin taulukossa \ref{tab:iec61850-DPC-class-definition} mainitun funktionaalisen rajoitteen (engl. \emph{functional constraint}, lyhennetään FC). Funktionaalinen rajoite kuvaa attribuutin käyttötarkoitusta ja sitä mitä palveluita attribuuttiin voidaan käyttää. Funktionaalinen rajoite voidaan ymmärtää niin sanottuna suodattimena data objektin data attribuuteille. Esimerkiksi kaikki attribuutit, jotka liittyvät laitteen tilaan (engl. status), niillä on funktionaalinen rajoite ST (standardissa engl. status information). Standardi määrittää paljon erilaisia funktionaalisia rajoitteita, jotka ovat kaikki kahden ison kirjaimen yhdistelmiä. Taulukossa \ref{tab:iec61850-functional-constraints} on esitetty joitain tärkeimpiä funktionaalisia rajoitteita. Funktionaalinen rajoite myös määrittä onko attribuutti kirjoitettava tai luettava \cite[s.~54]{IEC61850-7-2}.
 
 \begin{table}[ht!]
-	\caption{Osa IEC 61850 -standardin määrittämistä funktionaalisista rajoitteitteista (FC) \cite[s.~54]{IEC61850-7-2}.}
+	\caption{Osa IEC 61850 -standardin määrittämistä funktionaalisista rajoitteitteista (FC).}
 	\label{tab:iec61850-functional-constraints}
 	\begin{tabular}{l | l | l | l}
 		\hline
@@ -239,10 +239,10 @@ RCB-luokat sisältävät attribuutteja, joita asiakas konfiguroi ennen tilausta 
 
 
 \subsection{Raportointi-luokan määritys ja toiminta}
-BRCB-luokalla on erilaisia attribuutteja, joita asiakas voi kirjoittaa ja lukea ennen tilauksen aloittamista. Taulukossa \ref{tab:iec61850-brcb-class-definition} on esitetty standardin määrittämän BRCB-luokan attribuutit, attribuutin nimi englanniksi ja sen selite. Taulukossa ei ole esitetty attribuuttien tyyppejä, koska ne voi lukija tarvittaessa tarkemmin lukea standardin omasta määrityksestä. Ja standardissa muutenkin kuvataan luokan eri attribuuttien toiminta paljon perusteellisemmin. Tässä työssä riittää että lukija ymmärtää luokan päätoiminnan hyvin. URCB-luokka on melkein samanalainen kuin taulukossa \ref{tab:iec61850-brcb-class-definition} määritetty BRCB-luokka. Tarkka määritys ja BRCB ja URCB luokkien erot löytyvät standardin osasta 7-2 \cite[s.~93--118]{IEC61850-7-2}.
+BRCB-luokalla on erilaisia attribuutteja, joita asiakas voi kirjoittaa ja lukea ennen tilauksen aloittamista. Taulukossa \ref{tab:iec61850-brcb-class-definition} on esitetty standardin määrittämän BRCB-luokan attribuutit, attribuutin nimi englanniksi ja sen selite. Taulukossa ei ole esitetty attribuuttien tyyppejä, koska ne voi lukija tarvittaessa tarkemmin lukea standardin omasta määrityksestä. Ja standardissa muutenkin kuvataan luokan eri attribuuttien toiminta paljon perusteellisemmin. Tässä työssä riittää että lukija ymmärtää luokan päätoiminnan hyvin. URCB-luokka on melkein samanalainen kuin taulukossa \ref{tab:iec61850-brcb-class-definition} määritetty BRCB-luokka \cite[s.~94--103]{IEC61850-7-2}. Tarkka määritys ja BRCB ja URCB luokkien erot löytyvät standardin osasta 7-2 \cite[s.~93--118]{IEC61850-7-2}.
 
 \begin{table}[ht!]
-	\caption{BRCB-luokan määritetyt attribuutit ja niiden selitteet \cite[s.~94--103]{IEC61850-7-2}.}
+	\caption{BRCB-luokan määritetyt attribuutit ja niiden selitteet.}
 	\label{tab:iec61850-brcb-class-definition}
 	\begin{tabular}{l | l | l}
 		\hline
@@ -342,6 +342,10 @@ Standardin osassa 8-1 \cite{IEC61850-8-1} standardin abstrahoidut mallit mallinn
 
 	Pohdi pitääkö tämän takia aikaisemmassa kuvassa viite korjata \$ muotoon, eikä pisteellä.
 \end{it}
+
+Edellä kuvattu IEC 61850 -standardin osat voidaan mallintaa erillisille tekniikoille. Tämän työn kannalta käytetty mallinnus oli MMS-protokolla (engl. Manufacturing Message Specification). Tästä mallinuksesta on tarkemmin määritetty IEC 61850 -standardin osassa 8-1 \cite{IEC61850-8-1}. MMS-protokolla on maailmanlaajuinen ISO 9506 -standardi. MMS on viestintä standardi, joka on määritetty TCP/IP:n päälle \cite{MMS-protocol-stack-and-API}. Tämän työn kannalta ei ole tärkeä ymmärtää MMS-standardia sen tarkemmin. Lukijalle riittää tieto että MMS-kommunikointi toimii TCP/IP:n päällä ja IED-laite yksilöidään IP-osoiteella.
+
+
 
 
 \section{Advanced Message Queuing Protocol}
