@@ -189,7 +189,7 @@ Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle,
 Standardi määrittä maksimipituuksia viittauksille. Seuraavaksi kerrotut pituusmääritykset ovat voimassa kummallekin edelle mainitulle näkyvyysalueen viittaukselle. Ennen kauttaviivaa saa olla maksimissaan 64 merkkiä. Tämän jälkeen kauttaviiva, josta seuraa uudelleen maksimissaan 64 merkkiä. Eli koko viittauksen maksimipituus saa olla enintään 129 merkkiä, kauttaviiva mukaan lukien. \cite[s.~24,183]{IEC61850-7-2}
 
 
-\subsection{Attribuuttien funktionaalinen rajoitus ja niistä muodostetut datajoukot}
+\subsection{Attribuuttien funktionaalinen rajoite ja niistä muodostetut datajoukot}
 Standardin yleiset luokat (CDC) määrittävät käytettävät data attribuutit. Luokat määrittää myös jokaiselle data attribuutille aikaisemmin taulukossa \ref{tab:iec61850-DPC-class-definition} mainitun funktionaalisen rajoitteen (engl. \emph{functional constraint}, lyhennetään FC). Funktionaalinen rajoite kuvaa attribuutin käyttötarkoitusta ja sitä mitä palveluita attribuuttiin voidaan käyttää. Funktionaalinen rajoite voidaan ymmärtää niin sanottuna suodattimena data objektin data attribuuteille. Esimerkiksi kaikki attribuutit, jotka liittyvät laitteen tilaan (engl. status), niillä on funktionaalinen rajoite ST (standardissa engl. status information). Standardi määrittää paljon erilaisia funktionaalisia rajoitteita, jotka ovat kaikki kahden ison kirjaimen yhdistelmiä. Taulukossa \ref{tab:iec61850-functional-constraints} on esitetty joitain tärkeimpiä funktionaalisia rajoitteita. Funktionaalinen rajoite myös määrittä onko attribuutti kirjoitettava tai luettava \cite[s.~54]{IEC61850-7-2}.
 
 \begin{table}[ht!]
@@ -336,7 +336,7 @@ Kuvassa \ref{fig:iec61850-data-set-reporting} on esitetty erilainen viittaus RCB
 
 \subsection{Abstraktimallin sovitus MMS-protokollaan}
 
-Tähän asti käsitellyt IEC 61850 -standardin mallit ja palvelut ovat olleet abstrahoituja. Nyt abstrahoidut mallit ja palvelut voidaan mallintaa tekniikalle erillisillä standardin osalla. Tämän työn kannalta käytetty mallinnus ja tekniikka oli MMS-protokolla (engl. Manufacturing Message Specification). Tästä mallinuksesta on tarkemmin määritetty IEC 61850 -standardin osassa 8-1 \cite{IEC61850-8-1}. MMS-protokolla on maailmanlaajuinen ISO 9506 -standardi. MMS on viestintä standardi, joka on määritetty toimivaksi TCP/IP:n pinon päällä \cite{MMS-protocol-stack-and-API}. Tämän työn kannalta lukijan ei ole tarvitse ymmärtää MMS-protokollaa. Ja ei ihan tarkasti kuinka eri mallit ja palvelut siihen mallinnetaan. Tässä teoriaosuudessa käsitellään työn kannalta tärkeitä tietoja, mitä mallinnuksesta MMS-protokollalle tarvitsee tietää. Kaikkein tärkeintä kuitenkin työn ymmärtämisen kannalta on ymmärtää kaikki edelle esitetty teoria abstrahoiduista malleista ja palveluista, ja niiden toiminnasta.
+Tähän asti käsitellyt IEC 61850 -standardin mallit ja palvelut ovat olleet abstrahoituja. Nyt abstrahoidut mallit ja palvelut voidaan mallintaa tekniikalle erillisillä standardin osalla. Tämän työn kannalta käytetty mallinnus ja tekniikka oli MMS-protokolla (engl. Manufacturing Message Specification). Tästä mallinuksesta on tarkemmin määritetty IEC 61850 -standardin osassa 8-1 \cite{IEC61850-8-1}. MMS-protokolla on maailmanlaajuinen ISO 9506 -standardi. MMS on viestintä standardi, joka on määritetty toimivaksi TCP/IP:n pinon päällä \cite{MMS-protocol-stack-and-API}. Tämän työn kannalta lukijan ei ole tarvitse ymmärtää MMS-protokollaa. Ja ei ihan tarkasti kuinka eri mallit ja palvelut siihen mallinnetaan. Tässä teoriaosuudessa käsitellään työn kannalta tärkeitä tietoja, mitä mallinnuksesta MMS-protokollalle tarvitsee tietää. Kaikkein tärkeintä kuitenkin työn ymmärtämisen kannalta on ymmärtää kaikki edelle esitetty teoria abstrahoiduista malleista ja palveluista, ja niiden toiminnasta. \cite{Introduction-to-the-MMS}
 
 IEC 61850 -standardin ACSI mallinnuksessa aikaisemmin esitetty instanssien viittaus hierarkiassa muuttuu ja nyt viittaus sisältää myös funktionaalisen rajoitteen. Kuvassa \ref{fig:iec61850-data-reference} oleva viite "OmaLD/Q0XCBR1.Pos.stVal" funktionaalisella rajoitteella ST, muuttuu muotoo "OmaLD/Q0XCBR1\$ST\$Pos\$stVal". Tässä viittauksessa pisteet (.) korvataan dollari-merkillä (\$). Ja kaksikirjaiminen funktionaalinen rajoite sijoitetaan loogisen noodin ja ensimmäisen data objektin nimien väliin. Muuten viittaus säilyy identtisenä alkuperäiseen ja samat rajoitteet ja nimeämiskäytännöt ovat voimassa edelleen. \cite[s.~34--35, 111]{IEC61850-8-1}
 
@@ -346,16 +346,14 @@ Tämän uuden viittauksen takia jokaiselle viitattavalle kohteelle täytyy olla 
 \section{Advanced Message Queuing Protocol}
 \begin{it}
 	Kirjoita tähän AMQP määrittävästä standardista, mikä sen tarkoitus on ja mihin sitä voidaan käyttää.
+	Piirrä kuva kokonaisuudesta. Hyvä esimerkki tästä on esitetty \cite[s.~11]{AMQP-specification}. Tätä kutsutaan nimellä AMQ-malli.
 \end{it}
 
 
-\subsection{Viestien välitysmekanismit}
-\begin{it}
-	Mitä mekanismeja AMQP tarjoaa viestien välittämiseen osapuolille. Näitä on jono, reititys suoraan osapuolien välillä ja viestin julkaisu ja tilaaminen.
-\end{it}
-
-
-\subsection{Tilaus ja julkaisu -mallin osat}
+\subsection{Advanced Message Queuing -mallin osat}
 \begin{it}
 	Kirjoita tähän AMQP tarjoamista viestien julkaisu ja tilaus -mallin osista osapuolten kesken. Kerro mitä eri osat tekevät ja mikä niiden tehtävä viestien välittämisessä on. Englanniksi osia ovat esim. exchange, queue, publisher ja consumer.
+
+	Tähän voisi myös piirtää havainnollistavan kuvan siitä mitä viestien tuottaja näkee palvelimella ja mitä viestien vastaanottaja näkee palvelimella. Samalla sitä pohjustaa mitä kumpikin voi muokata protokollan yli.
 \end{it}
+
