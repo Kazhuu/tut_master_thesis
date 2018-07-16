@@ -356,20 +356,31 @@ Lopullisessa ohjelmistossa IED-laitteilta verkon yli tilatut viestit ohjelma pro
 	\label{fig:implemented-system-communication}
 \end{figure}
 
-Työssä käytettiin RabbitMQ-ohjelmistoa\footnote{\url{https://www.rabbitmq.com/}}, joka on avoimen lähdekoodin välittäjäpalvelin ja perustuu avoimeen AMQP-standardiin\footnote{\url{https://www.amqp.org/}} (engl. Advanced Message Queuing Protocol). AMQP määrittää yhteisen protokollan viestintään eri ohjelmistojen välillä välityspalvelimen avulla. Standarista on julkaistu monta eri versiota, ja työn tekohetkellä viimeisin versio oli 1.0. Kuitenkin RabbitMQ-ohjelmisto oli suunniteltu käytettäväksi suoraan standardin version 0.9.1 kanssa, ilman lisäosia. Versioiden välinen ero oli suuri ja siirto suoraan uuteen ei olisi mahdollista, koska standardin versiot eivät olleet keskenään yhteensopivat. RabbitMQ tuki versiota 0.9.1 ja sen kehittäjät mieltävät standardin version 1.0 kokonaan eri protokollaksi \cite{RabbitMQ-Compatibility-and-Conformance}. Kuvassa \ref{fig:implemented-system-communication} on tietoliikenteen kohtiin merkitty mikä standardi vaikuttaa minkäkin osapuolen kommunikointiin. Tässä työssä välityspalvelin ja siihen yhteydessä olevat ohjelmistot käyttävät AMQP-standardista versiota 0.9.1.
+Työssä käytettiin RabbitMQ-ohjelmistoa\footnote{\url{https://www.rabbitmq.com/}}, joka on avoimen lähdekoodin välittäjäpalvelin ja perustuu avoimeen AMQP-standardiin\footnote{\url{https://www.amqp.org/}} (engl. Advanced Message Queuing Protocol). AMQP määrittää yhteisen protokollan viestintään eri ohjelmistojen välillä verkon yli välityspalvelimen avulla. Verkon ansiosta välityspalvelin voi sijaita eri koneella kuin sitä käyttävät ohjelmistot. Standarista on julkaistu monta eri versiota, ja työn tekohetkellä viimeisin versio oli 1.0. Kuitenkin RabbitMQ-ohjelmisto oli suunniteltu käytettäväksi suoraan standardin version 0.9.1 kanssa, ilman lisäosia. Versioiden välinen ero oli suuri ja siirto suoraan uuteen ei olisi mahdollista, koska standardin versiot eivät olleet keskenään yhteensopivat. RabbitMQ tuki versiota 0.9.1 ja sen kehittäjät mieltävät standardin version 1.0 kokonaan eri protokollaksi \cite{RabbitMQ-Compatibility-and-Conformance}. Kuvassa \ref{fig:implemented-system-communication} on tietoliikenteen kohtiin merkitty mikä standardi vaikuttaa minkäkin osapuolen kommunikointiin. Tässä työssä välityspalvelin ja siihen yhteydessä olevat ohjelmistot käyttävät AMQP-standardista versiota 0.9.1.
 
 
 \subsection{Advanced Message Queuing -malli ja sen osat}
-\begin{it}
-	Kirjoita tähän AMQP tarjoamista viestien julkaisu ja tilaus -mallin osista osapuolten kesken. Kerro mitä eri osat tekevät ja mikä niiden tehtävä viestien välittämisessä on. Englanniksi osia ovat esim. exchange, queue, publisher ja consumer.
+AMQP-standardi määrittä komponentteja, joiden läpi viestin täytyy kulkea julkaisijalta tilaajalle. Standardissa nämä komponentit määrittää AMQ-malli (engl. AMQ-model). Kuvassa \ref{fig:amq-model-parts} on esitetty viestin kulku julkaisijalta tilaajalle komponenttien läpi. Mallin komponentit ovat \emph{vaihde} (engl. \emph{exchange}), \emph{jono} (engl. \emph{queue}) ja näiden välinen \emph{sidonta} (engl. \emph{binding}). Välityspalvelimen tehtävän voi tiivistää niin, että se ottaa vastaan viestejä julkaisijoilta vaihteeseen. Vaihde reittitää viestejä tilaajille jonoihin jonon ja vaihteen välisten sidosten mukaan. Jos tilaaja ei kerkeä prosessoida viestejä tarpeeksi nopeasti, palvelin pitää viestit jonossa tilaajelle. Vaihde voi välittää viestin moneen eri jonoon ja yhtä jonoa voi tilata monta eri asiakasta.
 
-	Tähän voisi myös piirtää havainnollistavan kuvan siitä mitä viestien tuottaja näkee palvelimella ja mitä viestien vastaanottaja näkee palvelimella. Samalla sitä pohjustaa mitä kumpikin voi muokata protokollan yli.
-\end{it}
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/amq-model-parts.png}
+	\caption{AMQ-mallin osat ja viestin kulku niiden läpi julkaisijalta tilaajalle.}
+	\label{fig:amq-model-parts}
+\end{figure}
+
+AMQP on ohjelmoitava protokolla siinä mielessä, että julkaisija ja tilaaja voivat määrittää komponentteja ja reititystä ajon aikana tarpeidensa mukaan. Välittäjäpalvelin ei määritä kuin oletus vaihteet valmiiksi käytettäväksi. Eli julkaisuja voi luoda vaihteita ja tilaaja voi luoda jonoja ja sidoksia vaihdeiden ja jonojen välille. Jokaisella yksilöllä välityspalvelimella on yksilöivä nimi. Kuvassa \ref{fig:amq-model-parts} on AMQ-mallin komponenttien alla niille määritetyt nimet. Vaihteella on esimerkiksi nimi exchange\_1 ja ylimmällä jonolla queue\_1. Tällä ohjelmoitavalla ominaisuudella välityspalvelin voidaan konfiguroida toteuttamaan erilaisia skenaarioita vapaasti ja se antaa kehittäjille vapautta toteutukseen.
 
 
+\subsection{Vaihde ja sen eri tyypit}
+Viestin kulku aloitetaan sillä, että julkaisija määrittää välittäjäpalvelimelle ensin sen käyttämän vaihteen (engl. exchange) tai käyttää palvelimen oletusvaihteita. Vaihde on komponentti, joka ottaa vastaan viestejä ja reitittää niitä jonoihin vaihdetyypin (engl. exchange type) ja sidosten mukaan. Vaihteet eivät ikinä tallenna viestejä. Vaihde voi tiputtaa viestin, jos se ei täsmää minkään määritetyn reitityksen kanssa. AMQ-malli määrittää seuraavat vaihdetyypit:
+\begin{itemize}
+	\item suora vaihde (engl. direct exchange),
+	\item hajautus vaihde (engl. fanout exchange),
+	\item aihepiiri vaihde (engl. topic exchange) ja
+	\item otsikko vaihde (engl. header exchange).
+\end{itemize}
 
-\subsection{Julkaisijan ja tilaajan näkyvyysalueet}
-\begin{it}
-	Kirjoita tähän mitä protokollan avulla julkaisuja ja tilaaja voivat nähdä ja konfiguroida amqp-serverillä. Kuinka koko homma toimii alusta loppuun ohjelmien välillä. Havainnolista tätä kuvalla, jonka ympärille teksti kirjotetaan.
-\end{it}
+Näiden lisäksi vaihteella on myös attribuutteina nimi (name), kestävyys (durability), automaatiinen poisto (auto-delete) 
 
+
+\subsection{Jonon ja sidoksen toiminta}
