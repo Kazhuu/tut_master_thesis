@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (unknown)"
+   sodipodi:docname="implemented-system-communication.svg"
+   inkscape:export-filename="/home/kazooie/latex/tut_master_thesis/pictures/implemented-system-communication.png"
+   inkscape:export-xdpi="100"
+   inkscape:export-ydpi="100">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker4064"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path4062" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker3662"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path3660"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker3051"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:collect="always">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path3049" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker2359"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path2357" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker1793"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path1791" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker1771"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path1769" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path1508"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="148.72049"
+     inkscape:cy="860.2549"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="2560"
+     inkscape:window-height="1386"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4732057;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.83923421,0.9464114;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect1421"
+       width="57.280056"
+       height="14.165289"
+       x="57.6437"
+       y="56.378025" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="63.894398"
+       y="64.628555"
+       id="text1393"><tspan
+         sodipodi:role="line"
+         x="63.894398"
+         y="64.628555"
+         style="stroke-width:0.26458332"
+         id="tspan1395">Toteutettu ohjelmisto</tspan></text>
+    <g
+       id="g1437"
+       transform="translate(9.9515186)">
+      <g
+         id="g1430">
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.41747889;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect1417"
+           width="39.179695"
+           height="14.165287"
+           x="132.04022"
+           y="56.378029" />
+      </g>
+      <text
+         id="text1401"
+         y="61.982727"
+         x="136.58189"
+         style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="stroke-width:0.26458332"
+           y="61.982727"
+           x="136.58189"
+           id="tspan1399"
+           sodipodi:role="line">Viestien</tspan><tspan
+           id="tspan1403"
+           style="stroke-width:0.26458332"
+           y="67.274391"
+           x="136.58189"
+           sodipodi:role="line">välityspalvelin</tspan></text>
+    </g>
+    <g
+       id="g1453">
+      <rect
+         y="56.378029"
+         x="-23.519718"
+         height="14.165287"
+         width="39.021351"
+         id="rect1415"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <text
+         id="text1407"
+         y="65.038872"
+         x="-13.066887"
+         style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="stroke-width:0.26458332"
+           y="65.038872"
+           x="-13.066887"
+           id="tspan1405"
+           sodipodi:role="line">IED-laite</tspan></text>
+    </g>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.41508496;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect1423"
+       width="42.369678"
+       height="13.770952"
+       x="212.80049"
+       y="56.575195" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="215.10069"
+       y="64.628555"
+       id="text1411"><tspan
+         sodipodi:role="line"
+         x="215.10069"
+         y="64.628555"
+         style="stroke-width:0.26458332"
+         id="tspan1413">Tilaava ohjelmisto</tspan></text>
+    <g
+       id="g1461"
+       transform="translate(0,-20.599702)">
+      <rect
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         id="rect1455"
+         width="39.021351"
+         height="14.165287"
+         x="-23.519718"
+         y="56.378029" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="-13.066887"
+         y="65.038872"
+         id="text1459"><tspan
+           sodipodi:role="line"
+           id="tspan1457"
+           x="-13.066887"
+           y="65.038872"
+           style="stroke-width:0.26458332">IED-laite</tspan></text>
+    </g>
+    <g
+       id="g1469"
+       transform="translate(0,19.654762)">
+      <rect
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.44999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         id="rect1463"
+         width="39.021351"
+         height="14.165287"
+         x="-23.519718"
+         y="56.378029" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="-13.066887"
+         y="65.038872"
+         id="text1467"><tspan
+           sodipodi:role="line"
+           id="tspan1465"
+           x="-13.066887"
+           y="65.038872"
+           style="stroke-width:0.26458332">IED-laite</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker1771);stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 17.061736,42.018476 38.042782,17.61038"
+       id="path1481"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker1793);stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 17.529219,82.754236 55.081125,67.971058"
+       id="path1483"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend);stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 16.971615,63.465333 H 55.048122"
+       id="path1485"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="26.994221"
+       y="38.015827"
+       id="text2343"><tspan
+         sodipodi:role="line"
+         id="tspan2341"
+         x="26.994221"
+         y="38.015827"
+         style="stroke-width:0.26458332">Toteutettu ohjelmisto</tspan><tspan
+         sodipodi:role="line"
+         x="26.994221"
+         y="43.307495"
+         style="stroke-width:0.26458332"
+         id="tspan2345">tilaa viestejä IED-laitteilta</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path2355"
+       d="m 116.75733,63.465333 h 22.5725"
+       style="fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker2359);stroke-miterlimit:4;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="95.94976"
+       y="47.637527"
+       id="text3011"><tspan
+         sodipodi:role="line"
+         id="tspan3009"
+         x="95.94976"
+         y="47.637527"
+         style="stroke-width:0.26458332">Prosessoi ja edelleen lähettää</tspan><tspan
+         sodipodi:role="line"
+         x="95.94976"
+         y="52.929195"
+         style="stroke-width:0.26458332"
+         id="tspan3013">välityspalvelimelle jonoon</tspan></text>
+    <rect
+       y="35.975494"
+       x="212.80049"
+       height="13.770952"
+       width="42.369678"
+       id="rect3015"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.41508496;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+    <text
+       id="text3021"
+       y="44.028858"
+       x="215.10069"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         id="tspan4740"
+         style="stroke-width:0.26458332"
+         y="44.028858"
+         x="215.10069"
+         sodipodi:role="line">Tilaava ohjelmisto</tspan></text>
+    <rect
+       y="76.229958"
+       x="212.80049"
+       height="13.770952"
+       width="42.369678"
+       id="rect3025"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.41508496;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+    <text
+       id="text3031"
+       y="84.283318"
+       x="215.10069"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         id="tspan3029"
+         style="stroke-width:0.26458332"
+         y="84.283318"
+         x="215.10069"
+         sodipodi:role="line">Tilaava ohjelmisto</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path3047"
+       d="m 184.03709,63.465333 h 26.38879"
+       style="fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3051)"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3662)"
+       d="m 184.03709,59.307595 27.14474,-16.81994"
+       id="path3658"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4060"
+       d="m 184.14386,67.322337 26.76676,16.252977"
+       style="fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4064)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="187.35594"
+       y="27.057777"
+       id="text4734"><tspan
+         sodipodi:role="line"
+         id="tspan4732"
+         x="187.35594"
+         y="27.057777"
+         style="stroke-width:0.26458332">Asiakkaat tilaavat viestejä</tspan><tspan
+         sodipodi:role="line"
+         x="187.35594"
+         y="32.349445"
+         style="stroke-width:0.26458332"
+         id="tspan4736">välityspalvelimen jonosta</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-13.885442"
+       y="97.670631"
+       id="text4774"><tspan
+         sodipodi:role="line"
+         id="tspan4772"
+         x="-13.885442"
+         y="97.670631"
+         style="stroke-width:0.26458332">Julkaisijat</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="67.197556"
+       y="78.091446"
+       id="text4778"><tspan
+         sodipodi:role="line"
+         id="tspan4776"
+         x="67.197556"
+         y="78.091446"
+         style="stroke-width:0.26458332">Tilaaja ja julkaisija</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="153.15936"
+       y="78.091446"
+       id="text4782"><tspan
+         sodipodi:role="line"
+         id="tspan4780"
+         x="153.15936"
+         y="78.091446"
+         style="stroke-width:0.26458332">Välittäjä</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="226.32895"
+       y="97.670631"
+       id="text4786"><tspan
+         sodipodi:role="line"
+         id="tspan4784"
+         x="226.32895"
+         y="97.670631"
+         style="stroke-width:0.26458332">Tilaajat</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.00605059px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.18787816"
+       x="119.2118"
+       y="68.375488"
+       id="text4826"><tspan
+         sodipodi:role="line"
+         id="tspan4824"
+         x="119.2118"
+         y="68.375488"
+         style="stroke-width:0.18787816">AMQP 0.9.1</tspan></text>
+    <text
+       id="text4830"
+       y="68.108215"
+       x="187.90007"
+       style="font-style:normal;font-weight:normal;font-size:3.00605059px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.18787816"
+       xml:space="preserve"><tspan
+         style="stroke-width:0.18787816"
+         y="68.108215"
+         x="187.90007"
+         id="tspan4828"
+         sodipodi:role="line">AMQP 0.9.1</tspan></text>
+    <text
+       id="text4834"
+       y="67.84095"
+       x="27.805622"
+       style="font-style:normal;font-weight:normal;font-size:3.00605059px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.18787816"
+       xml:space="preserve"><tspan
+         style="stroke-width:0.18787816"
+         y="67.84095"
+         x="27.805622"
+         id="tspan4832"
+         sodipodi:role="line">IEC 61850</tspan></text>
+  </g>
+</svg>
