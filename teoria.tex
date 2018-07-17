@@ -371,16 +371,46 @@ AMQP-standardi määrittä komponentteja, joiden läpi viestin täytyy kulkea ju
 AMQP on ohjelmoitava protokolla siinä mielessä, että julkaisija ja tilaaja voivat määrittää komponentteja ja reititystä ajon aikana tarpeidensa mukaan. Välittäjäpalvelin ei määritä kuin oletus vaihteet valmiiksi käytettäväksi. Eli julkaisuja voi luoda vaihteita ja tilaaja voi luoda jonoja ja sidoksia vaihdeiden ja jonojen välille. Jokaisella yksilöllä välityspalvelimella on yksilöivä nimi. Kuvassa \ref{fig:amq-model-parts} on AMQ-mallin komponenttien alla niille määritetyt nimet. Vaihteella on esimerkiksi nimi exchange\_1 ja ylimmällä jonolla queue\_1. Tällä ohjelmoitavalla ominaisuudella välityspalvelin voidaan konfiguroida toteuttamaan erilaisia skenaarioita vapaasti ja se antaa kehittäjille vapautta toteutukseen.
 
 
-\subsection{Vaihde ja sen eri tyypit}
-Viestin kulku aloitetaan sillä, että julkaisija määrittää välittäjäpalvelimelle ensin sen käyttämän vaihteen (engl. exchange) tai käyttää palvelimen oletusvaihteita. Vaihde on komponentti, joka ottaa vastaan viestejä ja reitittää niitä jonoihin vaihdetyypin (engl. exchange type) ja sidosten mukaan. Vaihteet eivät ikinä tallenna viestejä. Vaihde voi tiputtaa viestin, jos se ei täsmää minkään määritetyn reitityksen kanssa. AMQ-malli määrittää seuraavat vaihdetyypit:
+\subsection{Vaihde (exchange) ja reititysavain (routing-key)}
+Jotta viesti voidaan välittäjäpalvelimen läpi kuljettaa, täytyy julkaisijan aloittaa määrittämällä sen käyttämä vaihde (engl. exchange) tai käyttää palvelimen oletusvaihdetta. Vaihde on komponentti, joka ottaa vastaan viestejä ja reitittää niitä jonoihin vaihdetyypin (engl. exchange type) ja sidosten mukaan. Vaihteet eivät ikinä tallenna viestejä. Vaihde voi tiputtaa viestin, jos se ei täsmää minkään määritetyn reitityksen kanssa. AMQ-malli määrittää seuraavat käytettävät vaihdetyypit:
 \begin{itemize}
-	\item suora vaihde (engl. direct exchange),
-	\item hajautus vaihde (engl. fanout exchange),
-	\item aihepiiri vaihde (engl. topic exchange) ja
-	\item otsikko vaihde (engl. header exchange).
+	\item suoravaihde (engl. direct exchange),
+	\item hajautusvaihde (engl. fanout exchange),
+	\item aihepiirivaihde (engl. topic exchange) ja
+	\item otsikkovaihde (engl. header exchange).
 \end{itemize}
 
-Näiden lisäksi vaihteella on myös attribuutteina nimi (name), kestävyys (durability), automaatiinen poisto (auto-delete) 
+Näitä tyyppejä ja kuinka ne toimivat käydään läpi tarkemmin myöhemmin. Näiden lisäksi vaihteella on myös attribuutteina nimi (name), kestävyys (durability), automaattinen poisto (auto-delete). Nimi yksilöi vaihteen palvelimella ja tilaaja käyttää tätä nimeä sidoksen tekemiseen jonon ja vaihteen välille. Kestävyys parameterilla julkaisija voi kertoa palvelimelle että välitäjä säilyttää vaihteen uudelleenkäynnistysten jälkeen. Jos ei niin vaihde täytyy määrittää uudelleen käynnistyksen jälkeen. Automaattinen poisto kertoo poistaako välittäjä vaihteen automaattisesti, kun viimeinen siihen sidottu jono on poistettu.
+
+Kaikki julkaisijan ja tilaajan kutsut välittäjäpalvelimelle, jotka tekevät uuden instanssin komponentista, ovat esitteleviä (engl. declare). Tarkoittaa että palvelin tekee tarvittaessa uuden instanssin komponentista, jos sitä ei ole jo olemassa, ja vastaa samalla tavoin onnistuneesti molemmissa tapauksissa. Tilanne tulee esimerkiksi silloin kun kaksi julkaisijaa käyttävät samaa vaihdetta keskenään. Toinen ei tiedä onko toinen jo määrittänyt instanssin vaihteesta palvelimelle, esimerkiksi silloin kun ohjelmat käynnistyvät eri aikaan. Jos kummatkin julkaisijat eksplisiittisesti määrittävät saman käytettävän vaihteen. Palvelin vastaa kummallekin onnistuneesti ja tuloksena palvelimella on vain yksi instanssi halutusta vaihteesta. Sama toiminta pätee kaikkiin välittäjäpalvelimen kutsuihin, jotka tekevät uusia instansseja komponenteista.
+
+Vaihde reitittää viestejä jonoihin sen sidosten ja tyypin mukaan. Kuitenkin reititykseen liittyy yksi tärkeä asia, sellainen kuin reititysavain (engl. routing-key). Reititysavain on kuin virtuaalinen osoite viestissä, jonka julkaisija liittää viestiin julkaisun yhteydessä. Tilaaja käyttää myös reititysavainta jonon määrityksen yhteydessä. Vaihde, tyypistä riippuen, voi käyttää tätä avainta reititykseen eri jonoihin. Viestin reititysavainta voi hyvin verrata lähetettävän sähköpostin saaja-kenttään. Saaja kertoo vastaanottajan sähköpostiosoitteen, johon viesti on tarkoitus lähettää. Reititysavain toimii juurikin näin suorassa viestin lähetyksessä.
+
+
+\subsection{Suoravaihde (direct exchange)}
+Julkaisija voi määrittää vaihteen tyypiksi suoravaihteen (engl. direct exchange). Suoravaihde reitittää viestin jonoihoin suoraan vastaavan reititysavaimen perusteella. Suoravaihde reitittää seuraavasti:
+\begin{itemize}
+	\item tilaaja määrittää sidoksen reititysavaimella K,
+	\item julkaisija julkaisee viestin reititysavaimella R,
+	\item vaihde välittää viestin jonoon jos K = R,
+	\item muuten vaihde tiputtaa tai palauttaa viestin lähettäjälle.
+\end{itemize}
+Kuvassa \ref{fig:amqp-direct-exchange} on esitetty suoravaihteen toiminta. Vaihteeseen on tehty sidoksia reititysavaimilla error ja info. Yksi tilaaja voi luoda sidoksia samaan vaihteeseen monella eri reititysavaimella. Näin tilaaja voi tilata viestejä mistä on kiinnostunut. Kuvassa \ref{fig:amqp-direct-exchange} julkaisija julkaisee viestin reititysavaimella info. Viesti päätyy molempiin queue\_1 ja queue\_2 jonoon. Reititysavaimella error, viestit päätyvät vain jonoon queue\_1.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/amqp-direct-exchange.png}
+	\caption{Suoravaihde (direct exchange), joka reitittää suoraan sidoksen reititysavaimen mukaan.}
+	\label{fig:amqp-direct-exchange}
+\end{figure}
+
+
+\subsection{Hajautusvaihde (fanout exchange)}
+
+
+\subsection{Aihepiirivaihde (topic exchange)}
+
+
+\subsection{Otsikkovaihde (header exchange)}
 
 
 \subsection{Jonon ja sidoksen toiminta}
