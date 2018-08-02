@@ -376,7 +376,7 @@ Jotta viesti voidaan välittäjäpalvelimen läpi kuljettaa, täytyy julkaisijan
 	\item otsikkovaihde (engl. header exchange).
 \end{itemize}
 
-Näitä tyyppejä ja kuinka ne toimivat, käydään tarkemmin läpi tulevissa kappaleissa. Tyypin lisäksi vaihteella on myös attribuutteina nimi (name), kestävyys (durability), automaattinen poisto (auto-delete). Nimi yksilöi vaihteen palvelimella ja tilaaja käyttää tätä nimeä sidoksen tekemiseen jonon ja vaihteen välille. AMPQ-standardissa oletetaan, että nimi on jo tiedossa etukäteen julkaisijalla ja tilaajalla. AMPQ ei tarjoa toiminnallisuutta instanssien nimien noutamiseen. Kestävyys parametrilla julkaisija voi kertoa palvelimelle, että välitäjä säilyttää vaihteen uudelleenkäynnistysten jälkeen. Jos ei, julkaisijan täytyy määrittää vaihde uudelleen käynnistyksen jälkeen. Automaattinen poisto kertoo poistaako välittäjä vaihteen automaattisesti, kun viimeinen siihen sidottu jono on poistettu ja julkaisija ei ole enää yhteydessä.
+Näitä tyyppejä ja kuinka ne toimivat, käydään tarkemmin läpi tulevissa kappaleissa. Tyypin lisäksi vaihteella on myös attribuutteina nimi (engl. name), kestävyys (engl. durability), automaattinen poisto (engl. auto-delete). Nimi yksilöi vaihteen palvelimella ja tilaaja käyttää tätä nimeä sidoksen tekemiseen jonon ja vaihteen välille. AMPQ-standardissa oletetaan, että nimi on jo tiedossa etukäteen julkaisijalla ja tilaajalla. AMPQ ei tarjoa toiminnallisuutta instanssien nimien noutamiseen. Kestävyys parametrilla julkaisija voi kertoa palvelimelle, että välitäjä säilyttää vaihteen uudelleenkäynnistysten jälkeen. Jos ei, julkaisijan täytyy määrittää vaihde uudelleen käynnistyksen jälkeen. Automaattinen poisto kertoo poistaako välittäjä vaihteen automaattisesti, kun viimeinen siihen sidottu jono on poistettu ja julkaisija ei ole enää yhteydessä.
 
 Kaikki julkaisijan ja tilaajan kutsut välittäjäpalvelimelle, jotka tekevät uuden instanssin komponentista, ovat esitteleviä (engl. declare). Tarkoittaa että palvelin tekee tarvittaessa uuden instanssin komponentista, jos sitä ei ole jo olemassa, ja vastaa samalla tavoin onnistuneesti molemmissa tapauksissa. Tilanne tulee esimerkiksi silloin kun kaksi julkaisijaa käyttävät samaa vaihdetta keskenään. Toinen ei tiedä onko toinen jo määrittänyt instanssin vaihteesta palvelimelle, esimerkiksi silloin kun ohjelmat käynnistyvät eri aikaan. Jos kummatkin julkaisijat eksplisiittisesti määrittävät saman käytettävän vaihteen. Palvelin vastaa kummallekin onnistuneesti ja tuloksena palvelimella on vain yksi instanssi halutusta vaihteesta. Sama toiminta pätee kaikkiin välittäjäpalvelimen kutsuihin, jotka tekevät uusia instansseja komponenteista.
 
@@ -439,11 +439,52 @@ Kuvassa \ref{fig:amqp-topic-exchange} on esitetty aihepiirivaihteen toiminta. Va
 
 Nyt jos julkaisija lähettää viestin avaimella \textbf{app1.debug.warn}. Vaihde välittää viestin jonoon queue\_1, mutta ei jonoon queue\_2. Avaimella \textbf{app2.log.info} viesti välitetään vain jonoon queue\_2. Avaimella \textbf{app1.log.warn} viesti lähetään molempiin jonoihin. Kun taas avaimella \textbf{app2.debug.info} viestiä ei lähetetä yhteenkään jonoon.
 
-Aihepiirivaihde on vaihdetyypeistä monimutkaisin, mutta tarjoaa ison määrän erilaisia käyttötapauksia. Vaihteen avulla tilaajat voivat tilata viestejä, joista ovat esimerkiksi kiinnostuneita. Aihepiirivaihdetta voi käyttää kuin aikaisempia vaihdetyyppejä. Jos jono sidotaan reitityskaavalla \textbf{\#}, se vastaanottaa kaikki viestit kyseiseltä vaihteelta ja käyttäytyy kuin hajautusvaihde. Jos jono sidotaan ilman merkkejä \textbf{*} ja \textbf{\#}, niin se käyttäytyy samalla tavalla kuin suoravaihde. \cite{RabbitMQ-Tutorial-Topics}
+Aihepiirivaihde on vaihdetyypeistä monimutkaisin, mutta kattaa ison määrän erilaisia käyttötapauksia. Vaihteen avulla tilaajat voivat tilata viestejä, joista ovat esimerkiksi kiinnostuneita. Aihepiirivaihdetta voi käyttää kuin aikaisempia vaihdetyyppejä. Jos jono sidotaan reitityskaavalla \textbf{\#}, se vastaanottaa kaikki viestit kyseiseltä vaihteelta ja käyttäytyy kuin hajautusvaihde. Jos jono sidotaan ilman merkkejä \textbf{*} ja \textbf{\#}, niin se käyttäytyy samalla tavalla kuin suoravaihde. \cite{RabbitMQ-Tutorial-Topics}
 
 
-\subsection{Otsikkovaihde (header exchange)}
+\subsection{Otsikkovaihde (headers exchange)}
+Otsikkovaihde (engl. headers exchange) on vaihdetyyppi joka ei käytä reititysavainta ollenkaan reititykseen, vaan reititys perustuu viestin ja sidoksen otsikkotietoihin. Otsikkotiedot koostuvat avain--arvo-pareista. Otsikkovaihde toimii seuraavasti:
+\begin{itemize}
+	\item tilaaja määrittää sidoksen vaihteeseen otsikkotiedoilla H,
+	\item julkaisija julkaisee viestin otsikkotiedoilla O,
+	\item vaihe välittää viestin jonoon jos otsikkotiedot O vastaavat otsikkotietoja H, riippuen sidoksen otsikkotiedoissa olevasta \textbf{x-match} kentän arvosta.
+\end{itemize}
+Jonon sidoksen määrityksen yhteydessä tilaaja voi asettaa kentän \textbf{x-match} otsikkotietoihin ja sille arvon kahdesta eri mahdollisuudesta \textbf{all} tai \textbf{any}. Arvot toimivat seuraavasti:
+\begin{itemize}
+	\item \textbf{all} kertoo vaihteelle, että jokainen viestin otsikkotieto täytyy vastata sidoksen otsikkotietoja (boolen algebrassa AND-operaatio), jotta viestin lähetetään jonoon,
+	\item \textbf{any} kertoo vaihteelle, että mikä vain viestin otsikkotiedoista löytyy sidoksen otsikkotiedoista (boolen algebrassa OR-operaatio), lähetetään viesti jonoon. \cite[s.~28]{AMQP-specification}
+\end{itemize}
+
+Otsikkotiedoissa arvot ovat vaihtoehtoisia asettaa. Jos kentän arvoa ei ole asetettu, vastaavuus on kun kentän nimet ovat samat. Jos kentän arvo on asetettu, vastaavuus on jos molemmat nimi ja arvo vastaavat toisiaan. \cite[s.~28]{AMQP-specification}
+
+
+\subsection{Jonon määritys ja viestien kuittaaminen}
+AMQ-mallissa jono (engl. queue) on vaihteen ja tilaajan välissä oleva puskuri (kuva \ref{fig:amq-model-parts}), joka tallentaa tilaajalle tulevia viestejä. Jono pitää viestejä jonossa tilaajelle, kunnes tämä kerkiää prosessoida ne. Yksi jono voi puskuroida viestejä monelle eri tilaajalle. Tilaaja sitoo (engl. binding) jonon nimellä johonkin palvelimelle jo olevaan vaihteeseen mistä viestejä haluaa. Tilaajan täytyy tietää vaihteen nimi jo etukäteen. Jonolla tilaaja voi määrittää attribuutteja. Jotkin attribuutit ovat samoja kuin vaihteella. Tilaaja voi määrittää jonolle nimen (engl. name), kestävä (engl. durable), eksklusiivinen (engl. exclusive) ja automaattinen poisto (auto-delete). Nimi yksilöi jonon palvelimella. Tilaaja voi halutessaan pyytää palvelinta generoimaan yksilöivän nimen jonolle automaattisesti. Kestävyys säilyttää jonon palvelimella uudelleenkäynnistyksen jälkeen. Eksklusiivinen rajoittaa jonon vain yhdelle tilaajalle, ja palvelin poistaa jonon kun yhteys tilaajaan katkeaa. Automaattinen poisto poistaa jonon palvelimelta automaattisesti, kunnes yhteys viimeiseen tilaajan on katkennut. \cite{RabbitMQ-AMQP-0-9-1-Model-Explained}
+
+Jono lähettää viestin vain yhdelle jonossa olevalle tilaajalle. Sama viesti lähetetään ainoastaan toiselle tilaajalle, jos se edelleenlähetetään virheen tai peruutuksen seurauksena. Jos samassa jonossa on monta eri tilaajaja, jono lähettää viestejä monelle tilaajalle kiertovuorottelun (engl. round-robin) periaatteen mukaan. \cite[s.~11--12]{AMQP-specification}
+
+Tilaajan täytyy määrittä jonolle sen käyttämä viestin kuittaamisen (engl. acknowledge) malli, ennen kuin jono poistaa viestin puskurista. Malleja on kaksi:
+\begin{itemize}
+	\item automaattinen, jolloin palvelin poistaa viestin jonosta heti kun se on lähetetty tilaajalle,
+	\item eksplisiittinen, jolloin palvelin poistaa viestin vasta kun tilaaja on lähettänyt kuittauksen palvelimelle.
+\end{itemize}
+Tilaaja voi lähettää viestistä kuittauksen milloin vain prosessoinnin aikana. Heti kun viesti on vastaanotettu, tai silloin kun viesti on prosessoitu. \cite[s.~29]{AMQP-specification}
 
 
 
-\subsection{Jonon ja sidoksen toiminta}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
