@@ -1,22 +1,33 @@
-\chapter{Alkutilanne}
-\label{ch:alkutilanne}
+\chapter{Projektin lähtökohdat}
+\label{ch:projektin-lähtökohdat}
+Ennen tämän työn aloittamista yrityksessä oli jo kehitetty ensimmäinen versio ohjelmasta, joka kykeni tilaamaan viestejä IED-laitteelta. Prosessoimaan viestit ja tallentamaan ne relaatiotietokantaan myöhempää käyttöä varten. Tässä ohjelmistossa oli havaittuja ongelmia ja se ei muutenkaan tukenut kaikkia IEC 61850 -standardin vaatimia toiminnallisuuksia. Tämän ohjelmiston toimintaperiaate ja siinä olleet ongelmat toimivat pohjana uuden version suunnittelulle ja toteutukselle. Tätä ohjelmaa voisi nimittää ensimmäiseksi protoversioksi tai demovaiheeksi (engl. proof of consept), jonka pohjalta tultiin tekemään toimiva lopullinen versio.
 
+Tässä osiossa pohjustetaan työn alkua lukijalle ja mistä lähdettiin liikkeelle. Mitä ongelmia demovaiheen toteutuksessa oli ja miten ne havaittiin. Demovaiheen ohjelmasta käsitellään sen arkkitehtuuria, mitkä olivat sen komponentit ja niiden toiminnallisuus. Asetettujen tutkimuskysymysten ja ongelmien kautta pyritään löytämään uudelle ohjelmiston arkkitehtuurille pohjaa ja ratkaisua siihen liittyviin päätöksiin.
+
+
+\section{Alkuperäinen ohjelmisto ja sen toiminta}
+
+
+\subsection{Ohjelman arkkitehtuuri ja toiminta}
+Ensimmäinen versio oli ohjelmoitu Ruby-ohjelmointikielellä. Ohjelman arkkitehtuuri oli todella yksinkertainen. Kuvassa \ref{fig:demo-architecture} on esitetty ensimmäisen version arkkitehtuuri korkealla tasolla.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/demo-architecture.png}
+	\caption{Protoversion arkkitehtuuri ja toiminta.}
+	\label{fig:demo-architecture}
+\end{figure}
+
+Ohjelmisto pystyi tilaamaan yhden IED-laitteen kaikki RCB-luokkien instanssit. Prosessoimaan viestit ja tallentamaan ne relaatiotietokantaan myöhempää käyttöä varten. Ruby ohjelmistossa tärkeässä osassa oli libIEC61850-kirjasto\footnote{\url{http://libiec61850.com}}. libIEC61850-kirjasto on matalan tason C-kielellä toteutettu kirjasto, joka abstrahoi IEC 61850 -standardin määrittämiä palvelukutsuja ja datarakenteita helpoiksi funktiokutsuiksi ja C-kielen struktuureiksi. Kirjaston yksi ominaisuus oli IEC 61850 -standardin viestien tilaaminen IED-laitteelta ja sitä käytettiin alkuperäisessä toteutuksessa.
+
+Kirjasto tarjoaa toiminnallisuuden IED-laitteen ja sen asiakasohjelmiston toteutukseen. Protoversiossa 
+Kirjasto käyttää MMS-protokollaa tiedonsiirrossa IED-laitteelta. Kuvassa X on esitetty kirjaston kerrosarkkitehtuuri.
+
+
+
+\subsection{Ongelmien havannointi ja niiden analyysi}
 \begin{it}
-	Pohjusta miksi suunniteltava ohjelmisto tarvitaan toteuttaa yritykseen johon työn teen. Alustava suunniteltu ohjelmiston toteutus olisi tilata IEC 61850 -standardin määrittämiä raportteja ja muokata ne uuteen muotoon ja julkaista ne eteenpäin tilaavalle ohjelmalle käyttäen AMQP-standardin määrittämää viestintää. Jonon tilaava asiakasohjelmisto voi olla mikä tahansa muu ohjelmisto. Viestien lopullinen muoto voisi olla JSON.
+	Kirjoita tähän osioon entisen ohjelmiston ongelmista, havannoinnista ja niiden analyysista miksi näin tapahtuu.
 \end{it}
-
-Nykyisin sähköasemilla älykkäillä elektronisilla laitteilla (engl. \emph{Intelligent Electronic Devices}, \textbf{IED}) asemilla voidaan toteuttaa tuhansia eri datapisteitä, jotka kuvaavat aseman toiminnallisuutta ja konfiguroitavuutta. Tämän konfiguroitavuuden ansiosta IED:tä voidaan asemalla käyttää erilaisina sähkölaitteina, kuten sulakkeina tai muuntajina. IEC~61850 -standardin abstraktit datamallit määrittävät IED:n datapisteiden rakenteet, muodot ja tyypit. Standardin mukaan erillisistä datapisteistä voidaan muodostaa haluttuja datajoukkoja (engl. \emph{data set}). Datajoukkot ovat helppo tapa kuvata halutut tai tärkeät datapisteet yhdeksi yhteinäiseksi joukoksi. \mbox{\cite{Mackiewicz2006}}.
-
-Asiakas-palvelin-arkkitehtuurissa asiakkaan on mahdollista tilata datajoukkojen sen hetkisiä arvoja IEC 61850 -standardin määrittäminä raportteina konfiguroitavilla parametreilla, jotka konfiguroidaan ennen tilausta. Arkkitehtuurissa asiakas tekee tilauksen palvelimelle (tässä tapauksessa IED), jonka jälkeen palvelin lähettää raportteja asiakkaalle automaattisesti, jonkin asiakkaan konfiguroiman ehdon täyttyessä. Standardi määrittää kuinka raporteja voidaan esim. välittää TCP/IP-protokollan avulla. Yksi raporti sisältää mm. tietojoukon sen hetkisiä arvoja ja syyn raportin lähetykseen (esim. arvon muuttuminen). Palvelin ylläpitää tilausta kunnes asiakas lopettaa tilauksen tai yhteys osapuolten välillä katkeaa. Asiakas tilaa raportit konfiguroimalla palvelimella olevan erillisen raportointilohkon (engl. \emph{Report Control Block}, \textbf{RCB}). Lohkolla voi konfiguroida mm. raporttien sisältämiä vaihtoehtoisia kenttiä ja erilaisia liipaisimia raporttien generointiin. Standardi määrittää että yhdellä RCB:llä voi olla vai yksi tietojoukko ja yksi tietojoukko voi olla viitattuna monessa eri RCB:ssä. Yhdessä IED:ssä voi olla määrittetynä monta RCB:tä. Yhtä tilaavaa asiakasta kohden on yksi RCB instanssi. \mbox{\cite[s.~91--130]{IEC61850-7-2}}.
-
-Tulevissa kappaleissa pohjustetaan työn alussa olemassa olevan ohjelmiston arkkitehtuuria, mitkä olivat sen komponentit ja niiden toiminnallisuus. Tämän jälkeen pohditaan toteutuksen ongelmia, ja mitä työssä pyritään ratkaisemaan uudella toteutuksella. Asetettujen tutkimuskysymysten ja ongelmien kautta pyritään löytämään uudelle ohjelmiston arkkitehtuurille pohjaa ja ratkaisua siihen liittyviin päätöksiin.
-
-\section{Kokonaiskuva}
-\begin{it}
-	Kirjoita tähän osioon kokonaiskuva alkutilanteesta missä oltiin ennen työn aloittamista. Selvennä kuvilla alkutilanteen arkkitehtuuria.
-\end{it}
-
-Työn aloitusvaiheessa oli jo toteutettuna ohjelmisto raporttien tilaukseen ja käsittelyyn. Tämä toteutus oli puutteellinen, ei helposti skaalautuva, ja huono suorituskyvyltään. Alkuperäinen ohjelmisto oli lähellä enemmän ensimmäistä prototyyppiä ennen todellista toteutusta. Työn tarkoituksena oli suunnitella ja toteuttaa uusi toteutus, joka ratkaisisi entisen ongelmakohdat.
 
 Alkuperäisessä toteutuksessa asiakasohjelmisto oli toteutettu Ruby-ohjelmointikielellä. IEC~61850 -standardin määrittämien palveluiden ja tietorakenteiden toteutukseen käytettiin avoimen lähdekoodin libIEC61850-kirjastoa\footnote{\url{http://libiec61850.com}}. Kirjasto on ohjelmoitu C-kielellä ja sen avulla voidaan toteuttaa kumpikin palvelin- ja asiakasohjelmisto. Tässä toteutuksessa tarvittiin vain asiakasohjelman osuutta Ruby-osuuden toteutukseen. Kirjasto abstraktoi standardin määrittämiä palveluita ja tietorakenteita ohjelmoijalle helpoiksi funktioiksi ja C-kielen rakenteiksi. Normaalisti C-koodin funktioiden kutsuminen Rubysta suoraan ei ole mahdollista ilman erillistä liitosta. Seurauksena Rubyyn oli tehty laajennos libIEC61850-kirjastoon käyttäen Rubylle saatavaa ruby-ffi -kirjastoa\footnote{\url{https://github.com/ffi/ffi}} (engl. \emph{Foreign Function Interface}, \textbf{FFI}). Liitoksen avulla libIEC61850-kirjasto voi hoitaa standardin vaatiman matalan tason toiminnan ja Ruby-ohjelmisto voi keskittyä vaadittuun toiminnallisuuteen.
 
