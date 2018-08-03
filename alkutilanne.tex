@@ -17,11 +17,15 @@ Ensimmäinen versio oli ohjelmoitu Ruby-ohjelmointikielellä. Ohjelman arkkiteht
 	\label{fig:demo-architecture}
 \end{figure}
 
-Ohjelmisto pystyi tilaamaan yhden IED-laitteen kaikki RCB-luokkien instanssit. Prosessoimaan viestit ja tallentamaan ne relaatiotietokantaan myöhempää käyttöä varten. Ruby ohjelmistossa tärkeässä osassa oli libIEC61850-kirjasto\footnote{\url{http://libiec61850.com}}. libIEC61850-kirjasto on matalan tason C-kielellä toteutettu kirjasto, joka abstrahoi IEC 61850 -standardin määrittämiä palvelukutsuja ja datarakenteita helpoiksi funktiokutsuiksi ja C-kielen struktuureiksi. Kirjaston yksi ominaisuus oli IEC 61850 -standardin viestien tilaaminen IED-laitteelta ja sitä käytettiin alkuperäisessä toteutuksessa.
+Ohjelmisto pystyi tilaamaan yhden IED-laitteen kaikki RCB-luokkien instanssit. Prosessoimaan viestit ja tallentamaan ne relaatiotietokantaan myöhempää käyttöä varten. Ruby ohjelmistossa tärkeässä osassa oli libIEC61850-kirjasto\footnote{\url{http://libiec61850.com}}. libIEC61850-kirjasto on matalan tason C-kielellä toteutettu kirjasto, joka abstrahoi IEC 61850 -standardin määrittämiä palvelukutsuja ja datarakenteita helpoiksi funktiokutsuiksi ja C-kielen struktuureiksi. Kirjasto tarjosi toiminnallisuuden IED-laitteella olevan serveriohjelmiston, sekä IED-laittetta käyttävän asiakaohjelmiston toteuttamiseen. IED-laitteen serverille kirjasto tarjosi funktioita ja rakenteita IEC 61850 määrittämien luokkien ja hierarkian rakentamiseen ja käsittelyyn. IED-laitteen asiakasohjelmalle kirjasto tarjosi funktioita ja rakenteita standardin määrittämiin palveluihin, kuten arvojen lukuun ja asettamiseen, datajoukkojen käyttöön ja viestien tilaamiseen. Tätä samaa kirjastoa käytettiin myös tämän työn toteutetussa ohjelmistossa. Koska demoversiossa ja tämän työn toteutuksessa keskitytään vain asiakasohjelmiston tekemiseen, käytetään kirjastosta vain sen asiakasohjelman toteutuksen ominaisuuksiin.
 
-Kirjasto tarjoaa toiminnallisuuden IED-laitteen ja sen asiakasohjelmiston toteutukseen. Protoversiossa 
-Kirjasto käyttää MMS-protokollaa tiedonsiirrossa IED-laitteelta. Kuvassa X on esitetty kirjaston kerrosarkkitehtuuri.
+Kirjasto on rakennettu käyttämään MMS-protokollaa tiedonsiirrossa IED-laitteelta. Kuvassa \ref{fig:libiec61850-layer-architecture} on esitetty kirjaston kerrosarkkitehtuuri asiakasohjelmalle.
 
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/libiec61850-layer-architecture.png}
+	\caption{libiec61850-kirjaston kerrosarkkitehruuri sen komponenteista asiakasohjelmalle \cite{libIEC61850-api-overview}.}
+	\label{fig:libiec61850-layer-architecture}
+\end{figure}
 
 
 \subsection{Ongelmien havannointi ja niiden analyysi}
