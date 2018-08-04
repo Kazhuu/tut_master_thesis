@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (unknown)"
+   sodipodi:docname="libiec61850-layer-architecture.svg"
+   inkscape:export-filename="/home/kazooie/latex/tut_master_thesis/pictures/libiec61850-layer-architecture.png"
+   inkscape:export-xdpi="100"
+   inkscape:export-ydpi="100">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="-85.128052"
+     inkscape:cy="347.27263"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:snap-nodes="true"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="-84.323534,117.06406"
+       orientation="1,0"
+       id="guide1009"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="90.336317,72.004473"
+       orientation="1,0"
+       id="guide1011"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="29.14142,131.43315"
+       orientation="1,0"
+       id="guide1056"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="-59.066564,135.77292"
+       orientation="0,1"
+       id="guide1109"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;vector-effect:none;fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect1013"
+       width="144.69792"
+       height="12.988916"
+       x="-84.367126"
+       y="210.5383"
+       ry="0.89417338" />
+    <path
+       style="opacity:1;vector-effect:none;fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.21178024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       d="m -83.044204,234.20433 h 39.599134 c 0.721048,0 1.301531,0.58048 1.301531,1.30153 v 10.36645 c 0,0.72105 -0.580483,1.30153 -1.301531,1.30153 h -39.599134 c -0.721047,0 -1.30153,-0.58048 -1.30153,-1.30153 v -10.36645 c 0,-0.72105 0.580483,-1.30153 1.30153,-1.30153 z"
+       id="rect978" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-63.409142"
+       y="239.45746"
+       id="text898"><tspan
+         sodipodi:role="line"
+         id="tspan896"
+         x="-63.409142"
+         y="239.45746"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332">Linux/ucLinux HAL</tspan><tspan
+         sodipodi:role="line"
+         x="-63.409142"
+         y="243.86719"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan900">implementation</tspan></text>
+    <rect
+       y="234.28445"
+       x="-40.466133"
+       height="12.996675"
+       width="40.971119"
+       id="rect999"
+       style="opacity:1;vector-effect:none;fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       ry="1.4282243" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-19.995216"
+       y="239.52017"
+       id="text910"><tspan
+         sodipodi:role="line"
+         id="tspan908"
+         x="-19.995216"
+         y="239.52017"
+         style="stroke-width:0.26458332">WIN32 HAL</tspan><tspan
+         sodipodi:role="line"
+         x="-19.995216"
+         y="243.9299"
+         style="stroke-width:0.26458332"
+         id="tspan912">implementation</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       id="rect1001"
+       width="37.768784"
+       height="13.00355"
+       x="2.4289351"
+       y="234.26216"
+       ry="1.4903209" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="21.298685"
+       y="239.50131"
+       id="text916"><tspan
+         sodipodi:role="line"
+         id="tspan914"
+         x="21.298685"
+         y="239.50131"
+         style="stroke-width:0.26458332">Mac OS X HAL</tspan><tspan
+         sodipodi:role="line"
+         x="21.298685"
+         y="243.91104"
+         style="stroke-width:0.26458332"
+         id="tspan918">implementation</tspan></text>
+    <rect
+       y="234.27354"
+       x="41.18882"
+       height="12.980777"
+       width="49.147499"
+       id="rect1003"
+       style="opacity:1;vector-effect:none;fill:#ff9f97;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       ry="1.6145145" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="65.741035"
+       y="239.53232"
+       id="text922"><tspan
+         sodipodi:role="line"
+         x="65.741035"
+         y="239.53232"
+         style="stroke-width:0.26458332"
+         id="tspan924">User provided</tspan><tspan
+         sodipodi:role="line"
+         x="65.741035"
+         y="243.94205"
+         style="stroke-width:0.26458332"
+         id="tspan932">HAL implementation</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#ffe680;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       id="rect1005"
+       width="174.65985"
+       height="7.5595236"
+       x="-84.323532"
+       y="224.99553"
+       ry="1.4174107" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="2.9202638"
+       y="229.74854"
+       id="text928"><tspan
+         sodipodi:role="line"
+         id="tspan926"
+         x="2.9202635"
+         y="229.74854"
+         style="stroke-width:0.26458332">Hardware/Platform Abstraction Layer (HAL) - Sockets, Threads, Time, Ethernet, Files</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-12.184391"
+       y="218.34792"
+       id="text936"><tspan
+         sodipodi:role="line"
+         id="tspan934"
+         x="-12.184391"
+         y="218.34792"
+         style="stroke-width:0.26458332">MMS client stack</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#9bbdff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect1015"
+       width="28.433056"
+       height="12.795297"
+       x="61.948959"
+       y="210.5383"
+       ry="1.0279015" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="76.071609"
+       y="216.01524"
+       id="text940"><tspan
+         sodipodi:role="line"
+         id="tspan938"
+         x="76.071609"
+         y="216.01524"
+         style="stroke-width:0.26458332">GOOSE</tspan><tspan
+         sodipodi:role="line"
+         x="76.071609"
+         y="220.42497"
+         style="stroke-width:0.26458332"
+         id="tspan942">subscriber</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#9bbdff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       id="rect1017"
+       width="174.62146"
+       height="8.6550674"
+       x="-84.304337"
+       y="199.91695"
+       ry="1.8898832" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="2.9857235"
+       y="205.21771"
+       id="text946"><tspan
+         sodipodi:role="line"
+         id="tspan944"
+         x="2.9857221"
+         y="205.21771"
+         style="stroke-width:0.26458332">IEC 61850 client services layer (report handling, control, data access, ...)</tspan></text>
+    <rect
+       y="189.71159"
+       x="-84.304337"
+       height="8.6550674"
+       width="174.62146"
+       id="rect1021"
+       style="opacity:1;vector-effect:none;fill:#9bbdff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       ry="1.8898809" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="3.0063927"
+       y="195.35429"
+       id="text950"><tspan
+         sodipodi:role="line"
+         id="tspan948"
+         x="3.0063925"
+         y="195.35429"
+         style="stroke-width:0.26458332">IEC 61850 C client API</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#9bbdff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       id="rect1023"
+       width="55.455124"
+       height="8.7802353"
+       x="-84.323532"
+       y="179.45311"
+       ry="1.9828523" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-56.59597"
+       y="185.73521"
+       id="text954"><tspan
+         sodipodi:role="line"
+         id="tspan952"
+         x="-56.59597"
+         y="185.73521"
+         style="stroke-width:0.26458332">IEC 61850 C#/.NET API</tspan></text>
+    <rect
+       y="161.22708"
+       x="-84.287827"
+       height="16.416576"
+       width="55.38372"
+       id="rect1029"
+       style="opacity:1;vector-effect:none;fill:#ff9f97;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       ry="2.2099273" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-56.54343"
+       y="168.618"
+       id="text958"><tspan
+         sodipodi:role="line"
+         id="tspan956"
+         x="-56.54343"
+         y="168.618"
+         style="stroke-width:0.26458332">User provided</tspan><tspan
+         sodipodi:role="line"
+         x="-56.54343"
+         y="173.02773"
+         style="stroke-width:0.26458332"
+         id="tspan960">C#/.NET/Mono application</tspan></text>
+    <rect
+       y="161.22708"
+       x="-26.948854"
+       height="27.090548"
+       width="54.373135"
+       id="rect1025"
+       style="opacity:1;vector-effect:none;fill:#ff9f97;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       ry="2.2337787" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="0.15010907"
+       y="174.00069"
+       id="text964"><tspan
+         sodipodi:role="line"
+         id="tspan962"
+         x="0.1501088"
+         y="174.00069"
+         style="stroke-width:0.26458332">User provided</tspan><tspan
+         sodipodi:role="line"
+         x="0.15010931"
+         y="178.41042"
+         style="stroke-width:0.26458332"
+         id="tspan966">C application</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#7bff84;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;font-variant-east_asian:normal"
+       id="rect1027"
+       width="61.194572"
+       height="8.7789021"
+       x="29.14142"
+       y="179.35931"
+       ry="1.8897418" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="59.964775"
+       y="185.56297"
+       id="text970"><tspan
+         sodipodi:role="line"
+         id="tspan968"
+         x="59.964775"
+         y="185.56297"
+         style="stroke-width:0.26458332">IEC 61850 Ruby API</tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#7bff84;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect1031"
+       width="61.214432"
+       height="15.776052"
+       x="29.131325"
+       y="161.22708"
+       ry="2.1251512" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="59.991169"
+       y="168.618"
+       id="text974"><tspan
+         sodipodi:role="line"
+         id="tspan972"
+         x="59.991169"
+         y="168.618"
+         style="stroke-width:0.26458332">Demo Ruby</tspan><tspan
+         sodipodi:role="line"
+         x="59.991169"
+         y="173.02773"
+         style="stroke-width:0.26458332"
+         id="tspan976">implementation</tspan></text>
+  </g>
+</svg>

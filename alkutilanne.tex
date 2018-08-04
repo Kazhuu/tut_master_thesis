@@ -19,22 +19,21 @@ Ensimmäinen versio oli ohjelmoitu Ruby-ohjelmointikielellä. Ohjelman arkkiteht
 
 Ohjelmisto pystyi tilaamaan yhden IED-laitteen kaikki RCB-luokkien instanssit. Prosessoimaan viestit ja tallentamaan ne relaatiotietokantaan myöhempää käyttöä varten. Ruby ohjelmistossa tärkeässä osassa oli libIEC61850-kirjasto\footnote{\url{http://libiec61850.com}}. libIEC61850-kirjasto on matalan tason C-kielellä toteutettu kirjasto, joka abstrahoi IEC 61850 -standardin määrittämiä palvelukutsuja ja datarakenteita helpoiksi funktiokutsuiksi ja C-kielen struktuureiksi. Kirjasto tarjosi toiminnallisuuden IED-laitteella olevan serveriohjelmiston, sekä IED-laittetta käyttävän asiakaohjelmiston toteuttamiseen. IED-laitteen serverille kirjasto tarjosi funktioita ja rakenteita IEC 61850 määrittämien luokkien ja hierarkian rakentamiseen ja käsittelyyn. IED-laitteen asiakasohjelmalle kirjasto tarjosi funktioita ja rakenteita standardin määrittämiin palveluihin, kuten arvojen lukuun ja asettamiseen, datajoukkojen käyttöön ja viestien tilaamiseen. Tätä samaa kirjastoa käytettiin myös tämän työn toteutetussa ohjelmistossa. Koska demoversiossa ja tämän työn toteutuksessa keskitytään vain asiakasohjelmiston tekemiseen, käytetään kirjastosta vain sen asiakasohjelman toteutuksen ominaisuuksiin.
 
-Kirjasto on rakennettu käyttämään MMS-protokollaa tiedonsiirrossa IED-laitteelta. Kuvassa \ref{fig:libiec61850-layer-architecture} on esitetty kirjaston kerrosarkkitehtuuri asiakasohjelmalle.
+Kirjasto oli rakennettu käyttämään MMS-protokollaa tiedonsiirrossa IED-laitteelta. Kuvassa \ref{fig:libiec61850-layer-architecture} on esitetty kirjaston kerrosarkkitehtuuri asiakasohjelmalle. Kirjastoon oli toteutettu laiteabstraktiokerros (engl. hardware abstraction layer, lyhennetään HAL). HAL:in avulla kirjasto voi toimia monella eri alustalla, ja käyttäjä voi tarvittaessa toteuttaa oman HAL-implementaation. Demoversiota ajettiin kirjaston tarjoamalla Linux-käyttöjärjestelmän HALilla. Kuvassa \ref{fig:libiec61850-layer-architecture} on punaisella merkitty laatikot, jotka kirjaston käyttäjä voi ohjelmoida, keltaisella kirjaston uudelleenkäytettävät MMS-protokollan osuudet ja sinisellä IEC 61850 -standardin osuudet. Kuvaan on merkitty vihreällä demoversioon toteutetut osuudet, eli Ruby-kielelle liitos C-kieleen ja tämän päälle Rubylla ohjelmoitu demo.
 
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/libiec61850-layer-architecture.png}
-	\caption{libiec61850-kirjaston kerrosarkkitehruuri sen komponenteista asiakasohjelmalle \cite{libIEC61850-api-overview}.}
+	\caption{libIEC61850-kirjaston kerrosarkkitehruurin komponentit, vihreällä Ruby toteutukseen lisätyt osat (pohjautuu kuvaan \cite{libIEC61850-api-overview}).}
 	\label{fig:libiec61850-layer-architecture}
 \end{figure}
+
+Ruby-koodista C-kielen funktioiden kutsuminen ei ole suoraan mahdollista, vaan kielten väliin täytyy toteuttaa liitos. Demoversiossa liitos oli tehty käyttäen Rubylle saatavaa ruby-ffi -kirjastoa\footnote{\url{https://github.com/ffi/ffi}} (engl. Foreign Function Interface, lyhennetään FFI). Liitoksen avulla Ruby voi kutsua C-kielen funktioita ja käyttää sen struktuureita ja muuttujia. Demossa kirjasto hoiti matalan tason IEC 61850 asiat, ja Ruby-koodi keskittyi liitoksen avulla korkean tason viestin parsintaan ja tallennukseen tietokantaan.
 
 
 \subsection{Ongelmien havannointi ja niiden analyysi}
 \begin{it}
 	Kirjoita tähän osioon entisen ohjelmiston ongelmista, havannoinnista ja niiden analyysista miksi näin tapahtuu.
 \end{it}
-
-Alkuperäisessä toteutuksessa asiakasohjelmisto oli toteutettu Ruby-ohjelmointikielellä. IEC~61850 -standardin määrittämien palveluiden ja tietorakenteiden toteutukseen käytettiin avoimen lähdekoodin libIEC61850-kirjastoa\footnote{\url{http://libiec61850.com}}. Kirjasto on ohjelmoitu C-kielellä ja sen avulla voidaan toteuttaa kumpikin palvelin- ja asiakasohjelmisto. Tässä toteutuksessa tarvittiin vain asiakasohjelman osuutta Ruby-osuuden toteutukseen. Kirjasto abstraktoi standardin määrittämiä palveluita ja tietorakenteita ohjelmoijalle helpoiksi funktioiksi ja C-kielen rakenteiksi. Normaalisti C-koodin funktioiden kutsuminen Rubysta suoraan ei ole mahdollista ilman erillistä liitosta. Seurauksena Rubyyn oli tehty laajennos libIEC61850-kirjastoon käyttäen Rubylle saatavaa ruby-ffi -kirjastoa\footnote{\url{https://github.com/ffi/ffi}} (engl. \emph{Foreign Function Interface}, \textbf{FFI}). Liitoksen avulla libIEC61850-kirjasto voi hoitaa standardin vaatiman matalan tason toiminnan ja Ruby-ohjelmisto voi keskittyä vaadittuun toiminnallisuuteen.
-
 Kirjasto toteuttaa raporttien vastaanoton palvelimelta erillisellä säikeellä. Säie käynnistetään kun asiakasohjelma asettaa funktion takaisinkutsuntaa varten raportin saapuessa ja aloittaa tilauksen. Asetettua funktiota kutsutaan asynkronisesti erillisestä säikeestä raportin saapuessa asiakkaalle. Takaisinkutsun suorituksen jälkeen, suoritus palaa takaisin säikeeseen.
 
 \section{Ratkaistavat ongelmat}
