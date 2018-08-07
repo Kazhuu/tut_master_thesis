@@ -39,6 +39,8 @@ Ruby-koodista C-kielen funktioiden kutsuminen ei ole suoraan mahdollista, vaan k
 	Semaphore hal taso löytyy polusta src/hal/thread/linux/thread\_linux.c.
 	Tätä käytetään IedConnection\_installReportHandler() funktiossa src/iec61850/client/ied\_connection.c:263. Ja 
 \end{it}
+
+
 Kirjasto toteuttaa raporttien vastaanoton palvelimelta erillisellä säikeellä. Säie käynnistetään kun asiakasohjelma asettaa funktion takaisinkutsuntaa varten raportin saapuessa ja aloittaa tilauksen. Asetettua funktiota kutsutaan asynkronisesti erillisestä säikeestä raportin saapuessa asiakkaalle. Takaisinkutsun suorituksen jälkeen, suoritus palaa takaisin säikeeseen.
 
 
