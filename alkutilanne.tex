@@ -38,9 +38,20 @@ Ruby-koodista C-kielen funktioiden kutsuminen ei ole suoraan mahdollista, vaan k
 	Suorityskykyyn liittyy Rubyn GIL, libIEC61850-kirjaston semaphori lukitus. Tästä koodia teskstiin sekaan ja analyysi miksi näin tapahtuu. Voisi myös jotenkin visualisoida kuvilla. Mainintaa myös rubyn suorituksen hitaudesta tähän.
 	Semaphore hal taso löytyy polusta src/hal/thread/linux/thread\_linux.c.
 	Tätä käytetään IedConnection\_installReportHandler() funktiossa src/iec61850/client/ied\_connection.c:263. Ja 
+
+	IedConnection->MmsConnection->IsoClientConnection->callback
+	Säie käynnistyy kun kutsutaan IedConnection\_connect() funktiota. Säei kutsuu funktiota mmsIsoCallback(), tiedostossa src/mms/iso\_client/mms\_client\_connection.c:747.
+	Säikeen funktio connectionHandlingThread() mitä ajaa on määritetty src/mms/iso\_client/iso\_client\_connection.c:120.
+	Tämä funktio kutsuu mmsIsoCallback() funktiota ISO\_IND\_DATA ensimmäisenä parametrinä, mikä on ISO\_IND\_DATA ja tyyppiä IsoIndication. Tätä ei kuitenkaan nähtävästi käytetä koko funktiossa mihinkään.
+
+	Kun RCB arvoja luetaan funktiolla getRCBValues(), niin funktio kutsuu sisäisesti sendRequestAndWaitForResponse() funktiota. Joka nukkuu ja odottaa vastausta IED-laitteelta. Jos sitä ei tule tai tulee connection timeout. Säikeen ja tämän välillä käytetään MmsConnection->lastResponseLock mutexia. Samaa funktiota kutsutaan myös sisäiseti kun RCB arvoja kirjoitetaan funktiolla IedConnection\_setRCBValues().
+
+	Kun viestien vastaanottaja funktio asetetaan, kirjasto lukitsee mutexin IedConnection->reportHandlerMutex siksi ajaksi kunnes saa sen asetettua funktiossa IedConnection\_installReportHandler():263.
+
+	Kun raportti saapuu IED-laitteelta, kutsutaan kirjastossa sisäisesti funktiota informationReportHandler() (src/iec61850/client/ied\_connection.c:430), mikä taas kutsuu private\_IedConnection\_handleReport() funktiota src/iec61850/client/client\_report.c:346. Tämä funktio kutsuu käyttäjän callback funktiota ja kutsun ajaksi lukitesee IedConnection->reportHandlerMutex mutexin.
+	
+	informationReportHandler() funktiota kutsutaan handleUnconfirmedMmsPdu(), ja tätä funktiota kutsutaan mmsIsoCallback() funktiosta, joka on ajossa erillisessä säikeessä.
 \end{it}
-
-
 Kirjasto toteuttaa raporttien vastaanoton palvelimelta erillisellä säikeellä. Säie käynnistetään kun asiakasohjelma asettaa funktion takaisinkutsuntaa varten raportin saapuessa ja aloittaa tilauksen. Asetettua funktiota kutsutaan asynkronisesti erillisestä säikeestä raportin saapuessa asiakkaalle. Takaisinkutsun suorituksen jälkeen, suoritus palaa takaisin säikeeseen.
 
 
