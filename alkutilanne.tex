@@ -52,6 +52,13 @@ Ruby-koodista C-kielen funktioiden kutsuminen ei ole suoraan mahdollista, vaan k
 	
 	informationReportHandler() funktiota kutsutaan handleUnconfirmedMmsPdu(), ja tätä funktiota kutsutaan mmsIsoCallback() funktiosta, joka on ajossa erillisessä säikeessä.
 \end{it}
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/sequence-diagram-report-subscription.png}
+	\caption{Sekvenssikaatio kaikkien RCB-instanssien tilaukseen yhdeltä IED-laitteelta demo-ohjelmalla.}
+	\label{fig:sequence-diagram-report-subscription}
+\end{figure}
+
 Kirjasto toteuttaa raporttien vastaanoton palvelimelta erillisellä säikeellä. Säie käynnistetään kun asiakasohjelma asettaa funktion takaisinkutsuntaa varten raportin saapuessa ja aloittaa tilauksen. Asetettua funktiota kutsutaan asynkronisesti erillisestä säikeestä raportin saapuessa asiakkaalle. Takaisinkutsun suorituksen jälkeen, suoritus palaa takaisin säikeeseen.
 
 
