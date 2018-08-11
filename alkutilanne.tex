@@ -6,9 +6,6 @@ Tässä osiossa pohjustetaan työn alkua lukijalle ja mistä lähdettiin liikkee
 
 
 \section{Demoversio ja sen toiminta}
-
-
-\subsection{Arkkitehtuuri ja toiminta}
 Demoversio oli ohjelmoitu Ruby-ohjelmointikielellä. Ohjelman arkkitehtuuri oli todella yksinkertainen. Kuvassa \ref{fig:demo-architecture} on esitetty demoversion arkkitehtuuri korkealla tasolla.
 
 \begin{figure}
@@ -30,7 +27,7 @@ Kirjasto oli rakennettu käyttämään MMS-protokollaa tiedonsiirrossa IED-laitt
 Ruby-koodista C-kielen funktioiden kutsuminen ei ole suoraan mahdollista, vaan kielten väliin täytyy toteuttaa liitos. Demoversiossa liitos oli tehty käyttäen Rubylle saatavaa ruby-ffi -kirjastoa\footnote{\url{https://github.com/ffi/ffi}} (engl. Foreign Function Interface, lyhennetään FFI). Liitoksen avulla Ruby voi kutsua C-kielen funktioita ja käyttää sen struktuureita ja muuttujia. Demossa kirjasto hoiti matalan tason IEC 61850 asiat, ja Ruby-koodi keskittyi liitoksen avulla korkean tason viestin parsintaan ja tallennukseen tietokantaan.
 
 
-\subsection{Ongelmakohdat ja analysointi}
+\section{Ongelmakohdat ja analysointi}
 \begin{it}
 	Kirjoita tähän osioon entisen ohjelmiston ongelmista, havannoinnista ja niiden analyysista miksi näin tapahtuu.
 	Ongelmat: suorituskyky lukituksen ja GILin takia, muistivuoto railsissa, joka aiheutti muistin tasaista syömistä kokoajan, tietokannasta muiden ohjelmien pitää koko ajan lukea tietoa erikseen.
@@ -53,13 +50,19 @@ Ruby-koodista C-kielen funktioiden kutsuminen ei ole suoraan mahdollista, vaan k
 	informationReportHandler() funktiota kutsutaan handleUnconfirmedMmsPdu(), ja tätä funktiota kutsutaan mmsIsoCallback() funktiosta, joka on ajossa erillisessä säikeessä.
 \end{it}
 
+Demoversiossa ohjelma oli toteutettu Ruby on Rails kehyksen päällä ajettavaksi. Ruby on Rails kehys on tarkoitettu web-sovellusten toteuttamiseen Ruby kielellä. Se tarjoaa Active Record nimisen ORM-kerroksen (engl. Object-relational Mapping). ORM-kerros abstrahoi relaatiotietokannan käyttämisen oliopohjaiseksi ja kyselyitä tietokantaan voi suoraan tehdä Ruby-kielellä. Demoversio käytti Railsin Active Record ORM-kerrosta tietokannan käyttämiseen. Eli ennen ohjelman ajamista ohjelmaan täytyi ladata Railsin ajoympäristö muistiin, joka aiheutti sen että yksinkertaisen ohjelman täyti varata iso määrä muistia ennen suoritusta. Linuxin htop-ohjelmalla katsottuna, prosessi varasi noin 150 Mt muistia ajoa varten.
+
+Ohjelma luki tietokannasta IED-laitteen, sekä sen kaikki RCB-instanssien tiedot. Tietojen avulla ohjelma tiesi mikä IED-laitteen IP-osoite on ja mitkä olivat RCB-instanssien referenssit. Ohjelmaan pystyi syöttämään eri tietoja ainoastaan tietokannan kautta ennen ajoa. Tämän jälkeen ohjelman toiminta, jokaisen RCB-instanssin viestien tilaukseen ja prosessointiin on esitetty sekvenssikaaviossa kuvassa \ref{fig:sequence-diagram-report-subscription}. Kuvassa ohjelman kaksi eri silmukkaa on esitetty kahdella eri seq-laatikolla.
+
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/sequence-diagram-report-subscription.png}
-	\caption{Sekvenssikaatio kaikkien RCB-instanssien tilaukseen yhdeltä IED-laitteelta demo-ohjelmalla.}
+	\caption{Sekvenssikaavio kaikkien RCB-instanssien tilaukseen yhdeltä IED-laitteelta demo-ohjelmalla.}
 	\label{fig:sequence-diagram-report-subscription}
 \end{figure}
 
-Kirjasto toteuttaa raporttien vastaanoton palvelimelta erillisellä säikeellä. Säie käynnistetään kun asiakasohjelma asettaa funktion takaisinkutsuntaa varten raportin saapuessa ja aloittaa tilauksen. Asetettua funktiota kutsutaan asynkronisesti erillisestä säikeestä raportin saapuessa asiakkaalle. Takaisinkutsun suorituksen jälkeen, suoritus palaa takaisin säikeeseen.
+Sekvenssikaaviossa osallisena ovat Demon Ruby-prosessi, libIEC61850-kirjasto, johon liitos oli tehty ruby-ffi -kirjastolla. Ja IED-laiteen serveriohjelma, johon libIEC61850-kirjasto kommunikoi verkon yli. Sekvenssikaaviota on hieman yksinkertaistettu, esim. libIEC61850-kirjaston tekemää erillistä säiettä ei kuvata ja ruby-ffi kirjastoa ei ole merkitty lainkaan.
+
+Tietokannasta luettujen tietojen jälkeen ohjelma muodostaa yhteyten IED-laitteelle, ensin tekemällä instanssin \texttt{IedConnection} struktuurista funktiolla \texttt{IedConnection\_create()}. Tämän jälkeen struktuuri annetaan \texttt{IedConnection\_connect()} funktiolle, joka avaa yhteyden IED-laitteelle ja palaa vasta kun vastaus saapuu. Tässä vaiheessa libIEC61850-kirjasto käynnistää erillisen natiivisäikeen yhteyden viestien vastaanottoon. Tämä tapahtuu kirjaston lähdekoodissa src/mms/iso\_client/iso\_client\_connection.c funktiossa \texttt{IsoClientConnection\_associate()} riveillä 429--434. Tätä säiettä kirjasto käyttää tulevien viestien vastaanottoon ja lähettämiseen. Yhteyden avauksen jälkeen jokainen RCB-instanssi tilataan lukemalla ensin sen arvot IED-laitteelta funktiolla \texttt{IedConnection\_getRCBValues()}. Funktiokutsu nukkuu ja palaa vasta kunnes erillinen säie ilmoittaa että vastaus on saapunut, tai yhteyden aika ylittyy. Kirjaston funktio, joka tämän hoitaa on \texttt{sendRequestAndWaitForResponse()} ja on määritetty src/mms/iso\_mms/client/mms\_client\_connection.c riveillä 345--418. RCB-arvot luettuaan, kirjasto palauttaa struktuurin \texttt{ClientReportControlBlock}, joka sisältää luetut tiedot RCB-instanssista. Samaa struktuuria käytetään arvojen muuttamiseen ja niiden takaisin kirjoittamiseen IED-laitteelle. Ennen muunneltujen RCB-arvojen takaisin kirjoittamista ja viestien tilaamista, täytyy kirjastolle asentaa takaisinkutsufunktio, jota kirjastoo kutsuu aina kun tilattu viesti saapuu IED-laitteelta. Takaisinkutsufunktio asetetaan \texttt{IedConnection\_installReportHandler()}, joka ottaa parametrikseen funktiopointterin ja vaihtoehtoisen parametripointterin. Heti arvojen kirjoitusten jälkeen IED aloittaa lähettämään viestejä. TODO: finish up
 
 
 \section{Puuttuvat ominaisuudet}
@@ -73,16 +76,4 @@ Ohjelmiston suorituskyky paikoin raporttien määrän ollessa suuri aiheutti ong
 
 \begin{it}
 	Kirjoita tähän vielä ongelmasta kun tilataan monta RCB:tä. Raporttien tullessa Rubyn puolelle, ei Rubyn muu koodi saa tilattua loppuja RCB:tä kirjaston lukitusten takia. Ja yhteys aikakatkeaa tämän takia. Selitä lukituksista tarkemmin ja myös liitä pätkiä libIEC61850-kirjaston koodista. Syyn selityksen voi siirtää muualle. Kirjoittaa vain että on ongelma, ja selvitys miksi, muualla.
-\end{it}
-
-\section{Tutkimuskysymykset}
-\begin{it}
-Esitä tässä työlle asetettuja tutkimuskysymyksiä. Näitä voisi olla esim. seuraavat:
-	\begin{itemize}
-		\item Mikä on syynä huonoon suorituskykyyn alkutilanteen toteutuksella?
-		\item Kuinka suorituskyky paremmaksi verrattuna nykyiseen toteutukseen?
-		\item Mitkä ohjelmiston arkkitehtuurin suunnittelumallit (design patterns) olisivat sopivia tämän kaltaisen ongelman ratkaisemiseen? Mitä niistä pitäisi käyttää ja mitä ei?
-		\item Mikä olisi sopiva lopullisen prosessoidun tiedon muoto?
-		\item Kuinka järjestelmä hajautetaan niin että tiedon siirto eri osapuolten välillä on mahdollista ja joustavaa (push vs pull, message queue jne.)?
-	\end{itemize}
 \end{it}
