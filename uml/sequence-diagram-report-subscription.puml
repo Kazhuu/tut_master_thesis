@@ -7,7 +7,7 @@ database tietokanta as db
 participant "Ruby-ohjelma" as ruby
 participant "libIEC61850" as libiec
 control "libIEC61850-kirjaston säie" as thread
-participant "IED-laitteen serveri" as ied
+participant "IED-laitteen palvelin" as ied
 
 == IED:n tietojen luku ==
 
@@ -44,49 +44,54 @@ activate ruby
 == Tilaa kaikki RCB-instanssit ==
 
 loop jokainen RCB-instanssi
-ruby -> libiec : IedConnection_getRBCValues()
-deactivate ruby
-activate libiec
-libiec -> thread : sendRequestAndWaitForResponse()
-thread -> ied : lue RCB:n arvot
-ied --> thread : arvot
-thread --> libiec : ByteBuffer
-libiec --> ruby : ClientReportControlBlock
-deactivate libiec
-activate ruby
-ruby -> ruby : setRCBValues()
-ruby -> libiec : IedConnection_installReportHandler()
-deactivate ruby
-activate libiec
-libiec --> ruby : void
-deactivate libiec
-activate ruby
-ruby -> libiec : IedConnection_setRCBValues()
-deactivate ruby
-activate libiec
-libiec -> thread : sendRequestAndWaitForResponse()
-thread -> ied : kirjoita arvot
-ied --> thread : arvot kirjoitettu
-thread --> libiec : ByteBuffer
-libiec --> ruby : void
-deactivate libiec
-activate ruby
+	ruby -> libiec : IedConnection_getRBCValues()
+	deactivate ruby
+	activate libiec
+	libiec -> thread : sendRequestAndWaitForResponse()
+	thread -> ied : lue RCB:n arvot
+	ied --> thread : arvot
+	thread --> libiec : ByteBuffer
+	libiec --> ruby : ClientReportControlBlock
+	deactivate libiec
+	activate ruby
+	ruby -> ruby : setRCBValues()
+	ruby -> libiec : IedConnection_installReportHandler()
+	deactivate ruby
+	activate libiec
+	libiec --> ruby : void
+	deactivate libiec
+	activate ruby
+	ruby -> libiec : IedConnection_setRCBValues()
+	deactivate ruby
+	activate libiec
+	libiec -> thread : sendRequestAndWaitForResponse()
+	thread -> ied : kirjoita arvot
+	note left
+		IED-laite aloittaa heti viestien lähettämisen, kun arvot kirjoitetaan.
+		Viestejä tullaan ottamaan jo vastaan ja prosessoimaan kun muita
+		RCB-instansseja tilataan, kohdat 28-33.
+	end note
+	ied --> thread : arvot kirjoitettu
+	thread --> libiec : ByteBuffer
+	libiec --> ruby : void
+	deactivate libiec
+	activate ruby
 end
 
 == Prosessoi viestejä ==
 
 loop prosessoi viestejä näin toistuvasti kunnes ajo lopetetaan
-ruby -> ruby : sleepAndWait()
-ied -> thread : viesti tilaajalle
-thread -> thread : mmsIsoCallback()
-thread -> ruby : reportHandlerCallback()
-ruby -> db : tallenna tietokantaan
-deactivate ruby
-activate db
-db --> ruby : tiedot tallennettu
-deactivate db
-activate ruby
-ruby --> thread : void
-...sama toistuu niin kauan kunnes Ruby saa signaalin lopettaa...
+	ruby -> ruby : sleepAndWait()
+	ied -> thread : viesti tilaajalle
+	thread -> thread : mmsIsoCallback()
+	thread -> ruby : reportHandlerCallback()
+	ruby -> db : tallenna tietokantaan
+	deactivate ruby
+	activate db
+	db --> ruby : tiedot tallennettu
+	deactivate db
+	activate ruby
+	ruby --> thread : void
+	...sama toistuu niin kauan kunnes Ruby saa signaalin lopettaa...
 end
 @enduml

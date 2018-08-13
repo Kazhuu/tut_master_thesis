@@ -1,0 +1,32 @@
+@startuml
+participant "Demon Ruby-säie" as demo
+box "GIL"
+	participant "Ruby tulkki (MRI/YARV)" as ruby
+end box
+participant "libIEC61850-kirjaston säie" as thread
+
+activate ruby
+ruby --> demo : IedConnection_setRCBValues()
+deactivate ruby
+activate demo
+ruby -->x demo : vaihto
+deactivate demo
+activate ruby
+ruby --> thread : reportHandlerCallback()
+deactivate ruby
+activate thread
+thread --> ruby : funktio palaa
+deactivate thread
+activate ruby
+ruby --> demo : jatka edellisen funktion suoritusta
+deactivate ruby
+activate demo
+demo --> ruby : funktio palaa
+note right
+	Tässä kohtaa, jos vaihto kesti liian kauan, voi tulla
+	yhteyden aikakatkaisu (connection timeout).
+end note
+deactivate demo
+activate ruby
+...
+@enduml
