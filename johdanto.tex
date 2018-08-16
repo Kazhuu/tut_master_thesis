@@ -1,56 +1,21 @@
 \chapter{Johdanto}
 \label{ch:johdanto}
-\begin{it}
-	Kirjoita tähän johdantoa työstä ja aiheesta. Kuinka työ valittiin ja miksi tekijä valitsi tämän työn. Kirjoita myös mitä tehtiin. Kokonaiskuva työstä pitäisi saada johdannosta. Alusta lukijaa todella hyvin yleismaallisella kuvalla ja taustalla. Asiaa pitäisi olla hyvin hallussa ennen teoriaosuuteen siirtymistä.
-	
-	Tämän osion lukemalla lukijan pitää tietää:
-	\begin{itemize}
-		\item Miksi lukija valitsi tämän aiheen?
-		\item Mikä on sähköaseman IED ja mitä se asemassa tekee?
-		\item Mitä standardi suurinpiirtein on ja mitä se tarkoittaa työn kannalta?
-		\item Kenelle työ tehtiin?
-		\item Mikä on työn haluttu lopputulos ja tavoitteet?
-		\item Mihin työ keskittyy kaikesta eniten?
-		\item Mikä on työn tausta ennen työn aloittamista?
-	\end{itemize}
-	
-	Tämä teksti tarvitsee vielä hiomista ja huomiota. On kuitenkin suuntaa antava miltä lopullinen tulee näyttämään.
-\end{it}
+Tämä diplomityö oli tehty Alsus Oy:lle, joka oli työn tekohetkellä tekijän työpaikka vuonna 2018. Tekijä valitsi työn aiheen mielenkiinnon ja ajankohdan sopiivuden takia. Työ liittyi sopivasti ajanhetkellä sen hetkisiin työtehtäviin.
 
-Tämä diplomityö on tehty Alsus Oy:lle, joka oli työn tekohetkellä tekijän työpaikka vuonna 2018. Tekijä valitsi työn aiheen mielenkiinnon ja ajankohdan sopiivuden takia. Työ liittyi sopivasti ajanhetkellä sen hetkisiin työtehtäviin.
+Sähköverkko koostuu tuotantolaitoksista, sähkölinjoista ja sähköasemista. Sähköasemien tehtävä verkossa on toteuttaa erilaisia toiminnallisuuksia, kuten muuntaja, jakaminen ja verkon toiminnan tarkkailu. Lisäksi nykypäivänä asemien toiminnallisuutta voidaan seurata ja ohjata etänä. Sähköaseman yksi tärkeä tehtävä on suojata ja tarkkailla verkon toimivuutta ja vikatilanteessa esimerkiksi katkaista linjasta virrat pois. Tällainen vikatilanne voisi olla kaapelin poikkimeno ja virta pääsisi tätä kautta maihin.
 
-Nykypäivänä sähköverkot ovat iso yhteiskuntaa ja sen sujuvaa toimivuutta. Ilman sähköä ei moni asia nykypäivänä toimisi niinkuin se on. Sähköä tarvitaan joka paikassa ja tietotekniikan lisääntyessä vieläkin enemmän. Nykypäivän sähköverkko koostuu useista erillisitä komponenteista, joita on mm. sähköntuontantolaitos, sähkölinjat ja sähköasemat. Sähköasemien tehtävä verkossa on toteuttaa erilaisia toiminnallisuuksia, kuten muuntaja, jakaminen ja verkon toiminnan tarkkailu. Nykyisin sähköasemat eivät tarvitse henkilökuntaa paikalle, kuin houltotehtävissä. Asemien toiminnallisuutta voidaan seurata etänä. Vian tai huollon tarpeen sattuessa, huoltomies käy tarkistamassa asian paikanpäällä. Sähköaseman yksi tärkeä tehtävä on tarkkailla verkon toimivuutta ja vikatilanteen tapahtuessa esimerkiksi katkaista linjasta virrat pois vikatilanteen sattuessa. Vikatilanne voisi olla kaapelin poikkimeno ja virta pääsisi tätä kautta maihin.
+Sähköasemien funktionaalisuutta ja ohjausta nykypäivänä toteuttaa niin sanottu älykäs elektroniikkalaite (engl. Intelligent Electronic Device, lyhennetään IED). IED-laite voidaan kytkeä ja konfiguroida toteuttamaan monta aseman eri funktionaalisuutta ja ne on myös kytketty aseman verkkoon. IED:t voivat kommunikoida verkon yli aseman muun logiikan ja muiden IED-laitteiden kanssa, ja näin toteuttaa aseman toiminnallisuutta. Nykypäivänä verkon nopeus ja mahdollistaa reaaliaikaisen kommunikoinnin asemilla sen eri laitteiden välillä. IED-laitteet voivat myös kommunikoida aseman verkosta ulospäin, esimerkiksi keskitettyyn ohjauskeskukseen. Yksi IED-laite voidaan esimerkiksi konfiguroida hoitamaan sähkölinjan kytkimenä oloa, joka myös tarkkailee linjan toimintaa mittaamalla konfiguroituja arvoja, kuten jännitettä ja virtaa. Vikatilanteen sattuessa IED katkaisee linjan virrasta enemmän vahingon välttämiseksi. Linjan korjauksen jälkeen virta kytketään takaisin päälle.
 
-Sähköasemien funktionaalisuutta nykypäivänä toteuttaa niin sanottu älykäs elektroniikkalaite (engl. Intelligent Electronic Device, lyhennetään IED). IED voidaan kytkeä ja konfiguroida toteuttamaan monta aseman eri funktionaalisuutta. IED:t voivat kommunikoida verkon yli aseman muun logiikan ja muiden IED-laitteiden kanssa. Nykypäivänä verkon nopeus ja mahdollistaa reaaliaikaisen kommunikoinnin asemilla sen eri laitteiden välillä. IED voidaan esimerkiksi konfiguroida hoitamaan sähkölinjan kytkimenä oloa, joka myös tarkkailee linjan toimintaa mittaamalla konfiguroituja arvoja, kuten jännitettä ja virtaa. Vikatilanteen sattuessa IED katkaisee linjan virrasta enemmän vahingon välttämiseksi. Linjan korjauksen jälkeen virta kytketään takaisin päälle.
+Monen eri toimijan toimiessa laitteita tuottavalla allalla ja sähköasema suuren elektronisen laitteiden määrän takia. On määritetty maailmanlaajuinen standardi nimeltä IEC 61850, jonka tarkoitus on määrittää yhteinen kommunikointiprotokolla aseman kaikkien eri laitteiden ja valmistajien välille. Standardi määrittää eri valmistajien IED:laitteille samat yhteiset kommunikointiprotokollat, joita noudattamalla eri valmistajien laitteet sopivat yhteen.
 
-Monen eri toimijan toimiessa laitteita tuottavalla allalla ja sähköasema suuren elektronisen laitteiden määrän takia. On määritetty maailmanlaajuinen standardi IEC 61850 määrittämään koko aseman laitteiden välistä kommunikointiprokollia varten. Standari määrittää eri valmistajien IED:laitteille samat yhteiset kommunikointiprotokollat joita noudattamalla eri valmistajien laitteet sopivat yhteen.
+Standardissa on määritetty säännöt, millä IED-laitteen ulkopuolinen ohjelma voi tilata viestejä verkon yli IED-laitteelta. Tilatut viestit voivat esimerkiksi sisältää mitattuja kolmivaihe jännitteitä tai muuta haluttua tietoa IED-laitteesta ja sen tilasta. Tässä työssä keskityttiin tämän asiakasohjelman suunnitteluun ja toteutukseen. Asiakasohjelman tarkoitus oli tilata viestit, prosessoida ne ja julkaista eteenpäin jonopalvelimelle muille ohjelmille saataviksi. Koska ohjelman toteutukseen tärkeäksi osaksi liittyy IEC 61850, ja käytetyn jonopalvelimen standardit. Käsitellään nämä osiot työn teoriaosuudessa ensin ennen suunnittelua ja toteutusta.
 
-Standardi määrittää mallit erilaisten viestien tilaukseen, jolla tilaaja voi tilata haluttuja konfiguroituja datapisteitä verkon yli. Tässä työssä keskitytään tämän asiakasohjelmiston suunniteluun ja toteutukseen.
+Tämän työn tekijä oli jo ennen tämän työn aloitusta Alsus Oy:ssä toteuttanut yksinkertaiseen demoversion kyseisestä ohjelmasta. Toteutus oli puutteellinen ja siinä oli toimintahäiriöitä, mutta kuitenkin todisti eri osien toimivuuden mahdollisuuden ja opetti tekijää asian suhteen. Tässä työssä tätä demoversiota käytettiin pohjana kokonaan uuden toteutuksen suunnittelulle. Työssä analysoidaan sen toimintahäiriöitä ja mitkä ne aiheutti. Näitä tietoja käytettiin pohjana uuden toteutuksen liittyvien päätöksien tekemiseen.
 
-\section{Tausta}
-
-Aikaisemmin mainitusta asiakasohjelmisto oli jo olemassa protoversio ennen työn aloittamista. Ohjelmisto pystyi tilaamaan, prosessoimaan ja tallentamaan saatuja viestejä tietokantaan. Ohjelmassa oli kuitenkin suorituskykyongelmia ja eikä se tukenut kaikkia standardin määrittämiä ominaisuuksia. Niinpä uudellelle asiakasohjelman suunnittelulle ja toteutukselle oli tarve, joka myös korjaisi entisen toteutuksen ongelmat.
-
-\section{Laajuus}
-
-Työssä keskityttiin uuden asiakasohjelman suunnitteluun toteutukseen. Työssä tehtiin tutkimusta vertailemalla erilaisia arkkitehtuureita ja näistä valitsemalla tarpeisiin sopiva. Tutkimusta tehtiin myös protoversioon, selvittämään sen suorityskykyongelmia ja kuinka nämä voitiin ottaa huomioon uudessa ohjelmistossa. Samalla käytiin läpi entisen toteutuksen arkkitehtuuria, tarkoituksena miettiä laajennusmahdollisuuksia tulevaisuutta varten uudelle toteutukselle.
-
-\section{Tavoitteet}
-
-Tavoitteena työssä on toteuttaa uusi asiakasohjelmisto, joka kokonaan korvaisi entisen protoversion, ja toteuttaa kaikki standardin määrittämät toiminnallisuudet. Ohjelmiston pitäisi myös olla suorituskykyinen ja siinä ei saa olla samoja ongelmia kuin protoversiossa. Uuden toteutuksen pitäisi myös olla laajennettavissa uusille ominaisuuksille ja vaatimuksille.
-
-\section{Työn rakenne}
-
-Ensin työssä pohjustetaan toteutuksen ymmärtämiseen tarvittua teoriaa. Teorian jälkeen suunnitellaan itse toteutus ja argumentoidaan miksi tiettyihin valintoihin työssä päädyttiin. Suunnitelma pohjustaa tulevaa toteutusta ja sen arkkitehtuuria. Suunnittelun jälkeen tulee itse toteutus ja sen läpikäynti. Mitä kirjastoja ja tekniikoita toteutukseen on käytetty ja mikä on minkäkin tarkoitus. Toteutuksen tarkoitus on tarjoa lukijalle kuva toteutuksen tärkeistä rakenteista ja komponenteista. Lopussa tehdään tuloksien katselmointi ja tuloksia verrataan alussa asetettuihin tavoitteisiin. Tarkoituksena on antaa lukijalle kuva kuinka hyvin työn tavoitteisiin päästiin ja mitä olisi voinut tehdä toisin. Lopussa myös esitellään asioita jatkokehitystä ja tutkimusta varten.
-
-\section{Tutkimuskysymykset}
-\begin{it}
-	Esitä tässä työlle asetettuja tutkimuskysymyksiä. Näitä voisi olla esim. seuraavat:
-	\begin{itemize}
-		\item Mikä on syynä huonoon suorituskykyyn alkutilanteen toteutuksella?
-		\item Kuinka suorituskyky paremmaksi verrattuna nykyiseen toteutukseen?
-		\item Mitkä ohjelmiston arkkitehtuurin suunnittelumallit (design patterns) olisivat sopivia tämän kaltaisen ongelman ratkaisemiseen? Mitä niistä pitäisi käyttää ja mitä ei?
-		\item Mikä olisi sopiva lopullisen prosessoidun tiedon muoto?
-		\item Kuinka järjestelmä hajautetaan niin että tiedon siirto eri osapuolten välillä on mahdollista ja joustavaa (push vs pull, message queue jne.)?
-	\end{itemize}
-\end{it}
+Tämän työn tutkimustyön osuus on miettiä ja tutkia uuden toteutuksen arkkitehtuuria ja toteutusta. Tarkoitus on täyttää kaikki uudelle toteutukselle asetetut tarpeet ja estää demoversioon liittyvät toimintahäiriöt. Työlle asetettiin tutkimuskysymyksiä, joita peilataan työn lopussa saavutettuihin tuloksiin ja pohditaan kuinka hyvin niihin päästiin. Työlle asetettiin seuraavat tutkimuskysymykset:
+\begin{itemize}
+	\item Mitkä ohjelmiston arkkitehtuurin suunnittelumallit (engl. design patterns) olisivat sopivia tämän kaltaisen ongelman ratkaisemiseen? Mitä niistä pitäisi käyttää ja mitä ei?
+	\item Kuinka järjestelmä hajautetaan niin että tiedon siirto eri osapuolten välillä on mahdollista ja joustavaa (push vs pull, message queue jne.)?
+	\item Mitkä olivat syyt demoversion toimintahäiriöihin ja kuinka nämä estetään uudessa toteutuksessa?
+	\item Järjestelmän hajautuksessa, mikä olisi sopiva tiedon jakamisen muoto eri osapuolten välillä?
+\end{itemize}
