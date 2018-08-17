@@ -1,4 +1,5 @@
 @startuml
+skinparam roundcorner 20
 participant "Demon Ruby-säie" as demo
 box "GIL"
 	participant "Ruby tulkki (MRI/YARV)" as ruby
