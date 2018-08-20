@@ -49,7 +49,25 @@ Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen va
 
 
 \subsection{Abstraktimalli ja sen osat}
-IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman toiminnalisuuden funktiot pieniksi yksilöiksi. Pilkotut yksilöt abstrahoidaan ja pidetään sopivan kokoisina, jotta ne voidaan konfiguroida esitettäväksi erillisellä IED-laiteella. Yksi aseman funktio voidaan hajauttaa monelle eri IED-laitteelle. Esimerkiksi linjan suojaukseen liittyvät komponentit, katkaisija (engl. circuit braker) ja ylivirtasuoja (engl. overcurrent protection) omilla IED-laitteillaan. Toimiakseen, laitteiden täytyy vaihtaa informaatiota keskenään \cite[s.~31]{IEC61850-7-1}. Näitä pilkottuja yksilöitä kutsutaan standardissa nimellä looginen noodi (engl. logical node ja lyhennetään LN). Loogiset noodit siis mallinetaan jostakin systeemin käsiteellisestä osasta. Loogisia noodeja käytetään rakentamaan looginen laite (engl. logic device, lyhennetään LD). Looginen laite on aseman ohjausyksikkö ja jokin fyysisen laitteen osa, joka toteuttaa loogisten noodien ohjauksen yhtäaikaa. Ylläolevasta esimerkistä looginen laite olisi aseman linjan suojaukseen liittyvät osat sisältä laite. Looginen laite siis vastaa aseman fyysistä laitetta, joka on kytketty aseman verkkoon ja sillä on IP-osoite. Yksi aseman fyysinen laite voi hoitaa monen loogisen laitteen funktionaalisuuden. Kuvassa \ref{fig:iec61850-data-modeling} on esitetty standardin mallin eri osien hierarkia ja kuinka ne rakentuvat \cite[s.~2]{Camachi2017} \cite[s.~24]{IEC61850-1}.
+IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman toiminnalisuuden funktiot pieniksi yksilöiksi. Pilkotut yksilöt abstrahoidaan ja pidetään sopivan kokoisina, jotta ne voidaan konfiguroida esitettäväksi erillisellä IED-laiteella. Yksi aseman funktio voidaan hajauttaa monelle eri IED-laitteelle. Esimerkiksi linjan suojaukseen liittyvät komponentit, katkaisija (engl. circuit braker) ja ylivirtasuoja (engl. overcurrent protection) omilla IED-laitteillaan. Toimiakseen yhdessä, laitteiden täytyy vaihtaa informaatiota keskenään verkon yli \cite[s.~31]{IEC61850-7-1}. Standardi määrittää seuraavat käsitteet sähköaseman funktioiden mallintamiseen:
+\begin{itemize}
+	\item fyysinen laite (engl. physical device, lyhennetään PD),
+	\item looginen laite (engl. logical device, lyhennetään LD),
+	\item looginen noodi (engl. logical node, lyhennetään LN),
+	\item dataobjekti (engl. data object, lyhennetään DO),
+	\item data-attribuutti (engl. data atribute, lyhennetään DA).
+\end{itemize}
+Käsiteet muodostavat mallista hiearkisen puurakenteen ja ne on listattu hiearkisessa järjestyksessä. Puun juurena on fyysinen laite, sen alla voi olla yksi tai enemmän loogista laitetta, loogisen laitteen alla yksi tai enemmän loogista noodia jne. Käsitteillä standardissa virtualisoidaan aseman funktiot, esimerkiksi suojaus. Kuvassa \ref{fig:substation-abstraction} on esitetty, kuinka sähköaseman fyysinen sähkölinjan katkaisija voidaan mallintaa standardin määrittämillä käsitteillä. Kuvassa aseman fyysiset katkaisija ja niiden oheislaitteet mallinetaan ensin loogiseksi laitteeksi, esimerkiksi yhden jännitetason katkaisijat. Jokainen loogisen laitteen katkaisija mallinnetaan loogiseksi noodiksi. TODO: Kirjoita tähän DO ja DA ja mikä niiden tehtävä on.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{pictures/substation-abstraction.png}
+	\caption{Sähköaseman fyysisten katkaisijoiden virtualisointi IEC 61850 -standardin malleilla (pohjautuu kuvaan \cite[s.~17]{IEC61850-7-1}).}
+	\label{fig:substation-abstraction}
+\end{figure}
+
+TODO: Jatka tähän lisää ja mergee entinen teksti tämän uuden tekstin kanssa ylhäällä.
+
+Näitä pilkottuja yksilöitä kutsutaan standardissa nimellä looginen noodi (engl. logical node ja lyhennetään LN). Loogiset noodit siis mallinetaan jostakin systeemin käsiteellisestä osasta. Loogisia noodeja käytetään rakentamaan looginen laite (engl. logic device, lyhennetään LD). Looginen laite on aseman ohjausyksikkö ja jokin fyysisen laitteen osa, joka toteuttaa loogisten noodien ohjauksen yhtäaikaa. Ylläolevasta esimerkistä looginen laite olisi aseman linjan suojaukseen liittyvät osat sisältä laite. Looginen laite siis vastaa aseman fyysistä laitetta, joka on kytketty aseman verkkoon ja sillä on IP-osoite. Yksi aseman fyysinen laite voi hoitaa monen loogisen laitteen funktionaalisuuden. Kuvassa \ref{fig:iec61850-data-modeling} on esitetty standardin mallin eri osien hierarkia ja kuinka ne rakentuvat \cite[s.~2]{Camachi2017} \cite[s.~24]{IEC61850-1}.
 
 \begin{figure}
 	\includegraphics[width=1\textwidth]{pictures/iec61850-data-modeling.png}
