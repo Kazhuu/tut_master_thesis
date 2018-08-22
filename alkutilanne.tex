@@ -9,7 +9,7 @@ Tässä osiossa pohjustetaan työn alkua lukijalle ja mistä lähdettiin liikkee
 \label{ch:demoversio-ja-sen-toiminta}
 Demoversio oli ohjelmoitu Ruby-ohjelmointikielellä. Ohjelman arkkitehtuuri oli todella yksinkertainen. Kuvassa \ref{fig:demo-architecture} on esitetty demoversion arkkitehtuuri korkealla tasolla.
 
-\begin{figure}
+\begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/demo-architecture.png}
 	\caption{Rubylla toteutetun demoversion arkkitehtuuri ja tiedonsiirto.}
 	\label{fig:demo-architecture}
@@ -19,7 +19,7 @@ Yksi ajettu demoversion prosessi pystyi tilaamaan yhden IED-laitteen kaikki RCB-
 
 Kirjasto oli rakennettu käyttämään MMS-protokollaa tiedonsiirrossa IED-laitteen ja sen asiakasohjelman välillä, kuten IEC 61850 -standardin osassa 8-1 määritetään. Kuvassa \ref{fig:libiec61850-layer-architecture} on esitetty kirjaston kerrosarkkitehtuuri asiakasohjelmalle. Kirjastoon oli toteutettu laiteabstraktiokerros (engl. hardware abstraction layer, lyhennetään HAL). HAL:in avulla kirjasto voi toimia monella eri laitealustalla, ja käyttäjä voi tarvittaessa lisätä oman HAL-implementaation. Demoversiota ajettiin Linux-käyttöjärjestelmällä, joten kirjastosta käytettiin olemassa olevaa Linux HAL toteutusta. Kuvassa \ref{fig:libiec61850-layer-architecture} on punaisella merkitty laatikot, jotka kirjaston käyttäjä voi tarjota, keltaisella kirjaston uudelleenkäytettävät MMS-protokollan osuudet ja sinisellä IEC 61850 -standardin toteuttavat osuudet. Kuvaan on merkitty vihreällä demoversioon toteutetut osuudet, eli Ruby-kielelle liitos C-kieleen ja tämän päälle Rubylla ohjelmoitu demo.
 
-\begin{figure}
+\begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/libiec61850-layer-architecture.png}
 	\caption{libIEC61850-kirjaston kerrosarkkitehruurin komponentit, vihreällä Ruby toteutukseen lisätyt osat (pohjautuu kuvaan \cite{libIEC61850-api-overview}).}
 	\label{fig:libiec61850-layer-architecture}
@@ -34,7 +34,7 @@ Demoversiossa ohjelma oli toteutettu Ruby on Rails kehyksen päällä ajettavaks
 
 Ohjelma luki tietokannasta IED-laitteen, sekä sen kaikki RCB-instanssien tiedot. Tietojen avulla ohjelma tiesi mikä IED-laitteen IP-osoite on ja mitkä olivat RCB-instanssien referenssit. Ohjelmaan pystyi syöttämään eri tietoja ainoastaan tietokannan kautta ennen ajoa. Tämän jälkeen ohjelman toiminta, jokaisen RCB-instanssin viestien tilaukseen ja prosessointiin on esitetty sekvenssikaaviossa kuvassa \ref{fig:sequence-diagram-report-subscription}. Kuvassa ohjelman kaksi eri silmukkaa on esitetty kahdella eri loop-laatikolla. Sekvenssikaaviossa osallisena ovat tietokanta, Ruby-ohjelma, libIEC61850-kirjasto, libIEC61850-kirjaston natiivisäie ja IED-laiteen palvelinohjelma. Rubyn ja libIEC61850-kirjaston liitos oli tehty ruby-ffi -kirjastolla ja kirjaston natiivisäie on vastuussa yhteyden ylläpidosta ja datan siirtämisestä. Sekvenssikaavioon on merkitty paksulla suorituksessa olevat palkit minäkin ajan hetkenä, esimerkiksi IED-laitteen palvelinohjelmisto on koko ajan ajossa.
 
-\begin{figure}
+\begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/sequence-diagram-report-subscription.png}
 	\caption{Sekvenssikaavio kaikkien RCB-instanssien tilaukseen ja niiden viestien tallentamiseen yhdeltä IED-laitteelta Ruby-ohjelmalla.}
 	\label{fig:sequence-diagram-report-subscription}
@@ -46,7 +46,7 @@ Demossa isoimpana ongelmana oli sen huono suorituskyky ja toiminnan epävarmuus 
 
 Huonoon suorituskykyyn oli syynä muutama asiaa. Yksi niistä oli Ruby-kielen huonompi suorituskyky verrattuna natiivisti käännettyyn C-kieleen. Ruby on tulkattava kieli kuten esimerkiksi Python, joka tulkataan rivi kerrallaan ja suoritetaan. Lähdekoodia ei käännetä kokonaan ensin konekäskyiksi erillisellä kääntäjällä, kuten C-kielessä. Valmiiksi käännetty lähdekoodi tarvitsee vain ajaa, kun taas tulkattavassa kielessä rivi täytyy ensin tulkata ja sitten ajaa. Rubyssa käytettiin sen oletustulkkia MRI/YARV (engl. Matz's Ruby Interpreter, lyhennetään MRI tai Yet another Ruby VM, lyhennetään YARV). Ruby versiosta 1.9 eteenpäin käyttää YARV tulkkia. Toinen syy oli Ruby-kielen oletustulkissa oleva globaali tulkkilukitus (engl. global interpreter lock, lyhennetään GIL, tai global virtual machine lock, lyhennetään GVL). GIL pakottaa Ruby-ohjelman ajoon vain yhdellä CPU:lla ja vain yksi säie vuorossa kerrallaan ja on riippumaton käyttöjärjestelmän kernelin vuorottajasta \cite[s.~131--133]{Odaira2014}. Kuvassa \ref{fig:ruby-gil} on esitetty kuinka Ruby-tulkki vuorottaa kahta ajossa olevaa säiettä. Kuvassa Demon Ruby koodi kutsuu \texttt{IedConnection\_setRCBValues()} funktiota, ajo jää kesken ja tapahtuu vaihto, koska viesti saapui. Takaisinkutsufunktio suoritetaan ja suoritus palaa takaisin aikaisempaan funktion suoritukseen. Tässä vaiheessa jos vaihto on huonolla hetkellä vaihto kesti liian kauan, tulee yhteyden aikakatkaisu ja RCB-instanssi jää tilaamatta. Huonoon suorituskykyyn mahdollisesti vaikutti myös lukitus \texttt{reportHandlerMutex}, jota kirjastossa käytetään kun takaisinkutsufunktio asetetaan ja takaisinkutsufunktio suoritetaan. Lukitus aiheuttaa säikeen nukkumisen niin kauan kunnes lukitus vapautuu. Tässä tapauksessa, jos viestin prosessointi kestää kauan (kuvassa \ref{fig:sequence-diagram-report-subscription} kohdat 33--36). Ja vielä muita RCB-instansseja tilataan silmukassa (kohdat 12--26). Joutuu säie odottamaan lukituksen vapautusta kun takaisinkutsufunktioita asetetaan (kohdat 19--20). Ratkaisuna tähän olisi pitää takaisinkutsufunktio mahdollisimman lyhyenä suoritusajan suhteen.
 
-\begin{figure}
+\begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/ruby-gil.png}
 	\caption{Ruby-tulkin globaalin lukituksen toiminta, joka vuorottaa ajossa olevia säikeitä.}
 	\label{fig:ruby-gil}
