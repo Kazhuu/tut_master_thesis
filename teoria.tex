@@ -254,10 +254,7 @@ Jokaiselle data-attribuutille määritellään erikseen mitä liipaisimia se tuk
 
 \subsection{Raportointi-luokan määritys ja toiminta}
 \label{rcb-toiminta}
-
-TODO: Kirjota tämä uudestaan.
-
-BRCB-luokalla on erilaisia attribuutteja, joita asiakas voi kirjoittaa ja lukea ennen tilauksen aloittamista. Taulukossa \ref{tab:iec61850-brcb-class-definition} on esitetty standardin määrittämän BRCB-luokan attribuutit, attribuutin nimi englanniksi ja sen selite. Taulukossa ei ole esitetty attribuuttien tyyppejä, koska ne voi lukija tarvittaessa tarkemmin lukea standardin omasta määrityksestä. Ja standardissa muutenkin kuvataan luokan eri attribuuttien toiminta paljon perusteellisemmin. Tässä työssä riittää että lukija ymmärtää luokan päätoiminnan hyvin. URCB-luokka on melkein samanalainen kuin taulukossa \ref{tab:iec61850-brcb-class-definition} määritetty BRCB-luokka \cite[s.~94--103]{IEC61850-7-2}. Tarkka määritys ja BRCB ja URCB luokkien erot löytyvät standardin osasta 7-2 \cite[s.~93--118]{IEC61850-7-2}.
+BRCB-luokalla on erilaisia attribuutteja, joita tilaaja voi kirjoittaa ja lukea ennen tilauksen aloittamista. BRCB ja URCB -luokat eivät eroa paljon attribuuteilla toisistaan, joten tässä kappaleessa keskitytään vain BRCB-luokan toimintaan. Tarkka määritys luokkien eroista löytyy standardin osasta 7-2. Taulukossa \ref{tab:iec61850-brcb-class-definition} on esitetty standardin määrittämän BRCB-luokan attribuutit, attribuutin nimi englanniksi ja sen selite. Taulukossa ei ole esitetty attribuuttien tyyppejä, koska ne voi lukija tarvittaessa tarkemmin lukea standardin omasta määrityksestä. Lisäksi tässä kappaleessa käydään läpi luokan atrribuuttien toiminta pääpiirteittäin ja loput tiedot lukija voi tarkistaa standardista. \cite[s.~93--118]{IEC61850-7-2}.
 
 \begin{table}[ht!]
 	\caption{BRCB-luokan määritetyt attribuutit ja niiden selitteet.}
@@ -287,7 +284,9 @@ BRCB-luokalla on erilaisia attribuutteja, joita asiakas voi kirjoittaa ja lukea 
 	\end{tabular}
 \end{table}
 
-RCB-luokan TrgOps-attribuutti on binääritietue, jossa yksittäinen bitti ilmaisee mikä liipaisin voi aiheuttaa viestin lähettämisen. Asiakas voi päättää mitä liipaisimia haluaa käyttää. TrgOps sisältää seuraavat liipaisimet:
+Tilaaja voi vapaasti RCB-instanssin arvoja kirjoittaa ja lukea ennen tilauksen aloittamista monella peräkkäisellä kutsulla. Tärkein attribuutti luokassa on RptEna, joka on boolean tyyppiä. Kun attribuutti kirjoitetaan arvoon tosi, aloittaa instanssi tilauksen ja varaa sen tilaajalle. Tilauksen olleassa päällä, tilaaja voi edelleen lukea ja kirjoittaa sen arvoja, mutta rajoitetusti. Joidenkin arvojen kirjoitus pitää tapahtua ennen tilausta tai samassa kutsussa kun RtpEna laitetaan arvoon tosi. Tilaaja lopettaa tilauksen, jos yhteys on poikki tarpeeksi kauan tai RptEna kirjotetaan arvoon epätosi.
+
+RCB-luokan TrgOps-attribuutti on binääritietue, jossa yksittäinen bitti ilmaisee mikä liipaisin aiheuttaa viestin lähettämisen. Tällä attribuutilla tilaaja voi päättää mitä liipaisimia haluaa käyttää. TrgOps sisältää seuraavat liipaisimet:
 \begin{itemize}
 	\item datan muutos (engl. data change, standardissa lyhenne dchg),
 	\item laadun muutos (engl. quality change, standardissa lyhenne qchg), ja
@@ -296,14 +295,12 @@ RCB-luokan TrgOps-attribuutti on binääritietue, jossa yksittäinen bitti ilmai
 	\item jatkuva viestintä väliajoin (engl. intergrity).
 \end{itemize}
 
-Kolme ensimmäistä dchg, qchg ja dupd ovat aikaisemmin määrittettyjen data attribuuttien liipaisimia. Asiakas voi tilata viestejä esimerkiksi vain data muutoksista ja ei muista. RCB-luokka määrittää data attribuuttien liipaisimien lisäksi vielä kaksi liipaisinta lisää, yleinen kysely ja jatkuva viestintä väliajoin. Yleinen kysely on viesti, johon RCB sisällyttää kaikki datajoukon attribuutit. Ja jonka asiakas voi liipaista asettamalla luokan attribuutin GI arvoksi tosi ja TrgOps attribuutissa liipaisin on päällä. Tällöin RCB käynnistää viestin generoinnin ja lähettää sen asiakkaalle. Jos liipaisin ei ole päällä TrgOps attribuutissa, ja GI arvoksi asetetaan tosi. RCB ei generoi viestiä. Viestin lähetyksen jälkeen RCB itse asettaa GI:n arvoksi epätosi. Jatkuva viestintä on viestin lähettäminen asiakkaalle tietyn väliajoin, johon sisältyy kaikki datajoukon attribuutit, kuten yleisessä kyselyssä. Toiminnon saa päälle kun asiakas asettaa RCB-luokassa attribuutit IntgPd arvoksi muu kuin 0, ja TrgOps attribuutin arvossa kyseinen liipaisin on päällä. Attribuutti IntgPd kertoo minkä väliajoin viesti generoidaan ja lähetetään asiakkaalle. Jos IntgPd arvo on muu kuin 0 ja TrgOps atribuutissa liipaisin ei ole päällä, ei viestiä generoida ja lähetetä asiakkaalle väliajoin.
+Kolme ensimmäistä liipaisinta dchg, qchg ja dupd ovat aikaisemmin kappaleessa \ref{ch:viestien-tilaus-ja-tilauksen-konfigurointi} määrittettyjen data attribuuttien liipaisimia. Asiakas voi tilata viestejä esimerkiksi vain datan muutoksista ja ei muista. RCB-luokka määrittää data attribuuttien liipaisimien lisäksi vielä kaksi liipaisinta lisää, yleinen kysely ja jatkuva viestintä väliajoin. Yleinen kysely on viesti, johon RCB sisällyttää kaikki datajoukon attribuutit. Ja jonka asiakas voi liipaista asettamalla luokan attribuutin GI arvoksi tosi ja TrgOps attribuutissa liipaisin on päällä. Tällöin RCB käynnistää viestin generoinnin ja lähettää sen asiakkaalle. Jos liipaisin ei ole päällä TrgOps attribuutissa, ja GI arvoksi asetetaan tosi. RCB ei generoi viestiä. Viestin lähetyksen jälkeen RCB itse asettaa GI:n arvoksi epätosi. Jatkuva viestintä liipaisin on jatkuvaa viestin lähettämistä tilaajalle väliajoin, johon sisältyy kaikki datajoukon attribuutit, kuten yleisessä kyselyssä. Toiminnon saa päälle kun asiakas asettaa RCB-luokassa attribuutit IntgPd arvoksi muu kuin 0, ja TrgOps-attribuutin arvossa kyseinen liipaisin on päällä. Attribuutti IntgPd kertoo minkä väliajoin viesti generoidaan ja lähetetään asiakkaalle. Jos IntgPd arvo on muu kuin 0 ja TrgOps attribuutissa liipaisin ei ole päällä, ei viestiä generoida ja lähetetä asiakkaalle väliajoin.
 
-Viestien tilaus aloitetaan kun asiakas kirjoittaa RptEna-attribuutin arvoksi tosi. Tilauksen aikana kirjoitus joihinkin RCB-instanssin attribuutteihin muuttuu, verrattuna ennen tilausta. Esimerkiksi yleisen kyselyn tekeminen on mahdollista tilauksen aikana kirjoittamalla GI:n arvoksi tosi. Tilauksen aikana kirjoittamalla TrgOps-attribuutin aiheuttaa puskurin tyhjentämisen. Ja Attribuutin OptFlds kirjoitus aiheuttaa epäonnistuneen vastauksen palvelimelta.
-
-RCB-luokan attribuuttin OptFlds avulla asiakas voi asettaa mitä vaihtoehtoisia kenttiä viestiin sisällytetään. Attribuutin OptFlds on binääritietue, niin kuin ja TrgOps ja taulukossa \ref{tab:iec61850-optional-fields-definition} on esitetty sen asetettavat arvot \cite[s.~98]{IEC61850-7-2}.
+RCB-luokan attribuuttin OptFlds avulla asiakas voi asettaa mitä vaihtoehtoisia kenttiä viestiin sisällytetään. Attribuutin OptFlds on binääritietue, niin kuin ja TrgOps, ja taulukossa \ref{tab:iec61850-optional-fields-definition} on esitetty sen asetettavat arvot \cite[s.~98]{IEC61850-7-2}. Taulukon yksittäinen kenttä vastaa OptFlds arvon yhtä bittiä. Missä järjestyksessä bitit ovat, määräytyy standardin tekniikalle mallinnuksesta, kuten MMS-protokollalle. Taulukon arvoilla tilaaja voi määrittää mitä lisätietoa viestiin sisällytetään. Esimerkiksi asettamalla reason-for-inclusion bitin päälle, liitetään viestin arvon yhteyteen miksi tämä arvo viestiin sisällytettiin. Viestin rakennetta ja kuinka OptFld-attribuutin arvoilla sen sisältöön voi vaikuttaa käydään läpi tarkemmin kappaleessa \ref{ch:viestin-rakenne}.
 
 \begin{table}[ht!]
-	\caption{RCB-luokan OptFlds attribuutin arvot ja niiden selitteet,}
+	\caption{RCB-luokan OptFlds-attribuutin arvot ja niiden selitteet.}
 	\label{tab:iec61850-optional-fields-definition}
 	\begin{tabular}{l | l}
 		\hline
@@ -321,15 +318,19 @@ RCB-luokan attribuuttin OptFlds avulla asiakas voi asettaa mitä vaihtoehtoisia 
 	\end{tabular}
 \end{table}
 
-Kuinka attribuutit vaikuttavat viestin rakenteeseen ja mitä syitä arvon tai arvojen sisältymiseen viestissä voi olla, käsitellään seuraavassa kohdassa.
+Lähetetyt viestit voivat sisältää vaihtelevan määrän sisällytettyjä arvoja. RCB-instanssi mittaa aikaa ensimmäisestä liipaisusta sen attribuutin BufTm verran ja tämän ajan jälkeen pakkaa kaikki liipaisseet attribuutit samaan viestiin. Tilaaja voi muuttaa arvoa jos haluaa käyttää pitempää tai lyhyempää puskurointiaikaa.
 
 
 \subsection{Viestin rakenne ja kuinka sen sisältö muodostuu}
-Kuvassa \ref{fig:iec61850-report-format} on esitetty standardin määrittämän viestin rakenne ja kuinka optionaaliset kentät vaikuttavat viestin sisältöön \cite[s.~104]{IEC61850-7-2}. Kuvasta voi helposti nähdä mitä kohtia optionaaliset kentät viestiin lisäävät.
+\label{ch:viestin-rakenne}
+
+TODO: Kirjota tämä uudestaan.
+
+IED:n lähettämä viesti on rakenteeltaan hiukan monimutkainen ja lisäksi siihen vaikuttaa RCB-instanssin OptFld-attribuutin asetetut bitit. Kuvassa \ref{fig:iec61850-report-format} on esitetty standardin määrittämän viestin rakenne ja kuinka optionaaliset kentät vaikuttavat viestin sisältöön. Kuvasta voi helposti nähdä mitä kohtia optionaaliset kentät viestiin lisäävät. Viestin rakenteen voisi ajatella olevan kahdessa osassa. Ensin viestissä on yleinen tieto ja viimeisenä taulukon attribuuttien arvoja. Taulukon yksi solu sisältää aina arvon ja vaihtoehtoiset syyn sisällytykseen ja viitteen instanssiin. Tärkeänä huomiona viestiin liitetyissä arvoissa on, että viestiin ei sisällytetä yhtä data-attribuutia, joka liipaisi lähetyksen. Vaan siihen sisällytetään koko FCD tai FCDA -referenssin kaikki viitatut attribuutit, vaikka kaikista arvoista vain yksi liipaisi tapahtuman. FCD ja FCDA -viittaus ja mitä attribuutteja se hierarkiassa alaspäin oikeasti viittaa selitettiin kappaleessa \ref{ch:fc-and-dataset}. Eli yksi viestin arvo-taulukon Value-kenttä siis sisältää kaikki arvot yhdestä FCD tai FCDA -viitteestä.
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/iec61850-report-format.png}
-	\caption{Standardin määrittämä lähetetyn viestin rakenne.}
+	\caption{Standardin määrittämä lähetetyn viestin rakenne (pohjautuu kuvaan \cite[s.~104]{IEC61850-7-2}).}
 	\label{fig:iec61850-report-format}
 \end{figure}
 
