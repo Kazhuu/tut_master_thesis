@@ -1,0 +1,96 @@
+\chapter{Viestistä prosessoitu JSON-rakenne}
+\label{ch:report-json-format}
+
+\begin{lstlisting}[caption={Viestin prosessoitu JSON-rakenne.},label={lst:json-rakenne}]
+{
+  "dataSetName": "LD0_CTRL/LLN0$StatUrg",
+  "sequenceNumber": 0,
+  "confRevision": null,
+  "timestamp": 1534993167923,
+  "bufferOverflow": false,
+  "values": [
+    {
+      "reasonForInclusion": "GI",
+      "mmsReference": "LD0_CTRL/CBCILO1$ST$EnaCls",
+      "reference": "LD0_CTRL/CBCILO1.EnaCls",
+      "functionalConstraint": "ST",
+      "values": [
+        {
+          "reference": "LD0_CTRL/CBCILO1.EnaCls.stVal",
+          "type": "boolean",
+          "value": false
+        },
+        {
+          "reference": "LD0_CTRL/CBCILO1.EnaCls.q",
+          "type": "bit-string",
+          "size": 13,
+          "valueLittleEndian": 0,
+          "valueBigEndian": 0
+        },
+        {
+          "reference": "LD0_CTRL/CBCILO1.EnaCls.t",
+          "type": "utc-time",
+          "value": 1534845456
+        }
+      ]
+    },
+    {
+      "reasonForInclusion": "GI",
+      "mmsReference": "LD0_CTRL/CBCSWI1$ST$Loc",
+      "reference": "LD0_CTRL/CBCSWI1.Loc",
+      "functionalConstraint": "ST",
+      "values": [
+        {
+          "reference": "LD0_CTRL/CBCSWI1.Loc.stVal",
+          "type": "boolean",
+          "value": true
+        },
+        {
+          "reference": "LD0_CTRL/CBCSWI1.Loc.q",
+          "type": "bit-string",
+          "size": 13,
+          "valueLittleEndian": 0,
+          "valueBigEndian": 0
+        },
+        {
+          "reference": "LD0_CTRL/CBCSWI1.Loc.t",
+          "type": "utc-time",
+          "value": 1534845456
+        }
+      ]
+    },
+    {
+      "reasonForInclusion": "GI",
+      "mmsReference": "LD0_CTRL/CBCSWI1$ST$Pos",
+      "reference": "LD0_CTRL/CBCSWI1.Pos",
+      "functionalConstraint": "ST",
+      "values": [
+        {
+          "reference": "LD0_CTRL/CBCSWI1.Pos.stVal",
+          "type": "bit-string",
+          "size": 2,
+          "valueLittleEndian": 0,
+          "valueBigEndian": 0
+        },
+        {
+          "reference": "LD0_CTRL/CBCSWI1.Pos.q",
+          "type": "bit-string",
+          "size": 13,
+          "valueLittleEndian": 2,
+          "valueBigEndian": 2048
+        },
+        {
+          "reference": "LD0_CTRL/CBCSWI1.Pos.t",
+          "type": "utc-time",
+          "value": 1534845480
+        },
+        {
+          "reference": "LD0_CTRL/CBCSWI1.Pos.stSeld",
+          "type": "boolean",
+          "value": false
+        }
+      ]
+    }
+  ]
+}
+\end{lstlisting}
