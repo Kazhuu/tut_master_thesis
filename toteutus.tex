@@ -1,45 +1,47 @@
 \chapter{Toteutus}
 \label{ch:toteutus}
 \begin{it}
-	Kirjoita tähän osioon siitä kuinka suunniteltu arkkitehtuuri toteutettiin ja millä tekniikoilla. Tämä osio käyttää lyhyitä koodiesimerkkejä hyväkseen selittämään lukijalle kuinka toteutus tehtiin, jotta lukija voisi itse toteuttaa samanlaisen ohjelmiston.
+	Kirjoita tähän alkuun yleistä kamaa tästä kappaleesta mitä käsitellään ja missä järjestyksessä. Aikaisemmissa kappaleissa asetettiin jo tavoitteet ja vaatimukset ohjelmistolle. Tässä ne yhdistetään ja toteutetaan.
 \end{it}
 
-\section{Ohjelmiston toteutuksen valinta}
+
+\section{Yleiskuva}
 \begin{it}
-	Kirjoita tähän miksi päädyttiin tietynlaiseen ohjelmiston toteuttamiseen. Työssä on mietitty komentorivipohjaista toteutusta. Lisäksi mille alustalle ohjelmisto suunnitellaan Windows vai Linux.
+	UML-kaavio kokonaisuudesta miten eri komponentit liittyvät toisiinsa ja sitä selittää auki. Mitä kirjastoa käytettiin mihinkin.
 \end{it}
 
-\section{Kielen valinta}
+
+\section{Käytettyt kirjastot}
 \begin{it}
-	Kirjoita tähän mikä kieli valittiin toteutuksen tekemiseen ja miksi tämä. Alustava suunnitelma on toteuttaa C-kielellä.
+	Tähän tekstiä eri kirjastoista mitä käytettiin ja mitä ne tarjosivat toteutukseen. Myös niiden APIsta voisi vähän selittää, jota sitten käytetään kun toteutusta käydään läpi.
 \end{it}
 
-\section{RabbitMQ}
-\begin{it}
-	Kirjoita tähän RabbitMQ toteutuksesta. Kirjasto toteuttaa AMQP-standardin määrittämiä eri viestintämalleja. Kerro kuinka sitä hyödynnetään tässä työssä ja vähän sen että mitä vaatii.
-\end{it}
 
-\section{Käytettävät kirjastot}
-\begin{it}
-	Kirjoita tähän erilaisista kirjastoista mitä toteutukseen valittiin ja miksi. Alaotsikoita voi lisätä jos toteutukseen tarvitaan muita kirjastoja.
-\end{it}
-
-\subsection{libiec61850}
+\subsection{IEC 61850 -standardin ja MMS-protokollan käyttö}
 \begin{it}
 	IEC 61850 -standardin toteuttava C-kirjasto joka tekee raskaan työn standardin määrittämien palveluiden toteuttamiseen ja muodostamiseen. Kirjasto tarjoaa rajapinnat serveri- ja asiakasohjelmiston toteuttamiseen, mutta vain asiakasohjelmiston rajapintoja käytetään. Kirjasto tarjoaa myös rajapinnat haluttujen raporttien tilaamista varten. Kirjaston nettisivu täältä: http://libiec61850.com/libiec61850/.
 \end{it}
 
-\subsection{rabbitmq-c}
+
+\subsection{RabbitMQ}
 \begin{it}
 	RabbitMQ:n rajapinnan toteuttava kirjasto C-kielen ohjelmille. Kirjastolla voidaan toteuttaa julkaisevia ja tilaavia ohjelmistoja. Kirjastosta käytetään julkaisevan puolen toteutusta. Kirjasto löytyy täältä: https://github.com/alanxz/rabbitmq-c.
 \end{it}
+
 
 \subsection{JSON-formatointi}
 \begin{it}
 	Joku kirjasto JSON formatointiin C-kielelle. Näkyy olevan parikin vaihtoehtoa. Perustele tähän valinta ja miksi.
 \end{it}
 
+
+\section{Ohjelman toiminta}
+\begin{it}
+	UML-sekvenssikaavio ohjelman ajosta pääpiirteittäin, mitä tekee. Sitten käydä sitä läpi tekstissä ja yhdistää kirjaston rajapintoja mitä jo käsiteltiin. Yleien kuva toiminnasta ja mitä tekee missäkin järjestyksessä.
+\end{it}
+
+
 \section{Jatkokehitys}
 \begin{it}
-	Kirjoita tähän ideoita mitä jää jatkokehitykseen ja mitä ohjelmistossa on puutteita tai mitä jäi tekemättä.
+	Kirjoita tähän ideoita mitä jää jatkokehitykseen ja mitä ohjelmistossa on puutteita tai mitä jäi tekemättä. Esim. testaus ja CMake lisääminen.
 \end{it}
