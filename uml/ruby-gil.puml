@@ -24,7 +24,7 @@ deactivate ruby
 activate demo
 demo --> ruby : funktio palaa
 note right
-	Tässä kohtaa, jos vaihto kesti liian kauan, voi tulla
+	Jos vaihto kesti liian kauan, voi tulla
 	yhteyden aikakatkaisu (connection timeout).
 end note
 deactivate demo
