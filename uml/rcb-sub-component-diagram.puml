@@ -1,0 +1,21 @@
+@startuml
+skinparam componentStyle uml2
+
+component rcb_sub as rcbsub
+component jansson as jansson
+component libiec61850 as libiec
+component [rabbitmq-c] as mqc
+component Argp as argp
+
+() IED as iedif
+() "IEC 61850" as iecif
+() RabbitMQ as mqif
+() "JSON" as jsonif
+
+jansson -- jsonif
+libiec -r- iecif
+libiec -l-> iedif : IEC 61850
+
+rcbsub .u.> jsonif : use
+rcbsub .l.> iecif : use
+@enduml
