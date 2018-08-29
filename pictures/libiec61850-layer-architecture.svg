@@ -29,13 +29,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="-85.128052"
-     inkscape:cy="347.27263"
+     inkscape:cx="-220.84234"
+     inkscape:cy="344.41549"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1026"
+     inkscape:window-width="2560"
+     inkscape:window-height="1386"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -71,7 +71,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -375,7 +375,7 @@
          id="tspan972"
          x="59.991169"
          y="168.618"
-         style="stroke-width:0.26458332">Demo Ruby</tspan><tspan
+         style="stroke-width:0.26458332">Ruby demo</tspan><tspan
          sodipodi:role="line"
          x="59.991169"
          y="173.02773"
