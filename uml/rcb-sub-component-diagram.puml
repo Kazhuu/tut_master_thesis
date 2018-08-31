@@ -16,26 +16,26 @@ component Argp as argp
 () "Parametri API" as argpif
 () "TCP/IP" as amqpif
 
-ied -r- mmsif : IEC 61850
-mq -l- amqpif : AMQP
+ied -u- mmsif : IEC 61850
+mq -u- amqpif : AMQP
 jansson -- jsonif
 libiec -r- libiecif
 mqc -l- mqcif
 argp -u- argpif
 
-libiec -l-> mmsif
-mqc -r-> amqpif
+libiec -d-> mmsif
+mqc -d-> amqpif
 rcbsub .u.> jsonif : käyttää
 rcbsub .l.> libiecif : käyttää
 rcbsub .d.> argpif : käyttää
 rcbsub .r.> mqcif : käyttää
 
-note right of jansson
+note top of jansson
 	Kirjasto JSON-rakenteen lukuun
 	ja rakentamiseen
 end note
 
-note right of argp
+note bottom of argp
 	Kirjasto komentoriviparametrien
 	lukuun ja määrittämiseen
 end note
