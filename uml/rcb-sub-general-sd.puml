@@ -1,0 +1,18 @@
+@startuml
+autonumber
+
+skinparam roundcorner 20
+
+participant "Argp" as argp
+participant "libIEC61850" as libiec
+participant "rcb_sub" as rcbsub
+participant "rabbitmq-c" as mqc
+participant "jansson" as json
+
+rcbsub -> argp : määritä parametrit
+argp --> rcbsub : luetut parametrit
+rcbsub -> mqc : avaa yhteys
+mqc --> rcbsub : avattu yhteys
+rcbsub -> libiec : avaa yhteys
+libiec --> rcbsub : avattu yhteys
+@enduml
