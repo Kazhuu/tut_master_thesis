@@ -7,12 +7,73 @@ participant "Argp" as argp
 participant "libIEC61850" as libiec
 participant "rcb_sub" as rcbsub
 participant "rabbitmq-c" as mqc
-participant "jansson" as json
+participant "jansson" as jansson
 
+activate rcbsub
 rcbsub -> argp : määritä parametrit
+deactivate rcbsub
+activate argp
 argp --> rcbsub : luetut parametrit
+deactivate argp
+activate rcbsub
 rcbsub -> mqc : avaa yhteys
+deactivate rcbsub
+activate mqc
 mqc --> rcbsub : avattu yhteys
+deactivate mqc
+activate rcbsub
 rcbsub -> libiec : avaa yhteys
+deactivate rcbsub
+activate libiec
+note left
+	libiec61850 käynnistää
+	säikeen IED-laitteen
+	yhteydenpitoa varten
+end note
 libiec --> rcbsub : avattu yhteys
+activate rcbsub
+group jokainen RCB
+	rcbsub -> libiec : lue RCB:n arvot
+	deactivate rcbsub
+	libiec --> rcbsub : RCB:n arvot
+	activate rcbsub
+	rcbsub -> libiec : lue datajoukon\nFCD- ja FCDA-viitteet
+	deactivate rcbsub
+	libiec --> rcbsub : datajoukon viitteet
+	activate rcbsub
+	group jokainen FCD- ja FCDA-viite
+		rcbsub -> libiec : lue viitteen spesifikaatio
+		deactivate rcbsub
+		libiec --> rcbsub : spesifikaatio
+		activate rcbsub
+	end
+end
+group jokainen RCB
+	rcbsub -> libiec : aseta takaisinkutsufunktio
+	deactivate rcbsub
+	libiec --> rcbsub
+	activate rcbsub
+	rcbsub -> libiec : kirjoita RCB:n arvot
+	deactivate rcbsub
+	note left
+		Viestien tilaus alkaa
+	end note
+	libiec --> rcbsub
+	activate rcbsub
+end
+group jokainen saapunut viesti
+	libiec -> rcbsub : viesti IED:ltä
+	deactivate libiec
+	rcbsub -> jansson : viesti JSON-rakenteeksi
+	activate jansson
+	jansson --> rcbsub : JSON-rakenne
+	deactivate jansson
+	rcbsub -> mqc : viestin julkaisu
+	activate mqc
+	mqc --> rcbsub
+	deactivate mqc
+	rcbsub --> libiec
+	activate libiec
+	... viestien vastaanotto jatkuu ...
+end
 @enduml
