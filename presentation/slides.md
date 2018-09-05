@@ -7,7 +7,7 @@
 Toteutettu Alsus Oy:lle
 
 Tarkoituksena suunnitella ja toteuttaa ohjelmistokomponentti
-osaksi järjestelmää
+osaksi isompaa järjestelmää
 
 Sähköasemien etäohjaukseen ja monitorointiin käytetty järjestelmä
 
@@ -113,7 +113,7 @@ Työ koostui seuraavista työvaiheista:
 ->                                      +-----> |komponentti| <-
 ->                                      |       +-----------+ <-
 ->                                      |                     <-
-->                                      v                     <-
+->      IEC 61850                       v                     <-
 -> +---+        +----+       +----------+       +-----------+ <-
 -> |IED| +----> |demo| +---> |tietokanta| <---> |komponentti| <-
 -> +---+        +----+       +----------+       +-----------+ <-
@@ -148,10 +148,10 @@ Työ koostui seuraavista työvaiheista:
 Komentorivi-pohjainen ohjelmisto C-kielellä
 Linux-käyttöjärjestelmälle
 
-Käytetyt kirjastot:
-* libiec61850
-* jansson
-* rabbitmq-c
+Käytetyt kirjastot:        Numeroita:
+* libiec61850              +- 1666 LOC
+* jansson                  +- 9 .h tiedostoa
+* rabbitmq-c               +- 10 .c tiedostoa
 * Argp
 
 Ottaa kaikki tiedot komentoriviparametreina, ei tarvita erillistä
@@ -159,7 +159,7 @@ tietokantaa
 
 ---
 
--> # Vastoinkäymiset <-
+-> # Haasteet <-
 
 Standardin ymmärtäminen ja määritysten toiminta
 
@@ -171,9 +171,40 @@ Todella paljon uutta asiaa ja opittavaa
 
 -> # Tulokset <-
 
+Tuloksena toimiva ohjelmisto
+
+Osaksi tuotantoa ja isompaa järjestelmää
+
+Demon ongelmat analysoitu ja tieto käytetty ratkaisemaan ne
+uudessa toteutuksessa
+
+JSON-muoto helposti luettavissa muilla ohjelmointikielillä
+
+Tieto saatavissa muille komponenteille
+RabbitMQ-välittäjäpalvelimen ansiosta
+
 ---
 
 -> # Parannettavaa <-
+
+Testausympäristö ja yksikkötestit
+
+Projektin kääntäminen toteuttaminen CMake-ohjelmistolla
+Make-ohjelmiston sijaan
+
+Lisätä toiminnallisuutta joustavuutta varten
+
+---
+
+-> # Linkit <-
+
+-> Tämä esitys toteutettu mdp-ohjelmalla <-
+-> *https://github.com/visit1985/mdp* <-
+
+-> Tekijän GitHub-tili <-
+-> *https://github.com/kazooiebombchu* <-
+
+-> Diplomityö ja tämä esitys saatavissa GitHub:sissa <-
 
 ---
 
@@ -181,16 +212,3 @@ Todella paljon uutta asiaa ja opittavaa
 
 
 -> GitHub: _*kazooiebombchu*_ <-
-
--> *https://github.com/kazooiebombchu* <-
-
----
-
-- the topic of the thesis
-- the main targets of the work
-- the possible connections to a larger project
-- the main findings, results, design etc
-- how the original targets were met
-- conclusion
-
----
