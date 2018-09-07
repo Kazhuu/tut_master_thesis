@@ -1,0 +1,79 @@
+\chapter{C-ohjelman tulostama aputeksti}
+\label{ch:rcb-sub-help-output}
+
+\begin{lstlisting}[caption={rcb\_sub-ohjelman aputeksti.},label={lst:json-rakenne}, numbers=left]
+Usage: rcb_sub [OPTION...]
+	EXCHANGE ROUTING_KEY
+	RCB_REF [RCB_OPTIONS...]
+	[RCB_REF [RCB_OPTIONS...]...]
+Configure and subscribe IED report control blocks.
+Received reports are combined with variable specification
+data and formatted to JSON. Formatted messages are
+forwarded to AMQP broker using direct exchange.
+
+ OPTION options:
+  -a, --amqp-host=HOST       Host address of the AMQP
+                             broker, defaults to localhost
+  -e, --ied-port=PORT        Port for MMS communication,
+                             defaults to 102
+  -h, --ampq-vh=VH           Virtual host for the AMQP
+                             broker, defaults to '/'
+  -i, --ied-host=HOST        Host address of the IED,
+                             defaults to localhost
+  -m, --ampq-port=PORT       Port for AMQP communication,
+                             defaults to 5672
+  -p, --ampq-pwd=PWD         User password for the AMQP
+                             broker, defaults to 'quest'
+  -u, --ampq-user=USER       User for AMQP broker,
+                             defaults to 'quest'
+  -v, --verbose              Explain what is being done
+
+ RCB_OPTIONS options:
+  -g, --gi=VALUE             Set general interrogation
+                             bit (1/0)
+  -o, --opt-fields=MASK      Report optional fields int
+                             bit mask (0 <= MASK <= 255)
+  -t, --trigger=MASK         Report triggering int bit
+                             mask (0 <= MASK <= 31)
+
+  -?, --help                 Give this help list
+      --usage                Give a short usage message
+  -V, --version              Print program version
+
+Mandatory or optional arguments to long options are also
+mandatory or optional for any corresponding short options.
+
+EXCHANGE is name of the exchange used with the AMQP
+broker. ROUTING_KEY is routing key used for the
+published AMPQ broker messages. RCB_REF is reference
+to report control block as specified in IEC 61850 standard.
+For example MY_LD0/LLN0.BR.rcbMeas01
+
+Reason for inclusion optional field is set automatically
+in order for the program to combine read specification
+data and only to include needed data set values which
+actually triggered the report.
+
+Trigger MASK values:
+  1  : data changed
+  2  : quality changed
+  4  : data update
+  8  : integrity
+  16 : general interrogation
+
+Optional field MASK values:
+  1   : sequence number
+  2   : timestamp
+  4   : reason for inclusion (automatically set, see above)
+  8   : data set
+  16  : data reference
+  32  : buffer overflow
+  64  : entry id
+  128 : configure revision
+
+Example usage:
+$ rcb_sub -v -i192.168.2.220 testexchange testkey \
+MY_LD0/LLN0.BR.rcbMeas01 -g1 -t27 -o16
+
+Report bugs to mauri.mustonen@alsus.fi.
+\end{lstlisting}
