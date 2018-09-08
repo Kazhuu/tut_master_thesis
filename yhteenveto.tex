@@ -1,5 +1,12 @@
 \chapter{Yhteenveto}
 \label{ch:yhteenveto}
 \begin{it}
+	Kirjoita tähän lopputuloksen analysoinnista ja peilaa saatuja tuloksia työlle alussa asetettuihin kysymyksiin. Mitä jäi saavuttamatta, mitä saavutettiin ja miten hyvin? Mitä olisi voinut parantaa? Voi jakaa aliotsikoihin jos tarvetta.
+
 	Kirjoita tähän ensin arviointi ja yhteenveto työstä ja sen lopputuloksista. Mitä hyötyjä työnantaja työstä saa ja jatkokehitysideoita. Mitä työssä meni hyvin ja mitä olisi voinut tehdä toisin?
 \end{it}
+Tässä diplomityössä lähdettiin etsimään ratkaisua kuinka suunnitellaan ja toteutetaan komponentti, joka jakaa tilatun tiedon järjestelmän muille komponenteille. Lähtökohtana oli että tieto täytyy tilata sähköaseman IED-laitteelta IEC 61850 -standardin mukaisesti. Tieto täytyi saada jaettua järjestelmän muille komponenteille järkevästi, ilman että päädyttäisiin huonoihin teknisiin ratkaisuihin. Ennen diplomityön aloitusta tekijä oli toteuttanut demon toteutuksen toimivuudesta. Demo oli samalla tie oppia IEC 61850 -standardin toiminta ja perehtyä aiheeseen tarkemmin ennen oikeaa toteutusta. Tämä diplomityö keskittyi tämän komponentin suunnitteluun ja toteutukseen käyttäen hyväksi demototeutuksen toiminnallisuutta ja siinä olevia ongelmia. Lisäksi työn alussa asetettiin tutkimuskysymyksiä aiheeseen liittyen, joihin pyrittiin etsimään vastausta. Tutkimuskysymykset asetettiin työn alussa kappalessa \ref{ch:johdanto} ja näitä käytetään kun työn tuloksia käydään läpi.
+
+Alussa oleva demo pystyi tilaamaan viestejä, mutta sisälsi paljon ongelmia, mikä esti ohjelman luotettavan toiminnan. Näitä ongelmia ja niiden syitä analysoitiin kappaleessa \ref{ch:ongelmakohdat-ja-analysointi}. Ongelmia oli mm. huono suorituskyky, muistivuoto ja toiminnan epävarmuus. Lisäksi kuinka tieto jaettiin demossa järjestelmän muille komponenteille ei ollut teknisesti järkevästi toteutettu. Tietokannan takia järjestelmän eri komponenttien määrä ei voi olla suuri ja tietokanta on jatkuvan turhan kuormituksen alaisena.
+% TODO rewrite from here!
+Diplomityössä tuloksena oli järjestelmän erillinen komponentti, joka kykeni tilaamaan viestit yhdeltä IED-laitteelta ja jakamaan tiedon järjestelmän muiden komponenttien kanssa RabbitMQ-palvelimen välityksellä. Lähtökohtana työssä oli demoversio, jossa olevista ongelmista täytyi päästä eroon. Lisäksi 
