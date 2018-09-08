@@ -1,0 +1,41 @@
+@startuml
+autonumber
+
+skinparam roundcorner 20
+
+participant "rabbitmq-c" as mqc
+participant "rcb_sub" as rcbsub
+participant "libiec61850" as libiec
+
+rcbsub -> mqc : amqp_tcp_socket_new()
+mqc --> rcbsub : amqp_socket_t
+rcbsub -> mqc : amqp_socket_open_noblock()
+note right
+	Avaa socket-yhteys
+end note
+mqc --> rcbsub : amqp_status_enum
+rcbsub -> mqc : amqp_login()
+note right
+	Kirjaudu sisään RabbitMQ-palvelimeen
+end note
+mqc --> rcbsub : amqp_rpc_reply_t
+rcbsub -> mqc : amqp_channel_open()
+note right
+	Avaa kanava yhteydelle
+end note
+mqc --> rcbsub : amqp_channel_open_ok_t
+rcbsub -> mqc : amqp_exchange_declare()
+note right
+	Luo vaihde tyypiltään suoravaihde
+	(direct exchange) ja anna sen nimi ja
+	reititysavain parametreina
+end note
+mqc --> rcbsub : amqp_exchange_declare_ok_t
+rcbsub -> libiec : IedConnection_create()
+libiec --> rcbsub : IedConnection
+rcbsub -> libiec : IedConnection_connect()
+note left
+	Luo ja avaa yhteys IED-laitteelle
+end note
+libiec --> rcbsub : void
+@enduml
