@@ -8,7 +8,7 @@ Work in progress.
 
 ## Softwares used
 
-Thesis tex files are written with [TexStudio](https://www.texstudio.org/). Pictures are done with the [Inkscape](https://inkscape.org/en/) and are located under pictures folder. All pictures have original svg files associated with them. UML diagrams under uml folder are written and drawn using [PlantUML](http://plantuml.com/). Presentation under presentation folder is a command-line based markdown presentation with ASCII pictures and it's done with [mdp](https://github.com/visit1985/mdp).
+Thesis tex files are written with [TexStudio](https://www.texstudio.org/). Pictures are done with [Inkscape](https://inkscape.org/en/) and are located under pictures folder. All pictures have original svg files associated with them. UML diagrams under uml folder are written and drawn using [PlantUML](http://plantuml.com/). Presentation under presentation folder is a command-line based markdown presentation with ASCII pictures and it's done with [mdp](https://github.com/visit1985/mdp).
 
 ## Copyright
 
