@@ -1,0 +1,51 @@
+@startuml
+autonumber
+
+skinparam roundcorner 20
+
+participant "rcb_sub" as rcbsub
+participant "libiec61850" as libiec
+
+activate rcbsub
+group jokainen RCB
+	rcbsub -> rcbsub : writeRcbParams()
+	note left
+		Asettaa käyttäjän parametrina
+		annetut RCB:n arvot struktuuriin
+	end note
+	rcbsub -> libiec : ClientReportControlBlock_setRptEna()
+	deactivate rcbsub
+	activate libiec
+	note left
+		Aseta struktuurin RptEna-kenttä
+		arvoon tosi
+	end note
+	libiec --> rcbsub :  void
+	deactivate libiec
+	activate rcbsub
+	rcbsub -> rcbsub : forceReasonForInclusion()
+	note left
+		Pakottaa reason-for-inclusion-kentän
+		tuleviin viesteihin
+	end note
+	rcbsub -> libiec : IedConnection_installReportHandler()
+	deactivate rcbsub
+	activate libiec
+	note left
+		Asettaa takaisinkutsufunktion
+	end note
+	libiec --> rcbsub : void
+	deactivate libiec
+	activate rcbsub
+	rcbsub -> libiec : IedConnection_setRCBValues()
+	deactivate rcbsub
+	activate libiec
+	note left
+		Kirjoittaa arvot IED:lle ja
+		RCB aloittaa tilauksen
+	end note
+	libiec --> rcbsub : void
+	deactivate libiec
+	activate rcbsub
+end group
+@enduml
