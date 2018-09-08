@@ -26,7 +26,7 @@ Kuvassa \ref{fig:rcb-sub-sekvenssikaavio} on esitetty rcb\_sub-ohjelman sekvenss
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/rcb-sub-general-sd.png}
-	\caption{Sekvenssikaatio rcb\_sub-ohjelman kokonaistoiminnasta.}
+	\caption{Sekvenssikaavio rcb\_sub-ohjelman kokonaistoiminnasta.}
 	\label{fig:rcb-sub-sekvenssikaavio}
 \end{figure}
 
@@ -42,18 +42,27 @@ Ohjelma parametrisoitiin Argp-kirjastolla. Kirjasto tarjoaa rajapinnan komentori
 Ohjelmiston parametrit voidaan ajatella koostuvan kolmesta eri ryhmästä. Ensin päätason vaihtoehtoiset parametrit \texttt{OPTIONS}. Pakolliset parametrit \texttt{EXCHANGE} ja \texttt{ROUTING\_KEY}. Viimeisenä n-kappaletta \texttt{RCB\_REF} ja \texttt{RCB\_OPTIONS} parametreja. Suurin osa \texttt{OPTION} parametreista on itsestäänselviä. Esimerkkinä \texttt{-{}-amqp-host}, joka kertoo AMQP-palvelimen IP-osoitteen. Tai \texttt{-{}-ied-host}, joka kertoo IED-laitteen IP-osoitteen johon yhdistetään. Parametrit \texttt{EXCHANGE} ja \texttt{ROUTING\_KEY} määrittävät nimet RabbitMQ-palvelimen vaihteelle ja reititysavaimelle. \texttt{RCB\_REF} määrittää viitteen tilattavaan RCB-instanssiin IED-laitteella. Tätä seuraava vaihtoehtoinen \texttt{RCB\_OPTIONS} määrittää parametrit edeltävälle RCB-instanssille, millä instanssi konfiguroidaan ennen tilausta. RCB-instansin parametri \texttt{RCB\_OPTIONS} määrittää käytetyt vaihtoehtoiset kentät (\texttt{-{}-opt-fields}), käytetyt liipaisimet (\texttt{-{}-trigger}) ja pyydetäänkö yleistä kyselyä ennen muita viestejä (\texttt{-{}-gi}). Liipaisimet ja vaihtoehtoiset kentät asetetaan numeerisella arvolla, jotka löytyvät myös aputekstistä (liite \ref{ch:rcb-sub-help-output}). Numeerisia arvoja voidaan summata yhteen asettamalla monta arvoa yhtä aikaa. Liipaisimien arvot vastaavat aikaisemmin kappaleessa \ref{rcb-toiminta} esitettyjä arvoja. Vaihtoehtoisten kenttien arvot vastaavat aikaisemmin taulukossa \ref{tab:iec61850-optional-fields-definition} esitettyjä arvoja.
 
 \subsection{Yhteyksien muodostus}
-Parametrien luvun jälkeen ohjelma muodosti yhteydet ensin RabbitMQ-palvelimelle ja sen jälkeen IED-laitteelle. Kuvassa \ref{fig:rcb-sub-open-connections} on esitetty sekvenssikaavio mitä kirjaston funktioita ohjelma kutsuu missäkin järjestyksessä. Funktiot ja niiden parametrit voi tarkemmin tarkistaa kirjaston omasta dokumentaatiosta. Tämä kattaa yleiskuvasta \ref{fig:rcb-sub-sekvenssikaavio} kohdat 3--6. Vaikka kuvassa on esitetty että yhteydet avataan vain kerran. On ohjelma toteutettu niin, että niitä yritetään avata uudelleen jos yhteys katkeaa kesken suorituksen. Jos avaus ei onnistu, ohjelma kirjoittaa lokin tapahtuneesta ja odottaa hetken ennen uudelleenyritystä.
+Parametrien luvun jälkeen ohjelma muodosti yhteydet ensin RabbitMQ-palvelimelle ja sen jälkeen IED-laitteelle. Kuvassa \ref{fig:rcb-sub-open-connections} on esitetty sekvenssikaavio mitä kirjaston funktioita ohjelma kutsuu missäkin järjestyksessä. Funktiot ja niiden parametrit voi tarkemmin tarkistaa kirjaston omasta dokumentaatiosta. Tämä kattaa yleiskuvasta \ref{fig:rcb-sub-sekvenssikaavio} kohdat 3--6. Vaikka kuvassa on esitetty että yhteydet avataan vain kerran. On ohjelma toteutettu niin, että niitä yritetään avata uudelleen jos yhteys katkeaa kesken suorituksen. Jos avaus ei onnistu, ohjelma kirjoittaa lokin tapahtuneesta ja odottaa hetken ennen uudelleen yritystä.
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/rcb-sub-open-connections.png}
-	\caption{rcb\_sub avaa yhteydet RabbitMQ-palvelimelle ja IED-laitteelle.}
+	\caption{Sekvenssikaavio kuinka rcb\_sub avaa yhteydet RabbitMQ-palvelimelle ja IED-laitteelle.}
 	\label{fig:rcb-sub-open-connections}
 \end{figure}
 
-Yhteyden avauksen ja sisäänkirjautumisen jälkeen ohjelma avaa kanavan kohdassa 7--8. Kanava on yhteyden päälle avattu oma erillinen kommunikointiväylä, joka ei sotkeudu muihin kanaviin. Yhteen avattuun yhteyteen voi olla avattuna monta eri kanavaa. Kanavat mahdollistavat monen eri säikeen jakaa sama yhteys, ilman että tieto voisi vuotaa toiseen säikeeseen. Kohdassa 9 kutsutaan funktiota \texttt{amqp\_exchange\_declare()}. Funktio määrittää vaihteen tyyppiä suoravaihde RabbitMQ-palvelimelle. Suoravaihde käsiteltiin kappaleessa \ref{ch:direct-exchange}. Ohjelmaan ei toteutettu parametria vaihdetyypin määrittämiseen, koska katsottiin että suoravaihde on riittävä nykyisten vaatimusten täyttämisesksi. Tulevaisuudessa jos vaatimukset muuttuvat ja halutaan että käyttäjä voi valita käytettävän vaihdetyypin. Voidaan tämä toteuttaa lisäämällä ohjelmaan parametri tätä varten.
+Yhteyden avauksen ja sisäänkirjautumisen jälkeen ohjelma avaa kanavan kohdassa 7--8. Kanava on yhteyden päälle avattu oma erillinen kommunikointiväylä, joka ei sotkeudu muihin kanaviin. Yhteen avattuun yhteyteen voi olla avattuna monta eri kanavaa. Kanavat mahdollistavat monen eri säikeen jakaa sama yhteys, ilman että tieto voisi vuotaa toiseen säikeeseen. Kohdassa 9 kutsutaan funktiota \texttt{amqp\_exchange\_declare()}. Funktio määrittää vaihteen tyyppiä suoravaihde RabbitMQ-palvelimelle. Suoravaihde käsiteltiin kappaleessa \ref{ch:direct-exchange}. Ohjelmaan ei toteutettu parametria vaihdetyypin määrittämiseen, koska katsottiin että suoravaihde on riittävä nykyisten vaatimusten täyttämisesksi. Tulevaisuudessa jos vaatimukset muuttuvat ja halutaan että käyttäjä voi valita käytettävän vaihdetyypin. Voidaan tämä toteuttaa lisäämällä ohjelmaan parametrit tätä varten.
 
 
 \subsection{IED:n attribuuttien määritysten luku}
+Yhteyksien muodostamisen jälkeen ohjelma käy läpi silmukassa jokaisen parametrina annetun RCB:n viitteen ja selvittää kaikkien parametrien specifikaatiot. Spesifikaatiotiedot sisältävät muuttujan tyypin ja sen koon. Kuvassa \ref{fig:rcb-sub-reading-specifications} on esitetty sekvenssikaavio kuinka rcb\_sub tämän tekee libiec61850-kirjastolla. Kuva vastaa yleiskuvassa \ref{fig:rcb-sub-sekvenssikaavio} kohtia 7--12.
+
+\begin{figure}[ht!]
+	\includegraphics[width=1\textwidth]{pictures/rcb-sub-reading-specifications.png}
+	\caption{Sekvenssikaavio kuinka rcb\_sub lukee RCB-instanssin arvot ja muuttujien spesifikaatiot.}
+	\label{fig:rcb-sub-reading-specifications}
+\end{figure}
+
+Ensin RCB:sta luetaan sen tiedot IED-laitteelta. RCB:ltä saadaa tieto mihin datajoukkoon se on liitetty. Tätä käsiteltiin kappaleessa \ref{ch:rcb-toiminta} ja taulukossa \ref{tab:iec61850-brcb-class-definition} kenttä DatSet, joka kertoo käytetyn datajoukon viitteen. Tällä tiedolla ohjelma voi lukea datajoukon FCD- ja FCDA-viitteet. Tästä saadaan jokainen viite listassa, joka käydään läpi silmukassa kohdissa 5--6. Jokaiselle viitteelle luetaan sen spesifikaatio. Spesifikaatio rakenne sisältää sisäkkäisiä spesifikaatioita jos viite viittaa moneen muuttujaan IED-laitteen hierarkiassa. Tämä samalla periaatteella miten FCD- ja FCDA-viitteet viittaavaat moneen muuttujaan hierarkiassa alaspäin. Kuinka FCD- ja FCDA-viitteet toimivat käsiteltiin kappaleessa \ref{ch:fc-and-dataset}. Jokainen luettu viite tallennetaan ja niitä käytetään myöhemmin viestin kanssa JSON-rakenteessa. Esimerkkinä liitteessä \ref{ch:report-json-format} riveillä 21--22 tyyppi ja koko -tiedot.
 
 
 \subsection{Viestien tilaus}
