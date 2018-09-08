@@ -7,35 +7,64 @@ participant "rabbitmq-c" as mqc
 participant "rcb_sub" as rcbsub
 participant "libiec61850" as libiec
 
+activate rcbsub
 rcbsub -> mqc : amqp_tcp_socket_new()
+deactivate rcbsub
+activate mqc
 mqc --> rcbsub : amqp_socket_t
+deactivate mqc
+activate rcbsub
 rcbsub -> mqc : amqp_socket_open_noblock()
+deactivate rcbsub
+activate mqc
 note right
 	Avaa socket-yhteys
 end note
 mqc --> rcbsub : amqp_status_enum
+deactivate mqc
+activate rcbsub
 rcbsub -> mqc : amqp_login()
+deactivate rcbsub
+activate mqc
 note right
 	Kirjaudu sisään RabbitMQ-palvelimeen
 end note
 mqc --> rcbsub : amqp_rpc_reply_t
+deactivate mqc
+activate rcbsub
 rcbsub -> mqc : amqp_channel_open()
+deactivate rcbsub
+activate mqc
 note right
 	Avaa kanava yhteydelle
 end note
 mqc --> rcbsub : amqp_channel_open_ok_t
+deactivate mqc
+activate rcbsub
 rcbsub -> mqc : amqp_exchange_declare()
+deactivate rcbsub
+activate mqc
 note right
 	Luo vaihde tyypiltään suoravaihde
 	(direct exchange) ja anna sen nimi ja
 	reititysavain parametreina
 end note
 mqc --> rcbsub : amqp_exchange_declare_ok_t
+deactivate mqc
+activate rcbsub
 rcbsub -> libiec : IedConnection_create()
+deactivate rcbsub
+activate libiec
 libiec --> rcbsub : IedConnection
+deactivate libiec
+activate rcbsub
 rcbsub -> libiec : IedConnection_connect()
+deactivate rcbsub
+activate libiec
 note left
 	Luo ja avaa yhteys IED-laitteelle
 end note
 libiec --> rcbsub : void
+deactivate libiec
+activate rcbsub
 @enduml
