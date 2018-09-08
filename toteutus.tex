@@ -77,8 +77,24 @@ Ohjelman luettua kaikki muuttujien spesifikaatiot. Ohjelma tilaa silmukassa kaik
 Ohjelma käsittelee libiec61850-kirjaston tarjoamaa stuktuuria ja kaikki arvot asetetaan siihen ennen oikeaa kirjoitusta. Ensin ohjelma asettaa kaikki käyttäjän antamat arvot struktuuriin. Kohdassa 2 asettaa asettaa RCB:n RptEna-kentän arvoksi tosi. Tämä kenttä varaa RCB-instanssin ja aloittaa tilauksen. Ohjelma pakottaa viestiin vaihtoehtoisen kentän reason-for-inclusion. Tätä kenttää tarvitaan, jotta aikaisemmin luetut spesifikaatiotiedot saadaan yhdistettyä saapuneeseen viestiin. Tämän jälkeen asetetaan takaisinkutsufunktio, jota kirjasto kutsuu kun viesti saapuu (kohta 5). Viimeisenä struktuurin arvot kirjoitetaan IED:llä olevalle RCB:lle. Tämä varaa RCB-instanssin tälle asiakkaakkalle ja aloittaa tilauksen. RCB tulee lähettämään viestejä ohjelmalle samalla kun silmukan muilla kierroksilla käsitellään tilaamattomia RCB-instansseja.
 
 
-\subsection{JSON:nin muodostaminen}
+\subsection{JSON:nin muodostaminen ja julkaisu}
+Viestin saapuessa libiec61580-kirjasto kutsui asetettua takaisinkutsufunktiota. Takaisinkutsufunktio muutti viestin JSON-muotoon ja lisäsi siihen aikaisemmin luetut muuttujien tyypit ja koot. Tämän jälkeen JSON-julkaistiin RabbitMQ-palvelimelle. Kuvissa \ref{fig:rcb-sub-report-to-json-1} ja \ref{fig:rcb-sub-report-to-json-2} on esitetty sekvenssikaaviolla kuinka ohjelma viestin muuttaa JSON:iksi ja julkaisee RabbitMQ:lle. Kuva \ref{fig:rcb-sub-report-to-json-1} vastaa yleiskuvan \ref{fig:rcb-sub-sekvenssikaavio} kohtia 17--19 ja kuva \ref{fig:rcb-sub-report-to-json-2} kohtia 20--22.
 
+\begin{figure}[ht!]
+	\includegraphics[width=1\textwidth]{pictures/rcb-sub-report-to-json.png}
+	\caption{Sekvenssikaavio kuinka rcb\_sub muodostaa JSON:nin päätason kentät.}
+	\label{fig:rcb-sub-report-to-json-1}
+\end{figure}
+
+Kuvassa \ref{fig:rcb-sub-report-to-json-1} alkaa kun libiec61850-kirjasto kutsuu takaisinkutsufunktiota. Funktiolle annetaan parametrina saapunut viesti. Tämän jälkeen ohjelma käy läpi viestin jokaisen päätason kentän ja lisää ne JSON-rakenteeseen. Osa viestin kentistä on vaihtoehtoisia riippuen mitä käyttäjä asetti \texttt{-{}-opt-fields} parametrilla. Jos arvoa viestissä ei ole, korvataan se null-arvolla JSON:iin. Esimerkkinä liiteessä \ref{ch:report-json-format} rivillä 4 oleva \texttt{confRevision} muuttuja, jonka arvo on null. Tämän jälkeen suoritus jatkuu kuvasta \ref{fig:rcb-sub-report-to-json-1} kuvaan \ref{fig:rcb-sub-report-to-json-2}.
+
+\begin{figure}[ht!]
+	\includegraphics[width=1\textwidth]{pictures/rcb-sub-report-to-json_001.png}
+	\caption{Sekvenssikaavio kuinka rcb\_sub lisää JSON:iin muuttujat viestistä.}
+	\label{fig:rcb-sub-report-to-json-2}
+\end{figure}
+
+Päätason viestin kenttien jälkeen ohjelma käy läpi silmukassa viestin datajoukon indeksit (kuva \ref{fig:rcb-sub-report-to-json-2}. Viesti oikeasti sisältää vain ne datajoukon alkiot, mitkä sisältyivät viestiin. Ongelmana tässä on että viesti ei sisällä indeksiä tai tietoa siitä mikä datajoukon alkio on kyseessä mikä viestissä on. Jotta tästä saadaan tieto ohjelma pakottaa syykoodin päälle viestiin. Tämän avulla kun silmukassa käydään kaikki datajoukon indeksit läpi. Voidaan jokaiselle indeksille ensin kysyä syykoodi viestistä (kohdat 8--9). Jos datajoukon alkio ei ole viestissä, palauttaa kirjaston funktio \texttt{ClientReport\_getReasonForInclusion()} arvon \texttt{IEC61850\_REASON\_NOT\_INCLUDED}. Tätä tietoa voidaan käyttää löytämään oikea datajoukon indeksi. Jos datajoukon indeksi on viestissä, suoritetaan kohdat 10--14, muuten mennään seuraavaan indeksiin ja toistetaan kohdat 8--9. Datajoukon indeksi tarvitaan, jotta aiemmin luetut spesifikaatiot saadaan yhdistettyä muuttujiin arvojen kanssa. Datajoukon indeksillä, viestin arvoilla ja muuttujien tyypeillä ja koolla saadaan rakennettua loppuosa JSON-rakenteesta. Kuvassa \ref{fig:rcb-sub-report-to-json-2} oleva silmukka rakentaa liitteessä \ref{ch:report-json-format} olevan values-taulun alkaen riviltä 7. JSON:in sisempi values taulu (rivi 13) on lista FCD- tai FCDA-viitteen muuttujia mitä se viittaa arvoineen. Tämä taulukko muodostetaan kuvan \ref{fig:rcb-sub-report-to-json-2} kohdassa 12 funktiolla \texttt{fcdaToJson()} ja lisätään JSON:iin kohdassa 13. Lopuksi viesti lähetetään RabbitMQ-palvelimelle funktiolla \texttt{amqp\_basic\_publish()} ja takaisinkutsufunktio palaa (kohdat 15--17).
 
 \section{Jatkokehitys}
 \begin{it}

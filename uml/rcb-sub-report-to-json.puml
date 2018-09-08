@@ -1,0 +1,85 @@
+@startuml
+autonumber
+
+skinparam roundcorner 20
+
+participant "libiec61850" as libiec
+participant "rcb_sub" as rcbsub
+participant "jansson" as json
+participant "rabbitmq-c" as mqc
+
+activate libiec
+libiec -> rcbsub : reportCallbackFunction()
+deactivate libiec
+activate rcbsub
+rcbsub -> json : json_object()
+deactivate rcbsub
+activate json
+json --> rcbsub : json_t*
+deactivate json
+activate rcbsub
+group päätason kentät
+	rcbsub -> libiec : ClientReport_get*()
+	deactivate rcbsub
+	activate libiec
+	libiec --> rcbsub : arvo
+	deactivate libiec
+	activate rcbsub
+	note right
+		Jos arvoa ei ole, asetetaan
+		JSON-rakenteeseen null-arvo
+	end note
+	rcbsub -> json : json_object_set_new_nocheck()
+	deactivate rcbsub
+	activate json
+	json --> rcbsub : int
+	deactivate json
+	activate rcbsub
+	...loput JSON-rakenteen päätason kentät...
+end group
+newpage
+group jokainen datajoukon alkio
+	rcbsub -> libiec : ClientReport_getReasonForInclusion()
+	deactivate rcbsub
+	activate libiec
+	note right
+		Palauttaa syykoodin indeksillä
+	end note
+	libiec --> rcbsub : ReasonForInclusion
+	deactivate libiec
+	activate rcbsub
+	note over rcbsub
+		Jos syykoodi on muu kuin ei sisällytetty.
+		Saapunut viesti sisältää arvoja tällä indeksillä,
+		joten ne lisätään JSON-rakenteeseen
+	end note
+	alt ReasonForInclusion != IEC61850_REASON_NOT_INCLUDED
+		rcbsub -> libiec : MmsValue_getElement()
+		deactivate rcbsub
+		activate libiec
+		libiec --> rcbsub : Mmsvalue*
+		deactivate libiec
+		activate rcbsub
+		rcbsub -> rcbsub : fcdaToJson()
+		note left
+			Tässä vaiheessa myös muuttujien
+			tyyppit ja koot lisätään JSON:iin
+		end note
+		rcbsub -> json : json_array_append_new()
+		deactivate rcbsub
+		activate json
+		json --> rcbsub : int
+		deactivate json
+		activate rcbsub
+	end
+end group
+rcbsub -> mqc : amqp_basic_publish()
+deactivate rcbsub
+activate mqc
+mqc --> rcbsub : int
+deactivate mqc
+activate rcbsub
+rcbsub --> libiec : void
+deactivate rcbsub
+activate libiec
+@enduml
