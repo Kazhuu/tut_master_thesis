@@ -56,6 +56,7 @@
 %\usepackage{textcase} % may be used to keep parts of title lowercase
 \usepackage{array}
 \usepackage{tabularx} % e.g. multiline cells
+\usepackage{ltablex} % for multi page tables
 %\usepackage{calc} % for performing length arithmetic such as column width = text width minus some other width
 %\usepackage{longtable} % for tables spanning multiple pages
 
@@ -143,6 +144,8 @@
 
 \include{lyhenteet_ja_merkinnat}
 
+% Reset table counter because abbreviations incremented it
+\setcounter{table}{0}
 
 % Each chapter is it's own file and included here.
 \include{johdanto}
