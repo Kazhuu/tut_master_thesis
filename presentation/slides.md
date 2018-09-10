@@ -37,7 +37,7 @@ Tieto saatavaksi järjestelmän muille komponenteille
 
 -> # Lähtötilanne <-
 
-Demoversio toteutettu ennen työn aloitusta, (proof of consept)
+Demoversio toteutettu ennen työn aloitusta, (proof of concept)
 
 Ongelmia:
 * muistivuoto
