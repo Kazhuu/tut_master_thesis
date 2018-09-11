@@ -56,7 +56,7 @@
 %\usepackage{textcase} % may be used to keep parts of title lowercase
 \usepackage{array}
 \usepackage{tabularx} % e.g. multiline cells
-\usepackage{ltablex} % for multi page tables
+\usepackage{ltablex} % multi page table for abbreviations
 %\usepackage{calc} % for performing length arithmetic such as column width = text width minus some other width
 %\usepackage{longtable} % for tables spanning multiple pages
 
@@ -92,7 +92,7 @@
 \thesistype{Diplomityö} % Do not use ASCII apostrophe ' as it will not be substituted with the correct one (’) in the PDF metadata. Note that there are both short version (this) and a long one - "Master’s" vs. "Master of Science"
 \major{Ohjelmistotuotanto}
 \programme{Tietotekniikan koulutusohjelma} % Note apostrophes on all fields for PDF metadata
-\examiner{Prof. Kari Systä} %\and for plural
+\examiner{Professori Kari Systä} %\and for plural
 \datetopicapproved{2018}{8}{8}
 \keywords{IEC 61850, MMS, AMQP, sähköasema, älykäs elektroniikkalaite, ohjelmistokehitys}
 
@@ -144,7 +144,7 @@
 
 \include{lyhenteet_ja_merkinnat}
 
-% Reset table counter because abbreviations incremented it
+% Reset table counter because abbreviations incremented it already.
 \setcounter{table}{0}
 
 % Each chapter is it's own file and included here.
@@ -154,12 +154,6 @@
 \include{suunnittelu}
 \include{toteutus}
 \include{yhteenveto}
-
-
-% This can be deleted later.
-\iffalse
-\include{muistiinpanot}
-\fi
 
 
 % This adds used sources chapter.
