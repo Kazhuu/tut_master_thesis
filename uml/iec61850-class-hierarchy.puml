@@ -1,20 +1,25 @@
 @startuml
 class "Logical Node" as ln
-note right
-	Kaikki loogisen noodin luokat
-	löytävät standardin osasta 7-4
+note left
+	Kaikki loogisen noodin
+	luokat löytävät standardin
+	osasta 7-4
 end note
-class "Data Object" as do << Common Data Class >>
-note right
-	Kaikki dataobjektien luokat
-	löytyvät standardin osasta 7-3
+class "Data Object" as do
+note left
+	Kaikki dataobjektien
+	luokat löytyvät standardin
+	osasta 7-3
 end note
 class "Data Attribute" as da
-note right
-	Kaikki data-attribuuttien tyypit
-	löytyvät standardin osasta 7-2 ja 7-3
+note left
+	Kaikki data-attribuuttien
+	tyypit löytyvät standardin
+	osasta 7-2 ja 7-3
 end note
 
 ln "1" -- "1..*" do
+do "1 isäntä" -- "0..* lapsi" do : viittaus isäntä dataobjektiin
 do "1" -- "1..*" da
+da "1 isäntä" -- "0..* lapsi" da : viittaus isäntä data-attribuuttiin
 @enduml

@@ -1,0 +1,31 @@
+@startuml
+autonumber
+
+skinparam roundcorner 20
+
+participant "Tilaaja" as t
+box "IED-laite"
+    participant "BRCB" as rcb
+end box
+
+== tilauksen aloitus ==
+t -> rcb : konfiguroi BRCB:n
+rcb --> t : aktivoi ja varaa BRCB:n tilaajalle
+
+== viestien vastaanotto ==
+rcb -> t : viesti
+rcb -> t : viesti
+... yhteys katkeaa ...
+rcb -> t : yhteys palaa
+note over rcb, t
+    Tässä vaiheessa BRCB-instanssi on
+    puskuroinut viestit yhteyden poikki ollessa
+    ja palauttaa ne järjestyksessä tilaajalle
+end note
+rcb -> t : viesti puskurista
+rcb -> t : viesti puskurista
+...
+== tilauksen lopetus ==
+t -> rcb : lopeta BRCB:n varaus
+rcb --> t : tilaus lopetataan
+@enduml
