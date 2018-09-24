@@ -131,8 +131,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="360.85253"
-     inkscape:cy="856.21429"
+     inkscape:cx="370.95406"
+     inkscape:cy="852.17368"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -238,14 +238,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="215.10069"
+       x="220.45644"
        y="64.628555"
        id="text1411"><tspan
          sodipodi:role="line"
-         x="215.10069"
+         x="220.45644"
          y="64.628555"
          style="stroke-width:0.26458332"
-         id="tspan1413">Tilaava ohjelmisto</tspan></text>
+         id="tspan1413">Komponentti</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend);stroke-miterlimit:4;stroke-dasharray:none"
        d="M 16.971615,63.465333 H 55.048122"
@@ -254,19 +254,24 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="8.5526237"
-       y="47.637527"
+       x="10.95805"
+       y="43.895756"
        id="text2343"><tspan
          sodipodi:role="line"
          id="tspan2341"
-         x="8.5526237"
-         y="47.637527"
+         x="10.95805"
+         y="43.895756"
          style="stroke-width:0.26458332">Toteutettu ohjelmisto</tspan><tspan
          sodipodi:role="line"
-         x="8.5526237"
-         y="52.929195"
+         x="10.95805"
+         y="49.187424"
          style="stroke-width:0.26458332"
-         id="tspan2345">tilaa viestejä IED-laitteilta</tspan></text>
+         id="tspan2345">tilaa viestejä IED-laitteen</tspan><tspan
+         sodipodi:role="line"
+         x="10.95805"
+         y="54.479088"
+         style="stroke-width:0.26458332"
+         id="tspan924">RCB-instansseilta</tspan></text>
     <path
        inkscape:connector-curvature="0"
        id="path2355"
@@ -282,12 +287,12 @@
          id="tspan3009"
          x="95.94976"
          y="47.637527"
-         style="stroke-width:0.26458332">Prosessoi ja edelleen lähettää</tspan><tspan
+         style="stroke-width:0.26458332">Prosessoi ja julkaisee viestit</tspan><tspan
          sodipodi:role="line"
          x="95.94976"
          y="52.929195"
          style="stroke-width:0.26458332"
-         id="tspan3013">välityspalvelimelle jonoon</tspan></text>
+         id="tspan3013">välityspalvelimelle tilattavaksi</tspan></text>
     <rect
        y="35.975494"
        x="212.80049"
@@ -298,14 +303,14 @@
     <text
        id="text3021"
        y="44.028858"
-       x="215.10069"
+       x="220.45644"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
          id="tspan4740"
          style="stroke-width:0.26458332"
          y="44.028858"
-         x="215.10069"
-         sodipodi:role="line">Tilaava ohjelmisto</tspan></text>
+         x="220.45644"
+         sodipodi:role="line">Komponentti</tspan></text>
     <rect
        y="76.229958"
        x="212.80049"
@@ -316,14 +321,14 @@
     <text
        id="text3031"
        y="84.283318"
-       x="215.10069"
+       x="220.45644"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
          id="tspan3029"
          style="stroke-width:0.26458332"
          y="84.283318"
-         x="215.10069"
-         sodipodi:role="line">Tilaava ohjelmisto</tspan></text>
+         x="220.45644"
+         sodipodi:role="line">Komponentti</tspan></text>
     <path
        inkscape:connector-curvature="0"
        id="path3047"
@@ -345,19 +350,24 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="187.35594"
-       y="27.057777"
+       x="196.17584"
+       y="22.514194"
        id="text4734"><tspan
          sodipodi:role="line"
          id="tspan4732"
-         x="187.35594"
-         y="27.057777"
-         style="stroke-width:0.26458332">Asiakkaat tilaavat viestejä</tspan><tspan
+         x="196.17584"
+         y="22.514194"
+         style="stroke-width:0.26458332">Järjestelmän muut komponentit</tspan><tspan
          sodipodi:role="line"
-         x="187.35594"
-         y="32.349445"
+         x="196.17584"
+         y="27.805862"
          style="stroke-width:0.26458332"
-         id="tspan4736">välityspalvelimen jonosta</tspan></text>
+         id="tspan4736">tilaavat viestejä välityspalvelimen</tspan><tspan
+         sodipodi:role="line"
+         x="196.17584"
+         y="33.097527"
+         style="stroke-width:0.26458332"
+         id="tspan922">jonosta</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"

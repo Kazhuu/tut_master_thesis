@@ -4,6 +4,7 @@ Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan ja t
 
 
 \section{IEC 61850 -standardi yhteiseen kommunikointiin}
+\label{ch:iec61850-theory}
 Sähköasemilla nykypäivänä käytössä olevilla IED-laitteilla toteutetaan aseman toiminnalisuuden funktioita. Aseman toiminnallisuuteen liittyy sen kontrollointi ja suojaus. Aseman komponenttien suojauksen lisäksi, siihen kuuluu myös asemalta lähtevät sähkölinjat. Hyvä esimerkki sähköaseman suojauksesta on korkeajännitelinjan katkaisija, joka katkaisee virran linjasta vikatilanteissa. Tällainen vikatilanne on esimerkiksi linjan poikkimeno kaatuneen puun tai pylvään takia. Fyysistä katkaisijaa ohjaa aseman automatiikka, joka toteutetaan IED-laitteilla. IED-laite voi olla kytketty fyysisesti ohjattavaan laitteeseen \mbox{\cite[s.~63--64]{IEC61850-7-1}}. Koko sähköaseman toiminnallisuus koostuu monesta eri funktiosta, jotka on jaettu monelle IED-laitteelle. Jotta systeemi pystyy toimimaan, täytyy IED-laitteiden kommunikoida keskenään ja vaihtaa informaatiota toistensa kanssa. IED-laitteiden täytyy myös kommunikoida asemalta ulospäin erilliselle ohjausasemalle monitorointia ja etäohjausta varten \mbox{\cite[s.~1]{Brunner2008}}. On selvää, että monimutkaisen systeemin ja monen valmistajien kesken tarvitaan yhteiset säännöt kommunikointia varten.
 
 Maailmanlaajuisesti määritetty IEC 61850 -standardi määrittää sähköaseman sisäisen kommunikoinnin säännöt IED-laitteiden välillä. Standardi määrittää myös säännöt asemalta lähtevään liikenteeseen, kuten toiselle sähköasemalle ja ohjausasemalle \mbox{\cite[s.~10]{IEC61850-7-1}}. Ilman yhteistä standardia, jokainen valmistaja olisi vapaa toteuttamaan omat säännöt ja protokollat kommunikointiin. Seurauksena olisi, että laitteet eivät olisi keskenään yhteensopivia eri valmistajien kesken. Standardin tarkoitus on poistaa yhteensopivuusongelmat ja määrittää yhteiset säännöt kommunikoinnin toteuttamiseen \mbox{\cite[s.~1]{Kaneda2008}}.
@@ -402,10 +403,9 @@ Viestissä kenttä \emph{RptID} sisältää viitteen RCB-instanssiin, mistä vie
 
 Value-kentän arvosta on tärkeä ymmärtää, että se voi sisältää yhden tai monta data-att\-ri\-buu\-tin arvoa. Tämä riippuu viittaako datajoukon liippaissut alkion FCD- vai FCDA-viitteellä useaan data-attribuuttiin. Viittauksen ollessa FCDA-viite, joka viittaa vain yhteen data-attribuutiin, sisältää Value-kenttä vain kyseisen data attribuutin arvon. Jos viittaus on FCD- tai FCDA-viite joka viittaa moneen attribuuttiin hierarkiassa alaspäin. Viittaus sisältää Value-kenttä kaikki nämä viitatut arvot, vaikka niistä olisi liipaissut vain yksi attribuutti. FCD- ja FCDA-viittauksen toimintaa ja mitä attribuutteja se viittaa hierarkiassa alaspäin, käydään läpi kappaleessa \ref{ch:fc-and-dataset}. Esimerkki tästä on kuvassa \ref{fig:iec61850-data-set-reporting}, jossa liipaisu yhdessä attribuutissa aiheuttaa eri määrän arvoja kumpaankin viestiin. Tähän vaikuttaa kuinka liipaisevaan attribuuttiin on viitattu datajoukossa. Kuvassa datajoukossa Testi1 attribuuttiin MyLD/XCBR1.Pos.stVal on viitattu FCDA-viitteellä, jossa funktionaalinen rajoite on ST. Eli FCDA-viite viittaa vain stVal attribuuttiin, ei muihin. Tämän takia myBRCB01-instanssilta tuleva viestin Value-kenttä sisältää vain stVal-attribuutin arvon. Kun taas datajoukossa Testi2 attributtiin MyLD/XCBR1.Pos.stVal sisältyy datajoukon ensimmäiseen FCD-viitteeseen funktionaalisella rajoitteella ST. Koska FCD-viite viittaa kaikkiin Pos-instanssin alla oleviin attribuutteihin, joilla funktionaalinen rajoite on ST. Lisätään kaikki nämä attribuutit viestiin, joka lähetetään tilaajalle. BRCB-instansilta myBRCB02 tuleva viestin Value-kenttä sisältää kaikki viitatut attribuutit ja viestin DatRef-kenttä sisältää datajoukossa käytetyn viitteen. Dataobjektin Pos kaikki attribuutit voi tarkistaa taulukosta \ref{tab:iec61850-DPC-class-definition}. \mbox{\cite[s.~40--44]{IEC61850-7-1}} \mbox{\cite[s.~108]{IEC61850-7-2}}
 
-
 \subsection{Abstraktimallin sovitus MMS-protokollaan}
 \label{ch:iec61850-mms-mallinnus}
-Tähän asti käsitellyt IEC 61850 -standardin mallit ja palvelut ovat olleet abstrahoituja ja tekniikasta riippumattomia. Tässä työssä käytetiin IEC 61850 -standardin MMS-protokollan toteutusta. Tästä toteutuksesta on tarkemmin määritetty IEC 61850 -standardin osassa 8-1. MMS-protokolla on maailmanlaajuinen \emph{ISO 9506} -standardi viestintään, joka on määritetty toimivaksi TCP/IP:n pinon päällä \mbox{\cite{MMS-protocol-stack-and-API}}. Tämän työn kannalta lukijan ei ole tarvitse ymmärtää MMS-protokollaa ja sen toimintaa. Suunnitellussa ohjelmistossa käytettiin apuna kirjastoa, joka hoitaa matalan tason kommunikoinnin IED-laitteen kanssa. Tässä osiossa käsitellään työn kannalta tärkeitä tietoja, mitä toteutksesta MMS-protokollalle kuitenkin tarvitsee tietää. \mbox{\cite{Introduction-to-the-MMS}}
+Tähän asti käsitellyt IEC 61850 -standardin mallit ja palvelut ovat olleet abstrahoituja ja tekniikasta riippumattomia. Tässä työssä käytetiin IEC 61850 -standardin MMS-protokollan toteutusta. Tästä toteutuksesta on tarkemmin määritetty IEC 61850 -stan\-dar\-din osassa 8-1. MMS-protokolla on maailmanlaajuinen \emph{ISO 9506} -standardi viestintään, joka on määritetty toimivaksi TCP/IP:n pinon päällä \mbox{\cite{MMS-protocol-stack-and-API}}. Tämän työn kannalta lukijan ei ole tarvitse ymmärtää MMS-protokollaa ja sen toimintaa. Suunnitellussa ohjelmistossa käytettiin apuna kirjastoa, joka hoitaa matalan tason kommunikoinnin IED-laitteen kanssa. Tässä osiossa käsitellään työn kannalta tärkeitä tietoja, mitä toteutksesta MMS-protokollalle kuitenkin tarvitsee tietää. \mbox{\cite{Introduction-to-the-MMS}}
 
 IEC 61850 -standardin mallinnuksessa aikaisemmin esitetty instanssien viittaus hierarkiassa muuttuu ja nyt viittaus sisältää myös funktionaalisen rajoitteen. Esimerkkinä kuvassa \ref{fig:iec61850-data-reference} oleva viite OmaLD/Q0XCBR1.Pos.stVal funktionaalisella rajoitteella ST, muuttuu muotoon OmaLD/Q0XCBR1\$ST\$Pos\$stVal. Tässä viittauksessa pisteet (.) korvataan dollari-merkillä (\$). Ja kaksikirjaiminen funktionaalinen rajoite sijoitetaan loogisen noodin ja ensimmäisen data objektin nimien väliin. Muuten viittaus säilyy identtisenä alkuperäiseen ja samat rajoitteet ja nimeämiskäytännöt ovat voimassa edelleen. \mbox{\cite[s.~34--35, 111]{IEC61850-8-1}}
 
@@ -414,11 +414,11 @@ Tämän uuden viittauksen takia jokaiselle viitattavalle kohteelle täytyy olla 
 
 \section{Advanced Message Queuing Protocol (AMQP)}
 \label{ch:amqp-theory}
-Työssä toteutetussa ohjelmistossa IED-laitteelta verkon yli tilatut viestit ohjelma prosessoi ja lähetti viestin eteenpäin välittäjälle (engl. message broker). Välittäjä on verkossa oleva erillinen palvelin, mistä muut ohjelmat pystyivät tilaamaan viestejä tarpeidensa mukaan. Kuvassa \ref{fig:implemented-system-communication} on esitetty lopullisen toteutuksen tietoliikenne eri osapuolten välillä. Tässä työssä toteutettu ohjelmisto on merkitty kuvaan katkoviivalla. Toteutuksessa oli kyse tilaaja-julkaisija arkkitehtuurimallista (engl. publish-subscribe pattern), jossa työn toteutettu ohjelmisto oli tilaaja yhdeltä IED-laitteelta ja julkaisija välityspalvelimelle. Ja välityspalvelimen toisessa päässä olevat ohjelmistot olivat tilaajia. Tässä osuudessa perehdytään viestien välittäjän teoriaan, ja mitä siitä täytyy tietää ohjelmistokehityksen kannalta.
+Työssä toteutettu ohjelmisto tilasi viestit IED-laitteen RCB-instansseilta. Viestit tilattiin verkon yli aseman ulkopuolelle. Ohjelma prosessoi IEC 61850 -standardin mukaiset viestit ja lähetti ne eteenpäin välittäjälle (engl. message broker). Välittäjä on verkossa oleva erillinen palvelin, mistä muut ohjelmat pystyivät tilaamaan viestejä tarpeidensa mukaan. Kuvassa \ref{fig:implemented-system-communication} on esitetty lopullisen toteutuksen tietoliikenne eri osapuolten välillä. Tässä työssä toteutettu ohjelmisto on merkitty kuvaan katkoviivalla. Toteutuksessa oli kyse tilaaja-julkaisija arkkitehtuurimallista (engl. publish-subscribe pattern), jossa työn toteutettu ohjelmisto oli tilaaja yhdeltä IED-laitteelta ja julkaisija välityspalvelimelle. Järjestelmän muut komponentit olivat tilaajia välityspalvelimelle. Tässä osuudessa perehdytään viestien välittäjän teoriaan, ja mitä siitä täytyy tietää ohjelmistokehityksen kannalta.
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/implemented-system-communication.png}
-	\caption{Toteutetun ohjelmiston osuus ja rooli käytettävässä kokonaisuudessa tietoliikenteen kannalta.}
+	\caption{Toteutetun ohjelmiston osuus ja rooli kokonaisuudessa tietoliikenteen kannalta.}
 	\label{fig:implemented-system-communication}
 \end{figure}
 
@@ -441,9 +441,8 @@ AMQP on ohjelmoitava protokolla siinä mielessä, että julkaisija ja tilaaja vo
 Jotta viesti voidaan kuljettaa välittäjäpalvelimen läpi, täytyy julkaisijan aloittaa määrittämällä käytetty vaihde ja sen tyyppi. Julkaisija voi myös käyttää palvelimen oletusvaihdetta. Vaihde on komponentti, joka ottaa vastaan viestejä ja reitittää niitä jonoihin vaihdetyypin (engl. exchange type) ja sidosten mukaan. Vaihteet eivät ikinä tallenna viestejä. Vaihde voi tiputtaa viestin, jos se ei täsmää minkään määritetyn reitityksen kanssa. AMQ-malli määrittää seuraavat käytettävät vaihdetyypit:
 \begin{itemize}
 	\item \emph{suoravaihde} (engl. \emph{direct exchange}),
-	\item \emph{hajautusvaihde} (engl. \emph{fanout exchange}),
-	\item \emph{aihepiirivaihde} (engl. \emph{topic exchange}) ja
-	\item \emph{otsikkovaihde} (engl. \emph{header exchange}).
+	\item \emph{hajautusvaihde} (engl. \emph{fanout exchange}), ja
+	\item \emph{aihepiirivaihde} (engl. \emph{topic exchange}).
 \end{itemize}
 
 Näitä tyyppejä ja kuinka ne toimivat käydään tarkemmin läpi tulevissa kappaleissa. Tyypin lisäksi vaihteella on myös attribuutteina \emph{nimi} (engl. \emph{name}), \emph{kestävyys} (engl. \emph{durability}), \emph{automaattinen poisto} (engl. \emph{auto-delete}). Nimi yksilöi vaihteen palvelimella ja tilaaja käyttää tätä nimeä sidoksen tekemiseen jonon ja vaihteen välille. AMPQ-standardissa oletetaan, että nimi on jo tiedossa etukäteen julkaisijalla ja tilaajalla. AMPQ ei tarjoa toiminnallisuutta instanssien nimien noutamiseen. Kestävyys parametrilla julkaisija voi kertoa palvelimelle, että välitäjä säilyttää vaihteen uudelleenkäynnistysten jälkeen. Jos ei, julkaisijan täytyy määrittää vaihde uudelleen käynnistyksen jälkeen. Automaattinen poisto kertoo poistaako välittäjä vaihteen automaattisesti, kun viimeinen siihen sidottu jono on poistettu ja julkaisija ei ole enää yhteydessä.
@@ -452,7 +451,6 @@ Kaikki julkaisijan ja tilaajan kutsut välittäjäpalvelimelle, jotka tekevät u
 
 Vaihde reitittää viestejä jonoihin sen sidosten ja tyypin mukaan. Kuitenkin reititykseen liittyy yksi tärkeä asia kuin \emph{reititysavain} (engl. \emph{routing-key}). Reititysavain on kuin virtuaalinen osoite viestissä, jonka julkaisija liittää viestiin julkaisun yhteydessä. Tilaaja käyttää myös reititysavainta jonon määrityksen yhteydessä. Vaihde, tyypistä riippuen, voi käyttää tätä avainta reititykseen eri jonoihin. Viestin reititysavainta voi hyvin verrata lähetettävän sähköpostin saaja-kenttään. Saaja kertoo vastaanottajan sähköpostiosoitteen, johon viesti on tarkoitus lähettää. Reititysavain toimii juurikin näin suorassa viestin lähetyksessä, mutta eroaa muissa.
 
-TODO: Tarkista tästä eteenpäin.
 
 \subsection{Suoravaihde (direct exchange)}
 \label{ch:direct-exchange}
@@ -463,7 +461,7 @@ Julkaisija voi määrittää vaihteen instanssin tyypiksi suoravaihteen (engl. d
 	\item vaihde välittää viestin jonoon jos K = R,
 	\item muuten vaihde tiputtaa tai palauttaa viestin lähettäjälle.
 \end{itemize}
-Kuvassa \ref{fig:amqp-direct-exchange} on esitetty suoravaihteen toiminta. Vaihteeseen on tehty sidoksia reititysavaimilla \emph{error} ja \emph{info}. Yksi tilaaja voi luoda sidoksia samaan vaihteeseen monella eri reititysavaimella. Näin tilaaja voi tilata viestejä mistä on kiinnostunut. Kuvassa \ref{fig:amqp-direct-exchange} julkaisija julkaisee viestin reititysavaimella info. Viesti päätyy molempiin queue\_1 ja queue\_2 jonoon. Reititysavaimella error, viestit päätyvät vain jonoon queue\_1. Välittäjäpalvelin tarjoaa suoravaihteesta oleutusvaihteen nimeltä amq.direct. \mbox{\cite[s.~27]{AMQP-specification}}
+Kuvassa \ref{fig:amqp-direct-exchange} on esitetty suoravaihteen toiminta. Vaihteeseen on tehty sidoksia reititysavaimilla error ja info. Yksi tilaaja voi luoda sidoksia samaan vaihteeseen monella eri reititysavaimella. Näin tilaaja voi tilata viestejä mistä on kiinnostunut. Kuvassa \ref{fig:amqp-direct-exchange} julkaisija julkaisee viestin reititysavaimella info. Viesti päätyy molempiin queue\_1 ja queue\_2 jonoon. Reititysavaimella error, viestit päätyvät vain jonoon queue\_1. Välittäjäpalvelin tarjoaa suoravaihteesta oleutusvaihteen nimeltä \emph{amq.direct}. \mbox{\cite[s.~27]{AMQP-specification}}
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/amqp-direct-exchange.png}
@@ -479,7 +477,7 @@ Julkaisija voi määrittää vaihteen instanssiksi hajautusvaihteen (engl. fanou
 	\item julkaisija julkaisee viestin reititysavaimella R,
 	\item vaihde välittää viestin kaikkiin siihen sidottuihin jonoihin, reititysavaimesta riippumatta.
 \end{itemize}
-Kuvassa \ref{fig:amqp-fanout-exchange} on esitetty hajautusvaihteen toiminta. Vaihteeseen exchange\_1 on tehty kolme eri sidosta jonoihin queue\_1, queue\_2 ja queue\_3. Julkaisijan lähettämä viesti lähetetään kaikkiin kolmeen sidottuun jonoon, viestin ja jonojen reititysavaimista riippumatta. Välittäjäpalvelin tarjoaa hajautusvaihteesta oletusvaihteen nimeltä amq.fanout. \mbox{\cite[s.~27]{AMQP-specification}}
+Kuvassa \ref{fig:amqp-fanout-exchange} on esitetty hajautusvaihteen toiminta. Vaihteeseen exchange\_1 on tehty kolme eri sidosta jonoihin queue\_1, queue\_2 ja queue\_3. Julkaisijan lähettämä viesti lähetetään kaikkiin kolmeen sidottuun jonoon, viestin ja jonojen reititysavaimista riippumatta. Välittäjäpalvelin tarjoaa hajautusvaihteesta oletusvaihteen nimeltä \emph{amq.fanout}. \mbox{\cite[s.~27]{AMQP-specification}}
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/amqp-fanout-exchange.png}
@@ -501,7 +499,7 @@ Aihepiirivaihteen yhteydessä AMQP-standardi määrittää että viestin reitity
 	\item \textbf{\#} (risuaita), voi vastata nolla tai monta sanaa. \mbox{\cite[s.~27]{AMQP-specification}}
 \end{itemize}
 
-Kuvassa \ref{fig:amqp-topic-exchange} on esitetty aihepiirivaihteen toiminta. Vaihteeseen exchange\_1 on sidottu jono queue\_1 reitityskaavoilla \textbf{app1.\#} ja \textbf{*.*.warn}. Ja jono queue\_2 reitityskaavalla \textbf{*.log.*}. Oletetaan että julkaisija lähettää viestejä avaimella muodossa \emph{ohjelma.kanava.taso}, jossa sana ohjelma kuvaa julkaisijan nimeä. Kanava, kuvaa lokitusväylää ja taso kuvaa viestin tasoa (warning, error, info jne.). Voisi sanoa että queue\_1 on kiinnostunut kaikista ohjelmalta app1 tulevista viesteistä ja myös kaikista varoitustason (warning) viesteistä kaikilta ohjelmilta. Jono queue\_2 on taas kiinnostunut kaikista log-väylän viesteistä.
+Kuvassa \ref{fig:amqp-topic-exchange} on esitetty aihepiirivaihteen toiminta. Vaihteeseen exchange\_1 on sidottu jono queue\_1 reitityskaavoilla \emph{app1.\#} ja \emph{*.*.warn}. Ja jono queue\_2 reitityskaavalla \emph{*.log.*}. Oletetaan että julkaisija lähettää viestejä avaimella muodossa \emph{ohjelma.kanava.taso}, jossa sana ohjelma kuvaa julkaisijan nimeä. Kanava, kuvaa lokitusväylää ja taso kuvaa viestin tasoa (warning, error, info jne.). Voisi sanoa että queue\_1 on kiinnostunut kaikista ohjelmalta app1 tulevista viesteistä ja myös kaikista varoitustason (warning) viesteistä kaikilta ohjelmilta. Jono queue\_2 on taas kiinnostunut kaikista log-väylän viesteistä.
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/amqp-topic-exchange.png}
@@ -509,33 +507,15 @@ Kuvassa \ref{fig:amqp-topic-exchange} on esitetty aihepiirivaihteen toiminta. Va
 	\label{fig:amqp-topic-exchange}
 \end{figure}
 
-Nyt jos julkaisija lähettää viestin avaimella \textbf{app1.debug.warn}. Vaihde välittää viestin jonoon queue\_1, mutta ei jonoon queue\_2. Avaimella \textbf{app2.log.info} viesti välitetään vain jonoon queue\_2. Avaimella \textbf{app1.log.warn} viesti lähetään molempiin jonoihin. Kun taas avaimella \textbf{app2.debug.info} viestiä ei lähetetä yhteenkään jonoon.
+Nyt jos julkaisija lähettää viestin avaimella \emph{app1.debug.warn}. Vaihde välittää viestin jonoon queue\_1, mutta ei jonoon queue\_2. Avaimella \emph{app2.log.info} viesti välitetään vain jonoon queue\_2. Avaimella \emph{app1.log.warn} viesti lähetään molempiin jonoihin. Kun taas avaimella \emph{app2.debug.info} viestiä ei lähetetä yhteenkään jonoon.
 
-Aihepiirivaihde on vaihdetyypeistä monimutkaisin, mutta kattaa ison määrän erilaisia käyttötapauksia. Vaihteen avulla tilaajat voivat tilata viestejä, joista ovat esimerkiksi kiinnostuneita. Aihepiirivaihdetta voi käyttää kuin aikaisempia vaihdetyyppejä. Jos jono sidotaan reitityskaavalla \textbf{\#}, se vastaanottaa kaikki viestit kyseiseltä vaihteelta ja käyttäytyy kuin hajautusvaihde. Jos jono sidotaan ilman merkkejä \textbf{*} ja \textbf{\#}, niin se käyttäytyy samalla tavalla kuin suoravaihde. \mbox{\cite{RabbitMQ-Tutorial-Topics}}
-
-
-\subsection{Otsikkovaihde (headers exchange)}
-Otsikkovaihde (engl. headers exchange) on vaihdetyyppi joka ei käytä reititysavainta ollenkaan reititykseen, vaan reititys perustuu viestin ja sidoksen otsikkotietoihin. Otsikkotiedot koostuvat avain--arvo-pareista. Otsikkovaihde toimii seuraavasti:
-\begin{itemize}
-	\item tilaaja määrittää sidoksen vaihteeseen otsikkotiedoilla H,
-	\item julkaisija julkaisee viestin otsikkotiedoilla O,
-	\item vaihe välittää viestin jonoon jos otsikkotiedot O vastaavat otsikkotietoja H, riippuen sidoksen otsikkotiedoissa olevasta \textbf{x-match} kentän arvosta.
-\end{itemize}
-Jonon sidoksen määrityksen yhteydessä tilaaja voi asettaa kentän \textbf{x-match} otsikkotietoihin ja sille arvon kahdesta eri mahdollisuudesta \textbf{all} tai \textbf{any}. Arvot toimivat seuraavasti:
-\begin{itemize}
-	\item \textbf{all} kertoo vaihteelle, että jokainen viestin otsikkotieto täytyy vastata sidoksen otsikkotietoja (boolen algebrassa AND-operaatio), jotta viestin lähetetään jonoon,
-	\item \textbf{any} kertoo vaihteelle, että mikä vain viestin otsikkotiedoista löytyy sidoksen otsikkotiedoista (boolen algebrassa OR-operaatio), lähetetään viesti jonoon. \mbox{\cite[s.~28]{AMQP-specification}}
-\end{itemize}
-
-Otsikkotiedoissa arvot ovat vaihtoehtoisia asettaa. Jos kentän arvoa ei ole asetettu, vastaavuus on kun kentän nimet ovat samat. Jos kentän arvo on asetettu, vastaavuus on jos molemmat nimi ja arvo vastaavat toisiaan. \mbox{\cite[s.~28]{AMQP-specification}}
+Aihepiirivaihde on vaihdetyypeistä monimutkaisin, mutta kattaa ison määrän erilaisia käyttötapauksia. Vaihteen avulla tilaajat voivat tilata viestejä, joista ovat esimerkiksi kiinnostuneita. Aihepiirivaihdetta voi käyttää kuin aikaisempia vaihdetyyppejä. Jos jono sidotaan reitityskaavalla \#, se vastaanottaa kaikki viestit kyseiseltä vaihteelta ja käyttäytyy kuin hajautusvaihde. Jos jono sidotaan ilman merkkejä * ja \#, niin se käyttäytyy samalla tavalla kuin suoravaihde. \mbox{\cite{RabbitMQ-Tutorial-Topics}}
 
 
 \subsection{Jonon määritys ja viestien kuittaaminen}
-AMQ-mallissa jono (engl. queue) on vaihteen ja tilaajan välissä oleva puskuri (kuva \ref{fig:amq-model-parts}), joka tallentaa tilaajalle tulevia viestejä. Jono pitää viestejä jonossa tilaajalle, kunnes tämä ehtii prosessoida ne. Yksi jono voi puskuroida viestejä monelle eri tilaajalle. Tilaaja sitoo (engl. binding) jonon nimellä johonkin palvelimella jo olevaan vaihteeseen mistä viestejä haluaa. Tilaajan täytyy tietää vaihteen nimi. Jonolla tilaaja voi määrittää attribuutteja. Jotkin attribuutit ovat samoja kuin vaihteella. Tilaaja voi määrittää jonolle nimen (engl. name), kestävyyden (engl. durable), poissulkevuuden (engl. exclusive) ja automaattisen poiston (auto-delete). Nimi yksilöi jonon palvelimella. Tilaaja voi halutessaan pyytää palvelinta generoimaan yksilöivän nimen jonolle automaattisesti. Kestävyys-attribuutti säilyttää jonon palvelimella uudelleenkäynnistyksen jälkeen. Poissulkeva rajoittaa jonon vain yhdelle tilaajalle ja palvelin poistaa jonon kun yhteys tilaajaan katkeaa. Automaattinen poisto poistaa jonon palvelimelta automaattisesti kun yhteys viimeiseen tilaajan on katkennut. \mbox{\cite{RabbitMQ-AMQP-0-9-1-Model-Explained}}
+AMQ-mallissa jono (engl. queue) on vaihteen ja tilaajan välissä oleva puskuri (kuva \ref{fig:amq-model-parts}), joka tallentaa tilaajalle tulevia viestejä. Jono pitää viestejä jonossa tilaajalle, kunnes tämä ehtii prosessoida ne. Yksi jono voi puskuroida viestejä monelle eri tilaajalle. Jotta jonoon saapuu viestejä, täytyy tilaajan sitoa (engl. binding) jono palvelimella olemassa olevaan vaihteeseen. Tällä mekanismilla tilaaja voi valita mistä julkaisijasta on kiinnostunut. Tilaaja voi sitoa saman jonon moneen eri julkaisijaan. Tämä mahdollistaa viestien tilaamisen monelta eri vaihteelta. Sidos vaihteeseen tehdään vaihteen nimellä, eli tilaajan täytyy tietää vaihteen nimi etukäteen. Jonolla tilaaja voi määrittää attribuutteja. Jotkin attribuutit ovat samoja kuin vaihteella. Tilaaja voi määrittää jonolle \emph{nimen} (engl. \emph{name}), \emph{kestävyyden} (engl. \emph{durable}), \emph{poissulkevuuden} (engl. \emph{exclusive}) ja \emph{automaattisen poiston} (engl. \emph{auto-delete}). Nimi yksilöi jonon palvelimella. Tilaaja voi halutessaan pyytää palvelinta generoimaan yksilöivän nimen jonolle automaattisesti. Kestävyys-attribuutti säilyttää jonon palvelimella uudelleenkäynnistyksen jälkeen. Poissulkeva rajoittaa jonon vain yhdelle tilaajalle ja palvelin poistaa jonon kun yhteys tilaajaan katkeaa. Automaattinen poisto poistaa jonon palvelimelta automaattisesti kun yhteys viimeiseen tilaajan on katkennut. \mbox{\cite{RabbitMQ-AMQP-0-9-1-Model-Explained}}
 
-Jono lähettää viestin vain yhdelle jonossa olevalle tilaajalle. Sama viesti lähetetään ainoastaan toiselle tilaajalle jos se edelleenlähetetään virheen tai peruutuksen seurauksena. Jos samassa jonossa on monta eri tilaajaja, jono lähettää viestejä monelle tilaajalle kiertovuorottelun (engl. round-robin) periaatteen mukaan. \mbox{\cite[s.~11--12]{AMQP-specification}}
-
-Tilaajan täytyy määrittä jonolle sen käyttämä viestin kuittaamisen (engl. acknowledge) malli ennen kuin jono poistaa viestin puskurista. Malleja on kaksi:
+Jos saman nimisen jonoon on liittynyt monta eri tilaajaa. Palvelin lähettää viestin jonosta vain yhdelle tilaajalle kerrallaan kiertovuorottelu (engl. round-robin) periaatteen mukaan. Sama viesti lähetetään ainoastaan toiselle tilaajalle jos se edelleenlähetetään virheen tai peruutuksen seurauksena \mbox{\cite[s.~11--12]{AMQP-specification}}. Tilaajan täytyy määrittä jonolle sen käyttämä viestin kuittaamisen (engl. acknowledge) malli ennen kuin jono poistaa viestin puskurista. Malleja on kaksi:
 \begin{itemize}
 	\item automaattinen, jolloin palvelin poistaa viestin jonosta heti kun se on lähetetty tilaajalle,
 	\item eksplisiittinen, jolloin palvelin poistaa viestin vasta kun tilaaja on lähettänyt kuittauksen palvelimelle.
