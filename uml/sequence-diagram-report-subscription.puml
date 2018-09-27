@@ -13,10 +13,10 @@ participant "IED-laitteen palvelin" as ied
 
 activate ied
 activate ruby
-ruby -> db : lue kaikki RCB-instanssien tiedot
+ruby -> db : lue kaikki\nRCB-instanssien\ntiedot
 deactivate ruby
 activate db
-db --> ruby : instanssien tiedot
+db --> ruby : tiedot
 deactivate db
 activate ruby
 
@@ -34,9 +34,9 @@ activate libiec
 libiec -> thread : Thread_start()
 activate thread
 thread -> ied : avaa yhteys
-libiec -> libiec : sleep if handeThreadRunning == false
+libiec -> libiec : sleep if hande\nThreadRunning == false
 ied --> thread : yhteys avattu
-thread --> libiec : handeThreadRunning = true
+thread --> libiec : handeThread\nRunning= true
 libiec --> ruby : void
 deactivate libiec
 activate ruby
@@ -44,10 +44,10 @@ activate ruby
 == Tilaa kaikki RCB-instanssit ==
 
 loop jokainen RCB-instanssi
-	ruby -> libiec : IedConnection_getRBCValues()
+	ruby -> libiec : IedConnection_get\nRBCValues()
 	deactivate ruby
 	activate libiec
-	libiec -> thread : sendRequestAndWaitForResponse()
+	libiec -> thread : sendRequestAnd\nWaitForResponse()
 	thread -> ied : lue RCB:n arvot
 	ied --> thread : arvot
 	thread --> libiec : ByteBuffer
@@ -55,25 +55,29 @@ loop jokainen RCB-instanssi
 	deactivate libiec
 	activate ruby
 	ruby -> ruby : setRCBValues()
-	ruby -> libiec : IedConnection_installReportHandler()
+	ruby -> libiec : IedConnection_install\nReportHandler()
 	deactivate ruby
 	activate libiec
 	note right
-		Takaisinkutsufunktion asettamisen ajaksi lukitaan IedConnection struktuurin
-		reportHandlerMutex, ja vapautetaan kunnes funktio on asetettu. Samaa lukitusta
-		käytetään kun takaisinkutsufunktiota kutsutaan raportin saapuessa, kohdat 33-36.
+		Takaisinkutsufunktion asettamisen ajaksi
+		lukitaan IedConnection struktuurin
+		reportHandlerMutex, ja vapautetaan kunnes
+		funktio on asetettu. Samaa lukitusta
+		käytetään kun takaisinkutsufunktiota kutsutaan
+		viestin saapuessa, kohdat 33-36.
 	end note
 	libiec --> ruby : void
 	deactivate libiec
 	activate ruby
-	ruby -> libiec : IedConnection_setRCBValues()
+	ruby -> libiec : IedConnection_set\nRCBValues()
 	deactivate ruby
 	activate libiec
-	libiec -> thread : sendRequestAndWaitForResponse()
+	libiec -> thread : sendRequestAnd\nWaitForResponse()
 	thread -> ied : kirjoita arvot
 	note left
-		IED-laite aloittaa heti viestien lähettämisen, kun arvot kirjoitetaan.
-		Viestejä tullaan ottamaan jo vastaan ja prosessoimaan kun muita
+		IED-laite aloittaa heti viestien lähettämisen,
+		kun arvot kirjoitetaan. Viestejä tullaan
+		ottamaan jo vastaan ja prosessoimaan kun muita
 		RCB-instansseja tilataan, kohdat 28-36.
 	end note
 	ied --> thread : arvot kirjoitettu
@@ -83,25 +87,28 @@ loop jokainen RCB-instanssi
 	activate ruby
 end
 
+newpage
+
 == Prosessoi viestejä ==
 
 loop prosessoi viestejä näin toistuvasti kunnes ajo lopetetaan
 	ruby -> ruby : sleepAndWait()
 	ied -> thread : viesti tilaajalle
 	thread -> thread : mmsIsoCallback()
-	thread -> thread : handleUnconfirmedMmsPdu()
-	thread -> thread : informationReportHandler()
-	thread -> thread : private_IedConnection_handleReport()
+	thread -> thread : handleUnconfirmed\nMmsPdu()
+	thread -> thread : information\nReportHandler()
+	thread -> thread : private_IedConnection\n_handleReport()
 	thread -> ruby : reportHandlerCallback()
-	note right
-		Käyttäjän takaisinkutsufunktion ajaksi lukitaan
-		IedConnection struktuurin reportHandlerMutex,
+	note over thread
+		Käyttäjän takaisinkutsufunktion
+		ajaksi lukitaan	IedConnection
+		struktuurin reportHandlerMutex,
 		ja vapautetaan kun funktio palaa.
 	end note
-	ruby -> db : tallenna tietokantaan
+	ruby -> db : tallenna\ntietokantaan
 	deactivate ruby
 	activate db
-	db --> ruby : tiedot tallennettu
+	db --> ruby : tallennettu
 	deactivate db
 	activate ruby
 	ruby --> thread : void
