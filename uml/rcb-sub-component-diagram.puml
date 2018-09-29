@@ -41,13 +41,12 @@ note bottom of argp
 end note
 
 note top of mqc
-	kirjasto, joka abstrahoi
-	AMQP-pohjaisen kommunikoinnin
-	TCP/IP:n yli
+	Kirjasto abstrahoi AMQP-pohjaisen
+	kommunikoinnin TCP/IP:n yli
 end note
 
 note top of libiec
-	Kirjasto, joka abstrahoi IEC 61850
+	Kirjasto abstrahoi IEC 61850
 	-standardin MMS-protokollan yli
 end note
 @enduml

@@ -19,7 +19,7 @@ note left
 end note
 
 ln "1" -- "1..*" do
-do "1 isäntä" -- "0..* lapsi" do : viittaus isäntä dataobjektiin
+do "0..1 isäntä" -- "0..* lapsi" do : viittaus isäntä dataobjektiin
 do "1" -- "1..*" da
-da "1 isäntä" -- "0..* lapsi" da : viittaus isäntä data-attribuuttiin
+da "0..1 isäntä" -- "0..* lapsi" da : viittaus isäntä data-attribuuttiin
 @enduml
