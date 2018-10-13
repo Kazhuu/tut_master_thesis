@@ -6,7 +6,7 @@ skinparam roundcorner 20
 participant "rcb_sub" as rcbsub #Yellow
 participant "libIEC61850" as libiec
 
-group jokainen RCB
+group RCB-instanssien luku
 	activate rcbsub
 	rcbsub -> libiec : IedConnection_getRCBValues()
 	deactivate rcbsub
@@ -27,7 +27,7 @@ group jokainen RCB
 	libiec --> rcbsub : LinkedList
 	deactivate libiec
 	activate rcbsub
-	group jokainen datajoukon alkio
+	group datajoukon viitteiden spesifikaatiot
 		rcbsub -> libiec : IedConnection_getVariableSpecification()
 		deactivate rcbsub
 		activate libiec

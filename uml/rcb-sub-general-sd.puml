@@ -32,7 +32,7 @@ note left
 end note
 libiec --> rcbsub : avattu yhteys
 activate rcbsub
-group jokainen RCB
+group RCB-instanssien luku
 	rcbsub -> libiec : lue RCB:n arvot
 	deactivate rcbsub
 	libiec --> rcbsub : RCB:n arvot
@@ -41,14 +41,14 @@ group jokainen RCB
 	deactivate rcbsub
 	libiec --> rcbsub : datajoukon viitteet
 	activate rcbsub
-	group jokainen FCD- ja FCDA-viite
+	group datajoukon viitteiden spesifikaatiot
 		rcbsub -> libiec : lue viitteen spesifikaatio
 		deactivate rcbsub
 		libiec --> rcbsub : spesifikaatio
 		activate rcbsub
 	end
 end
-group jokainen RCB
+group viestien tilaus
 	rcbsub -> libiec : aseta takaisinkutsufunktio
 	deactivate rcbsub
 	libiec --> rcbsub
@@ -61,7 +61,7 @@ group jokainen RCB
 	libiec --> rcbsub
 	activate rcbsub
 end
-group jokainen saapunut viesti
+group viestien vastaanotto
 	libiec -> rcbsub : viesti IED:ltä
 	deactivate libiec
 	rcbsub -> jansson : viesti JSON-rakenteeksi

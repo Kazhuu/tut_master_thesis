@@ -7,7 +7,7 @@ participant "rcb_sub" as rcbsub #Yellow
 participant "libIEC61850" as libiec
 
 activate rcbsub
-group jokainen RCB
+group viestien tilaus
 	rcbsub -> rcbsub : writeRcbParams()
 	note left
 		Asettaa käyttäjän parametrina

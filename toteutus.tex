@@ -68,7 +68,7 @@ Ensin RCB:sta luetaan sen tiedot IED-laitteelta (kohdat 1--2). RCB:ltä saadaan 
 
 
 \subsection{Viestien tilaus}
-Ohjelman luettua kaikki muuttujien spesifikaatiot. Ohjelma tilaa silmukassa kaikki parametrina annetut RCB-instanssit. Kuvassa \ref{fig:rcb-sub-subscribe-reports} on esitetty sekvenssikaavio, kuinka rcb\_sub tilaa RCB-instanssit libIEC61850-kirjaston avulla. Kuvan tarkentaa yleiskuvassa \ref{fig:rcb-sub-sekvenssikaavio} kohtia 13--16.
+Ohjelman luettua kaikki muuttujien spesifikaatiot. Ohjelma tilaa silmukassa kaikki parametrina annetut RCB-instanssit. Kuvassa \ref{fig:rcb-sub-subscribe-reports} on esitetty sekvenssikaavio, kuinka rcb\_sub tilaa RCB-instanssit libIEC61850-kirjaston avulla. Kuva tarkentaa yleiskuvassa \ref{fig:rcb-sub-sekvenssikaavio} kohtia 13--16.
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/rcb-sub-subscribe-reports.png}
@@ -88,7 +88,7 @@ Viestin saapuessa libIEC61580-kirjasto kutsuu asetettua takaisinkutsufunktiota. 
 	\label{fig:rcb-sub-report-to-json-1}
 \end{figure}
 
-Kuvassa \ref{fig:rcb-sub-report-to-json-1} suoritus alkaa kun libIEC61850-kirjasto kutsuu takaisinkutsufunktiota. Funktiolle annetaan parametrina saapunut viesti \emph{ClientReport}-struktuurin instanssina (kohta 1). Tämän jälkeen ohjelma käy läpi viestin jokaisen päätason kentän ja lisää ne JSON-rakenteeseen. Osa viestin kentistä on vaihtoehtoisia riippuen siitä, mitä käyttäjä asetti \texttt{-{}-opt\--\-fields} parametrilla. Jos arvoa viestissä ei ole, korvataan se null-arvolla JSON:iin. Esimerkkinä liiteessä \ref{ch:report-json-format} rivillä 4 oleva \texttt{confRevision} muuttuja, jonka arvo on null. Tämän jälkeen suoritus jatkuu kuvasta \ref{fig:rcb-sub-report-to-json-1} kuvaan \ref{fig:rcb-sub-report-to-json-2}.
+Kuvassa \ref{fig:rcb-sub-report-to-json-1} suoritus alkaa kun libIEC61850-kirjasto kutsuu takaisinkutsufunktiota. Funktiolle annetaan parametrina saapunut viesti \emph{ClientReport}-struktuurin instanssina (kohta 1). Tämän jälkeen ohjelma käy läpi viestin jokaisen päätason kentän ja lisää ne JSON-rakenteeseen. Osa viestin kentistä on vaihtoehtoisia riippuen siitä, mitä käyttäjä asetti \texttt{-{}-opt\--\-fields} vivun parametrilla. Jos arvoa viestissä ei ole, korvataan se null-arvolla JSON:iin. Esimerkkinä liiteessä \ref{ch:report-json-format} rivillä 4 oleva \texttt{confRevision} muuttuja, jonka arvo on null. Tämän jälkeen suoritus jatkuu kuvasta \ref{fig:rcb-sub-report-to-json-1} kuvaan \ref{fig:rcb-sub-report-to-json-2}.
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/rcb-sub-report-to-json_001.png}
