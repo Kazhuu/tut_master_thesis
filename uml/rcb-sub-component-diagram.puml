@@ -5,7 +5,7 @@ node IED as ied
 node RabbitMQ as mq
 component rcb_sub as rcbsub #Yellow
 component jansson as jansson
-component libiec61850 as libiec
+component libIEC61850 as libiec
 component [rabbitmq-c] as mqc
 component Argp as argp
 

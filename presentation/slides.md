@@ -154,7 +154,7 @@ Käytetyt kirjastot:        Numeroita:
 * rabbitmq-c               +- 10 .c tiedostoa
 * Argp
 
-Ottaa kaikki tiedot komentoriviparametreina, ei tarvita erillistä
+Ottaa kaikki tiedot komentoriviparametreinä, ei tarvita erillistä
 tietokantaa
 
 ---

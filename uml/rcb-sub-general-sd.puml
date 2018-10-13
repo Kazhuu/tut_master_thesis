@@ -5,7 +5,7 @@ skinparam roundcorner 20
 
 participant "Argp" as argp
 participant "libIEC61850" as libiec
-participant "rcb_sub" as rcbsub
+participant "rcb_sub" as rcbsub #Yellow
 participant "rabbitmq-c" as mqc
 participant "jansson" as jansson
 
@@ -26,7 +26,7 @@ rcbsub -> libiec : avaa yhteys
 deactivate rcbsub
 activate libiec
 note left
-	libiec61850 käynnistää
+	libIEC61850 käynnistää
 	säikeen IED-laitteen
 	yhteydenpitoa varten
 end note

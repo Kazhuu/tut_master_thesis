@@ -4,8 +4,8 @@ autonumber
 skinparam roundcorner 20
 
 participant "rabbitmq-c" as mqc
-participant "rcb_sub" as rcbsub
-participant "libiec61850" as libiec
+participant "rcb_sub" as rcbsub #Yellow
+participant "libIEC61850" as libiec
 
 activate rcbsub
 rcbsub -> mqc : amqp_tcp_socket_new()
@@ -47,7 +47,7 @@ activate mqc
 note right
 	Luo vaihde tyypiltään suoravaihde
 	(direct exchange) ja anna sen nimi ja
-	reititysavain parametreina
+	reititysavain parametreinä
 end note
 mqc --> rcbsub : amqp_exchange_declare_ok_t
 deactivate mqc
