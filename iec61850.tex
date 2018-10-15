@@ -1,9 +1,4 @@
-\chapter{Tausta}
-\label{ch:teoria}
-Tässä osiossa lukijaa perehdytetään työn kannalta tärkeään teoriaan ja taustatietoon. Osuuden kokonaan lukemalla lukija ymmärtää, mitä IEC 61850 -standardi tarkoittaa sähköasemien kannalta ja mihin sitä käytetään. Lisäksi kuinka standardi määrittää viestien tilauksen mekanismit ulkopuoliselle ohjelmalle ja mitä siihen liittyy. Standardi on todella laaja ja kappaleessa \ref{ch:iec61850-theory} siitä käsitellään vain tämän työn kannalta oleellinen asia. Loput asiat lukija voi tarkistaa standardista. Tässä työssä toteutettu komponentti jakoi viestit järjestelmälle käyttämällä AMQP-standardiin pohjautuvaa välittäjäpalvelinta. Kappaleessa \ref{ch:amqp-theory} perehdytään AMQP-standardiin ja kuinka välittäjäpalvelin sen pohjalta toimii.
-
-
-\section{IEC 61850 -standardi yhteiseen kommunikointiin}
+\chapter{Mikä on IEC 61850 -standardi?}
 \label{ch:iec61850-theory}
 Sähköasemilla nykypäivänä käytössä olevilla IED-laitteilla toteutetaan aseman toiminnallisuuden funktioita. Aseman toiminnallisuuteen liittyy sen kontrollointi ja suojaus. Aseman komponenttien suojauksen lisäksi, siihen kuuluu myös asemalta lähtevät sähkölinjat. Hyvä esimerkki sähköaseman suojauksesta on korkeajännitelinjan katkaisija, joka katkaisee virran linjasta vikatilanteissa. Tällainen vikatilanne on esimerkiksi linjan poikkimeno kaatuneen puun tai pylvään takia. Fyysistä katkaisijaa ohjaa aseman automatiikka, joka toteutetaan IED-laitteilla. IED-laite voi olla kytketty fyysisesti ohjattavaan laitteeseen \mbox{\cite[s.~63--64]{IEC61850-7-1}}. Koko sähköaseman toiminnallisuus koostuu monesta eri funktiosta, jotka on jaettu monelle IED-laitteelle. Jotta systeemi pystyy toimimaan, täytyy IED-laitteiden kommunikoida keskenään ja vaihtaa informaatiota toistensa kanssa. IED-laitteiden täytyy myös kommunikoida asemalta ulospäin erilliselle ohjausasemalle monitorointia ja etäohjausta varten \mbox{\cite[s.~1]{Brunner2008}}. On selvää, että monimutkaisen systeemin ja monen valmistajan kesken tarvitaan yhteiset säännöt kommunikointia varten.
 
@@ -12,7 +7,7 @@ Maailmanlaajuisesti asetettu IEC 61850 -standardi määrittää sähköaseman si
 Tärkeä ja iso osa standardia on sähköaseman systeemin funktioiden abstrahointi mallien kautta. Standardi määrittää tarkasti kuinka abstraktit mallit määritellään aseman oikeista laiteista ja niiden ominaisuuksista. Tarkoituksena on tehdä mallit tekniikasta ja toteutuksesta riippumattomaksi. Tämän jälkeen määritellään kuinka mallit toteutetaan erikseen toimivaksi jollekin tekniikalle. Abstrahoituja malleja käytetään myös määrittämään sähköaseman IED-laitteiden ja aseman muiden osien konfigurointi. Tekniikasta riippumattomien mallien ansiosta standardi on pohjana tulevaisuuden laajennoksille ja tekniikoille. Uusien tekniikoiden ilmaantuessa, voidaan standardiin lisätä  osa, joka  toteuttaa abstraktimallit kyseiselle tekniikalle \mbox{\cite[s.~2]{Brunner2008}}. Tässä työssä standardin malleja ja palveluita käytettiin \emph{MMS}-protokollan (engl. \emph{Manufacturing Message Specification}) toteutuksella. MMS-protokolla on maailmanlaajuinen \emph{ISO 9506} -standardi, joka on määritetty toimivaksi TCP/IP:n pinon päällä \mbox{\cite{MMS-protocol-stack-and-API}}. Jokainen verkkoon kytkety IED-laite tarvitsee IP-osoitteen kommunikointiin.
 
 
-\subsection{Standardin eri osat ja niiden merkitykset}	
+\section{Standardin eri osat ja niiden merkitykset}	
 IEC 61850 -standardi on laaja kokonaisuus. Tämän takia se on pilkottu erillisiin dokumentteihin, joista jokainen käsittelee omaa asiaansa. Historian saatossa standardiin on lisätty uusia dokumentteja laajentamaan standardia \mbox{\cite{IEC61850series, New-documents-by-IEC-TC-57}} \mbox{\cite[s.~13]{IEC61850-1}}. Tämän työn kirjoitushetkellä standardiin kuului lisäksi paljon muitakin dokumentteja, esimerkiksi uusiin toteutuksiin muille tekniikoille ja vesivoimalaitoksien mallintamiseen liittyviä dokumentteja. Laajuudesta huolimatta standardin voi esittää 10:llä eri pääkohdalla ja näiden alakohdilla. Taulukossa \ref{tab:iec61850-dokumentin-osat} on esitetty standardin pääkohdan dokumentit ja niiden alkuperäiset englanninkieliset otsikot \mbox{\cite{IEC61850series}}. Tässä työssä tullaan viittaamaan standardin eri osiin, jotta lukija voi tarvittaessa etsiä tietoa asiasta tarkemmin.
 
 \begin{table}[ht!]
@@ -43,7 +38,7 @@ IEC 61850 -standardi on laaja kokonaisuus. Tämän takia se on pilkottu erillisi
 Standardin ensimmäiset osat 1--5 kattavat yleistä kuvaa standardista ja sen vaatimuksista. Osiossa 6 käsitellään IED-laitteiden konfigurointiin käytetty \emph{XML} (engl. \emph{Extensible Markup Language}) -pohjainen kieli \mbox{\cite[s.~7--8]{IEC61850-6}}. Tämä osuus ei ole tämän työn kannalta tärkeä ja sitä ei sen tarkemmin käsitellä. Osat 7-1--7-4 käsittelevät standardin abstraktia mallia, niiden palveluita ja kuinka se rakentuu. Abstrahoidut palvelut ja mallit standardissa lyhennetään \emph{ACSI} (engl. \emph{Abstract Communication Service Interface}), ja samaa lyhennettä käytetään tässä työssä \mbox{\cite[s.~72]{IEC61850-7-1}}. Osissa 8--9 ja niiden alakohdissa käsitellään abstraktimallien toteuttamista erillisille protokollille, jolloin malleista tulee kyseisestä tekniikasta riippuvaisia. Tässä työssä käytettiin osaa 8-1, joka toteuttaa abstrahoidut mallit MMS-protokollalle. Osa 10 käsittelee testausmenetelmiä, joilla voidaan varmistaa standardin määritysten noudattaminen. Tämä osuus ei myöskään ole tämän työn kannalta tärkeä, ja sitä ei sen tarkemmin käsitellä. \mbox{\cite[s.~15]{IEC61850-7-1}}
 
 
-\subsection{Abstraktimallin käsitteet ja niiden käyttö}
+\section{Abstraktimallin käsitteet ja niiden käyttö}
 IEC 61850 -standardin lähtökohtana on pilkkoa koko sähköaseman toiminnallisuuden funktiot pieniksi yksilöiksi. Pilkotut yksilöt abstrahoidaan ja pidetään sopivan kokoisina, jotta ne voidaan konfiguroida esitettäväksi erillisellä IED-laiteella. Yksi aseman funktio voidaan hajauttaa monelle eri IED-laitteelle. Esimerkiksi linjan suojaukseen liittyvät komponentit, katkaisija (engl. circuit breaker) ja ylivirtasuoja (engl. overcurrent protection). Toimiakseen yhdessä, laitteiden täytyy vaihtaa informaatiota keskenään verkon yli \mbox{\cite[s.~31]{IEC61850-7-1}}. Standardi määrittää seuraavat käsitteet sähköaseman funktioiden mallintamiseen:
 \begin{itemize}
 	\item \emph{fyysinen laite} (engl. \emph{physical device}, lyhennetään \emph{PD}),
@@ -71,7 +66,7 @@ IEC 61850 -standardin käsitteiden avulla sähköaseman laitteet ja funktiot voi
 Looginen laite ja noodi yksilöidään nimillä, jotka ovat yksilöllisiä IED-laitteessa. Standardi asettaa rajoitteita nimeämiseen kuten pituuden. Looginen noodi esitetään IED-laitteella jonkin standardissa määritetyn luokan instanssina. Standardin osassa 7-4 määritellään valmiita luokkia käytettäväksi eri laitteiden esittämiseen. Esimerkiksi katkaisija on määritelty luokkaan tyyppiltään \emph{XCBR} (engl. circuit breaker) \mbox{\cite[s.~105--106]{IEC61850-7-4}}. Sähköaseman insinööri, joka konfiguroi IED-laitteen, määrittää konfiguraatiotiedostossa, että kytketty katkaisija esitetään XCBR-luokan instanssina ja nimeää sen standardin ohjeiden mukaan. Näin IED-laite tietää mitä laitetta se esittää ja ohjaa. IED-laitteessa kaikki eri luokkien instanssit yksilöidään nimillä ja niitä käytetään kun olioon viitataan esimerkiksi palvelukutsulla tai konfiguraatiolla. Looginen noodi koostui dataobjekteista. Standardissa dataobjektit ovat myös määritetty luokkilla, joista tehdään instansseja. Loogisen noodin luokan tyyppi määrittää mitä dataobjektin luokkia instantioidaan, ja millä nimellä ne esitettään. Toisin sanoen, aseman insinööri voi valita käytettävän loogisen noodin instansin nimen, mutta ei voi valita sen dataobjektin nimiä. Standardi määrittää dataobjektien luokkien tyypit standardissa osassa 7-3. Dataobjekti koostuu data-attribuuteista, kuten loogisen noodin luokka koostuu dataobjekteista. Dataobjektin luokka määrittää käytettävät data-attribuutit ja niiden nimet. Kuitenkaan tällä kertaa data-attribuutti ei välttämättä ole luokka. Data-attribuutit voivat olla primitiivisiä tyyppejä, kuten \emph{integer} ja \emph{float}. Ne voivat myös olla ns. \emph{rakennettuja data-attribuutteja} (engl. \emph{constructed attribute classes}), jotka pitävät sisällään tarkempia data-attribuutteja. Hyvä esimerkki on data-attribuutti nimeltään \emph{q}, jonka tyyppi on \emph{Quality}. Standardin mukaan tällä tyypillä on vielä aliattribuutteina mm. \emph{validity}, \emph{detailQual} jne \mbox{\cite[s.~11]{IEC61850-7-3}}. Tämä on esitetty kuvassa \ref{fig:iec61850-class-hierarchy} data-attribuutin itseensä viittauksella. Myös dataobjekti voi sisältää alidataobjekteja, jonka alla on taas omat data-attribuutit. Kappaleessa \ref{ch:luokkien-rakentuminen-instanseista} käydään tarkemmin läpi kuinka luokkien hierarkia standardissa rakentuu. \mbox{\cite{IEC61850-1, IEC61850-7-1, IEC61850-7-2, IEC61850-7-3}}
 
 
-\subsection{Loogisen noodin luokkien ja attribuuttien rakentuminen}
+\section{Loogisen noodin luokkien ja attribuuttien rakentuminen}
 \label{ch:luokkien-rakentuminen-instanseista}
 IEC 61850 -standardissa kaikki luokat määritellään taulukoilla, joissa on standardoitu kentän nimi, tyyppi, selitys ja onko se valinnainen. Tässä osuudessa mennään syvemmälle luokkien määritykseen. Lisäksi esitetään esimerkkinä kuinka standardin pohjalta instansioitu looginen noodi ja sen alla olevat dataobjektit ja data-attribuutit rakentuvat. Esimerkissä käytetään kuvan \ref{fig:iec61850-data-modeling} rakennetta. Nimet ja luokkien instanssit konfiguroidaan IED-laitteelle XML-pohjaisella konfiguraatiotiedostolla. Tämä määritellään standardin osassa 6. Kuvassa \ref{fig:iec61850-data-modeling} fyysinen laite on IED-laite ja siihen verkossa viitataan IP-osoitteella 192.192.1.100. IED-laitteelle on konfiguroitu looginen laite nimeltä MyLD. Eri loogiset laitteet IED-laitteella yksilöi vain sen nimi. Loogisella laitteella on kaksi instanssia loogisen noodin luokista nimillä \emph{MMXU1} ja \emph{XCBR1}. MMXU1-instanssi on tyyppiä \emph{MMXU} (engl. measurement) \mbox{\cite[s.~57--58]{IEC61850-7-4}} ja XCBR1 on tyyppiä \emph{XCBR} (engl. circuit breaker). Kyseessä on siis vastaavasti mittaukseen liittyvä laite ja aikaisemmin mainittu linjan katkaisija. XCBR1 loogisella noodilla on dataobjekti nimeltään \emph{Pos} (engl. position), joka on tyyppiä \emph{DPC} (engl. controllable double point). Ja MMXU1 nimeltään \emph{TotW} (engl. total active power), joka on tyyppiä \emph{MV} (engl. measured value). Loogisilla noodeilla on määritetty enemmänkin dataobjekteja eri nimillä, mutta kuvassa \ref{fig:iec61850-data-modeling} on esitetty vain yhdet yksinkertaisuuden takia. Pos-dataobjektilla on data-attribuutit nimeltään \emph{stVal}, \emph{q} ja \emph{t}. Ja TotW-dataobjektilla on data-attribuutit \emph{mag}, \emph{q} ja \emph{t}. Esimerkin data-attribuutti q on tyyppiä Quality, jolla on alidata-attribuutteja ja attribuutti StVal on tyyppiä boolean. \mbox{\cite{IEC61850-7-3, IEC61850-7-4}}
 
@@ -172,7 +167,7 @@ Taulukossa \ref{tab:iec61850-DPC-class-definition} on DPC-luokan määritys. DPC
 Kaikkien yllämainittujen luokkien kenttien määritysten lisäksi standardi määrittää palveluita jokaiselle luokkatyypille erikseen. Palvelut ovat abstrahoituja rajapintafunktiota, joille määritellään pyynnöt ja vastaukset. Standardin osa joka määrittää tekniikan toteutuksen, määrittää myös kuinka palvelut sillä toimivat. Tässä työssä esimerkkinä MMS-protokollan määritys, eli osa 8-1. Esimerkkinä palveluista kaikille dataobjekteille on mm. \emph{GetDataValues}, joka palauttaa kaikki dataobjektin attribuuttien arvot. \emph{SetDataValues} kirjoittaa annetut data-att\-ri\-buut\-ti\-en arvot. Ja \emph{GetDataDirectory} palauttaa kaikki data-att\-ri\-buut\-ti\-en viitteet kyseisessä dataobjektista. Näitä ja muita abstrahoituja malleja viitataan standardissa lyhenteellä \emph{ACSI} (engl. \emph{Abstract Communication Service Interface}). \mbox{\cite[s.~15, 45--46]{IEC61850-7-2}} \mbox{\cite[s.~26]{IEC61850-7-1}}
 
 
-\subsection{Attribuuttien viittaus hierarkiassa}
+\section{Attribuuttien viittaus hierarkiassa}
 IEC 61850 -standardi määrittää erilaisia palvelukutsuja eri luokkatyypeille. Jotta kutsuja voitaisiin tehdä verkon yli IED-laitteelle ja sen arvoja lukea ja asettaa hierarkiassa, pitää tiettyyn data-attribuuttiin tai dataobjektiin voida viitata yksilöivästi. Siksi standardissa on määritetty viittausformaatti, jota käytetään kun IED-laitteelle tehdään kutsuja. Kutsussa olevan viitteen perusteella IED-laite tietää, mihin instanssiin kutsu kohdistuu ja pystyy toimimaan sen mukaan. Tärkeää on myös mainita, että yhdellä määritetyllä kutsulla voidaan lukea tai kirjoitaa monta data-attribuuttia. Kutsuja ei ole rajoitettu käsittelemään yhtä data-attribuuttia kerrallaan. Viitteen lisäksi aikaisemmin mainittu funktionaalinen rajoite kertoo mihin data-attribuutteihin kutsu kohdistuu. Tämä tullaan käsittelemään tarkemmin kappaleessa \ref{ch:fc-and-dataset}. Kuvassa \ref{fig:iec61850-data-reference} on esitetty kuinka standardi määrittää viitteen muodostumisen loogisesta laitteesta data-attribuuttiin asti. \mbox{\cite[s.~625--626]{Mackiewicz2006}}
 
 \begin{figure}[ht!]
@@ -189,7 +184,7 @@ Standardissa määritetään kaksi näkyvyysaluetta (engl. scope) viittaukselle,
 Standardi määrittää viittausten maksimipituuden. Pituusmääritykset ovat voimassa kummallekin edellä mainitulle näkyvyysalueelle. Ennen kauttaviivaa saa olla maksimissaan 64 merkkiä. Tämän jälkeen kauttaviiva, josta seuraa uudelleen maksimissaan 64 merkkiä. Eli koko viittauksen maksimipituus saa olla enintään 129 merkkiä, kauttaviiva mukaan lukien. \mbox{\cite[s.~24,183]{IEC61850-7-2}}
 
 
-\subsection{Attribuuttien funktionaalinen rajoite ja niistä muodostetut datajoukot}
+\section{Attribuuttien funktionaalinen rajoite ja niistä muodostetut datajoukot}
 \label{ch:fc-and-dataset}
 Standardin CDC-luokat määrittävät käytettävät data-attribuutit (katso taulukko \ref{tab:iec61850-DPC-class-definition}). Nämä luokat määrittävät myös jokaiselle data-attribuutille aikaisemmin mainitun \emph{funktionaalisen rajoitteen} (engl. \emph{functional constraint}, lyhennetään \emph{FC}). Funktionaalinen rajoite kuvaa attribuutin käyttötarkoitusta, ja sen mitä palveluita attribuuttiin voidaan käyttää. Esimerkiksi kaikilla attribuuteilla, jotka liittyvät laitteen tilaan on funktionaalinen rajoite \emph{ST} (engl. \emph{status information}). Standardi määrittää paljon erilaisia funktionaalisia rajoitteita, jotka ovat kaikki kahden ison kirjaimen yhdistelmiä. Taulukossa \ref{tab:iec61850-functional-constraints} on esitetty joitain tärkeimpiä funktionaalisia rajoitteita. Funktionaalinen rajoite määrittää myös, onko attribuutti kirjoitettava tai luettava. \cite[s.~53--55]{IEC61850-7-2}
 
@@ -266,7 +261,7 @@ Viittauksen ja funktionaalisen rajoitteen avulla siis suodatetaan hierarkiassa a
 Funktionaalista rajoitetta käytetään viitteen kanssa suodattamaan viitatusta kohdasta alaspäin kaikki data-attribuutit. Tätä toiminnallisuutta käytetään hyväksi, kun tehdään kirjoittavia tai lukevia kutsuja ja rajoitetaan kutsulla vaikutettavia data-attribuutteja. Tätä samaa mekanismia käytetään hyväksi kun IED-laitteeseen määritellään \emph{datajoukkoja}. IEC 61850 -standardissa datajoukko koostuu joukosta IED-laitteessa olemassa olevista data-attribuuteista. Datajoukko on tapa koostaa yhteen kiinnostavat data-attribuutit IED-laitteelta. Datajoukko nimetään ja sijoitetaan IED-laitteen hierarkiaan. Näin siihen voidaan viitata kutsuilla, kuten mihin tahansa muuhun hierarkian instanssiin. Datajoukot IED-laitteelle rakennetaan käyttämällä FCD- ja FCDA-viitteitä. Datajoukko koostuu siis joukosta FCD- ja FCDA -viitteitä. Jokaisella viitteellä on jokin funktionaalinen rajoite, joka suodattaa viitteen alla olevat attribuutit ja sisällyttää ne kyseiseen datajoukkoon. Esimerkkinä datajoukon rakentamisesta taulukon \ref{tab:fcd-ja-fcda} viitteet. Näistä viitteistä voitaisiin rakentaa oikea standardin mukainen datajoukko, nimetä se nimellä Testi1, ja lisätä IED-laitteen hiearkiaan kohtaan OmaLD/LLN0.Testi1. Nyt datajoukkoon voisi viitata ja vaikka lukea kaikki sen arvot yhdellä kertaa. Jotta datajoukko saadaan näin tehtyä, tieto tästä pitäisi lisätä IED-laitteen asetustiedostoon. Datajoukkoja IED-laitteessa käytetään muodostamaan joukkoja tärkeistä data-attribuuteista, joita voidaan esimerkiksi lukea ja kirjoittaa yhdellä kutsulla. Datajoukkoja käytetään myös tilattavien \emph{viestien sisältönä}. Viestejä voi standardin mukaan tilata vain datajoukoista olevista data-attribuuteista. \mbox{\cite[s.~61--68]{IEC61850-7-2}}
 
 
-\subsection{Viestien tilaus ja tilauksen konfigurointi}
+\section{Viestien tilaus ja tilauksen konfigurointi}
 \label{ch:viestien-tilaus-ja-tilauksen-konfigurointi}
 IEC 61850 -standardi määrittää, kuinka IED-laitteen ulkopuolinen ohjelma voi tilata kiinnostavien data-attribuuttien arvoja verkon yli. Viesti voidaan esimerkiksi lähettää tilaajalle, kun mitatun jännitteen arvo muuttuu. Kyseessä on tilaaja-julkaisija-arkkitehtuurimalli, jossa ulkopuolinen ohjelma on tilaaja ja IED-laite julkaisuja. Standardi määrittää, että viestejä voidaan tilata vain datajoukoissa viitatuilla data-attribuuteilta. Viestien lähetyksen tiheys riippuu siitä kuinka tilauksen yhteydessä tilaaja asettaa \emph{liipaisimet}. Standardissa määritellään käytettäväksi erilaisia liipaisimia, joilla tilaaja voi muokata millä ehdoilla viesti pitäisi lähettää. Standardissa on myös määritetty mekanismit, joilla tilajaa voi pyytää kaikki arvot kerralla tai tilata jaksottaisia viestejä tietyn aikavälein. \mbox{\cite{IEC61850-7-1}}
 
@@ -292,7 +287,7 @@ Standardissa on määritetty seuraavat liipaisimet data-attribuuteille, joita RC
 Standardin luokkissa on määritetty mitä liipaisimia data-attribuutti tukee. Esimerkkinä aikaisemmin mainittu DPC-luo\-kan määritys taulukossa \ref{tab:iec61850-DPC-class-definition}, jossa TrgOp-sarake kertoo attribuutin liipaisimen. Datan muutos ja päivitys liipaisimien ero on, että datan päivitys liipaisee tapahtuman vaikka attribuutin uusi arvo olisi sama. Datan muutos ei liipaise tapahtumaa, jos uusi arvo on sama kuin edellinen arvo. Laadun muutos liipaisin tarkoittaa, että data-attribuuttiin liitetty laatuarvo muuttui. Laatuarvo kertoo tilaajalle ja arvojen lukijalle, voiko attribuuttien arvoihin luottaa. Laatuarvo on tyyppiä Quality ja tästä voi tarvittaessa lukea enemmän standardista. \mbox{\cite[s.~90]{IEC61850-7-1}}
 
 
-\subsection{Raportointi-luokan määritys ja toiminta}
+\section{Raportointi-luokan määritys ja toiminta}
 \label{ch:rcb-toiminta}
 
 % TODO: Typot ja viitteet tästä eteenpäin.
@@ -380,7 +375,7 @@ RCB-luokan attribuutin \emph{OptFlds} avulla asiakas voi valita mitä vaihtoehto
 Lähetetyt viestit voivat sisältää vaihtelevan määrän sisällytettyjä arvoja. RCB-instanssi mittaa aikaa ensimmäisestä liipaisusta sen attribuutin \emph{BufTm} verran ja tämän ajan jälkeen pakkaa kaikki liipaisseet attribuutit samaan viestiin. Tilaaja voi muuttaa arvoa jos haluaa käyttää pitempää tai lyhyempää puskurointiaikaa.
 
 
-\subsection{Viestin rakenne ja kuinka sen sisältö muodostuu}
+\section{Viestin rakenne ja kuinka sen sisältö muodostuu}
 \label{ch:viestin-rakenne}
 IED:n lähettämä viesti on rakenteeltaan hiukan monimutkainen ja lisäksi siihen vaikuttaa RCB-instanssin OptFlds-attribuutin asetetut bitit (taulukko \ref{tab:iec61850-optional-fields-definition}). Tässä kappaleessa käsitellään viestin mallia, joka on tekniikasta riippumaton. Siitä ei tarvitse välittää minkälainen viestin rakenne on MMS-protokollan tasolla. Toteutetussa ohjelmassa käytettiin kirjastoa, joka hoitaa matalan tason asiat ja tarjoaa helppokäyttöisen rajapinnan viestin sisältöön. Kuitenkin viestin rakenteesta täytyy ymmärtää kuinka vaihtoehtoiset kentät siihen vaikuttavat ja kuinka attribuuttien arvot viestiin sisällytetään. Kuvassa \ref{fig:iec61850-report-format} on esitetty standardin määrittämän viestin rakenne ja mitä kenttiä OptFlds-attribuutti kontrolloi. Viestin rakenteen voisi ajatella koostuvan kahdesta osasta. Ensin viestissä on yleinen tieto ja viimeisenä taulukko datajoukon alkioista 1--n:ään, jotka liipaisevat viestin lähetyksen.
 
@@ -403,121 +398,10 @@ Viestissä \emph{RptID}-kenttä sisältää viitteen RCB-instanssiin, mistä vie
 Value-kentän arvosta on tärkeä ymmärtää, että se voi sisältää yhden tai monta data-att\-ri\-buu\-tin arvoa. Tämä riippuu siitä, viittaako datajoukon liipaissut alkion FCD- vai FCDA-viitteellä useaan data-attribuuttiin. Viittauksen ollessa FCDA-viite, joka viittaa vain yhteen data-attribuutiin, sisältää Value-kenttä vain kyseisen data-attribuutin arvon. Jos viittaus on FCD- tai FCDA-viite joka viittaa moneen attribuuttiin hierarkiassa alaspäin. Sisältää Value-kenttä kaikki nämä arvot, vaikka niistä olisi liipaissut vain yksi attribuutti. FCD- ja FCDA-viittauksen toimintaa ja mitä attribuutteja se viittaa hierarkiassa alaspäin, käydään läpi kappaleessa \ref{ch:fc-and-dataset}. Esimerkki tästä on kuvassa \ref{fig:iec61850-data-set-reporting}, jossa liipaisu yhdessä attribuutissa aiheuttaa eri määrän arvoja kumpaankin viestiin. Tähän vaikuttaa kuinka liipaisevaan attribuuttiin on viitattu datajoukossa. Kuvassa \ref{fig:iec61850-data-set-reporting} Testi1 attribuuttiin My\-LD\-/\-XCBR1\-.\-Pos\-.\-st\-Val on viitattu FCDA-viitteellä, jossa funktionaalinen rajoite on ST. Eli FCDA-viite viittaa vain stVal-attribuuttiin, ei muihin. Tämän takia myBRCB01-instanssilta tuleva viestin Value-kenttä sisältää vain stVal-attribuutin arvon. Datajoukon Testi2 FCD-viite My\-LD\-/\-XCBR1\-.\-Pos funktionaalisella rajoitteella ST sisältää kaikki Pos-instanssin ST data-attribuutit. Tämä sisältää myös muuttuneen MyLD/XCBR1.Pos.stVal data-attribuutin. Tämä aiheuttaa sen, että kaikki datajoukon viitteen My\-LD\-/\-XCBR1\-.\-Pos viitatut attribuutit lisätään viestiin. BRCB-instanssilta myBRCB02 tuleva viestin Value-kenttä sisältää kaikki viitatut attribuutit ja viestin DatRef-kenttä sisältää datajoukossa käytetyn viitteen. Pos-dataobjektin attribuutit voi tarkistaa taulukosta \ref{tab:iec61850-DPC-class-definition}. \mbox{\cite[s.~40--44]{IEC61850-7-1}} \mbox{\cite[s.~108]{IEC61850-7-2}}
 
 
-\subsection{Abstraktimallin sovitus MMS-protokollaan}
+\section{Abstraktimallin sovitus MMS-protokollaan}
 \label{ch:iec61850-mms-mallinnus}
 Tähän asti käsitellyt IEC 61850 -standardin mallit ja palvelut ovat olleet abstrahoituja ja tekniikasta riippumattomia. Tässä työssä käytetiin IEC 61850 -standardin MMS-protokollan toteutusta. Tästä toteutuksesta on tarkemmin määritetty IEC 61850 -stan\-dar\-din osassa 8-1. MMS-protokolla on maailmanlaajuinen \emph{ISO 9506} -standardi viestintään, joka on määritetty toimivaksi TCP/IP:n pinon päällä \mbox{\cite{MMS-protocol-stack-and-API}}. Tämän työn kannalta lukijan ei tarvitse ymmärtää MMS-protokollaa ja sen toimintaa. Suunnitellussa ohjelmistossa käytettiin apuna kirjastoa, joka hoitaa matalan tason kommunikoinnin IED-laitteen kanssa. Tässä osiossa käsitellään työn kannalta tärkeitä tietoja, mitä toteutuksesta MMS-protokollalle kuitenkin tarvitsee tietää. \mbox{\cite{Introduction-to-the-MMS}}
 
 IEC 61850 -standardin mallinnuksessa aikaisemmin esitetty instanssien viittaus hierarkiassa muuttuu ja nyt viittaus sisältää myös funktionaalisen rajoitteen. Esimerkkinä kuvassa \ref{fig:iec61850-data-reference} oleva viite OmaLD/Q0XCBR1.Pos.stVal funktionaalisella rajoitteella ST muuttuu muotoon OmaLD/Q0XCBR1\$ST\$Pos\$stVal. Tässä viittauksessa pisteet (.) korvataan dollari-merkillä (\$). Ja kaksikirjaiminen funktionaalinen rajoite sijoitetaan loogisen noodin ja ensimmäisen dataobjektin nimien väliin. Muuten viittaus säilyy identtisenä alkuperäiseen, ja samat rajoitteet ja nimeämiskäytännöt ovat voimassa edelleen. \mbox{\cite[s.~34--35, 111]{IEC61850-8-1}}
 
 Tämän uuden viittauksen takia jokaiselle viitattavalle kohteelle täytyy olla funktionaalinen rajoite. Niinpä esimerkiksi RCB-luokkien instansseille täytyy olla myös funktionaalinen rajoite. Puskuroitua RCB-instanssia viitataan funktionaalisella rajoitteella \emph{BR}. Ja puskuroimatonta funktionaalisella rajoitteella \emph{RP}. Esimerkin tästä viittauksesta voi nähdä aikaisemmin mainitusta kuvasta \ref{fig:iec61850-data-set-reporting}. \mbox{\cite[s.~32--34, 75]{IEC61850-8-1}}
-
-
-\section{Advanced Message Queuing Protocol (AMQP)}
-\label{ch:amqp-theory}
-Työssä toteutettu ohjelmisto tilasi viestit IED-laitteen RCB-instansseilta. Viestit tilattiin verkon yli aseman ulkopuolelle. Ohjelma prosessoi IEC 61850 -standardin mukaiset viestit ja lähetti ne eteenpäin välittäjälle (engl. message broker). Välittäjä on verkossa oleva erillinen palvelin, mistä muut ohjelmat pystyvät tilaamaan viestejä tarpeidensa mukaan. Kuvassa \ref{fig:implemented-system-communication} on esitetty lopullisen toteutuksen tietoliikenne eri osapuolten välillä. Tässä työssä toteutettu ohjelmisto on merkitty kuvaan katkoviivalla. Toteutuksessa oli kyse tilaaja-julkaisija-arkkitehtuurimallista (engl. publish-subscribe pattern), jossa toteutettu komponentti oli tilaaja IED-laitteelle ja julkaisija välityspalvelimelle. Järjestelmän muut komponentit olivat tilaajia välityspalvelimelle. Tässä osuudessa perehdytään viestien välittäjän teoriaan, ja mitä siitä täytyy tietää ohjelmistokehityksen kannalta.
-
-\begin{figure}[ht!]
-	\includegraphics[width=1\textwidth]{pictures/implemented-system-communication.png}
-	\caption{Toteutetun ohjelmiston osuus ja rooli kokonaisuudessa tietoliikenteen kannalta.}
-	\label{fig:implemented-system-communication}
-\end{figure}
-
-Työssä välittäjänä käytettiin \emph{RabbitMQ}-ohjelmistoa \cite{rabbitmq-homepage}, joka on avoimen lähdekoodin välittäjäpalvelin ja perustuu avoimeen \emph{AMQP}-standardiin \cite{amqp-homepage} (engl. \emph{Advanced Message Queuing Protocol}). AMQP määrittää yhteisen protokollan viestintään eri ohjelmistojen välillä verkon yli välityspalvelimen avulla. Verkon ansiosta välityspalvelin voi sijaita eri koneella kuin sitä käyttävät ohjelmistot. Standarista on julkaistu monta eri versiota, ja työn tekohetkellä viimeisin versio oli 1.0. Kuitenkin RabbitMQ-ohjelmisto oli suunniteltu käytettäväksi standardin version 0.9.1 kanssa, ilman asennettuja lisäosia. Versioiden välinen ero oli suuri ja siirto uuteen ei ollut mahdollista, koska standardin versiot eivät olleet keskenään yhteensopivat. RabbitMQ tuki versiota 0.9.1 ja sen kehittäjät mieltävät standardin version 1.0 kokonaan eri protokollaksi \mbox{\cite{RabbitMQ-Compatibility-and-Conformance}}. Kuvassa \ref{fig:implemented-system-communication} on tietoliikenteen kohtiin merkitty mikä standardi vaikuttaa minkäkin osapuolen kommunikointiin. Tässä työssä välityspalvelin ja siihen yhteydessä olevat ohjelmistot käyttävät AMQP-standardista versiota 0.9.1.
-
-
-\subsection{Advanced Message Queuing -malli ja sen osat}
-AMQP-standardi määrittää komponentteja, joiden läpi viestin täytyy kulkea julkaisijalta tilaajalle. Standardissa nämä komponentit määrittää \emph{AMQ-malli} (engl. \emph{AMQ-model}). Kuvassa \ref{fig:amq-model-parts} on esitetty viestin kulku julkaisijalta tilaajalle mallin eri komponenttien läpi. Mallin komponentit ovat \emph{vaihde} (engl. \emph{exchange}), \emph{jono} (engl. \emph{queue}) ja näiden välinen \emph{sidonta} (engl. \emph{binding}). Välityspalvelimen tehtävän voi tiivistää niin, että se ottaa vastaan viestejä julkaisijoilta vaihteeseen. Vaihde reitittää viestejä tilaajille jonoihin määritettyjen sidosten mukaan. Jos tilaaja ei ehdi prosessoida viestejä tarpeeksi nopeasti, palvelin pitää viestit jonossa tilaajalle. Vaihde voi välittää viestin moneen eri jonoon ja yhtä jonoa voi tilata monta eri asiakasta.
-
-\begin{figure}[ht!]
-	\includegraphics[width=1\textwidth]{pictures/amq-model-parts.png}
-	\caption{AMQ-mallin osat ja viestin kulku niiden läpi julkaisijalta tilaajalle (pohjautuu kuvaan \mbox{\cite[s.~11]{AMQP-specification}}).}
-	\label{fig:amq-model-parts}
-\end{figure}
-
-AMQP on ohjelmoitava protokolla siinä mielessä, että julkaisija ja tilaaja voivat määrittää komponentteja ja reitityksiä palvelimelle verkon yli ajon aikana tarpeidensa mukaan. Välittäjäpalvelin ei määritä kuin oletusvaihteet valmiiksi käytettäväksi. Toisin sanoen julkaisuja voi luoda vaihteita ja tilaaja voi luoda jonoja ja sidoksia vaihteiden ja jonojen välille. Voidaan sanoa että julkaisija ja tilaaja tekevät uusia instansseja AMQ-mallin komponenteista palvelimelle. Vaihteiden ja jonojen instansseilla täytyy olla välityspalvelimella yksilöivät nimet, jokainen nimi asetetaan instanssin luonnin yhteydessä. Esimerkkinä kuvassa \ref{fig:amq-model-parts} on AMQ-mallin komponenttien alla niille määritetyt nimet. Vaihteella on esimerkiksi nimi exchange\_1 ja ylimmällä jonolla queue\_1. Tällä ohjelmoitavalla ominaisuudella välityspalvelin voidaan konfiguroida toteuttamaan erilaisia skenaarioita vapaasti ja se antaa kehittäjille vapautta toteutukseen.
-
-
-\subsection{Vaihde (exchange) ja reititysavain (routing-key)}
-Jotta viesti voidaan kuljettaa välittäjäpalvelimen läpi, täytyy julkaisijan aloittaa määrittämällä käytetty vaihde ja sen tyyppi. Julkaisija voi myös käyttää palvelimen oletusvaihdetta. Vaihde on komponentti, joka ottaa vastaan viestejä ja reitittää niitä jonoihin vaihdetyypin (engl. exchange type) ja sidosten mukaan. Vaihteet eivät ikinä tallenna viestejä. Vaihde voi tiputtaa viestin, jos se ei täsmää minkään määritetyn reitityksen kanssa. AMQ-malli määrittää seuraavat käytettävät vaihdetyypit:
-\begin{itemize}
-	\item \emph{suoravaihde} (engl. \emph{direct exchange}),
-	\item \emph{hajautusvaihde} (engl. \emph{fanout exchange}), ja
-	\item \emph{aihepiirivaihde} (engl. \emph{topic exchange}).
-\end{itemize}
-
-Näitä tyyppejä ja kuinka ne toimivat käydään tarkemmin läpi tulevissa kappaleissa. Tyypin lisäksi vaihteella on myös attribuutteina \emph{nimi} (engl. \emph{name}), \emph{kestävyys} (engl. \emph{durability}), \emph{automaattinen poisto} (engl. \emph{auto-delete}). Nimi yksilöi vaihteen palvelimella ja tilaaja käyttää tätä nimeä sidoksen tekemiseen jonon ja vaihteen välille. AMPQ-standardissa oletetaan, että nimi on jo tiedossa etukäteen julkaisijalla ja tilaajalla. AMPQ ei tarjoa toiminnallisuutta instanssien nimien noutamiseen. Kestävyys parametrilla julkaisija voi kertoa palvelimelle, että välitäjä säilyttää vaihteen uudelleenkäynnistysten jälkeen. Jos ei, julkaisijan täytyy määrittää vaihde uudelleen käynnistyksen jälkeen. Automaattinen poisto kertoo poistaako välittäjä vaihteen automaattisesti, kun viimeinen siihen sidottu jono on poistettu ja julkaisija ei ole enää yhteydessä.
-
-Kaikki julkaisijan ja tilaajan kutsut välittäjäpalvelimelle, jotka tekevät uuden instanssin komponentista, ovat esitteleviä (engl. declare). Tämä tarkoittaa että palvelin tekee tarvittaessa uuden instanssin komponentista, jos sitä ei ole jo olemassa ja vastaa onnistuneesti molemmissa tapauksissa. Tilanne tulee esimerkiksi silloin kun kaksi julkaisijaa käyttävät samaa vaihdetta keskenään. Toinen ei tiedä onko toinen jo määrittänyt instanssin vaihteesta palvelimelle, esimerkiksi silloin kun ohjelmat käynnistyvät eri aikaan. Jos kummatkin julkaisijat eksplisiittisesti määrittävät saman käytettävän vaihteen. Palvelin vastaa kummallekin onnistuneesti ja tuloksena palvelimella on vain yksi instanssi halutusta vaihteesta. Sama toiminta pätee kaikkiin välittäjäpalvelimen kutsuihin, jotka tekevät uusia instansseja komponenteista.
-
-Vaihde reitittää viestejä jonoihin sen sidosten ja tyypin mukaan. Reititykseen liittyy tärkeä asia, joka on \emph{reititysavain} (engl. \emph{routing-key}). Reititysavain on kuin virtuaalinen osoite viestissä, jonka julkaisija liittää viestiin julkaisun yhteydessä. Tilaaja käyttää myös reititysavainta jonon määrityksen yhteydessä. Vaihde, tyypistä riippuen, voi käyttää tätä avainta reititykseen eri jonoihin. Viestin reititysavainta voi hyvin verrata lähetettävän sähköpostin saaja-kenttään. Saaja kertoo vastaanottajan sähköpostiosoitteen, johon viesti on tarkoitus lähettää. Reititysavain toimii juurikin näin suorassa viestin lähetyksessä, mutta eroaa muissa.
-
-
-\subsection{Suoravaihde (direct exchange)}
-\label{ch:direct-exchange}
-Julkaisija voi määrittää vaihteen instanssin tyypiksi suoravaihteen (engl. direct exchange). Suoravaihde reitittää viestin jonoihin vastaavan reititysavaimen perusteella. Suoravaihde reitittää seuraavasti:
-\begin{itemize}
-	\item tilaaja määrittää sidoksen reititysavaimella K,
-	\item julkaisija julkaisee viestin reititysavaimella R,
-	\item vaihde välittää viestin jonoon jos K = R,
-	\item muuten vaihde tiputtaa tai palauttaa viestin lähettäjälle.
-\end{itemize}
-Kuvassa \ref{fig:amqp-direct-exchange} on esitetty suoravaihteen toiminta. Vaihteeseen on tehty sidoksia reititysavaimilla error ja info. Yksi tilaaja voi luoda sidoksia samaan vaihteeseen monella eri reititysavaimella. Näin tilaaja voi tilata viestejä mistä on kiinnostunut. Kuvassa \ref{fig:amqp-direct-exchange} julkaisija julkaisee viestin reititysavaimella info. Viesti päätyy molempiin queue\_1 ja queue\_2 jonoon. Reititysavaimella error, viestit päätyvät vain jonoon queue\_1. Välittäjäpalvelin tarjoaa suoravaihteesta oletusvaihteen nimeltä \emph{amq.direct}. \mbox{\cite[s.~27]{AMQP-specification}}
-
-\begin{figure}[ht!]
-	\includegraphics[width=1\textwidth]{pictures/amqp-direct-exchange.png}
-	\caption{Suoravaihde (engl. direct exchange), reitittää suoraan sidoksen reititysavaimen mukaan (pohjautuu kuvaan \mbox{\cite{RabbitMQ-Tutorial-Routing}}).}
-	\label{fig:amqp-direct-exchange}
-\end{figure}
-
-
-\subsection{Hajautusvaihde (fanout exchange)}
-Julkaisija voi määrittää vaihteen instanssiksi hajautusvaihteen (engl. fanout exchange). Hajatusvaihde reitittää viestit kaikkiin sen jonoihin reititysavaimesta välittämättä. Hajautusvaihde toimii seuraavasti:
-\begin{itemize}
-	\item tilaaja määrittää sidoksen vaihteeseen reititysavaimella K,
-	\item julkaisija julkaisee viestin reititysavaimella R,
-	\item vaihde välittää viestin kaikkiin siihen sidottuihin jonoihin, reititysavaimesta riippumatta.
-\end{itemize}
-Kuvassa \ref{fig:amqp-fanout-exchange} on esitetty hajautusvaihteen toiminta. Vaihteeseen exchange\_1 on tehty kolme eri sidosta jonoihin queue\_1, queue\_2 ja queue\_3. Julkaisijan lähettämä viesti lähetetään kaikkiin kolmeen sidottuun jonoon, viestin ja jonojen reititysavaimista riippumatta. Välittäjäpalvelin tarjoaa hajautusvaihteesta oletusvaihteen nimeltä \emph{amq.fanout}. \mbox{\cite[s.~27]{AMQP-specification}}
-
-\begin{figure}[ht!]
-	\includegraphics[width=1\textwidth]{pictures/amqp-fanout-exchange.png}
-	\caption{Hajautusvaihde (engl. fanout exchange) reitittää kaikkiin siihen sidottuihin jonoihin riippumatta reititysavaimesta (pohjautuu kuvaan \mbox{\cite{RabbitMQ-AMQP-0-9-1-Model-Explained}}).}
-	\label{fig:amqp-fanout-exchange}
-\end{figure}
-
-
-\subsection{Aihepiirivaihde (topic exchange)}
-Aihepiiri-vaihdetyyppi (engl. topic exchange) reitittää viestejä sidottuihin jonoihin reititysavaimen mukaan kuin suoravaihde, mutta tarjoaa lisäksi sääntöjä monen avaimen samanaikaiseen yhteensopivuuteen. Sidoksen reititysavaimen sijaan voidaan puhua reitityskaavasta (engl. routing pattern). Aihepiiri vaihde toimii seuraavasti:
-\begin{itemize}
-	\item tilaaja määrittää sidoksen vaihteeseen reitityskaavalla P,
-	\item julkaisija julkaisee viestin reititysavaimella R,
-	\item vaihde välittää viestin jonoon, jos sen reitityskaava P sopii reititysavaimeen R.
-\end{itemize}
-Aihepiirivaihteessa reititysavaimen täytyy olla lista sanoja, jotka ovat erotettu pisteillä ja ovat yhdessä maksimissaan 255 merkkiä pitkä \mbox{\cite[s.~35]{AMQP-specification}}. Sanat saavat sisältää kirjaimia A-Z ja a-z, ja numeroita 0-9. Yleensä avaimeen sijoitetaan sanoja mitkä liittyvät viestin sisältöön. Tilaajan määrittämä sidoksen reitityskaava voi olla samaa muotoa kuin reititysavain, mutta sanojen tilalla voidaan käyttää seuraavia erikoismerkkejä:
-\begin{itemize}
-	\item \textbf{*} (tähti), voi vastata mitä tahansa yhtä sanaa,
-	\item \textbf{\#} (risuaita), voi vastata nolla tai monta sanaa. \mbox{\cite[s.~27]{AMQP-specification}}
-\end{itemize}
-
-Kuvassa \ref{fig:amqp-topic-exchange} on esitetty aihepiirivaihteen toiminta. Vaihteeseen exchange\_1 on sidottu jono queue\_1 reitityskaavoilla \emph{app1.\#} ja \emph{*.*.warn}. Ja jono queue\_2 reitityskaavalla \emph{*.log.*}. Oletetaan, että julkaisija lähettää viestejä avaimella muodossa \emph{ohjelma.kanava.taso}, jossa \emph{ohjelma} kuvaa julkaisijan nimeä. \emph{Kanava} kuvaa lokitusväylää ja \emph{taso} kuvaa viestin tasoa (warning, error, info jne.). Voisi sanoa että queue\_1 on kiinnostunut kaikista ohjelmalta app1 tulevista viesteistä ja myös kaikista varoitustason (warning) viesteistä. Jono queue\_2 on vain kiinnostunut kaikista log-väylän viesteistä.
-
-\begin{figure}[ht!]
-	\includegraphics[width=1\textwidth]{pictures/amqp-topic-exchange.png}
-	\caption{Aihepiirivaihde (engl. topic exchange), reitittää kaikkiin siihen sidottuihin jonoihin, joiden reitityskaava sopii viestin reititysavaimeen (pohjautuu kuvaan \mbox{\cite{RabbitMQ-Tutorial-Topics}}).}
-	\label{fig:amqp-topic-exchange}
-\end{figure}
-
-Nyt jos julkaisija lähettää viestin avaimella \emph{app1.debug.warn}, vaihde välittää viestin jonoon queue\_1, mutta ei jonoon queue\_2. Avaimella \emph{app2.log.info} viesti välitetään vain jonoon queue\_2. Avaimella \emph{app1.log.warn} viesti lähetään molempiin jonoihin. Kun taas avaimella \emph{app2.debug.info} viestiä ei lähetetä yhteenkään jonoon.
-
-Aihepiirivaihde on vaihdetyypeistä monimutkaisin, mutta kattaa ison määrän erilaisia käyttötapauksia. Vaihteen avulla tilaajat voivat tilata viestejä, joista ovat esimerkiksi kiinnostuneita. Aihepiirivaihdetta voi käyttää kuin aikaisempia vaihdetyyppejä. Jos jono sidotaan reitityskaavalla \#, se vastaanottaa kaikki viestit kyseiseltä vaihteelta ja käyttäytyy kuin hajautusvaihde. Jos jono sidotaan ilman merkkejä * ja \#, niin se käyttäytyy samalla tavalla kuin suoravaihde. \mbox{\cite{RabbitMQ-Tutorial-Topics}}
-
-
-\subsection{Jonon määritys ja viestien kuittaaminen}
-AMQ-mallissa jono (engl. queue) on vaihteen ja tilaajan välissä oleva puskuri (kuva \ref{fig:amq-model-parts}), joka tallentaa tilaajalle tulevia viestejä. Jono pitää viestejä jonossa tilaajalle, kunnes tämä ehtii prosessoida ne. Yksi jono voi puskuroida viestejä monelle eri tilaajalle. Jotta jonoon saapuu viestejä, täytyy tilaajan sitoa (engl. binding) jono palvelimella olemassa olevaan vaihteeseen. Tällä mekanismilla tilaaja voi valita mistä julkaisijasta on kiinnostunut. Tilaaja voi sitoa saman jonon moneen eri julkaisijaan. Tämä mahdollistaa viestien tilaamisen monelta eri vaihteelta. Sidos vaihteeseen tehdään vaihteen nimellä, eli tilaajan täytyy tietää vaihteen nimi etukäteen. Jonolla tilaaja voi määrittää attribuutteja. Jotkin attribuutit ovat samoja kuin vaihteella. Tilaaja voi määrittää jonolle \emph{nimen} (engl. \emph{name}), \emph{kestävyyden} (engl. \emph{durable}), \emph{poissulkevuuden} (engl. \emph{exclusive}) ja \emph{automaattisen poiston} (engl. \emph{auto-delete}). Nimi yksilöi jonon palvelimella. Tilaaja voi halutessaan pyytää palvelinta generoimaan yksilöivän nimen jonolle automaattisesti. Kestävyys-attribuutti säilyttää jonon palvelimella uudelleenkäynnistyksen jälkeen. Poissulkeva rajoittaa jonon vain yhdelle tilaajalle ja palvelin poistaa jonon kun yhteys tilaajaan katkeaa. Automaattinen poisto poistaa jonon palvelimelta automaattisesti kun yhteys viimeiseen tilaajan on katkennut. \mbox{\cite{RabbitMQ-AMQP-0-9-1-Model-Explained}}
-
-Jos saman nimisen jonoon on liittynyt monta eri tilaajaa. Palvelin lähettää viestin jonosta vain yhdelle tilaajalle kerrallaan kiertovuorottelu (engl. round-robin) periaatteen mukaan. Sama viesti lähetetään ainoastaan toiselle tilaajalle jos se edelleenlähetetään virheen tai peruutuksen seurauksena \mbox{\cite[s.~11--12]{AMQP-specification}}. Tilaajan täytyy määrittää jonolle sen käyttämä viestin kuittaamisen (engl. acknowledge) malli ennen kuin jono poistaa viestin puskurista. Malleja on kaksi:
-\begin{itemize}
-	\item automaattinen, jolloin palvelin poistaa viestin jonosta heti kun se on lähetetty tilaajalle,
-	\item eksplisiittinen, jolloin palvelin poistaa viestin, kun tilaaja on lähettänyt kuittauksen palvelimelle.
-\end{itemize}
-Tilaaja voi lähettää viestistä kuittauksen milloin vain prosessoinnin aikana. Heti kun viesti on vastaanotettu tai silloin kun viesti on prosessoitu. \mbox{\cite[s.~29]{AMQP-specification}}
