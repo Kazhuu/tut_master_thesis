@@ -1,11 +1,70 @@
 \chapter{Hajautettu järjestelmä}
 \label{ch:distributed-systems}
+% TODO: Kun tämän osion on kokonaan kirjoittanut niin siivoa tämä vastaamaan sitä.
+Tässä osiossa käydään läpi järjestelmän hajauttamisen liityviä asioita, kuten mikä on hajautettu järjestelmä ja sen eri paradigmoja. Paradigmoista toteutetaan analyysi ja niistä arvioidaan niiden hyviä ja huonoja puolia. Lopuksi käsitellään avointa AMQP-standardia (engl. \emph{Advanced Message Queuing Protocol}) ja mitä hajautuksen paradigmoja se mahdollistaa.
 
 
 \section{Mikä on hajautettu järjestelmä?}
-\emph{Hajautettu järjestelmä} (\emph{distributed system}) on verkko toisiinsa kytkettyjä fyysisiä- tai ohjelmistopohjaisia komponentteja, jotka kommunikoivat toistensa kanssa viestien välityksellä. Hajautetussa järjestelmässä osapuolten etäisyydellä ei ole merkitystä. Niiden välimatka voi olla eri maa tai sama rakennus. Hajautettutut järjestelmät ovat oma tieteenala joka lähti liikkeelle käyttöjärjestelmien arkkitehtuurien tutkimuksista 1960-luvulla \cite[s.~384]{andrews2000foundations}. Ensimmäinen laajalle levinnyt hajautettu järjestelmä oli lähiverkot (Local Area Network tai LAN), joka keksittiin 1970-luvulla \cite[s.~32]{andrews2000foundations}. Hajautetun järjestelmän määrityksistä ja toteuttamisesta on olemassa hyvin kirjallisuutta ja tietoa, esimerkiksi \cite{distributed-systems-concepts-and-design, distributed-event-based-systems, mullender1993distributed, baldoni2005distributed}.
+\emph{Hajautettu järjestelmä} (engl. \emph{distributed system}) on verkko toisiinsa kytkettyjä fyysisiä- tai ohjelmistopohjaisia komponentteja, jotka kommunikoivat toistensa kanssa viestien välityksellä. Hajautetussa järjestelmässä osapuolten etäisyydellä ei ole merkitystä. Niiden välimatka voi olla eri maa tai sama rakennus. Hajautettutut järjestelmät ovat oma tieteenala joka lähti liikkeelle käyttöjärjestelmien arkkitehtuurien tutkimuksista 1960-luvulla \cite[s.~384]{andrews2000foundations}. Ensimmäinen laajalle levinnyt hajautettu järjestelmä oli lähiverkot (Local Area Network tai LAN), joka keksittiin 1970-luvulla \cite[s.~32]{andrews2000foundations}. Hajautetun järjestelmän määrityksistä ja toteuttamisesta on olemassa hyvin kirjallisuutta ja tietoa, esimerkiksi \cite{distributed-systems-concepts-and-design, distributed-event-based-systems, mullender1993distributed, baldoni2005distributed}.
 
-Järjestelmän hajautuksessa ja sen käytössä on pääasiassa kyse resurssien jakamisesta osapuolien kesken. Resurssi on abstrakti käsite ja voi tarkoittaa tekniikasta tai toteutuksesta riippuen montaa eri asiaa. Resurssilla voidaan esimerkiksi kuvata jaettua fyysistä laitetta kyten levyä tai tulostinta, ohjelmiston tapauksessa oliota tai tietokantaa \cite[s.~2--3]{distributed-systems-concepts-and-design}. Nykyinen internet mahdollistaa monien eri laitteiden kytkemisen verkkoon ja niiden kommunikoinnin keskenään, ja on nykypäivänä hyvä esimerkki todella laajasta hajautetusta järjestelmästä. Hajautetussa järjestelmässä voidaan puhua osapuolten heterogeenisyydestä (heterogeneity), eli osapuolet voivat kommunikoida toistensa kanssa tekniikasta tai toteutuksesta riippumatta.
+Järjestelmän hajautuksessa ja sen käytössä on pääasiassa kyse resurssien jakamisesta osapuolien kesken. Resurssi on abstrakti käsite ja voi tarkoittaa tekniikasta tai toteutuksesta riippuen montaa eri asiaa. Resurssilla voidaan esimerkiksi kuvata jaettua fyysistä laitetta kyten levyä tai tulostinta, ohjelmiston tapauksessa oliota tai tietokantaa \cite[s.~2--3]{distributed-systems-concepts-and-design}. Nykyinen internet mahdollistaa monien eri laitteiden kytkemisen verkkoon ja niiden kommunikoinnin keskenään, ja on nykypäivänä hyvä esimerkki todella laajasta hajautetusta järjestelmästä. Hajautetussa järjestelmässä voidaan puhua osapuolten \emph{heterogeenisyydestä} (engl. \emph{heterogeneity}), eli osapuolet voivat kommunikoida toistensa kanssa tekniikasta tai toteutuksesta riippumatta.
+
+% TODO: Tähän vielä lisää tekstiä.
+
+
+\subsection{Kommunikoinnin liitokset}
+Hajautetuissa järjestelmissä osapuolten kommunikoinnin välillä voi olla \emph{suora-} tai \emph{epäsuora liitos}. Suora liitos tarkoittaa tilannetta, jossa osapuolet tietävät toistensa identiteetin. Epäsuora liitos tilannetta jossa osapuolet eivät tiedä toistensa identiteettiä. Epäsuorassa liitoksessa osapuolet yleensä kommunikoivat välittäjän kautta, joka hoitaa viestien lähettämisen toiselle osapuolelle. Suorassa liitoksessa toisen osapuolen vaihtaminen on vaikeampaa kuin epäsuorassa liitoksessa. Esimerkkinä tästä on yksinkertainen asiakas-palvelin-malli. Suoran liitoksen takia palvelin on vaikeampi vaihtaa toiseen samanlaiseen (palvelin tulkkaa HTML-sivuja asiakkalle). Epäsuorassa liitoksessa palvelimen vaihto samanlaiseen on helpompaa jos niiden välissä on tarpeeksi epäsuoruutta (geneerinen rajapinta tai välittäjä). \cite[s.~230]{distributed-systems-concepts-and-design}
+
+Hajautetuissa järjestelmissä voidaan puhua erilaisista heikkojen liitoksien luokittelumalleista. Kirjallisuudessa näitä kutsutaan
+\begin{itemize}
+	\item \emph{heikko tilaliitos} (engl. \emph{space uncoupling}), tarkoittaa liitosta jossa osapuolet eivät tiedä toistensa identiteettiä, ja
+	\item \emph{heikko aikaliitos} (engl. \emph{time uncoupling}), tarkoittaa liitosta jossa osapuolien ei tarvitse olla olemassa samaan aikaan.
+\end{itemize}
+Näiden mukaan voidaan esittää malli, jolla luokitellaan osapuolten välistä liitosta. Tämä malli on esitetty taulukossa \ref{tab:communication-models}. \cite[s.~230]{distributed-systems-concepts-and-design} \cite[s.~116]{eugster2003many}
+
+\begin{table}[ht!]
+	\caption{Hajautetussa järjestelmässä osapuolten kommunikoinnin luokittelun malli (pohjautuu taulukoihin \mbox{\cite[s.~231]{distributed-systems-concepts-and-design}} \mbox{\cite[s.~84]{cabri2000mobile}}).}
+	\label{tab:communication-models}
+	\begin{tabular}{p{0.1\linewidth} | p{0.37\linewidth} | p{0.37\linewidth}}
+		\hline
+		& \textbf{Vahva aikaliitos} & \textbf{Heikko aikaliitos} \\
+		\hline
+		\textbf{Vahva tilaliitos} & Kommunikointi tarkoitettu suoraan toiselle osapuolelle. Osapuolten täytyy olla olemassa samaan aikaan, esimerkiksi suora viestintä tai etäfunktiokutsu. & Kommunikointi tarkoitettu suoraan toiselle osapuolelle. Osapuolet voivat olla olemassa eri aikaan.\\
+		\hline
+		\textbf{Heikko tilaliitos} & Osapuolten ei tarvitse tietää toistensa identiteettiä. Osapuolten täytyy olla olemassa samaan aikaan, esimerkiksi IP-ryhmälähetys. & Osapuolten ei tarvitse tietää toistensa identiteettiä. Osapuolet voivat olla olemassa eri aikaan, esimerkiksi tilaaja-julkaisija-malli ja viestijono \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Taulukossa \ref{tab:communication-models} vasemmassa yläkulman luokittelu tarkoittaa kommunikointia, missä osapuolet tietävät toistensa identiteetin ja niiden täytyy olla olemassa samaan aikaan. Tämä on siis kaikista vahvin liitos mitä osapuolten välillä voi olla ja jossa on vähiten epäsuoruutta. Esimerkkinä tästä kommunikoinnista on etäfunktiokutsu tai suora viestintä prosesseiden välillä. Oikeassa yläkulmassa on tilanne, jossa osapuolet edelleen tietävät toistensa identiteetin, mutta niiden ei tarvitse olla olemassa samaan aikaan. Esimerkkinä osapuoli lähettää viestin, mutta vastaanottaja ottaa viestin vastaan vasta myöhemmin. Taulukon vasemmassa alakulmassa on tilanne jossa osapuolet eivät teidä toistensa identiteettiä...
+
+% TODO: Käsittele taulukon mallit loppuun.
+
+
+\section{Hajautuksen paradigmoja}
+\begin{it}
+	Kirjoita tähän asiaa paradigmoista ja vertaile niitä keskenään. Kerro mihin tilanteisiin se sopii ja sen huonot ja hyvät puolet.
+\end{it}
+
+\begin{table}[ht!]
+	\caption{Hajautetun järjestelmän kommunikointiparadigmat kolmella päätasolla \mbox{\cite[s.~46]{distributed-systems-concepts-and-design}}.}
+	\label{tab:communication-paradigms}
+	\begin{tabular}{l | l | l}
+		\hline
+		\textbf{Interprocess communication} & \textbf{Remote invocation} & \textbf{Indirect communication} \\
+		\hline \hline
+		\parbox[t]{3.2cm}{Viestien välitys (message passing)} & \parbox[t]{3.2cm}{pyyntö-vastaus (request-reply)} & \parbox[t]{3.2cm}{joukkokommunikointi (group communication)} \\
+	\end{tabular}
+\end{table}
+
+
+\subsection{Julkaisija-tilaaja (publish-subscribe)}
+
+
+\subsection{Viestijono (message queue)}
+
+
+\subsection{Pyyntö-vastaus (request-reply)}
 
 
 \section{Advanced Message Queuing Protocol (AMQP)}
