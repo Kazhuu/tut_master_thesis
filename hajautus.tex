@@ -53,11 +53,11 @@ Taulukossa \ref{tab:communication-models} vasemmassa yläkulman luokittelu tarko
 Epäsuoruus ohjelmoinnissa tuo hyötyjä ja joustavuutta ohjelmaan ja sen toimintaa kuten aikaisemmin tuotiin esille. Epäsuoruuden mukana tulee myös haittoja, kuten kommunikointi voi olla vaikeampaa osapuolten välillä ja epäsuoruus yleensä heikentää ohjelman suorituskykyä. Suorituskyky ja kommunikoinnin vaikeidet vaihtelevat tekniikasta ja toteutuksesta riippuen.
 
 \section{Hajautuksen paradigmoja}
-\begin{it}
-	Kirjoita tähän asiaa paradigmoista ja vertaile niitä keskenään. Kerro mihin tilanteisiin se sopii ja sen huonot ja hyvät puolet.
-	
-	% TODO: Tästä kappaleesta lisää lyhenteet alkuun kun kirjoitus on tehty.
-\end{it}
+Hajautetussa järjestelmässä kommunikointi ja sen toteuttamisen mahdollisuudet ovat laajat ja vaihtoehtoja on paljon. Siksipä on tärkeää ymmärtää mitä ovat järjestelmän kommunikoivat osapuolet ja miten ne kommunikoivat. Näiden ymmärtäminen auttaa paremmin kehittäjää hahmottamaan vaihtoehtoja ja kokonaisuuden toimintaa.
+
+Hajautetuissa järjestelmissä kommunikoivien osapuolien voidaan ajatella olevan \emph{olioita}, \emph{komponentteja} tai \emph{web-palveluita} (engl. \emph{World Wide Web}). Oliot tulevat suoraan olio-ohjelmoinnista ja on tarkoitettu jäsentämään asiaa tai toiminnallisuutta pienempiin omiin kokonaisuuksiinsa, joilla on oma sovittu rajapinta. Rajapinnan tarkoituksena on kapsuloida toiminnallisuutta helpokäyttöiseksi rajapinnaksi sen käyttäjälle. Komponenti on kokoelma olioita jotka muodostavat loogisen käytettävän kokonaisuuden. Komponenttit myös kommunikoivat rajapinnan läpi kuin oliot. Ero näiden välillä on, että komponentti oman rajapintansa lisäksi olettaa tiettyjä rajapintamäärityksiä muilta komponenteilta. Komponentti käyttää muiden komponenttien rajapintoja toteuttaaksen sille määritettyä toiminnallisuutta. Web-palvelut noudattavat samaa periaatetta rajapintojen kanssa kuin olio ja komponentti, mutta toimivat web-teknologioiden päällä. Olioita ja komponentteja käytetään toteuttamaan tiukemmin sidottuja ohjelmistoja. Web-palveluita käytetään toteuttamaan omia palvelukokonaisuuksia, joita voidaan liittää yhteen toteuttamaan kokonaisia applikaatioita. \mbox{\cite[s.~42--43]{distributed-systems-concepts-and-design}}
+
+Hajautetussa järjestelmässä kommunikoinnin paradigmat voidaan jakaa kolmeen pääkategoriaan jotka on esitetty taulukossa \ref{tab:communication-paradigms}. Näitä paradigmoja käsitellään tarkemmin kappaleissa \ref{ch:interprocess-communication}, \ref{ch:remove-invocation} ja \ref{ch:indirect-communication}.
 
 \begin{table}[ht!]
 	\caption{Hajautetun järjestelmän kommunikointiparadigmat kolmella päätasolla (pohjautuu tauluun \mbox{\cite[s.~46]{distributed-systems-concepts-and-design}}).}
@@ -79,14 +79,28 @@ Epäsuoruus ohjelmoinnissa tuo hyötyjä ja joustavuutta ohjelmaan ja sen toimin
 	\end{tabular}
 \end{table}
 
-
-\subsection{Julkaisija-tilaaja (publish-subscribe)}
-
-
-\subsection{Viestijono (message queue)}
+\emph{Prosessien välinen kommunikointi} (engl. \emph{interprocess communication}) on matalan tason kommunikointia osapuolten välillä yleensä suoralla yhteydellä ohjelmointirajapintaan. \emph{Etäkutsut} (engl. \emph{remote invocation}) tarkoittavat toisen osapuolen kutsumista, joka suorittaa pyynnön ja palauttaa siihen vastauksen. Tyypillinen esimerkki tästä on asiakkaan pyyntö palvelimelle, johon palvelin lähettää takaisin vastauksen. Kahdessa aikaisemmin mainitussa kommunikoinnissa yhteistä on, että osapuolet tietävät eksplisiittisesti toistensa identiteetin ja niiden välillä on yleensä vahva aikaliitos. \emph{Epäsuora kommunikaatio} (engl. \emph{indirect communication}) tapahtuu kolmasta osapuolta käyttäen viestien välitykseen. Tämä mahdollistaa heikon liitoksen osapuolten välillä sekä ajallisesti että tilallisesti. Lähettäjä ei tiedä vastaanottajan identiteettiä ja toisin päin. Kolmas osapuoli vastaa viestin ohjaamisesta vastaanottajalle. \mbox{\cite[s.~43--45]{distributed-systems-concepts-and-design}}
 
 
-\subsection{Pyyntö-vastaus (request-reply)}
+\subsection{Prosessien välinen kommunikaatio}
+\label{ch:interprocess-communication}
+
+
+
+\subsection{Etäkutsu}
+\label{ch:remove-invocation}
+\begin{it}
+	Tärkeä viite käyttää RPC kun puhutaan \cite{implemeting-remote-procedure-calls}
+\end{it}
+
+
+
+\subsection{Epäsuora kommunikaatio}
+\label{ch:indirect-communication}
+\begin{it}
+	Tärkeä viite tähän liittyen kun pub/sub puhutaan \cite{distributed-event-based-systems}
+	Kun puhutaan tuple space kamasta niin tärkeä viitata \cite{generative-communication-in-linda}
+\end{it}
 
 
 \section{Advanced Message Queuing Protocol (AMQP)}
