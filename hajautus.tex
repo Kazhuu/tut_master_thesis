@@ -93,10 +93,11 @@ Hyviä puolia matalan tason kommunikoinnissa on, että sillä saadaan tehtyä sa
 
 \subsection{Etäkutsu}
 \label{ch:remote-invocation}
-\begin{it}
-	Tärkeä viite käyttää RPC kun puhutaan \cite{implemeting-remote-procedure-calls}
-\end{it}
+Etäkutsu paradigmoja ovat \emph{pyyntö-vastaus} (engl. \emph{request-reply}), \emph{etäproseduurikutsu} (engl. \emph{remote procedure call}, lyhennetään \emph{RPC}) ja \emph{etämetodikutsu} (engl. \emph{remote method invocation}, lyhennetään \emph{RMI}). Etäkutsuja voi suorittaa prosessit tai korkeamman tason objektit ja palvelut. Primitiivisin etäkutsu paradigmoista on pyyntö-vastaus, joka edustaa mallia aikaisemmin mainitun viestien välityksen päällä ja lisää siihen kaksisuuntaisen viestien vaihdon. Paradigmaa käytetään asiakas-palvelin kommunikoinnissa. \mbox{\cite[s.~185--186]{distributed-systems-concepts-and-design}}
 
+Todella tärkeä määritys nykypäivän hajautettujen järjestelmien kannalta oli etäproseduurikutsut (RPC). Tämän määrittivät Birrell ja Nelson vuonna 1984 \cite{implemeting-remote-procedure-calls}. Se mahdollisti ohjelmoijan kutsua proseduuria toisella koneella etänä samoin kuin paikallista proseduuria. RPC-systeemi piilotti taustalle kaiken teknisen toteutuksen mitä kutsuun etänä tarvittiin, esimerkkinä tiedon siirron, pakkaamisen ja purkamisen \cite[s.~195--196]{distributed-systems-concepts-and-design}. Etämetodikutsu (RMI) toiminta on sama kuin RPC:n, mutta se on laajennettu toimivaksi olioilla. Olioiden metodeita voidaan kutsua niin kuin ne olisivat sen paikallisia metodeita \cite[s.~204]{distributed-systems-concepts-and-design}. Kummatkin RPC ja RMI tarjoavat saman tason abstraktion ohjelmoijalle ja piilottavat teknisen toteutuksen alleen.
+
+Etäkutsuparadigmat ovat korkeamman tason paradigmoja kuin aikaisemmin mainittu prosessien välinen kommunikointi. Hyvänä puolena paradigmoissa on, että ohjelmoijan ei vältämättä tarvitse kirjoittaa matalan tason rajapinnan ohjelmaa. Rajapinta on abstrahoitu helppokäyttöisemmäksi ja sen toteutus ei vie niin paljon aikaa ja resursseja kuin matalan tason implementointi. Kuitenkin etäkutsut kärsivät samoista vahvoista liitoksista kuin prosessien väliset kutsut. Osapuolet ovat vahvasti liitoksissa ajallisesti sekä tilallisesti.
 
 
 \subsection{Epäsuora kommunikaatio}
