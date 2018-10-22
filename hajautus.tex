@@ -113,18 +113,29 @@ Epäsuora kommmunikaatio tarkoittaa osapuolten välistä kommunikaatiota välitt
 
 Epäsuoran kommunikoinnin paradigmoja ovat \emph{joukkokommunikointi} (engl. \emph{group communication}), \emph{julkaisija-tilaaja} (engl. \emph{publish-subscribe}), \emph{viestijono} (engl. \emph{message queue}), \emph{tuplesäilö} (engl. \emph{tuple space}) ja \emph{hajautetusti jaettu muisti} (engl. \emph{distributed shared memory}, lyhennetään \emph{DSM}). Nämä esitettiin aikaisemmin taulukossa \ref{tab:communication-paradigms}. Jokaista paradigmaa käsitellään erikseen tulevissa kappaleissa.
 
+% TODO: Korjaa yllä oleva lause sitten kun on kirjoitettu loput kappaleet auki.
+
 
 \subsection{Joukkokommunikointi}
+\begin{it}
+	Kirjoita suljetuista ja avoimista ryhmistä. Päivitä kuva kuvaamaan kumpaakin vaihtoehtoa.
+\end{it}
+Joukkokommunikointi on paradigma, jossa lähettäjä lähettää viestin joukolle vastaanottajia välikäden avulla. Kuvassa \ref{fig:group-communication} on esitetty joukkokommunikoinnin toiminta. Joukko vastaanottajia tunnistetaan yksilöivällä ryhmätunnisteella. Lähettäjä käyttää tätä tunnistetta kohdentamaan viestin haluamalleen ryhmälle. Viesti läheteään ryhmälle (välikädelle). Tämän jälkeen välikäsi uudelleenlähetetään viestin kaikille ryhmän jäsenille. Tässä tapauksessa lähettäjä ei ole tietoinen vastaanottajien identiteetistä. Joukkokommunikointi on tärkeä paradigma hajautettujen järjestelmien kannalta ja sillä on olemassa monta eri käyttökohdetta. Sillä voidaan toteuttaa ratkaisuja, jossa viesti tarvitaan lähettää monelle eri osapuolelle. Applikaatioina esimerkiksi voi olla kollaboraatio- ja monitorointi-ohjelmistot, jossa kaikkien osapuolien täytyy tietää nykyinen näkymä tilasta. \mbox{\cite[s.~232--233]{distributed-systems-concepts-and-design}}
+% TODO: Tarkempi viite tästä lähteestä.
+\mbox{\cite{group-communication-specification}}
+
 \begin{figure}[ht!]
 	\includegraphics[width=0.5\textwidth]{pictures/group-communication.png}
 	\caption{Lähettäjä lähettää viestin ryhmän tunnisteella sen jokaiselle osapuolelle.}
 	\label{fig:group-communication}
 \end{figure}
 
+Joukkokommunikointi tunnetaan myös \emph{joukkokommunikointisysteeminä} (engl. \emph{Group Communication System}, lyhennetään \emph{GCS}). Briman keksi ja kuvasi ensimmäinen tällainen systeemi 1986-luvulla \cite{isis-fault-tolerant-distributed-computing}.
+
 
 \subsection{Tilaaja-julkaisija}
 \begin{figure}[ht!]
-	\includegraphics[width=1\textwidth]{pictures/publish-subscribe.png}
+	\includegraphics[width=0.9\textwidth]{pictures/publish-subscribe.png}
 	\caption{Julkaisija-tilaaja-systeemi välikätenä viestien välittämisessä julkaisijoiden ja tilaajien välissä (pohjautuu kuvaan \mbox{\cite[s.~246]{distributed-systems-concepts-and-design}}).}
 	\label{fig:publish-subscribe-communication}
 \end{figure}
