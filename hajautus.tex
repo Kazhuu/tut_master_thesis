@@ -119,7 +119,7 @@ Joukkokommunikoinnissa ryhmät voivat olla ns. avoimia tai suljettuja. Kuvassa \
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/group-communication.png}
-	\caption{Avoimen ja suljetun ryhmän toimintaperiaate (pohjautuu kuvaan \mbox{\cite[s.~235]{distributed-systems-concepts-and-design}}).}
+	\caption{Osapuolten kommunikointi avoimessa ja suljetussa ryhmässä (pohjautuu kuvaan \mbox{\cite[s.~235]{distributed-systems-concepts-and-design}}).}
 	\label{fig:group-communication}
 \end{figure}
 
@@ -141,13 +141,21 @@ Julkaisija-tilaaja-systeemin ansiosta kommunikointi osapuolten välillä on epä
 
 
 \subsection{Viestijono}
-
+Viestijono paradigmassa osapuolet kommunikoivat jonon välityksellä. Joukkokommunikointi ja julkaisija-tilaaja paradigmat ovat yksi-moneen-suhde osapuolten välillä, kun taas viestijono on yksi-yhteen-suhde (engl. point-to-point). Lähettäjä lähettää viestin jonoon, josta vastaanottaja poistaa sen kun mahdollista tai sopivaa. Viestijonon tarkoitus on puskuroida viestejä vastaanottajalle ja näin taata niiden saatavuus ja järjestys millä vain ajan hetkellä. Viestijono mahdollistaa siis osapuolten välillä heikon tilaliitoksen ja myös heikon aikaliitoksen. Kuvassa \ref{fig:message-queue-communication} on esitetty viestijonosysteemin toiminta osapuolten välillä.
 
 \begin{figure}[ht!]
 	\includegraphics[width=0.9\textwidth]{pictures/message-queue.png}
 	\caption{Viestijonosysteemi puskuroi viestejä lähettäjiltä vastaanottajille (pohjautuu kuvaan \mbox{\cite[s.~255]{distributed-systems-concepts-and-design}}).}
 	\label{fig:message-queue-communication}
 \end{figure}
+
+Vastaanottaja voi poistaa viestejä jonosta kolmella eri periaatteella:
+\begin{itemize}
+	\item \emph{pysäyttävä vastaanotto} (engl. \emph{blocking receive}), joka pysäyttää kunnes viesti on saatavissa,
+	\item \emph{ei pysäyttävä vastaanotto} (engl. \emph{non-blocking receive}), joka tarkistaa jonon tilan ja palauttaa viestin jos saatavilla, ja
+	\item \emph{ilmoita} (engl. \emph{notify}), joka lähettää tiedon uudesta viestistä kun sellainen on saatavilla.
+\end{itemize}
+
 
 
 \subsection{Muut}
