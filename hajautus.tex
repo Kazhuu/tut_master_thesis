@@ -141,7 +141,7 @@ Julkaisija-tilaaja-systeemin ansiosta kommunikointi osapuolten välillä on epä
 
 
 \subsection{Viestijono}
-Viestijono paradigmassa osapuolet kommunikoivat jonon välityksellä. Joukkokommunikointi ja julkaisija-tilaaja paradigmat ovat yksi-moneen-suhde osapuolten välillä, kun taas viestijono on yksi-yhteen-suhde (engl. point-to-point). Lähettäjä lähettää viestin jonoon, josta vastaanottaja poistaa sen kun mahdollista tai sopivaa. Viestijonon tarkoitus on puskuroida viestejä vastaanottajalle ja näin taata niiden saatavuus ja järjestys millä vain ajan hetkellä. Viestijono mahdollistaa siis osapuolten välillä heikon tilaliitoksen ja myös heikon aikaliitoksen. Kuvassa \ref{fig:message-queue-communication} on esitetty viestijonosysteemin toiminta osapuolten välillä.
+Viestijono paradigmassa osapuolet kommunikoivat epäsuorasti jonon välityksellä. Joukkokommunikointi ja julkaisija-tilaaja paradigmat ovat yksi-moneen-suhde osapuolten välillä, kun taas viestijono on yksi-yhteen-suhde (engl. point-to-point). Lähettäjä lähettää viestin jonoon, josta vastaanottaja poistaa sen käsittelyyn. Viestijonon tarkoitus on puskuroida viestejä vastaanottajalle ja näin taata niiden saatavuus ja järjestys millä ajan hetkellä hyvänsä. Viestijono mahdollistaa siis osapuolten välillä heikon tila- ja aikaliitoksen. Jonon ansiosta lähettäjä ja vastaanottaja voivat olla olemassa eri aikaan. Kuvassa \ref{fig:message-queue-communication} on esitetty viestijonosysteemin toiminta osapuolten välillä.
 
 \begin{figure}[ht!]
 	\includegraphics[width=0.9\textwidth]{pictures/message-queue.png}
@@ -155,7 +155,10 @@ Vastaanottaja voi poistaa viestejä jonosta kolmella eri periaatteella:
 	\item \emph{ei pysäyttävä vastaanotto} (engl. \emph{non-blocking receive}), joka tarkistaa jonon tilan ja palauttaa viestin jos saatavilla, ja
 	\item \emph{ilmoita} (engl. \emph{notify}), joka lähettää tiedon uudesta viestistä kun sellainen on saatavilla.
 \end{itemize}
+Ei pysäyttävä vastaanotto on sama kuin vastaanottaja kyselisi viestiä jonosta tietyn väliajoin (engl. poll). Systeemissa samaan jonoon on monen lähettäjän mahdollista lähettää viestejä. Samoin myös monen eri vastaanottajan on mahdollista vastaanottaa viestejä jonosta. Jonojen jonotuspolitiikka systeemeissä on yleensä FIFO-periaate (engl. First-In-First-Out). Moni systeemi kuitenkin tukee myös muitakin periaatteita, kuten viestien priorisointia, jossa ylemmän prioriteeti viestit käsitellään ensin kuin alemman prioriteetin viestit.
 
+% TODO: Jono hyvä puoli on viestin lähettämisen takuu. Viesti on identtinen alkuperäiseen ja se lähetetään vai kerran.
+% TODO: Vertaa tätä suoraan viestin välittämiseen missä voi kans olla jonot käytössä. Kerro mikä erottaa tämän parhaiten tästä \cite[s.~256]{distributed-systems-concepts-and-design}.
 
 
 \subsection{Muut}
