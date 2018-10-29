@@ -1,5 +1,8 @@
 \chapter{Projektin lähtökohdat}
 \label{ch:projektin-lähtökohdat}
+
+% TODO: Kirjoita tämä vastaamaan demon analyysia ja muuta otsikko myös vastaamaan sitä. Tästä kappaleesta tuloksena pitäisi tulla tiedot mikä demossa on vikana joita voidaan käytää myöhemmin suunnitelussa.
+
 Tarkoituksena tässä diplomityössä oli toteuttaa ohjelmistokomponentti osaksi isompaa järjestelmää. Isompi järjestelmä liittyi sähköasemien toimintaan ja niiden tarkkailuun. Ohjemistokomponentin tarkoituksena oli tilata viestejä sähköaseman IED-laitteen RCB-instansseilta IEC 61850 -standardin mukaisesti. Standardin mukainen viesti prosessoitiin ja jaettiin järjestelmän muiden komponenttien kanssa. Esimerkiksi viesti voi sisältää mittaustietoa, joka halutaan näyttää loppukäyttäjälle käyttöliittymässä. Käyttöliittymän päivittävä komponentti tarvitsee mittaustiedon IED-laitteelta.
 
 Ennen tämän työn aloittamista yrityksessä oli jo kehitetty ensimmäinen versio ohjelmasta. Ohjelma kykeni tilaamaan viestejä IED-laitteen kaikilta RCB-instansseilta, prosessoimaan viestit ja tallentamaan ne relaatiotietokantaan myöhempää käyttöä varten. Tässä ohjelmistossa oli havaittuja ongelmia ja se ei myöskään tukenut kaikkia IEC 61850 -standardin viesteihin liittyviä ominaisuuksia. Tämän ohjelmiston toimintaperiaate ja siinä olleet ongelmat toimivat pohjana uuden version suunnittelulle ja toteutukselle. Tarkoituksena oli poistaa havaitut ongelmakohdat ja miettiä olisiko jokin muu arkkitehtuuri parempi kyseiseen toteutukseen. Ensimmäistä toteutusta ohjelmasta voisi nimittää ensimmäiseksi protoversioksi tai demovaiheeksi (engl. proof of concept), jonka pohjalta tultiin tekemään toimiva lopullinen versio. Tekstissä eteenpäin sanoilla demo ja demoversio viitataan tähän ohjelmistoon.
