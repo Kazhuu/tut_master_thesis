@@ -141,7 +141,7 @@ Julkaisija-tilaaja-systeemin ansiosta kommunikointi osapuolten välillä on epä
 
 
 \subsection{Viestijono}
-Viestijono paradigmassa osapuolet kommunikoivat epäsuorasti jonon välityksellä. Joukkokommunikointi ja julkaisija-tilaaja paradigmat ovat yksi-moneen-suhde osapuolten välillä, kun taas viestijono on yksi-yhteen-suhde (engl. point-to-point). Lähettäjä lähettää viestin jonoon, josta vastaanottaja poistaa sen käsittelyyn. Viestijonon tarkoitus on puskuroida viestejä vastaanottajalle ja näin taata niiden saatavuus ja järjestys millä ajan hetkellä hyvänsä. Viestijono mahdollistaa siis osapuolten välillä heikon tila- ja aikaliitoksen. Jonon ansiosta lähettäjä ja vastaanottaja voivat olla olemassa eri aikaan. Kuvassa \ref{fig:message-queue-communication} on esitetty viestijonosysteemin toiminta osapuolten välillä.
+Viestijono paradigmassa osapuolet kommunikoivat epäsuorasti jonon välityksellä. Joukkokommunikointi ja julkaisija-tilaaja paradigmat ovat yksi-moneen-suhde osapuolten välillä, kun taas viestijono on yksi-yhteen-suhde (engl. point-to-point). Lähettäjä lähettää viestin jonoon, josta vastaanottaja poistaa sen käsittelyyn. Viestijonon tarkoitus on puskuroida viestejä vastaanottajalle ja näin taata niiden saatavuus ja järjestys millä ajan hetkellä hyvänsä. Viestijono mahdollistaa siis osapuolten välillä heikon tila- ja aikaliitoksen. Jonon ansiosta lähettäjä ja vastaanottaja voivat olla olemassa eri aikaan \cite[s.~254]{distributed-systems-concepts-and-design}. Kuvassa \ref{fig:message-queue-communication} on esitetty viestijonosysteemin toiminta osapuolten välillä.
 
 \begin{figure}[ht!]
 	\includegraphics[width=0.9\textwidth]{pictures/message-queue.png}
@@ -153,12 +153,13 @@ Vastaanottaja voi poistaa viestejä jonosta kolmella eri periaatteella:
 \begin{itemize}
 	\item \emph{pysäyttävä vastaanotto} (engl. \emph{blocking receive}), joka pysäyttää kunnes viesti on saatavissa,
 	\item \emph{ei pysäyttävä vastaanotto} (engl. \emph{non-blocking receive}), joka tarkistaa jonon tilan ja palauttaa viestin jos saatavilla, ja
-	\item \emph{ilmoita} (engl. \emph{notify}), joka lähettää tiedon uudesta viestistä kun sellainen on saatavilla.
+	\item \emph{ilmoita} (engl. \emph{notify}), joka lähettää tiedon uudesta viestistä kun sellainen on saatavilla \cite[s.~254]{distributed-systems-concepts-and-design}.
 \end{itemize}
-Ei pysäyttävä vastaanotto on sama kuin vastaanottaja kyselisi viestiä jonosta tietyn väliajoin (engl. poll). Systeemissa samaan jonoon on monen lähettäjän mahdollista lähettää viestejä. Samoin myös monen eri vastaanottajan on mahdollista vastaanottaa viestejä jonosta. Jonojen jonotuspolitiikka systeemeissä on yleensä FIFO-periaate (engl. First-In-First-Out). Moni systeemi kuitenkin tukee myös muitakin periaatteita, kuten viestien priorisointia, jossa ylemmän prioriteeti viestit käsitellään ensin kuin alemman prioriteetin viestit.
+Ei pysäyttävä vastaanotto on sama kuin vastaanottaja kyselisi viestejä jonosta tietyn väliajoin (engl. poll). Viestijonosysteemissä jonoa ei ole rajoitettu yhteen lähettäjään ja vastaanottajaan. Systeemissä moni lähettäjä voi lähettää viestejä samaan jonoon ja moni vastaanottaja voi vastaanottaa niitä samasta jonosta. Jonojen jonotuspolitiikka on yleensä FIFO-periaate (engl. First-In-First-Out). Moni systeemi kuitenkin tukee myös muitakin periaatteita, kuten viestien priorisointia, jossa ylemmän prioriteetin viestit käsitellään ennen alemman prioriteetin viestejä \cite[s.~120]{eugster2003many}.
 
-% TODO: Jono hyvä puoli on viestin lähettämisen takuu. Viesti on identtinen alkuperäiseen ja se lähetetään vai kerran.
-% TODO: Vertaa tätä suoraan viestin välittämiseen missä voi kans olla jonot käytössä. Kerro mikä erottaa tämän parhaiten tästä \cite[s.~256]{distributed-systems-concepts-and-design}.
+Viestijonon hyvänä puolena on osapuolten heikon aikaliitoksen mahdollistaminen. Tämä mahdollistetaan sillä, että viestit jonossa ovat pysyviä (engl. persistent). Systeemi tallentaa viestit levylle, jossa ne säilyvät niin kauan kunnes vastaanottaja poistaa ne jonosta. Systeemi takaa viestien lähettämisen vastaanottajalle. Viesti tullaan lähettämään jossakin vaiheessa ja enintään kerran. Lisäksi lähetetty viesti vastaa alkuperäistä lähettäjän viestiä. \mbox{\cite[s.~255]{distributed-systems-concepts-and-design}}
+
+Aikaisemmin käsiteltiin viestien välitystä prosessien välisessä kommunikoinnissa ja mainittiin että prosessit voivat implementoida jonon viestien vastaanottoon. Jonosysteemillä on paljon samanlaisia piirteitä tämän kanssa. Kuitenkin viestien välityksessä jonot ovat liitoksissa sen osapuoleen ja ovat implisiittisiä. Viestijonosysteemissä jonot ovat kolmannen osapuolen tarjoamia eksplisiittisiä jonoja, joka erottaa lähettäjät ja vastaanottajat toisistaan. Tämä on tärkeä ero, joka tekee viestijonosta oman epäsuoran kommunikointiparadigman. \mbox{\cite[s.~256]{distributed-systems-concepts-and-design}}
 
 
 \subsection{Muut}
