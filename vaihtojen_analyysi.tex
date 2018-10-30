@@ -2,11 +2,46 @@
 \begin{it}
 	Kirjoita tähän yleistä tietoa tästä kappaleesta. Tietona ulos tulee lukijalle mitä tässä kappaleessa käsitellään kokonaisuudessaan. Tämän voisi kijoittaa viimeisenä.
 \end{it}
+Aikaisemmin käsiteltiin erilaisia hajautuksen paradigmoja ja kuinka osapuolet voivat kommunikoida hajautetussa järjestelmässä. Tässä kappaleessa analysoidaan näitä paradigmoja ja arvoidaan mitkä sopisivat tässä työssä suunniteltavan ohjelmistokomponentin tarkoituksiin. Lisäksi käsitellään avointa AMQP-kommunikointistandardia (engl. Advanced Message Queing Protocol), joka mahdollistaa erilaisten hajautusparadigmojen toteutuksen osapuolten välillä. AMQP:stä käsitellään sen toiminnallisuutta ja kuinka se sopii tämän työn tarpeisiin.
+
+
+\section{Arkkitehtuurin analyysi}
+IEC 61850 -standardi määrittää, että viestit IED-laitteelta tulevat julkaisija-tilaaja-paradigman mukaisesti. IED-laitteelta viestit tilataan RCB-instansseilta. Rajoituksena standardi asettaa, että RCB-instanssi täytyy tilaajan varata ja yksi RCB-instanssi voi palvella vai yhtä tilaajaa kerrallaan. RCB-instansseja IED-laitteissa on rajallinen määrä ja näitä voidaan myös käyttää aseman sisäiseen toimintaan. Tässä työssä käsitellyssä IED-laitteessa yhteen datajoukkoon oli esimerkiksi määritetty viisi eri RCB-instanssia. Lisäksi tässä työssä testattu IED-laite rajoitti avoimet yhteydet viiteen. Tästä ylimeneviä yhteyksiä ei avattu ja IED-laite palautti standardin mukaisen negatiivisen vastauksen.
+
+Järjestelmän komponentit jotka tietoa IED-laitteelta tarvitsevat voi olla vaihteleva määrä käytöstä riippuen. Työn tekohetkellä komponentteja järjestelmässä oli kaksi. Mittaustiedon näyttämiseen ja tilatiedon tarkkailuun. Kuitenkin suunnittelussa haluttiin varautua tulevaisuuden kannalta, jolloin komponentteja voisi olla enemmänkin ja vaihteleva määrä.
+
+Edelle mainituista IED-laitteen rajoituksista ja työlle asetetuista vaatimuksista voidaan tehdä johtopäätöksiä hajautuksen arkkitehtuurin suhteen. IED-laitteelle yhteyksien määrä halutaan pitää mahdollisimman pienenä ja varata mahdollisiman vähän RCB-instansseja kiinnostavaa datajoukkoa kohti. Tilanteeseen ratkaisuna voisi ajatella, että järjestelmän yksittäiset komponentit tilaisivat niiden tarvitsemat tiedot suoraan IED-laitteelta. Ongelmana tässä kuitenkin on aikaisemmin mainittu yhteyksien määrän rajoitus IED-laitteelle ja niiden määrä haluttiin minimoida. Lisäksi viesti palautetaan komponentille MMS-protokollamäärityksien mukaisesti. Seurauksena olisi, että komponentti joutuisi lukemaan tiedon binäärinä tai käyttämään ulkopuolista kirjastoa lukemisen helpottamiseen. Tämä ei toteuttaisi hajautetun järjestelmän yhteistä sovittua viestimuotoa kovin hyvin. Hyvänä ratkaisuna tilanteeseen on toteuttaa erillinen ohjelmistokomponentti IED-laitteen ja muiden järjestelmän komponenttien väliin. Komponentti tilaisi viestit IED-laitteelta ja halutuilta RCB-instansseilta. Samalla komponentti muokkaisi saapuvat viestit parempaan muotoon, joka olisi helpompi muiden järjestelmän komponenttien lukea.
+
+
+\section{Liitoksien määritys}
+Aikaisemmin kappaleessa \ref{ch:liitokset} käsiteltiin hajautetun järjestelmän osapuolten välisiä liitoksia. Erilaiset liitoksien luokittelut esiteltiin taulukossa \ref{tab:communication-models}. Lisäksi hajautetussa järjestelmässä kommunikointi voi olla myös suoraan tai epäsuoraa.
+
+IED-laitteen ja tilaajan välinen kommunikointi on suoraa ja se ei tapahtu välikäden kautta. Lisäksi osapuolten välillä on vahva tila- ja aikaliitos. Tilaliitos tulee kun kummatkin osapuolet tietävät toistensa identiteetin (IP-osoitteen). Aikaliitoksessa osapuolien täytyy olla olemassa samaan aikaan. Tilaajan täytyy olla ottamassa viesti vastaan kun IED-laite viestin lähettää ja IED-laitteen täytyy olla olemassa kun tilaus tehdään. Kaikki edellemainitut tulevat IEC 61850 -standardin määrityksien seurauksena. Kysymyksenä jää miettiä mitkä ovat suunniteltavan väliohjelmiston ja muun järjestelmän komponenttien kommunikoinnin suoruus ja niiden väliset liitokset?
+
+Työn aloitushetkellä järjestelmässä oli kaksi tietoa tarvitsevaa komponenttia ja tulevaisuudessa ehkä enemmänkin. Tämä aiheuttaa IED-laitteen ja muiden järjestelmän komponenttien väliin yksi-moneen kommunikointisuhteen. Tulevaisuudessa haluttiin varautua, että tietoa tarvitsevien komponenttien määrä pystyisi muuttumaan tilauksien välillä. Olisi hyvä jos väliohjelmiston ja järjestelmän komponenttien kommunikointi olisi epäsuoraa ja tapahtuisi välikäden kautta. Välikäsi ottaisi vastuun viestin reitittämisestä komponentille.
+
+% TODO: Kirjoita tähän tila ja aikaliitoksista miten päädyttiin mihinkin.
+
 
 \section{Eri paradigmojen analyysi}
 \begin{it}
 	Kirjoita tähän analyysia aikaisemmin käsitellyistä paradigmoista ja peilaa niitä ohjelmistolle asetettuihin vaatimuksiin. Tietona sisään tulee vaatimukset mitkä asetettiin aikaisemmin ja kaikki käsitellyt paradigmat. Näistä tulee ulos selvästi miksi tarvittiin viestijonoa ja julkaisija-tilaaja-paradigmaa.
 \end{it}
+Hajautettussa järjestelmässä osapuolet voivat kommunikoida monen eri tavoin. Aikaisemmin esiteltiin tässä työssä suunniteltavan ohjelmistokomponentin vaatimukset mitä sen pitäisi pystyä täyttämään. Tässä kappaleessa analysoidaan hajautuksen eri paradigmoja ja verrataan niitä asetettuihin vaatimuksiin. Tarkoituksena on analysoida mitkä paradigmat sopisivat tämän työn toteutukseen parhaiten.
+
+
+
+
+\subsection{Prosessien välinen kommunikointi}
+
+
+\subsection{Etäkutsu}
+
+
+\subsection{Tilaaja-julkaisija}
+
+
+\subsection{Viestijono}
 
 
 \section{Tekniikan valinta}

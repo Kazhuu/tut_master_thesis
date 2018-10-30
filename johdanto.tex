@@ -1,16 +1,42 @@
 \chapter{Johdanto}
 \label{ch:johdanto}
-Sähköverkko koostuu tuotantolaitoksista, sähkölinjoista ja sähköasemista. Sähköasemilla on erilaisia tehtäviä verkossa. Näitä ovat esimerkiksi jännitteen muuntaminen, verkon jakaminen ja sen toiminnan tarkkailu. Lisäksi nykypäivänä asemien toiminnallisuutta voidaan seurata ja ohjata etäohjauksella. Sähköaseman yksi tärkeä tehtävä on suojata ja tarkkailla verkon toimivuutta, ja vikatilanteessa esimerkiksi katkaista linjasta virrat pois. Tällainen vikatilanne on esimerkiksi kaapelin poikkimeno, joka aiheuttaa vaarallisen oikosulkutilanteen.
 
-Tässä diplomityössä on tarkoituksena suunnitella ja toteuttaa ohjelmistokomponentti osaksi isompaa sähköasemiin liittyvää järjestelmää. Komponentin tavoitteena on tilata tietoa verkon yli sähköaseman automaatiolaitteelta ja jakaa tieto järjestelmän muiden komponenttien kanssa. Tieto sähköasemilta tilataan tilaaja-julkaisija-arkkitehtuurimallin mukaan. Tieto voi esimerkiksi sisältää mittaustietoa jännitteestä tai fyysisen katkaisijan tilasta. Komponentin täytyy prosesoida saapunut tieto ja jakaa se siitä kiinnostuneen järjestelmän komponentin kanssa. Esimerkkinä mittaustiedosta kiinnostunut komponentti tarvitsee tiedon käyttöliittymässä olevan mittarin päivittämiseen.
+% TODO: Kirjoita tätä vastaamaan lopussa enemmän työn oikeita tavoitteita ja katso että alaotsikot menee yhteen muun tekstin kanssa.
 
-Tieto tilataan sähköasemilla olevilta \emph{älykkäiltä eletroniikkalaitteilta} (engl. \emph{Intelligent Electronic Device}, lyhennetään \emph{IED}). IED-laite on sähköaseman automaatiolaite jota kutsutaan myös nimellä suojarele. IED-laite voidaan kytkeä ja konfiguroida toteuttamaan monta aseman eri funktionaalisuutta ja ne on myös kytketty aseman verkkoon. IED:t voivat kommunikoida paikallisverkon yli aseman muun laitteiston ja IED-laitteiden kanssa, ja näin toteuttaa aseman toiminnallisuutta. Nykypäivänä verkon nopeus mahdollistaa reaaliaikaisen kommunikoinnin asemalla sen eri laitteiden välillä. IED-laitteet voivat myös kommunikoida aseman paikallisverkosta ulospäin, esimerkiksi keskitettyyn ohjauskeskukseen. Tämän yhteyden kautta tässä työssä toteutetun ohjelmistokomponentin on tarkoitus tilata tieto verkon yli muun järjestelmän käyttöön. Yksi IED-laite voidaan esimerkiksi konfiguroida hoitamaan sähkölinjan kytkimenä oloa, joka myös tarkkailee linjan toimintaa mittaamalla konfiguroituja arvoja, kuten jännitettä ja virtaa. Vikatilanteen sattuessa IED katkaisee linjan virrasta suurempien tuhojen välttämiseksi. Linjan korjauksen jälkeen virta kytketään takaisin päälle. \cite{Brunner2008}
+Sähköverkko koostuu tuotantolaitoksista, sähkölinjoista ja sähköasemista. Sähköasemilla on erilaisia tehtäviä verkossa. Näitä ovat esimerkiksi jännitteen muuntaminen, verkon jakaminen ja sen toiminnan tarkkailu. Nykypäivänä asemien toiminnallisuutta voidaan seurata ja ohjata etäohjauksella verkon yli. Etäohjelma voi saada tietoa aseman toiminnasta ja sen tilasta. Sähköaseman yksi tärkeä tehtävä on suojata ja tarkkailla verkon toimivuutta, ja vikatilanteessa esimerkiksi katkaista linjasta virrat pois. Tällainen vikatilanne on esimerkiksi kaapelin poikkimeno, joka aiheuttaa vaarallisen oikosulkutilanteen.
 
-IED-laitteet noudattavat kommunikoinnissa maailmanlaajuisesti määritettyä \emph{IEC 61850} -standardia (engl. \emph{International Electrotechnical Commission}). Standardin tarkoituksena on määrittää yhteinen kommunikointiprotokolla ja säännöt aseman kaikkien eri laitteiden välille. Tarkoituksena on ehkäistä jokaista valmistajaa tuottamasta omia versioita ja protokollia omille laitteilleen. Standardia noudattamalla eri IED-laitteet pystyvät kommunikoimaan keskenään yhteisillä säännöillä \cite[s.~624]{Mackiewicz2006}. Standardi määrittää tiedon tilaamisen mekanismit, jolla aseman ulkopuolinen ohjelma voi tilata tiedot verkon yli. Nämä määritykset ovat tämän työn kannalta tärkein osa standardia ja on mekanismi millä komponentti tiedon asemalta tilaa. Standardi on määritetty niin, että se voi toimia monella eri teknisellä toteutuksella. Tässä työssä standardin määrityksiä käytetään \emph{TCP/IP}-protokollaperheen päällä.
+Tässä diplomityössä on tarkoituksena suunnitella ohjemistoarkkitehtuuria ja toteuttaa ohjelmistoa osaksi isompaa sähköasemiin liittyvää järjestelmää. Tavoitteena on saada tietoa verkon yli sähköaseman automaatiolaitteelta ja jakaa saatu tieto järjestelmän muiden osien kanssa. Työssä käsitellään hajautetun järjestelmän paradigmoja ja analysoidaan mitkä niistä sopisivat tilanteeseen parhaiten. Analyysin tuloksien ja vaatimusten perusteella päädytään kokonaisuuden suunnitelmaan. Suunnitelma toteutetaan ohjelmistoksi, joka toimii osana olemassa olevaa isompaa järjestelmää. Toteutus jakaa sähköaseman tietoa järjestelmän muille osille, joita ovat esimerkiksi mittaustiedon näyttäminen ja aseman tilan tarkkailu.
 
-Työn tekijä oli jo ennen työn aloitusta Alsus Oy:ssä toteuttanut yksinkertaisen demoversion ohjelmasta (engl. proof of concept). Toteutus oli puutteellinen ja siinä oli toimintahäiriöitä, jotka estivät sen käytön tuotannossa luotettavasti. Demo todisti eri osien toimivuuden mahdollisuuden ja opetti tekijälle standardia. Tässä työssä demoa käytetään pohjana uuden toteutuksen suunnittelulle. Työssä analysoidaan sen toimintahäiriöitä ja mitkä ne aiheutti. Näitä tietoja käytetään pohjana uuden toteutuksen liittyvien päätöksien tekemiseen.
+Tieto saadaam sähköasemilla olevilta \emph{älykkäiltä eletroniikkalaitteilta} (engl. \emph{Intelligent Electronic Device}, lyhennetään \emph{IED}). IED-laite on sähköaseman automaatiolaite jota kutsutaan myös nimellä suojarele. IED-laite voidaan kytkeä ja konfiguroida toteuttamaan monta aseman eri funktionaalisuutta ja ne ovat myös kytketty aseman verkkoon. IED:t voivat kommunikoida paikallisverkon yli aseman muun laitteiston ja IED-laitteiden kanssa, ja näin toteuttaa aseman toiminnallisuutta. Nykypäivänä verkon nopeus mahdollistaa reaaliaikaisen kommunikoinnin asemalla sen eri laitteiden välillä. IED-laitteet voivat myös kommunikoida aseman paikallisverkosta ulospäin, esimerkiksi keskitettyyn ohjauskeskukseen. Yksi IED-laite voidaan esimerkiksi konfiguroida hoitamaan sähkölinjan kytkimenä oloa, joka myös tarkkailee linjan toimintaa mittaamalla arvoja, kuten jännitettä ja virtaa. Vikatilanteen sattuessa IED ohjaa aseman laitteita toimimaan oikein enempien vahinkojen välttämiseksi. \cite{Brunner2008}
 
-IEC 61850 -standardin ymmärtäminen on osa toteutusta, joten sitä käsitellään tässä työssä ennen suunnittelua ja toteutusta. Toteutettu komponentti tilasi ja jakoi tiedot onnistuneesti muiden järjestelmän komponenttien kanssa. Toteutuksessa tiedon jakamiseen käytettiin \emph{AMQP}-standardiin (engl. \emph{Advanced Message Queuing Protocol}) pohjautuvaa \emph{RabbitMQ}-välityspalvelinta. AMQP-standardi käsitellään myös ennen varsinaista suunnittelua ja toteutusta.
+IED-laitteet noudattavat kommunikoinnissa maailmanlaajuisesti määritettyä \emph{IEC 61850} -standardia (engl. \emph{International Electrotechnical Commission}). Standardin tarkoituksena on määrittää yhteinen kommunikointiprotokolla ja säännöt aseman kaikkien eri laitteiden välille. Tarkoituksena on ehkäistä jokaista valmistajaa tuottamasta omia versioita ja protokollia omille laitteilleen. Standardia noudattamalla eri IED-laitteet pystyvät kommunikoimaan keskenään yhteisillä säännöillä \cite[s.~624]{Mackiewicz2006}. Standardi määrittää myös asemalta tiedon saamisen mekanismit, joita aseman ulkopuolisen ohjelman täytyy noudattaa. Nämä määritykset ovat tämän työn kannalta tärkein osa standardia ja vaikuttavat järjestelmän hajautuksen suunnitteluun. Standardi on määritetty niin, että laitteiden kommunikointi voi tapahtua monella eri teknisellä alustalla. Tässä työssä standardin määrityksiä käytetään pelkästään \emph{TCP/IP}-protokollaperheen päällä.
+
+Diplomityön tekijä oli jo ennen tämän työn aloitusta Alsus Oy:ssä toteuttanut yksinkertaisen demoversion (engl. proof of concept). Ohjelmisto kykeni saamaan tietoa asemalta standardin mukaisesti ja tallentamaan sen tietokantaan. Toteutus oli puutteellinen ja siinä oli toimintaan liittyviä ongelmia, jotka haittasivat sen jatkokehitystä. Demon tarkoituksena oli enemminkin opettaa tekijälle standardia ja sen mekanismeja ennen oikeaa toteutusta. Tässä työssä analysoidaan demon toimintaa ja sen ongelmia. Nämä tulokset yhdistetään järjestelmän hajautuksen suunnittelun kanssa, jotta lopputuloksena saadaan toimiva suunnitelma ja pohja uudelle toteutukselle.
+
+Tämän diplomityön rakenne alkaa pohjatietojen käsittelyllä. Ensin käsitellään IEC 61850 -standardia ja sen toimintaa. Tämän jälkeen käydään läpi järjestelmän hajautusta ja siihen liittyviä kommunikointiparadigmoja. Pohjatietojen avulla analysoidaan erilaisia hajautuksen vaihtoehtoja ja mitkä niistä sopisivat tähän toteutukseen parhaiten. Tästä tuloksena on järjestelmän hajautukseen liittyvät tiedot johon toteutus tähtää. Seuraavaksi työssä analysoidaan demon toimintaa ja sen ongelmia. Tuloksena on tietoa mitä täytyy ottaa uuden version toteutuksessa ja tekniikasssa huomioon. Järjestelmän hajautuksen ja edellä mainitun demon analyysien perusteella suunnitellaan ohjelmisto arkkitehtuuri ja sen tekniikat. Tämän jälkeen käydään läpi kuinka suunniteltu ohjelmisto toteutettiin. Työn lopussa arvoidaan ja pohditaan tuloksia asetettuihin tutkimuskysymyksiin ja miten tavoitteisiin päästiin. Lisäksi käsitellään myös toteutuksen tulevaisuutta ja mahdollisia vaihtoehtoisia toteutustapoja.
+
+% TODO: Korjaa alaotsikot muun tekstin kanssa yhteen.
+
+
+\section{Asetetut vaatimukset}
+Työn alussa komponentille oli asetettu vaatimuksia, mitä toteutuksen pitäisi pystyä täyttämään. Vaatimukset oli etukäteen mietitty ennen työn aloittamista ja tulevat osaksi isomman järjestelmän tarpeista. Vaatimuksia käytetään pohjana suunnittelussa tehdyille valinnoille. Ohjelmistokomponentille asetettiin seuraavia vaatimuksia:
+\begin{itemize}
+	\item viestin tieto saada jaettua järjestelmän muiden komponenttien kesken,
+	\item viestin jaossa halutaan varautua tulevaisuuteen ja eri komponenttien määriin,
+	\item komponentti saa ilmoituksen uudesta tiedosta ilman kyselyä,
+	\item viestejä puskuroidaan myöhempää käsittelyä varten jos komponentti ei kerkeä niitä käsitellä,
+	\item viestejä pitää pystyä jakamaan muille osapuolille lähteen (IED-laitteen) perusteella,
+	\item viestin jakamisen muoto pitää olla helposti ymmärretävä osapuolten kesken,
+	\item viestien tilaus IED-laitteelta täytyy noudattaa IEC 61850 -standardia,
+	\item muu järjestelmä ohjaa milloin tilaus IED-laitteelta aloitetaan ja lopetetaan,
+	\item IED-laitteelta tilattavien pisteiden määrä voi vaihdella tilauksien välillä, ja
+	\item viestien välityksen tekniikka täytyy tukea verkkopalvelun tapauksessa TCP/IP-pro\-to \-kol\-la\-mää\-ri\-tyk\-si\-ä.
+\end{itemize}
+
+
+
+\section{Tutkimuskysymykset}
+% TODO: Päivitä kysymykset vastaamaan nykyisiä tavoitteita.
 
 Tämän työn tutkimustyön osuus on miettiä ja tutkia uuden toteutuksen arkkitehtuuria ja toteutusta. Arkkitehtuurin täytyy ottaa huomioon IEC 61850 -standardi ja sen asettamat rajoitteet. Tarkoitus on täyttää kaikki uudelle toteutukselle asetetut vaatimukset ja estää demoversioon liittyvät toimintahäiriöt. Työlle asetetaan tutkimuskysymyksiä, joita peilataan työn lopussa saavutettuihin tuloksiin ja pohditaan kuinka hyvin niihin päästiin. Työlle asetettiin seuraavat tutkimuskysymykset:
 \begin{itemize}
@@ -19,15 +45,3 @@ Tämän työn tutkimustyön osuus on miettiä ja tutkia uuden toteutuksen arkkit
 	\item \emph{Mitkä olivat syyt demoversion toimintahäiriöihin ja kuinka nämä estetään uudessa toteutuksessa?}
 	\item \emph{Järjestelmän hajautuksessa, mikä olisi sopiva tiedon jakamisen muoto eri osapuolten välillä?}
 \end{itemize}
-
-
-\section{Vaatimukset}
-\begin{it}
-	Kirjoita tähän selvästi ja lyhyesti kaikki ohjelmalle asetetut vaatimukset.
-\end{it}
-
-
-\section{Tutkimuskysymykset}
-\begin{it}
-	Kirjoita tähän työlle asetetut tutkimuskysymykset.
-\end{it}
