@@ -4,6 +4,8 @@
 \end{it}
 Aikaisemmin käsiteltiin erilaisia hajautuksen paradigmoja ja kuinka osapuolet voivat kommunikoida hajautetussa järjestelmässä. Tässä kappaleessa analysoidaan näitä paradigmoja ja arvoidaan mitkä sopisivat tässä työssä suunniteltavan ohjelmistokomponentin tarkoituksiin. Lisäksi käsitellään avointa AMQP-kommunikointistandardia (engl. Advanced Message Queing Protocol), joka mahdollistaa erilaisten hajautusparadigmojen toteutuksen osapuolten välillä. AMQP:stä käsitellään sen toiminnallisuutta ja kuinka se sopii tämän työn tarpeisiin.
 
+% TODO: Kirjoita tämä vastaamaan muuta tekstiä kun muut kappaleet ovat valmiit.
+
 
 \section{Arkkitehtuurin analyysi}
 IEC 61850 -standardi määrittää, että viestit IED-laitteelta tulevat julkaisija-tilaaja-paradigman mukaisesti. IED-laitteelta viestit tilataan RCB-instansseilta. Rajoituksena standardi asettaa, että RCB-instanssi täytyy tilaajan varata ja yksi RCB-instanssi voi palvella vai yhtä tilaajaa kerrallaan. RCB-instansseja IED-laitteissa on rajallinen määrä ja näitä voidaan myös käyttää aseman sisäiseen toimintaan. Tässä työssä käsitellyssä IED-laitteessa yhteen datajoukkoon oli esimerkiksi määritetty viisi eri RCB-instanssia. Lisäksi tässä työssä testattu IED-laite rajoitti avoimet yhteydet viiteen. Tästä ylimeneviä yhteyksiä ei avattu ja IED-laite palautti standardin mukaisen negatiivisen vastauksen.
