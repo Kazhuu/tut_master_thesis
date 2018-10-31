@@ -15,19 +15,23 @@ Vaatimuksissa määriteltiin että IED-laitteen tieto täytyy saada jaettua jär
 
 Edelle mainituista IED-laitteen rajoituksista ja työlle asetetuista vaatimuksista voidaan tehdä johtopäätöksiä hajautuksen arkkitehtuurin suhteen. Samalle IED-laitteelle avattujen yhteyksien määrä halutaan pitää pienenä. Tämän lisäksi varattujen RCB-instanssien määrä jokaista datajoukkoa kohti halutaan myös pitää pienenä. Nämä sen takia, koska halutaan mahdollisimman vähän varata aseman resursseja sen muulta käytöltä. Lisäksi järjestelmän IED-laitteelta vaatimat resurssit halutaan pitää ennalta määrättynä lukuna. Tämä helpottaa aseman insinöörin suunnittelutyötä, koska hän voi ottaa luvut huomioon IED-laitteiden konfiguroinnissa.
 
-Edellä mainittuun tilanteeseen ratkaisuna voisi ajatella, että järjestelmän yksittäiset komponentit tilaisivat niiden tarvitsemat tiedot suoraan IED-laitteelta. Ongelmana tässä kuitenkin on aikaisemmin mainittu yhteyksien määrän rajoitus IED-laitteelle ja niiden määrä haluttiin minimoida ja pitää vakiona. Lisäksi viestit tilataan ja palautetaan komponentille MMS-protokollamäärityksien mukaisesti. Seurauksena on, että jokainen komponentti joutuu käsittelemään MMS-protokollan binääridataa itse tai kirjaston avulla. Viestin muoto olisi parempi olla ymmärrettävämpi. Näin viestin lukeminen eri tekniikoilla olisi helpompaa. Tämä asetettiin ohjelmiston vaatimuksissa ja oli myös yksi kohta työlle asetetuista tutkimuskysymksistä.
+Edellä mainittuun tilanteeseen ratkaisuna voisi ajatella, että järjestelmän yksittäiset komponentit tilaisivat niiden tarvitsemat tiedot suoraan IED-laitteelta. Tämä on esitetty kuvan \ref{fig:architecture-analysis} yläosassa. Ongelmana tässä kuitenkin on aikaisemmin mainittu yhteyksien määrän rajoitus IED-laitteelle ja niiden määrä haluttiin minimoida ja pitää vakiona. Lisäksi viestit tilataan ja palautetaan komponentille MMS-protokollamäärityksien mukaisesti. Seurauksena on, että jokainen komponentti joutuu käsittelemään MMS-protokollan binääridataa itse tai kirjaston avulla. Viestin muoto olisi parempi olla ymmärrettävämpi. Näin viestin lukeminen eri tekniikoilla olisi helpompaa. Tämä asetettiin ohjelmiston vaatimuksissa ja oli myös yksi kohta työlle asetetuista tutkimuskysymksistä.
+
+\begin{figure}[ht!]
+	\includegraphics[width=0.7\textwidth]{pictures/architecture-analysis.png}
+	\caption{IED-laitteelta viestien tilaus suoraan ja väliohjelmiston avulla.}
+	\label{fig:architecture-analysis}
+\end{figure}
 
 Ratkaisuna edellä mainittuun tilanteeseen on kommunikoinnin epäsuoruuden lisääminen. Samoin menee myös kuuluisa lainaus henkilöltä David Wheeler \cite[s.~290]{beautiful-code}:
 \begin{quote}
 	All problems in computer science can be solved by another level of indirection.
 \end{quote}
-Epäsuoruutta saadaan aikaan toteuttamalla erillinen ohjelmistokomponentti IED-laitteen ja muiden järjestelmän komponenttien väliin. Tätä komponenttia voisi kutsua myös nimellä \emph{väliohjelmisto} (engl. \emph{middleware}). Väliohjelmisto tilaisi viestit IED-laitteelta ja halutuilta RCB-instansseilta. Samalla komponentti muokkaisi saapuvat viestit parempaan muotoon, joka olisi helpompi muiden järjestelmän komponenttien lukea. Väliohjelmiston avulla yhteyksien määrä IED-laitetta kohti saadaan yhteen. Tämän avulla myös saadaan minimoitua varattujen RCB-instanssien määrä datajoukkoa kohti yhteen. Tuloksena on vakiomäärät yhteyksiä ja RCB-istansseja datajoukkoa kohti jotka ovat helpompi ennustaa ja konfiguroida etukäteen tarpeiden mukaan.
+Epäsuoruutta saadaan aikaan toteuttamalla erillinen ohjelmistokomponentti IED-laitteen ja muiden järjestelmän komponenttien väliin. Tätä komponenttia voisi kutsua myös nimellä \emph{väliohjelmisto} (engl. \emph{middleware}) ja on esitetty kuvan \ref{fig:architecture-analysis} alaosassa. Väliohjelmisto tilaisi viestit IED-laitteelta ja halutuilta RCB-instansseilta. Samalla komponentti muokkaisi saapuvat viestit parempaan muotoon, joka olisi helpompi muiden järjestelmän komponenttien lukea. Väliohjelmiston avulla yhteyksien määrä IED-laitetta kohti saadaan yhteen. Tämän avulla myös saadaan minimoitua varattujen RCB-instanssien määrä datajoukkoa kohti yhteen. Tuloksena on vakiomäärät yhteyksiä ja RCB-istansseja datajoukkoa kohti jotka ovat helpompi ennustaa ja konfiguroida etukäteen tarpeiden mukaan.
 
 Vaatimuksissa mainittiin myös, että muu järjestelmä ohjaa viestien tilauksen aloittamista ja lopettamista. Väliohjelmistoa on mahdollista muun järjestelmän ohjata tarvittavin tilauksien mukaan. Tietysti tieto tilauksesta täytyy myös saada järjestelmän muille komponenteille. Väliohjelmisto ja epäsuoruus myös helpottavat viestien puskuroinnin toteuttamista komponenteille, joka myös oli vaatimuksena. Ilman epäsuoruutta, jokaisen komponentin pitäisi toteuttaa oma sisäinen puskuri viestien vastaanottamiseen.
 
 Tässä kappaleessa analysoitiin IEC 61850 -standardin asettamia rajoja ja ohjelmistolle asetettuja vaatimuksia. Näistä analysoitiin mikä olisi toimiva ratkaisu tässä tilanteessa järjestelmän hajauttamiseen korkealla tasolla. Tuloksena järjestelmään päätettiin lisätä epäsuoruutta toteuttamalla väliohjelmisto IED-laitteen ja järjestelmän muiden komponenttien väliin. Tuloksena jää vielä miettiä mitkä kommunikointiparadigmat toteuttavat väliohjelmiston ja komponenttien vaatimukset? Mihin muotoon MMS-tason viesti väliohjelmistossa pitäisi muuttaa jakoa varten? Mitkä ovat väliohjelmiston ja muiden komponenttien väliset liitoksien vahvuudet? Kuinka viestien puskurointi väliohjelmiston avulla toteutetaan?
-
-% TODO: Lisää tähän kuva selventämään kahta vaihtoehtoa jossa komponentit tilaavat viestit ied-laitteelta ja missä väliohjelmisto tilaa viestit sen sijaan. Lukijalle helpottamaan ymmärrystä mistä puhutaan.
 
 
 \section{Osapuolten liitoksien analyysi}
@@ -35,19 +39,25 @@ Aikaisemmin kappaleessa \ref{ch:liitokset} käsiteltiin hajautetun järjestelmä
 
 IED-laitteen ja viestien tilaajan välinen kommunikointi on suoraa ja se ei tapahtu välikäden kautta. Lisäksi osapuolten välillä on vahva tila- ja aikaliitos. Tilaliitos tulee kun kummatkin osapuolet tietävät toistensa identiteetin (IP-osoitteen). Aikaliitoksessa osapuolien täytyy olla olemassa samaan aikaan. Tilaajan täytyy olla ottamassa viesti vastaan kun IED-laite viestin lähettää ja IED-laitteen täytyy olla olemassa kun tilaus tehdään. Kaikki edellemainitut tulevat IEC 61850 -standardin määrityksien seurauksena ja näihin ei työn puitteissa voi vaikuttaa.
 
-Työn aloitushetkellä järjestelmässä oli kaksi tietoa tarvitsevaa komponenttia. Vaatimusten mukaan haluttiin varautua tulevaisuuten, jossa niitä voisi olla enemmänkin. Tästä seurauksena väliohjelmiston ja muiden järjestelmän komponenttien välinen suhde on yksi-moneen. Vaatimuksena oli, että tietoa tarvitsevien komponenttien määrä pystyisi muuttumaan tilauksien välillä. Toteuttamalla suora kommunikointi väliohjelmiston ja järjestelmän muiden komponenttien väliin. Väliohjelmiston tarvitsee tietää muiden komponenttien olemassaolosta ja kenelle viestit täytyy ohjata. Tämä lisäisi osapuolten välistä riippuvuutta ja vähentäisi toteutuksen joustavuutta. Ratkaisuna on lisätä epäsuoruutta väliohjelmiston ja muiden komponenttien väliin välikädellä. Välikäsi vähentää osapuolten välistä riippuvuutta ja lisää toteutuksen joustavuutta. Se myös auttaa toteuttamaan asetettuja vaatimuksia, kuten viestien puskurointia ja uuden viestin ilmoitusta. Vaatimuksena oli, että IED-laitteelta tulevaa tietoa pitäisi pystyä jakamaan komponenteille IED-laitteen perusteella. Välikäden tuoma epäsuoruus auttaa myös tämän vaatimuksen toteuttamisessa. Tällä vastuu väliohjelmistolta viestien jakamisesta saadaan siirrettyä välikäden vastuulle.
+Työn aloitushetkellä järjestelmässä oli kaksi tietoa tarvitsevaa komponenttia. Vaatimusten mukaan haluttiin varautua tulevaisuuten, jossa niitä voisi olla enemmänkin. Tästä seurauksena väliohjelmiston ja muiden järjestelmän komponenttien välinen suhde on yksi-moneen. Vaatimuksena oli, että tietoa tarvitsevien komponenttien määrä pystyisi muuttumaan tilauksien välillä. Toteuttamalla suora kommunikointi väliohjelmiston ja järjestelmän muiden komponenttien väliin. Väliohjelmiston tarvitsee tietää muiden komponenttien olemassaolosta ja kenelle viestit täytyy ohjata. Tämä lisäisi osapuolten välistä riippuvuutta ja vähentäisi toteutuksen joustavuutta. Ratkaisuna on lisätä epäsuoruutta väliohjelmiston ja muiden komponenttien väliin välikädellä. Tämä on esitetty kuvassa \ref{fig:coupling-analysis}. Välikäsi vähentää osapuolten välistä riippuvuutta ja lisää toteutuksen joustavuutta. Se myös auttaa toteuttamaan asetettuja vaatimuksia, kuten viestien puskurointia ja uuden viestin ilmoitusta. Vaatimuksena oli, että IED-laitteelta tulevaa tietoa pitäisi pystyä jakamaan komponenteille IED-laitteen perusteella. Välikäden tuoma epäsuoruus auttaa myös tämän vaatimuksen toteuttamisessa. Tällä vastuu väliohjelmistolta viestien jakamisesta saadaan siirrettyä välikäden vastuulle.
+
+\begin{figure}[ht!]
+	\includegraphics[width=1\textwidth]{pictures/coupling-analysis.png}
+	\caption{Välikäsi väliohjelmiston ja komponenttien välissä lisämään epäsuoruutta ja joustavuutta.}
+	\label{fig:coupling-analysis}
+\end{figure}
 
 Väliohjelmiston ja muiden komponenttien välille edellä mainitun perusteella halutaan heikko tilaliitos. Väliohjelmiston ei tarvitse tietää järjestelmän muiden komponenttien identiteettiä ja tämä parantaa toteutuksen joustavuutta. Aikaliitos asetettujen vaatimuksien perusteella pystyisi olemaan vahva tai heikko. Kuitenkin muu järjestelmä ohjaa tilauksen aloittamista, jolloin muutkin komponentit tietävät asiasta. Tämä vaatimus poistaa tarpeen heikolle aikaliitokselle.
 
 Tässä kappaleessa analysoitiin hajautetussa järjestelmässä osapuolten välisi liitoksien vahvuutta. IEC 61850 -standardi asettaa rajoitteet IED-laitteen ja väliohjelmiston välille, joihin ei voida vaikuttaa. Väliohjelmiston ja muiden komponenttien väliin päädyttiin toteuttamaan epäsuora kommunikointi joustavuuden ja vaatimusten takia. Samojen osapuolten väliin halutiin toteuttaa heikko tilaliitos ja vahva aikaliitos. Kysymyksenä jää miettiä millä hajautuksen paradigmoilla välikäsi pitäisi toteuttaa, jotta halutut ominaisuudet saadaan toteutettua? Näitä olivat viestien puskurointi, ilmoitukset uuden viestin saapuessa ja viestien jakaminen komponenteille IED-laitteen mukaan.
 
-% TODO: Lisää tähän kuva joka jatkaa edellistä kuvaa ja mitä tuli lisää tämän kappaleen pohjalta.
 
-
-\section{Sopivien paradigmojen analyysi}
+\section{Erilaisten paradigmojen analyysi}
 \begin{it}
 	Kirjoita tähän analyysia aikaisemmin käsitellyistä paradigmoista ja peilaa niitä ohjelmistolle asetettuihin vaatimuksiin. Tietona sisään tulee vaatimukset mitkä asetettiin aikaisemmin ja kaikki käsitellyt paradigmat. Näistä tulee ulos selvästi miksi tarvittiin viestijonoa ja julkaisija-tilaaja-paradigmaa.
 \end{it}
+
+
 Hajautettussa järjestelmässä osapuolet voivat kommunikoida monen eri tavoin. Aikaisemmin esiteltiin tässä työssä suunniteltavan ohjelmistokomponentin vaatimukset mitä sen pitäisi pystyä täyttämään. Tässä kappaleessa analysoidaan hajautuksen eri paradigmoja ja verrataan niitä asetettuihin vaatimuksiin. Tarkoituksena on analysoida mitkä paradigmat sopisivat tämän työn toteutukseen parhaiten.
 
 
