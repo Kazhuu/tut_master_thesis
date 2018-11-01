@@ -49,19 +49,20 @@ Työn aloitushetkellä järjestelmässä oli kaksi tietoa tarvitsevaa komponentt
 
 Väliohjelmiston ja muiden komponenttien välille edellä mainitun perusteella halutaan heikko tilaliitos. Väliohjelmiston ei tarvitse tietää järjestelmän muiden komponenttien identiteettiä ja tämä parantaa toteutuksen joustavuutta. Aikaliitos asetettujen vaatimuksien perusteella pystyisi olemaan vahva tai heikko. Kuitenkin muu järjestelmä ohjaa tilauksen aloittamista, jolloin muutkin komponentit tietävät asiasta. Tämä vaatimus poistaa tarpeen heikolle aikaliitokselle.
 
-Tässä kappaleessa analysoitiin hajautetussa järjestelmässä osapuolten välisi liitoksien vahvuutta. IEC 61850 -standardi asettaa rajoitteet IED-laitteen ja väliohjelmiston välille, joihin ei voida vaikuttaa. Väliohjelmiston ja muiden komponenttien väliin päädyttiin toteuttamaan epäsuora kommunikointi joustavuuden ja vaatimusten takia. Samojen osapuolten väliin halutiin toteuttaa heikko tilaliitos ja vahva aikaliitos. Kysymyksenä jää miettiä millä hajautuksen paradigmoilla välikäsi pitäisi toteuttaa, jotta halutut ominaisuudet saadaan toteutettua? Näitä olivat viestien puskurointi, ilmoitukset uuden viestin saapuessa ja viestien jakaminen komponenteille IED-laitteen mukaan.
+Tässä kappaleessa analysoitiin hajautetussa järjestelmässä osapuolten välisi liitoksien vahvuutta. IEC 61850 -standardi asettaa rajoitteet IED-laitteen ja väliohjelmiston välille, joihin ei voida vaikuttaa. Väliohjelmiston ja muiden komponenttien väliin päädyttiin toteuttamaan epäsuora kommunikointi joustavuuden ja vaatimusten takia. Samojen osapuolten väliin halutiin toteuttaa heikko tilaliitos ja vahva aikaliitos. Kysymyksenä jää miettiä millä hajautuksen paradigmoilla välikäsi pitäisi toteuttaa, jotta halutut ominaisuudet saadaan toteutettua?
 
 
 \section{Erilaisten paradigmojen analyysi}
 \begin{it}
 	Kirjoita tähän analyysia aikaisemmin käsitellyistä paradigmoista ja peilaa niitä ohjelmistolle asetettuihin vaatimuksiin. Tietona sisään tulee vaatimukset mitkä asetettiin aikaisemmin ja kaikki käsitellyt paradigmat. Näistä tulee ulos selvästi miksi tarvittiin viestijonoa ja julkaisija-tilaaja-paradigmaa.
+	
+	Erottele paradigmat niihin mitä tarvitaan ja mitä ei. Ehkä niitä voisi kuitenkin verrata vaihtoehtona jotta saadaan enemmän painoa miksi valittiin mitäkin.
 \end{it}
+Aikaisemmissa kappaleissa analyysien ja vaatimusten pohjalta päädyttiin kuvan \ref{fig:coupling-analysis} hajautetun järjestelmän arkkitehtuuriin. Tässä kappaleessa vertaillaan ja analysoidaan eri hajautuksen paradigmoja. Tarkoituksena on selvittää mitä paradigmoja tarvitaan, jotta asetetut vaatimukset voidaan toteuttaa. Näitä olivat viestien puskurointi, ilmoitukset komponenteille uuden viestin saapuessa ja viestien jakamisen mahdollisuus IED-laitteen mukaan. Valitut paradigmat koskevat kuvan \ref{fig:coupling-analysis} välikättä väliohjelmiston ja järjestelmän komponenttien välissä.
 
+% TODO: Kirjoita tämä kappale vastaamaan loppua kun muut teksit on kirjoitettu kokonaan.
 
-Hajautettussa järjestelmässä osapuolet voivat kommunikoida monen eri tavoin. Aikaisemmin esiteltiin tässä työssä suunniteltavan ohjelmistokomponentin vaatimukset mitä sen pitäisi pystyä täyttämään. Tässä kappaleessa analysoidaan hajautuksen eri paradigmoja ja verrataan niitä asetettuihin vaatimuksiin. Tarkoituksena on analysoida mitkä paradigmat sopisivat tämän työn toteutukseen parhaiten.
-
-
-
+% TODO: Kirjoita loppuun yhteenveto kuten aikaisemmin missä käsitellään tulokset ja mitä vielä on vastaamatta. Tämä toimii pohjana kun seuraavaksi verrataaan kommunikointitekniikoita keskenään.
 
 \subsection{Prosessien välinen kommunikointi}
 
