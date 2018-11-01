@@ -64,17 +64,20 @@ Aikaisemmissa kappaleissa analyysien ja vaatimusten pohjalta päädyttiin kuvan 
 
 % TODO: Kirjoita loppuun yhteenveto kuten aikaisemmin missä käsitellään tulokset ja mitä vielä on vastaamatta. Tämä toimii pohjana kun seuraavaksi verrataaan kommunikointitekniikoita keskenään.
 
-\subsection{Prosessien välinen kommunikointi}
+Prosessien välinen kommunikointi hajautetussa järjestelmässä on suoraa ja niiden välillä on myös vahva tila- ja aikaliitos. Aikaisempien päätelmien perusteella kommunikointi komponenttien ja väliohjelmiston välille haluttiin olevan epäsuoraa ja tila- ja aikaliitoksien olevan heikkoa ja vahvaa vastaavasti. Prosessien välisellä kommunikoinnilla viestien puskurointi pitäisi toteuttaa jokaiseen komponenttiin erikseen. Paradigma on tarkoitettu matalan tason kommunikointiin soketeilla tai suoralla viestien vaihtamisella. Muu sähköasemien järjestelmä on toteuttu web-applikaationa. Tämän takia vaatimuksena oli, että tieto järjestelmässä siirtyisi TCP/IP-protokollaperheen päällä. Edelle mainittujen perusteella prosessien välinen kommunikointi ei sovi toteutuksen paradigmaksi. Muut kommunikointiparadigmat tarjoavat toivottua epäsuoruutta ja paremmat mahdollisuudet vaatimusten täyttämiseen.
 
+Etäkutsut ovat kaikki pyyntö-vastaus-pohjaista kommunikointia osapuolten välillä. Kuitenkin kommunikointi IED-laitteelta järjestelmän komponenteille on vain yhden suuntaista ja tämän takia sopii huonosti tilanteeseen. Parempana etäkutsu-paradigmassa on, että se on korkemman tason kommunikointia kuin prosessien välinen kommunikointi. Tämä sopisi tilanteeseen paremmin. Etäkutsu on suoraa kommunikointia, jossa on vahva tila- ja aikaliitos. Tämä ei sovi yhteen vaatimusten kanssa. Etäkutsut myös sopivat huonosti kommunikointiparadigmaksi toteutukseen.
 
+% TODO: Voisiko ylempiä kappaleita yhdistää. Samaa asiaa toistetaan molemmista ja samoista syistä eivät sovi toteutukseen. Jakaa kirjoitus suoriin ja epäsuoriin paradigmoihin.
 
-\subsection{Etäkutsu}
+Järjestelmään haluttiin epäsuoruutta välikädellä. Tätä parhaiten tarjoavat epäsuorat kommunikointiparadigmat. Vaatimuksena oli, että viestejä pitäisi pystyä puskuroimaan myöhempään ajan hetkeen jos komponentti ei niitä ehdi käsitellä. Tämän ominaisuuden tarjoaa viestijonoparadigma. Viestejä haluttiin erotella IED-laitteen mukaan, ja komponentit voisivat päättää itse mistä ovat kiinnostuneita. 
 
-
-\subsection{Tilaaja-julkaisija}
-
-
-\subsection{Viestijono}
+% TODO: Kirjoita alla olevien mukaan miksi viestijono ja pub/sub ovat parhaat vaihtoehdot tilanteeseen.
+* komponenttien pitäisi saada ilmoitus uudesta tiedosta ilman erillistä kyselyä,
+* viestejä puskuroidaan myöhempää käsittelyä varten jos komponentti ei kerkeä niitä heti käsitellä,
+* tietoa pitää pystyä jakamaan muille osapuolille sen lähteen identiteetin (IED-laitteen) perusteella,
+* tiedon välityksen tekniikka täytyy tukea verkkopalvelun tapauksessa TCP/IP-pro\-to \-kol\-la\-mää\-ri\-tyk\-si\-ä.
+* tietoa haluavien komponenttien määrä voi vaihdella tiedon hakemisen aloitusten välillä,
 
 
 \section{Tekniikan valinta}

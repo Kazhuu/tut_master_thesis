@@ -25,15 +25,19 @@ Ohjelmistolle asetettiin mm. seuraavia vaatimuksia:
 	\item muu järjestelmä ohjaa milloin tieton haku IED-laitteelta aloitetaan ja lopetetaan,
 	\item tietoa haluavien komponenttien määrä voi vaihdella tiedon hakemisen aloitusten välillä,	
 	\item komponenttien pitäisi saada ilmoitus uudesta tiedosta ilman erillistä kyselyä,
-	\item viestejä puskuroidaan myöhempää käsittelyä varten jos komponentti ei kerkeä niitä heti käsitellä,
+	\item tiedot puskuroidaan myöhempää käsittelyä varten jos komponentti ei kerkeä niitä heti käsitellä,
 	\item tietoa pitää pystyä jakamaan muille osapuolille sen lähteen identiteetin (IED-laitteen) perusteella,
 	\item tiedon jakamisen muoto pitää olla helposti ymmärrettävä osapuolten kesken,
-	\item IED-laitteelta haluttu tiedon määrä voi vaihdella ajojen välillä, ja
-	\item tiedon välityksen tekniikka täytyy tukea verkkopalvelun tapauksessa TCP/IP-pro\-to \-kol\-la\-mää\-ri\-tyk\-si\-ä.
+	\item IED-laitteelta haluttu tiedon määrä voi vaihdella ajojen välillä,
+	\item tiedon välityksen tekniikka täytyy tukea verkkopalvelun tapauksessa TCP/IP-pro\-to \-kol\-la\-mää\-ri\-tyk\-si\-ä, ja
+	\item tiedonsiirrossa lähetystakuu ei ole vältämätön.
 \end{itemize}
 
-% TODO: Avaa vaatimuksia enemmän. Mitä esim. tarkoittaa viestien jakaminen lähteen mukaan. Annan konkreettinen esimerkki jne.
+Osa vaatimuksista tulevat muun järjestelmän toimintaperiaatteista ja kuinka sitä käytetään. Käyttäjän on tarkoitus ohjata tiedon saantia ja sen määrää sähköasemilta käyttöliittymän kautta. Tästä seurauksena vaatimus jossa muu järjestelmä ohjaa tiedon hakua ja sen määrää. Uusien järjestelmän komponenttien kehitys halutaan pitää helppona. Tämä myös tarkoittaa tilannetta jossa komponentti tarvitsee tietoa IED-laitteelta. Tietoa on helpomi käsitellä kun siitä saadaan ilmoituksia uuden tiedon saapuessa. Tieto puskuroidaan kun sitä ei ehditä käsitellä. Ja tiedon esitystapa on helppo lukea eri tekniikoilla. Kaikki edellä mainitut helpottavat komponentin kehittäjää ja tiedon käsittelyä. %TODO: Kirjoita tähän tiedon jaottelusta ja sen jälkeen muista.
 
+% TODO: Avaa vaatimuksia enemmän. Mitä esim. tarkoittaa viestien jakaminen lähteen mukaan. Annan konkreettinen esimerkki ja miksi joitakin vaatimuksia on asetettu.
+% TODO: Kirjoita takuista tähän auki mitä tarkoitetaan.
+% TODO: Viestien jaon periaattena on erottaa eri asemien IED:t toisistaan.
 
 \section{Tutkimuskysymykset}
 Ohjelmiston vaatimuksien lisäksi diplomityölle asetettiin selviä tutkimuskysymyksiä joihin työn aikana yritetään etsiä vastausta. Tutkimuskysymykset liittyvät työhön korkealla tasolla ja käsittelevät sen kokonaisuudesta eri kohtia. Tutkimuskysymysten tarkoitus on antaa työlle selvät tutkimuksen aiheet joihin etsitään vastauksia. Tutkimuskysymyksiä käytetään myös työn lopussa tuloksien pohdinnassa.
