@@ -26,18 +26,15 @@ Ohjelmistolle asetettiin mm. seuraavia vaatimuksia:
 	\item tietoa haluavien komponenttien määrä voi vaihdella tiedon hakemisen aloitusten välillä,	
 	\item komponenttien pitäisi saada ilmoitus uudesta tiedosta ilman erillistä kyselyä,
 	\item tiedot puskuroidaan myöhempää käsittelyä varten jos komponentti ei kerkeä niitä heti käsitellä,
-	\item tietoa pitää pystyä jakamaan muille osapuolille sen lähteen identiteetin (IED-laitteen) perusteella,
+	\item komponentin pitää pystyä suodattamaan tietoa sen lähteen identiteetin (IED-laitteen) perusteella,
 	\item tiedon jakamisen muoto pitää olla helposti ymmärrettävä osapuolten kesken,
-	\item IED-laitteelta haluttu tiedon määrä voi vaihdella ajojen välillä,
-	\item tiedon välityksen tekniikka täytyy tukea verkkopalvelun tapauksessa TCP/IP-pro\-to \-kol\-la\-mää\-ri\-tyk\-si\-ä, ja
-	\item tiedonsiirrossa lähetystakuu ei ole vältämätön.
+	\item IED-laitteelta haluttu tiedon määrä voi vaihdella aloitusten välillä,
+	\item tiedon välityksen tekniikka täytyy tukea verkkopalvelun tapauksessa TCP/IP-pro\-to \-kol\-la\-mää\-ri\-tyk\-si\-ä tai vastaavaa, ja
+	\item tiedonsiirrossa lähetystakuu ei ole vältämättömyys.
 \end{itemize}
 
-Osa vaatimuksista tulevat muun järjestelmän toimintaperiaatteista ja kuinka sitä käytetään. Käyttäjän on tarkoitus ohjata tiedon saantia ja sen määrää sähköasemilta käyttöliittymän kautta. Tästä seurauksena vaatimus jossa muu järjestelmä ohjaa tiedon hakua ja sen määrää. Uusien järjestelmän komponenttien kehitys halutaan pitää helppona. Tämä myös tarkoittaa tilannetta jossa komponentti tarvitsee tietoa IED-laitteelta. Tietoa on helpomi käsitellä kun siitä saadaan ilmoituksia uuden tiedon saapuessa. Tieto puskuroidaan kun sitä ei ehditä käsitellä. Ja tiedon esitystapa on helppo lukea eri tekniikoilla. Kaikki edellä mainitut helpottavat komponentin kehittäjää ja tiedon käsittelyä. %TODO: Kirjoita tähän tiedon jaottelusta ja sen jälkeen muista.
+Osa vaatimuksista tulevat muun järjestelmän toimintaperiaatteista ja kuinka sitä käytetään. Käyttäjän on tarkoitus pystyä ohjaamaan tiedon saantia ja sen määrää sähköasemilta käyttöliittymän kautta. Tästä seurauksena on vaatimus, jossa muun järjestelmä täytyy ohjata tiedon hakuun liittyviä osia. Uusien järjestelmän komponenttien kehitys halutaan pitää helppona. Tämän takia tiedon saamisen rajapinnat pitäisi suunitella komponentissa helposti käytettäväksi. Rajapinnan pitäisi tarjota tieto helposti ymmärrettävässä muodossa, ilmoituksia uuden tiedon saapumisesta ja sen puskurointi. Komponentille pitää tarjota mahdollisuus erottaa tai saada tietoa IED-laitteen mukaan. Tämä sen takia, koska järjestelmä käsittelee paljon erilaisia IED-laitteita ja sähköasemia. Komponenttien pitää pystyä erottamaan mikä on tiedon alkuperä. Esimerkkinä tietyn IED-laitteen mittaustiedon näyttäminen. Tiedonsiirtoon ei alustavasti tarvittu lähetystakuita tiedon tyypin takia (mittausdata). Uusi tieto korvaa edellisen lähetyksen tiedot. Kuitenkin olisi hyvä jos toteutus sen mahdollistaisi tulevaisuuden varalta. Muu järjestelmä ja sen osat ovat toteutettu web-applikaationa. Tästä tulee vaatimus, että tieto pitäisi onnistua kuljettamaan osapuolten välillä TCP/IP-protokollaperheen tai muun vastaavan avulla.
 
-% TODO: Avaa vaatimuksia enemmän. Mitä esim. tarkoittaa viestien jakaminen lähteen mukaan. Annan konkreettinen esimerkki ja miksi joitakin vaatimuksia on asetettu.
-% TODO: Kirjoita takuista tähän auki mitä tarkoitetaan.
-% TODO: Viestien jaon periaattena on erottaa eri asemien IED:t toisistaan.
 
 \section{Tutkimuskysymykset}
 Ohjelmiston vaatimuksien lisäksi diplomityölle asetettiin selviä tutkimuskysymyksiä joihin työn aikana yritetään etsiä vastausta. Tutkimuskysymykset liittyvät työhön korkealla tasolla ja käsittelevät sen kokonaisuudesta eri kohtia. Tutkimuskysymysten tarkoitus on antaa työlle selvät tutkimuksen aiheet joihin etsitään vastauksia. Tutkimuskysymyksiä käytetään myös työn lopussa tuloksien pohdinnassa.
