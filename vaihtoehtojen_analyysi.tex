@@ -52,42 +52,29 @@ Väliohjelmiston ja muiden komponenttien välille edellä mainitun perusteella h
 Tässä kappaleessa analysoitiin hajautetussa järjestelmässä osapuolten välisi liitoksien vahvuutta. IEC 61850 -standardi asettaa rajoitteet IED-laitteen ja väliohjelmiston välille, joihin ei voida vaikuttaa. Väliohjelmiston ja muiden komponenttien väliin päädyttiin toteuttamaan epäsuora kommunikointi joustavuuden ja vaatimusten takia. Samojen osapuolten väliin halutiin toteuttaa heikko tilaliitos ja vahva aikaliitos. Kysymyksenä jää miettiä millä hajautuksen paradigmoilla välikäsi pitäisi toteuttaa, jotta halutut ominaisuudet saadaan toteutettua?
 
 
-\section{Erilaisten paradigmojen analyysi}
-\begin{it}
-	Kirjoita tähän analyysia aikaisemmin käsitellyistä paradigmoista ja peilaa niitä ohjelmistolle asetettuihin vaatimuksiin. Tietona sisään tulee vaatimukset mitkä asetettiin aikaisemmin ja kaikki käsitellyt paradigmat. Näistä tulee ulos selvästi miksi tarvittiin viestijonoa ja julkaisija-tilaaja-paradigmaa.
-	
-	Erottele paradigmat niihin mitä tarvitaan ja mitä ei. Ehkä niitä voisi kuitenkin verrata vaihtoehtona jotta saadaan enemmän painoa miksi valittiin mitäkin.
-\end{it}
+\section{Paradigmojen analyysi}
 Aikaisemmissa kappaleissa analyysien ja vaatimusten pohjalta päädyttiin kuvan \ref{fig:coupling-analysis} hajautetun järjestelmän arkkitehtuuriin. Tässä kappaleessa vertaillaan ja analysoidaan eri hajautuksen paradigmoja. Tarkoituksena on selvittää mitä paradigmoja tarvitaan, jotta asetetut vaatimukset voidaan toteuttaa. Näitä olivat viestien puskurointi, ilmoitukset komponenteille uuden viestin saapuessa ja viestien suodattamisen mahdollisuus IED-laitteen mukaan. Tässä kappaleessa käsitellyt paradigmat koskevat kuvan \ref{fig:coupling-analysis} välikättä väliohjelmiston ja järjestelmän komponenttien välissä. Hajautetun järjestelmän eri paradigmat oli esitetty taulukossa \ref{tab:communication-paradigms}.
 
-Järjestelmään haluttiin epäsuoruutta välikädellä. Tätä parhaiten tarjoavat epäsuorat kommunikointiparadigmat. Vaatimuksena oli, että viestejä pitäisi pystyä puskuroimaan myöhempään ajan hetkeen jos komponentti ei niitä ehdi käsitellä. Tämän ominaisuuden tarjoaa viestijonoparadigma. Viestejä haluttiin erotella IED-laitteen mukaan, ja komponentit voisivat päättää itse mistä ovat kiinnostuneita. 
+Järjestelmään haluttiin epäsuoruutta välikädellä. Tätä parhaiten tarjoavat epäsuorat kommunikointiparadigmat. Vaatimuksena oli, että viestejä pitäisi pystyä puskuroimaan myöhempään ajan hetkeen jos komponentti ei niitä ehdi käsitellä. Tämän ominaisuuden parhaiten tarjoaa viestijonoparadigma. Viestejä haluttiin erotella IED-laitteen mukaan, ja komponentit voisivat päättää itse mistä ovat kiinnostuneita. Tätä ominaisuutta epäsuorista paragidmoista tarjoavat joukkokommunikointi ja julkaisija-tilaaja. Joukkokommunikoinnissa komponentti pystyisi olemaan osa haluttuja ryhmiä. Julkaisija-tilaaja-paradigmassa komponentti pystyisi tilaamaan halutut viestit. Kummatkin edellä mainituista tarjoavat myös haluttut ilmoitukset. Joukkokommunikointi- ja julkaisija-tilaaja-systeemissä vastaanottajat saavat ilmoituksen uuden viesti saapuessa. Jotta joukkokommunikoinilla saadaan haluttu toiminnallisuus, pitää ryhmän olla avoin ja sen pitää mahdollistaa osapuolten liittyminen ja poistuminen ryhmästä. Lisäksi ryhmien pitää sallia olevan päällekkäisiä. Tämän sen takia, että komponenttin on mahdollisesti saada viestejä useammasta lähteestä samaan aikaan.
 
-% TODO: Tarkista ylläoleva teksti ja jatka jaa teksti tämän jälkeen niin, että ensin käyt läpi suorat ja epäsuorat paradigmat omina kappaleinaan. Näistä lukija saa kuvan mitkä paradigmat sopivat ja mitkä eivät.
+Järjestelmään halutun epäsuoruuden takia suorat kommunikointiparadigmat eivät sovellu kovin hyvin hajautuksen toteuttamiseen. Näitä olivat prosessien välinen kommunikointi ja etäkutsut. Hajautuksessa osapuolien välillä haluttiin olevan heikko tilaliitos ja vahva aikaliitos. Kummassakin edellä mainitussa paradigmassa liitokset ovat vahvoja. Suoralla kommunikoinnilla vastaanottavan osapuolen pitäisi toteuttaa viestipuskuri itse, verrattuna jos käytettävä epäsuora systeemi tarjoaisi puskurin sen sijaan. Tämä hankaloittaa uusien komponenttien kehitystyötä. Muu järjestelmä on toteutettu web-applikaationa, josta seurasi vaatimus, että kommunikoinnin pitäisi toimia TCP/IP-protokollaperheen päällä tai vastaavalla. Prosessien välinen kommunikointi tapahtuu mm. soketeilla ja näin ollen on vaatimukseen nähden liian matalaa. Etäkutsut tarjovat tähän paremman vaihtoehdon, mutta vaatimuksissa ei ollut tarvetta pyyntö-vastaus-kommunikoinnille. Viestien suunta on tässä tapauksessa yhden suuntaista IED-laitteelta järjestelmän komponentille.
 
-Prosessien välinen kommunikointi hajautetussa järjestelmässä on suoraa ja niiden välillä on myös vahva tila- ja aikaliitos. Aikaisempien päätelmien perusteella kommunikointi komponenttien ja väliohjelmiston välille haluttiin olevan epäsuoraa ja tila- ja aikaliitoksien olevan heikkoa ja vahvaa vastaavasti. Prosessien välisellä kommunikoinnilla viestien puskurointi pitäisi toteuttaa jokaiseen komponenttiin erikseen. Paradigma on tarkoitettu matalan tason kommunikointiin soketeilla tai suoralla viestien vaihtamisella. Muu sähköasemien järjestelmä on toteuttu web-applikaationa. Tämän takia vaatimuksena oli, että tieto järjestelmässä siirtyisi TCP/IP-protokollaperheen päällä. Edelle mainittujen perusteella prosessien välinen kommunikointi ei sovi toteutuksen paradigmaksi. Muut kommunikointiparadigmat tarjoavat toivottua epäsuoruutta ja paremmat mahdollisuudet vaatimusten täyttämiseen.
+Asetettuihin vaatimuksiin nähden epäsuorat paradigmat sopivat toteutukseen parhaiten. Näistä tarvitaan viestijono-paradigmaa viestien puskurointiin ja joukkokommunikointi tai julkaisija-tilaaja niiden lähettämiseen komponenteille. Joukkokommunikointi ja julkaisija-tilaaja paradigmat ovat kummatkin tilanteeseen sopivia vaihtoehtoja. Jäljelle jää miettiä millä tekniikalla halutut paradigmat toteutetaan. Valitun tekniikan pitäisi yhdistää kaksi eri paradigmaa niin, että viestien oikea reitittäminen on mahdollista sekä niiden puskurointi.
 
-Etäkutsut ovat kaikki pyyntö-vastaus-pohjaista kommunikointia osapuolten välillä. Kuitenkin kommunikointi IED-laitteelta järjestelmän komponenteille on vain yhden suuntaista ja tämän takia sopii huonosti tilanteeseen. Parempana etäkutsu-paradigmassa on, että se on korkemman tason kommunikointia kuin prosessien välinen kommunikointi. Tämä sopisi tilanteeseen paremmin. Etäkutsu on suoraa kommunikointia, jossa on vahva tila- ja aikaliitos. Tämä ei sovi yhteen vaatimusten kanssa. Etäkutsut myös sopivat huonosti kommunikointiparadigmaksi toteutukseen.
-
-\begin{itemize}
-	\item tieto saada jaettua järjestelmässä siitä kiinnostuvien komponenttien kanssa,
-	\item tiedon jaossa halutaan varautua tulevaisuuteen niin, että se olisi helposti saatavissa myös järjestelmän uusille komponenteille,
-	\item muu järjestelmä ohjaa milloin tieton haku IED-laitteelta aloitetaan ja lopetetaan,
-	\item tietoa haluavien komponenttien määrä voi vaihdella tiedon hakemisen aloitusten välillä,	
-	\item komponenttien pitäisi saada ilmoitus uudesta tiedosta ilman erillistä kyselyä,
-	\item tiedot puskuroidaan myöhempää käsittelyä varten jos komponentti ei kerkeä niitä heti käsitellä,
-	\item komponentin pitää pystyä suodattamaan tietoa sen lähteen identiteetin (IED-laitteen) perusteella,
-	\item tiedon jakamisen muoto pitää olla helposti ymmärrettävä osapuolten kesken,
-	\item tiedon välityksen tekniikka täytyy tukea verkkopalvelun tapauksessa TCP/IP-pro\-to \-kol\-la\-mää\-ri\-tyk\-si\-ä tai vastaavaa, ja
-	\item tiedonsiirrossa lähetystakuu ei ole vältämättömyys.
-\end{itemize}
-
-% TODO: Kirjoita loppuun yhteenveto kuten aikaisemmin missä käsitellään tulokset ja mitä vielä on vastaamatta. Tämä toimii pohjana kun seuraavaksi verrataan kommunikointitekniikoita keskenään.
+% TODO: Miettiä onko muita syitä hylätä joukkokommunikointi vaihtoehtona kuin tekniikan valinta.
 
 
-\section{Tekniikan valinta}
+\section{Toteutuksien analyysi}
 \begin{it}
 	Kirjoita tähän tekniikan valinnasta. Miksi valittiin AMQP-standardi. Voisi sanoa pari sanaa myös muista standardeista kuten MQTT. Tietona ulos tulisi kuinka AMQP sopii tähän toteutukseen ja se tarjoaa kaikki vaaditut ominaisuudet.
 \end{it}
+Hajautetun järjestelmän toteuttamiseen löytyy erilaisia avoimia standardeja kuten \emph{AMQP} (engl. \emph{Advanced Message Queuing Protocol}) \cite{amqp-homepage} ja \emph{MQTT} (engl. \emph{Message Queuing Telemetry Transport}) \cite{mqtt-homepage}. Standardien tarkoitus on määrittää yhteiset säännöt osapuolten kommunikointiin hajautetussa järjestelmässä. Standardien pohjalta on toteutettu erilaisia viestien välitysohjelmistoja, johon muut osapuolet voivat ottaa yhteyttä standardin mukaisesti tekniikasta riippumatta. Kummatkin edellä mainitut standardit ovat määritetty toimivaksi TCP/IP-protokollaperheen päällä.
+
+MQTT on julkaisija-tilaaja-paradigmaan pohjautuva kommunikointistandardi. MQTT-määrityksien mukainen välittäjäpalvelin tarjoaa myös viestien puskuroinnin mahdollisuuden \cite{mqtt-specification}. MQTT on pääasiassa tarkoitettu kommunikointiin, missä kaista on rajallista ja kommunikoinnista huolehtivan koodin jalanjälki täytyy olla pientä. Tästä syytä se on paljon käytetty standardi IoT-laitteissa (engl. Internet of Things) ja kotiautomaatiossa \cite[s.~9--11]{mqtt-for-iot}.
+
+AMQP standardi mahdollistaa
+
+for message-oriented middleware. The defining features of AMQP are message orientation, queuing, routing (including point-to-point and publish-and-subscribe), reliability and security.[1]
 
 
 \section{Advanced Message Queuing Protocol (AMQP)}
