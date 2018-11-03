@@ -76,6 +76,8 @@ Tässä työssä toteutuksen tekniikaksi valittiin AMQP. AMQP tarjoaa kaikki vaa
 
 \section{Advanced Message Queuing Protocol (AMQP)}
 \label{ch:amqp-theory}
+% TODO: Kirjoita tämä uudestaan vastaamaan uutta tekstiä. Voisi myös miettiä tarvitaanko tätä kappaletta ollenkaan?
+
 Työssä toteutettu ohjelmisto tilasi viestit IED-laitteen RCB-instansseilta. Viestit tilattiin verkon yli aseman ulkopuolelle. Ohjelma prosessoi IEC 61850 -standardin mukaiset viestit ja lähetti ne eteenpäin välittäjälle (engl. message broker). Välittäjä on verkossa oleva erillinen palvelin, mistä muut ohjelmat pystyvät tilaamaan viestejä tarpeidensa mukaan. Kuvassa \ref{fig:implemented-system-communication} on esitetty lopullisen toteutuksen tietoliikenne eri osapuolten välillä. Tässä työssä toteutettu ohjelmisto on merkitty kuvaan katkoviivalla. Toteutuksessa oli kyse julkaisija-tilaaja-arkkitehtuurimallista (engl. publish-subscribe pattern), jossa toteutettu komponentti oli tilaaja IED-laitteelle ja julkaisija välityspalvelimelle. Järjestelmän muut komponentit olivat tilaajia välityspalvelimelle. Tässä osuudessa perehdytään viestien välittäjän teoriaan, ja mitä siitä täytyy tietää ohjelmistokehityksen kannalta.
 
 \begin{figure}[ht!]
