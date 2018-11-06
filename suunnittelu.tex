@@ -1,13 +1,13 @@
 \chapter{Suunnittelu}
 \label{ch:suunnittelu}
-Tässä kappaleessa käydään läpi uuden järjestelmän suunnittelua. Halutun systeemin arkkitehtuuri oli esitetty aikaisemmin kuvassa \ref{fig:coupling-analysis}. Tämän osion suunnittelu koskee väliohjelmistoa ja välikättä. Suunnittelu ja päätökset pohjautuvat työssä aikaisemmin käsiteltyihin päätelmiin ja tuloksiin. Suunnittelu aloitetaan ensin antamalla kattava kokonaiskuva lukijalle. Tämän jälkeen tulevissa kappaleissa mennään tarkemmin yksityiskohtaan ja kerrotaan miten päätökset tehtiin.
+Tässä kappaleessa käydään läpi uuden järjestelmän teknistä suunnittelua. Halutun systeemin arkkitehtuuri oli esitetty aikaisemmin kuvassa \ref{fig:high-level-system-architecture}. Tämän osion suunnittelu koskee väliohjelmistoa ja AMQP-välittäjää. Suunnittelu ja päätökset pohjautuvat työssä aikaisemmin käsiteltyihin päätelmiin ja tuloksiin. Suunnittelu aloitetaan ensin antamalla kattava kokonaiskuva lukijalle. Tämän jälkeen tulevissa kappaleissa mennään tarkemmin yksityiskohtaan ja kerrotaan miten päätökset tehtiin.
 
 % TODO: Kirjoita tähän lisää jos tarvitsee kun muu teksti on valmis.
 
 % TODO: Asioita joihin pitää löytyä vastaus tästä kappaleesta: kielen valinta, json-viestin rakenne.
 
 \section{Kokonaiskuva}
-Suunnitellun ohjelman toiminta noudatti paljon demon toimintaperiaatteita pienin muutoksin. Kaikkien aikaisemman tiedon ja suunnitelun pohjalta päädyttiin kuvassa \ref{fig:planned-system-architecture} esitettyyn systeemin arkkitehtuuriin. Vertaa arkkitehtuuria vaatimusten pohjalta suunniteltuun arkkitehtuuriin kuvassa \ref{fig:coupling-analysis}.
+Suunnitellun ohjelman toiminta noudatti paljon demon toimintaperiaatteita pienin muutoksin. Kaikkien aikaisemman tiedon ja suunnitelun pohjalta päädyttiin kuvassa \ref{fig:planned-system-architecture} esitettyyn systeemin arkkitehtuuriin. Kuva tarkentaa aikaisemmin suunniteltua arkkitehtuuria (kuva \ref{fig:high-level-system-architecture}) tekniikoilla ja nimillä.
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/planned-system-architecture.png}
@@ -15,7 +15,7 @@ Suunnitellun ohjelman toiminta noudatti paljon demon toimintaperiaatteita pienin
 	\label{fig:planned-system-architecture}
 \end{figure}
 
-Kuvan yläreunassa oleva viiva kuvaa viestin kulkua järjestelmän läpi ja sen muotoa. Järjestelmän osien väliin on merkitty käytetty kommunikointiprotokolla. AMQP-palvelin päädyttiin toteuttamaan RabbitMQ ohjelmistolla, joka on AMQP-standardiin perustuva välittäjäohjelmisto \cite{rabbitmq-homepage}. Väliohjelmistolle annettiin nimeksi rcb\_sub ja on merkitty kuvaan katkoviivalla. Nimeä käytetään tästä eteenpäin tekstissä viittaamaan kyseiseen komponenttiin. Kuvassa vasemmalla on IED-laite, josta rcb\_sub tilaa viestit MMS-protokollan avulla. Rcb\_sub prosessoi saapuneet viestin JSON-muotoon ja uudelleenjulkaisee ne RabbitMQ-palvelimelle. Järjestelmän n kappaletta komponentteja tilaavat JSON-viestejä välittäjäpalvelimelta tarpeidensa mukaan.
+AMQP-palvelin päädyttiin toteuttamaan RabbitMQ ohjelmistolla, joka on AMQP-stan\-dar\-diin perustuva välittäjäohjelmisto \cite{rabbitmq-homepage}. Väliohjelmistolle annettiin nimeksi rcb\_sub ja on merkitty kuvaan katkoviivalla. Nimeä käytetään tästä eteenpäin tekstissä viittaamaan kyseiseen komponenttiin. Kuvassa vasemmalla on IED-laite, josta rcb\_sub tilaa viestit MMS-protokollan avulla. Rcb\_sub prosessoi saapuneet viestin JSON-muotoon ja uudelleenjulkaisee ne RabbitMQ-palvelimelle. Järjestelmän n kappaletta komponentteja tilaavat JSON-viestejä välittäjäpalvelimelta tarpeidensa mukaan.
 
 Rcb\_sub päädyttiin toteuttamaan C-kielellä komentorivipohjaiseksi ohjelmistoksi. Tilauksen tekemiseen tarvittavat tiedot ohjelmalle annettiin komentoriviparametreina. Rcb\_sub pystyi tilaamaan yhden IED-laitteen halutun määrän RCB-instansseja. AMQP-standardista on olemassa eri versioita ja valittu RabbitMQ-ohjelmisto käytti versiota 0.9.1. Rcb\_sub käytti demosta tuttua libIEC61850-kirjastoa hoitamaan matalan tason IEC 61850 -standardin toiminnallisuuden.
 
@@ -23,9 +23,7 @@ Rcb\_sub päädyttiin toteuttamaan C-kielellä komentorivipohjaiseksi ohjelmisto
 \section{AMQP-välittäjäpalvelin}
 AMQP-pohjaisen välittäjäpalvelimen toteutukseen löytyy erilaisia ohjelmistoja. Joita on mm. RabbitMQ, Apache Qpid ja StormMQ. Työssä AMQP-pohjaisen palvelimen toteuttamiseen valittiin RabbitMQ. RabbitMQ on ilmainen avoimen lähdekoodin välittäjäpalvelin ja sille on olemassa kattava tuki monelle eri kielelle asiakasohjelmiston toteuttamiseen \cite{rabbitmq-supported-languages}. Vertailun perusteella se vaikutti varteenotettavimmalta vaihtoehdolta toteutukseen.
 
-AMQP-standardista on julkaistu monta eri versiota, ja työn tekohetkellä viimeisin versio oli 1.0. RabbitMQ-ohjelmisto oli suunniteltu käytettäväksi standardin version 0.9.1 kanssa, ilman asennettuja lisäosia. Versioiden välinen ero oli suuri ja siirto uuteen ei ollut mahdollista, koska standardin versiot eivät olleet keskenään yhteensopivat. RabbitMQ tuki versiota 0.9.1 ja sen kehittäjät mieltävät standardin version 1.0 kokonaan eri protokollaksi \cite{RabbitMQ-Compatibility-and-Conformance}. Tämä ei kuitenkaan sen käyttöä haitannut, koska versio 0.9.1 kattaa kaikki suunnnitellut hajautetun järjestelmän paradigmat jotka olivat viestijono ja julkaisija-tilaaja. RabbitMQ:ta voi käyttää AMQP version 1.0 kanssa, mutta erillisellä lisäosalla. RabbitMQ lupaa jatkaa version 0.9.1 tukemista, joilloin sitä on myös mahdollista käyttää jatkossakin \cite{RabbitMQ-Compatibility-and-Conformance}.
-
-% TODO: Tähän mainita, että AMQP:n toiminta on tämän diplomityön ulkopuolella. Tosi jos AMQP-kappale poistetaan teoriasta kokonaan.
+AMQP-standardista on julkaistu monta eri versiota, ja työn tekohetkellä viimeisin versio oli 1.0. RabbitMQ-ohjelmisto oli suunniteltu käytettäväksi standardin version 0.9.1 kanssa, ilman asennettuja lisäosia. Versioiden välinen ero oli suuri ja siirto uuteen ei ollut mahdollista, koska standardin versiot eivät olleet keskenään yhteensopivat. RabbitMQ tuki versiota 0.9.1 ja sen kehittäjät mieltävät standardin version 1.0 kokonaan eri protokollaksi \cite{RabbitMQ-Compatibility-and-Conformance}. Tämä ei kuitenkaan sen käyttöä haitannut, koska versio 0.9.1 kattaa kaikki suunnnitellut hajautetun järjestelmän paradigmat. Paradigmoja olivat viestijono ja julkaisija-tilaaja. RabbitMQ:ta voi käyttää AMQP version 1.0 kanssa erillisellä lisäosalla. RabbitMQ lupaa jatkaa version 0.9.1 tukemista, joilloin sitä on myös mahdollista käyttää jatkossakin \cite{RabbitMQ-Compatibility-and-Conformance}.
 
 
 \section{Tilauksen orkesterointi ja tiedon välitys}
