@@ -15,10 +15,10 @@ Kuvassa \ref{fig:rcb-sub-komponenttikaavio} on esitetty komponenttikaavio rcb\_s
 
 Toteutukseen valittiin seuraavia kirjastoja:
 \begin{itemize}
-	\item \emph{libIEC61850},
-	\item \emph{rabbitmq-c},
-	\item \emph{jansson}, ja
-	\item \emph{Argp}.
+	\item \emph{libIEC61850} \cite{libIEC61850-repo},
+	\item \emph{rabbitmq-c} \cite{rabbitmq-c-repo},
+	\item \emph{jansson} \cite{jansson-repo}, ja
+	\item \emph{Argp} \cite{argp-glibc-guide}.
 \end{itemize}
 Kaikki käytetyt kirjastot ovat toteutettu C-kielelle. Kirjastojen tarkoitus on abstrahoida tietyn asian käyttö, ja tarjota käyttäjälle siitä helppokäyttöinen ja ymmärrettävä rajapinta. LibIEC61850-kirjasto abstrahoi IEC 61850 -standardin käyttöä ja hoitaa matalan tason MMS-protokollan kommunikoinnin \cite{libIEC61850-repo}. Samaa kirjastoa käytettiin myös demoversiossa ja kirjaston kerrosarkkitehtuuri esitettiin aikaisemmin kuvassa \ref{fig:libiec61850-layer-architecture}. Kuvassa \ref{fig:rcb-sub-komponenttikaavio} libIEC61850 kommunikoi suoraan IED\--\-lait\-teen kanssa MMS-protokollaa käyttäen. Rabbitmq-c-kirjasto abstrahoi RabbitMQ-palvelimen käytön ja hoitaa matalan tason AMQP-pohjaisen kommunikoinnin \cite{rabbitmq-c-repo}. Toteutuksessa rabbitmq-c kommunikoi suoraan RabbitMQ-palvelimen kanssa. Jansson-kirjasto abstrahoi JSON-rakenteiden lukua ja käsittelyä C-kielelle \cite{jansson-repo}. Kirjastoa käytettiin muuntamaan IEC 61850 -standardin viesti JSON-muotoon. JSON-rakenne on nähtävissä liitteessä \ref{ch:report-json-format}. Argp-kirjasto auttaa ohjelman komentoriviparametrien määrittämisessä ja käsittelyssä \cite{argp-glibc-guide}. Kirjastolla voidaan toteuttaa \emph{UNIX}-tyyliset \emph{parametrit} (engl. \emph{arguments}) ja \emph{valitsimet/vivut} (engl. \emph{options/switches}). Esimerkki parametreistä on Linux-komento \texttt{mv foo.txt bar.txt}, jossa \emph{foo.txt} ja \emph{bar.txt} ovat parametreja mv-ohjelmalle. Vivut voidaan ohjelmalle antaa lyhyessä tai pitkässä muodossa. Esimerkkinä lyhyistä ja pitkistä vivuista \texttt{-b} ja \texttt{-{}-bytes} vastaavasti. Vivut voivat myös vaatia parametreja toimiakseen. Parametri voidaan kirjoittaa lyhyen vivun perään välilyönnilla tai ilman. Pitkän vivun kanssa se erotetaan välilyönillä tai yhtäsuuruusmerkillä (=). Esimerkkinä lyhyestä \texttt{-w 5} ja pitkästä \texttt{--width=5}, jossa width-vivulle annetaan parametrina 5. Kirjasto lisää ohjelmaan automaattisesti Linuxista käyttäjille tutut \texttt{-{}-help} ja \texttt{-{}-version} vivut. Vivulla \texttt{-{}-help} kirjasto tulostaa Linuxilta tutun ohjelman aputekstin käyttäjälle, jossa on esitetty sen kaikki parametrit, vivut ja niiden selitteet \cite{step-by-step-into-argp}.
 
