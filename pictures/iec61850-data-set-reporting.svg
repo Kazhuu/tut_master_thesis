@@ -366,12 +366,12 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.82136033"
      inkscape:cx="190.18855"
-     inkscape:cy="13.669784"
+     inkscape:cy="646.76586"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1026"
+     inkscape:window-width="2560"
+     inkscape:window-height="1385"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1" />
@@ -1023,95 +1023,6 @@
            x="88.974854"
            id="tspan1401"
            sodipodi:role="line" /></text>
-    </g>
-    <g
-       id="g1641"
-       transform="translate(33.628311,8.2853554)"
-       inkscape:export-xdpi="100"
-       inkscape:export-ydpi="100">
-      <g
-         id="g1635">
-        <ellipse
-           ry="8.6960306"
-           rx="42.772896"
-           cy="16.233358"
-           cx="72.430038"
-           id="ellipse1619"
-           style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.28045711;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
-      </g>
-      <text
-         id="text1605"
-         y="17.401245"
-         x="34.613228"
-         style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           style="stroke-width:0.26458332"
-           y="17.401245"
-           x="34.613228"
-           id="tspan1603"
-           sodipodi:role="line">Viitataan MyLD/LLN0$BR$myBRCB01</tspan></text>
-    </g>
-    <g
-       id="g1632"
-       transform="translate(33.628311,148.06732)"
-       inkscape:export-xdpi="100"
-       inkscape:export-ydpi="100">
-      <ellipse
-         ry="8.6960306"
-         rx="42.772896"
-         cy="157.88622"
-         cx="72.430038"
-         id="ellipse1623"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.28045711;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         x="34.613228"
-         y="159.05409"
-         id="text1627"><tspan
-           sodipodi:role="line"
-           id="tspan1625"
-           x="34.613228"
-           y="159.05409"
-           style="stroke-width:0.26458332">Viitataan MyLD/LLN0$BR$myBRCB02</tspan></text>
-    </g>
-    <g
-       id="g1818"
-       style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
-       transform="matrix(0.91319299,0,0,0.91117592,36.620817,139.72381)"
-       inkscape:export-xdpi="100"
-       inkscape:export-ydpi="100">
-      <path
-         sodipodi:nodetypes="cssc"
-         inkscape:connector-curvature="0"
-         id="path1788"
-         d="m 25.395068,157.88643 c 0,5.27838 7.798706,4.67704 26.428509,4.67704 3.928043,0 7.27,-0.006 10.099687,0.0548 10.590867,0.22744 14.005722,1.38938 14.114916,7.29482"
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 126.68129,157.88643 c 0,5.27838 -7.79871,4.67704 -26.42851,4.67704 -3.928041,0 -7.269997,-0.006 -10.099685,0.0548 -10.590866,0.22744 -14.005721,1.38938 -14.114915,7.29482"
-         id="path1790"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cssc" />
-    </g>
-    <g
-       transform="matrix(0.91319299,0,0,-0.91117592,36.620817,190.38914)"
-       style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
-       id="g4358"
-       inkscape:export-xdpi="100"
-       inkscape:export-ydpi="100">
-      <path
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 25.395068,157.88643 c 0,5.27838 7.798706,4.67704 26.428509,4.67704 3.928043,0 7.27,-0.006 10.099687,0.0548 10.590867,0.22744 14.005722,1.38938 14.114916,7.29482"
-         id="path4354"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cssc" />
-      <path
-         sodipodi:nodetypes="cssc"
-         inkscape:connector-curvature="0"
-         id="path4356"
-         d="m 126.68129,157.88643 c 0,5.27838 -7.79871,4.67704 -26.42851,4.67704 -3.928041,0 -7.269997,-0.006 -10.099685,0.0548 -10.590866,0.22744 -14.005721,1.38938 -14.114915,7.29482"
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:;marker-start:url(#marker4748)"
