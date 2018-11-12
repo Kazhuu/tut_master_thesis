@@ -1,5 +1,42 @@
-\chapter{Mikä on IEC 61850 -standardi?}
+\chapter{IEC 61850 -standardi}
 \label{ch:iec61850-theory}
+% Aihepiirijärjestys tutusta uuteen.
+% Tuttuja asioita: sähköasema, julkaisija-tilaaja-paradigma, viestejä voidaan tilata.
+% Luvussa käsiteltävät asiat.
+IEC 61850 -standardi määrittää säännöt, kuinka sähköaseman laitteet kommunikoivat keskenään verkon yli. Standardi koskee myös aseman kanssa kommunikoivia ohjelmistoja. Standardi on laaja monesta dokumentista koostuva kokonaisuus. Tämän takia tässä luvussa käsitellään vain standardista diplomityön kannalta tärkeitä asioita. Käsittely aloitetaan yleiskuvalla ja edetään tärkeään asiaan. Näitä tietoja tullaan käyttämään myöhemmin pohjana järjestelmän arkkitehtuurin ja ohjelmiston suunnittelussa.
+
+
+\section{Yleiskuva}
+% Sähköasemalla olevat IED-laitteet.
+
+% Standardi IED-laitteisiin liittyen.
+
+% Standardia voi toimia monella eri tekniikalla, mutta käytetään MMS-protokollan avulla.
+
+% Viestien tilauksen pääpiirteinen toiminta.
+
+
+\section{Sähköaseman laiteiden mallinnus}
+% Standardin luokkat ja niistä muodostuva hierarkia.
+
+% Viittaus muuttujiin hierarkiassa.
+
+
+\section{Viestien tilaus}
+% Viestin tilauksen luokan toiminta.
+
+% Datajoukko ja siitä tulevat viestit.
+
+
+\section{Viestien sisältö}
+% Viestin sisältö.
+
+
+\section{Yhteenveto}
+% Yhteenveto rajoitteista ja toiminnasta.
+
+
+
 Sähköasemilla nykypäivänä käytössä olevilla IED-laitteilla toteutetaan aseman toiminnallisuuden funktioita. Aseman toiminnallisuuteen liittyy sen kontrollointi ja suojaus. Aseman komponenttien suojauksen lisäksi, siihen kuuluu myös asemalta lähtevät sähkölinjat. Hyvä esimerkki sähköaseman suojauksesta on korkeajännitelinjan katkaisija, joka katkaisee virran linjasta vikatilanteissa. Tällainen vikatilanne on esimerkiksi linjan poikki meneminen kaatuneen puun tai pylvään takia. Fyysistä katkaisijaa ohjaa aseman automatiikka, joka toteutetaan IED-laitteilla. IED-laite voi olla kytketty fyysisesti ohjattavaan laitteeseen \mbox{\cite[s.~63--64]{IEC61850-7-1}}. Koko sähköaseman toiminnallisuus koostuu monesta eri funktiosta, jotka on jaettu monelle IED-laitteelle. Jotta systeemi pystyy toimimaan, täytyy IED-laitteiden kommunikoida keskenään ja vaihtaa informaatiota toistensa kanssa. IED-laitteiden täytyy myös kommunikoida asemalta ulospäin erilliselle ohjausasemalle monitorointia ja etäohjausta varten \mbox{\cite[s.~1]{Brunner2008}}. On selvää, että monimutkaisen systeemin ja monen valmistajan kesken tarvitaan yhteiset säännöt kommunikointia varten.
 
 Maailmanlaajuisesti asetettu IEC 61850 -standardi määrittää sähköaseman sisäisen kommunikoinnin säännöt IED-laitteiden välillä. Standardi määrittää myös säännöt asemalta lähtevään liikenteeseen, kuten toiselle sähköasemalle ja ohjausasemalle \mbox{\cite[s.~10]{IEC61850-7-1}}. Ilman yhteistä standardia, jokainen valmistaja olisi vapaa toteuttamaan omat säännöt ja protokollat kommunikointiin. Seurauksena olisi, että laitteet eivät olisi keskenään yhteensopivia eri valmistajien kesken. Standardin tarkoitus on poistaa yhteensopivuusongelmat ja määrittää yhteiset säännöt kommunikoinnin toteuttamiseen \mbox{\cite[s.~1]{Kaneda2008}}.
