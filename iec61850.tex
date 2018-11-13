@@ -7,9 +7,11 @@ IEC 61850 -standardi määrittää säännöt, kuinka sähköaseman laitteet kom
 
 
 \section{Yleiskuva}
-% Sähköasemalla olevat IED-laitteet.
+% Sähköaseman IED-laitteet toteuttavat aseman toiminnallisuutta.
+Sähköaseman tehtäviin kuuluu mm. jännitteen muuntaminen, verkon jakaminen ja sen toiminnan tarkkailu. Virhetilanteissa aseman laitteisto toimii estääkseen suuremman vahingon. Näitä laitteita sähköasemalla ohjaa ja tarkkailee sen automaatiolaitteet, joita kutsutaan \emph{älykkäiksi elektroniikkalaitteiksi} (\emph{Intelligent Electronic Device}, \emph{IED}). IED:t on kytketty sähköverkon laitteisiin joita ne ohjaavat. Näitä laitteita on mm. muuntajat ja katkaisijat. IED:t myös kytketään verkkoon, jotta ne voivat kommunikoida keskenään ja asemalta ulospäin. Asemalta ulospäin kommunikointi mahdollistaa sen etäohjauksen ja tarkkailun ohjelmiston avulla.
 
-% Standardi IED-laitteisiin liittyen.
+% Standardi IED-laitteiden kommunikoinnin määrittämiseen.
+Kuinka IED-laitteet ja etäohjelmistot kommunikoivat keskenään, sen kertoo maailmanlaajuisesti määritetty IEC 61850 -standardi. Standardin tarkoitus on asettaa yhteiset säännöt, jotta eri valmistajien laitteet olisivat yhteensopivia keskenään. Dokumenteissa standardin on määritetty tekniikasta riippumattomaksi, joka erikseen mallinnetaan halutulle tekniikalle. Tässä työssä standardin mukaista kommunikointia käytetään MMS-protokollan päällä. 
 
 % Standardia voi toimia monella eri tekniikalla, mutta käytetään MMS-protokollan avulla.
 
