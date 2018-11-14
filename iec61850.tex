@@ -3,7 +3,7 @@
 % Aihepiirijärjestys tutusta uuteen.
 % Tuttuja asioita: sähköasema, julkaisija-tilaaja-paradigma, viestejä voidaan tilata.
 % Luvussa käsiteltävät asiat.
-IEC 61850 -standardi määrittää säännöt, kuinka sähköaseman laitteet kommunikoivat keskenään verkon yli. Standardi koskee myös aseman kanssa kommunikoivia ohjelmistoja. Standardi on laaja monesta dokumentista koostuva kokonaisuus. Tämän takia tässä luvussa käsitellään vain standardista diplomityön kannalta tärkeitä asioita. Käsittely aloitetaan yleiskuvalla ja edetään tärkeään asiaan. Näitä tietoja tullaan käyttämään myöhemmin pohjana järjestelmän arkkitehtuurin ja ohjelmiston suunnittelussa.
+IEC 61850 -standardi määrittää säännöt, kuinka sähköaseman laitteet kommunikoivat keskenään verkon yli. Standardi koskee myös aseman kanssa kommunikoivia ohjelmistoja. Standardi on laaja monesta dokumentista koostuva kokonaisuus. Tämän takia tässä luvussa käsitellään vain standardista diplomityön kannalta tärkeitä asioita. Käsittely aloitetaan yleiskuvalla ja edetään tärkeään asiaan. Saatuja tietoja tullaan käyttämään myöhemmin pohjana järjestelmän arkkitehtuurin ja ohjelmiston suunnittelussa.
 
 
 \section{Yleiskuva}
@@ -11,21 +11,50 @@ IEC 61850 -standardi määrittää säännöt, kuinka sähköaseman laitteet kom
 Sähköaseman tehtäviin kuuluu mm. jännitteen muuntaminen, verkon jakaminen ja sen toiminnan tarkkailu. Virhetilanteissa aseman laitteisto toimii estääkseen suuremman vahingon. Näitä laitteita sähköasemalla ohjaa ja tarkkailee sen automaatiolaitteet, joita kutsutaan \emph{älykkäiksi elektroniikkalaitteiksi} (\emph{Intelligent Electronic Device}, \emph{IED}). IED:t on kytketty sähköverkon laitteisiin joita ne ohjaavat. Näitä laitteita on mm. muuntajat ja katkaisijat. IED:t myös kytketään verkkoon, jotta ne voivat kommunikoida keskenään ja asemalta ulospäin. Asemalta ulospäin kommunikointi mahdollistaa sen etäohjauksen ja tarkkailun ohjelmiston avulla.
 
 % Standardi IED-laitteiden kommunikoinnin määrittämiseen.
-Kuinka IED-laitteet ja etäohjelmistot kommunikoivat keskenään, sen kertoo maailmanlaajuisesti määritetty IEC 61850 -standardi. Standardin tarkoitus on asettaa yhteiset säännöt, jotta eri valmistajien laitteet olisivat yhteensopivia keskenään. Dokumenteissa standardin on määritetty tekniikasta riippumattomaksi, joka erikseen mallinnetaan halutulle tekniikalle. Tässä työssä standardin mukaista kommunikointia käytetään MMS-protokollan päällä. 
-
 % Standardia voi toimia monella eri tekniikalla, mutta käytetään MMS-protokollan avulla.
+Kuinka IED-laitteet ja etäohjelmistot kommunikoivat keskenään, sen määrittää IEC 61850 -standardi. Standardin tarkoitus on asettaa yhteiset säännöt, jotta eri valmistajien laitteet ja ohjelmistot olisivat yhteensopivia keskenään. Standardi on määritetty tekniikasta riippumattomaan muotoon, joka erikseen mallinnetaan halutulle tekniikalle. Mallinnuksia on olemassa eri tekniikoille, mutta tässä työssä kommunikointi tapahtuu pelkästään MMS-protokollan (Manufacturing Message Specification) päällä. MMS-protokolla on TCP/IP-protokollaperheen päällä toimiva kommunikointiprotokolla.
 
 % Viestien tilauksen pääpiirteinen toiminta.
+Standardi määrittää säännöt kuinka asiakasohjelmat voivat tilata viestejä IED-laitteelta verkon yli. Viestien tilaus noudattaa julkaisija-tilaaja-paradigmaa, jossa IED-laite on julkaisija ja asiakasohjelmat tilaajia. Julkaisija-tilaaja-paradigma käsiteltiin aikaisemmin kappaleessa \ref{ch:julkaisija-tilaaja-paradigma}. Viestien sisältö on IED-laitteessa olevaa tietoa, kuten mittausdataa tai siihen kytketyn laitteen tilatietoa. Viestit tilataan IED-laitteelta olevalta muuttujalta, joka konfiguroidaan ennen tilausta. Standardi asettaa rajoituksia tilaajien määriin, jotka täytyy ottaa huomioon ohjelmiston suunnittelussa. Jotta näitä rajoituksia ja tilauksen toimintaa voidaan ymmärtää, täytyy ensin tarkastella, kuinka standardi määrittää muuttujia IED-laitteeseen.
 
 
 \section{Sähköaseman laiteiden mallinnus}
-% Standardin luokkat ja niistä muodostuva hierarkia.
+% Muuttujilla IED-laite mallintaa aseman laitetta.
+Muuttujilla IED-laite mallintaa siihen kytkettyä sähköaseman laitetta kuten katkaisijaa tai muuntajaa. Muuttujat esittävät mm. linjasta mitattua jännitteen arvoa tai katkaisijan tilaa, joka voi olla auki tai kiinni. IED-laitteessa olevien muuttujien määrä vaihtelee sen mukaan mitä laitetta sen on tarkoitus ohjata.
 
+% Muuttujat muodostuvat valmiiksi määritetyistä luokista.
+Mitä muuttujia IED-laite sisältää määrittyy standardin mukaan. Standardi esittää luokkamäärityksiä kaikille sähköaseman laitteille mm. katkaisijoille ja muuntajille. Luokka määrittää mitä muuttujia sen instanssi tulee sisältämään ja jotka kuvaavat kyseistä laitetta. Luokkasta muodostetaan instanssi IED-laitteelle sen mukaan, mitä laitetta se ohjaa. Esimerkiksi jos IED-laite ohjaa linjan katkaisijaa, määritetään IED-laitteeseen standardin määrittämä katkaisijaluokan instanssi. Tällöin IED-laite sisältää muuttujia katkaisimen tilasta ja sen ohjauksesta.
+
+% Luokkat muodostavat hierarkian ja koostuvat toisistaan.
+Standardin luokkamääritykset sisältävät aliluokkia ja jotka taas sisältävät muuttujia tai muita aliluokkia. Standardissa luokkamääritykset toimivat samalla periaatteella kuin oliohjelmoinnin luokat. Luokat sisältävät samaan asiaan liittyviä muuttujia ja toiminnallisuutta. Näistä luokista ja muuttujista standardissa muodostuu oliopohjainen hierarkkinen rakenne. Esimerkiksi muuntajaa mallintava luokka sisältää aliluokkia mittaustiedon esittämisestä. Samaa aliluokkaa käytetään jonkin muun mittaustietoa sisältävän laitteen mallintamiseen. Voidaan sanoa, että standardin mukainen laitteen luokka koostuu muista aliluokista. Kun laitteen mallintavasta luokasta tehdään instanssi IED-laitteelle, samalla myös tehdään instanssi kaikista sen aliluokista. IED-laite siis sisältää myös kaikki aliluokkien muuttujat.
+
+\section{Muuttujien yksilöinti IED-laitteessa}
 % Viittaus muuttujiin hierarkiassa.
+IED-laite siis sisältää muuttujia hierarkiassa sen mukaan mitä laitetta se ohjaa. Näitä muuttujia voidaan lukea ja kirjoitaa standardin määrittämillä palvelukutsuilla. Jotta voidaan yksilöidä mitä muuttujia halutaan kutsulla lukea tai kirjoitaa, muuttujia täytyy pystyä yksilöimään hierarkiassa. Tätä varten standardi määrittää viittaustekniikan, jota käytetään kutsun yhteydessä yksilöimään mitä muuttujia se koskee. Tämä viittausformaatti on määritetty kuvassa \ref{fig:iec61850-data-reference}. Viittaus muodostuu hierarkiassa olevien luokkien instanssien ja muuttujien nimistä. Nimiä yhdistetään peräkkäin, jolloin viittausta voidaan seurata lukemalla minkä luokan instanssin mitä muuttujaa halutaan lukea tai kirjoittaa. Ensimmäisen ja toisen nimen väliin tulee kauttaviiva (/) ja loput yhdistetään pisteellä (.).
+
+\begin{figure}[ht!]
+	\includegraphics[width=0.5\textwidth]{pictures/iec61850-data-reference.png}
+	\caption{IEC 61850 -standardin määrittämä viitteen rakenne (pohjautuu kuvaan \mbox{\cite[s.~93]{IEC61850-7-1}}).}
+	\label{fig:iec61850-data-reference}
+\end{figure}
+
+% Viittauksen käsitteet lyhyesti.
+Viite muodostuu käsitteistä:
+\begin{itemize}
+	\item \emph{looginen laite} (\emph{Logical Device}, \emph{LD}),
+	\item \emph{looginen noodi} (\emph{Logical Node}, \emph{LN}),
+	\item \emph{dataobjekti} (\emph{Data Object}, \emph{DO}) ja
+	\item \emph{data-attribuutti} (\emph{Data Attribute}, \emph{DA}).
+\end{itemize}
+viitteessä vasemmalta oikealle järjestyksessä. Käsitteet ovat standardissa tapa esittää minkä tason luokka tai muuttuja hierarkiassa on kyseessä. Tämä tieto on diplomityön ulkopuolella ja lukija voi ne tarkistaa tarvittessa standardista. Kuitenkin lyhyesti \emph{looginen laite} esittää jotakin aseman fyysistä kokonaisuutta, jota IED-laite ohjaa. \emph{Looginen noodi} on luokka laitteesta kuten muuntajasta tai katkaisijasta. \emph{Dataobjekti} on luokka joka sisältää muuttujia samaan asiaan liittyen, esimerkiksi mittaukseen. \emph{Data-attribuutti} on muuttuja, joka sisältää arvon mitatusta jännitteestä tai katkaisijan tilasta.
 
 
 \section{Viestien tilaus}
 % Viestin tilauksen luokan toiminta.
+Standardi määrittää luokkia eri asioiden mallintamiseen, joista tehdään instansseja IED-laitteelle. Standardi myös määrittää luokan, joka vastaa viestien tilauksesta. Luokka sisältää muuttujia tilauksen konfigurointiin, aloittamiseen ja lopettamiseen. Näitä muuttujia tilajaa voi kirjoittaa ja lukea palvelukutsuilla. Palvelukutsut kohdistetaan viestiluokkaan sen nimellä edellä mainitulla viittaustekniikalla.
+
+% Viestiluokan rajoitteet.
+
 
 % Datajoukko ja siitä tulevat viestit.
 
@@ -211,11 +240,11 @@ Kaikkien yllämainittujen luokkien kenttien määritysten lisäksi standardi mä
 \section{Attribuuttien viittaus hierarkiassa}
 IEC 61850 -standardi määrittää erilaisia palvelukutsuja eri luokkatyypeille. Palvelukutsuilla voidaan mm. asettaa ja lukea arvoja IED-laitteen hierarkiassa. Standardi määrittää viittausformaatin, joka mahdollistaa instanssien viittaamisen IED-laitteen hierarkiassa. Määritettyä viittausta käytetään palvelukutsujen yhteydessä määrittämään mitä instansseja kutsu koskee. Viitteen lisäksi aikaisemmin mainittu funktionaalinen rajoite kertoo mihin data-attribuutteihin kutsu kohdistuu. Funktionaalinen rajoite mahdollistaa monen instanssin viittaamisen hierarkiassa samalla kertaa. Seurauksena on, että yhdellä palvelukutsulla voidaan kirjoittaa tai lukea monta eri data-attribuuttia. Tämä tullaan käsittelemään tarkemmin kappaleessa \ref{ch:fc-and-dataset}. Kuvassa \ref{fig:iec61850-data-reference} on esitetty kuinka standardi määrittää viitteen muodostumisen loogisesta laitteesta data-attribuuttiin asti. \mbox{\cite[s.~625--626]{Mackiewicz2006}}
 
-\begin{figure}[ht!]
-	\includegraphics[width=0.5\textwidth]{pictures/iec61850-data-reference.png}
-	\caption{IEC 61850 -standardin määrittämä viitteen rakenne (pohjautuu kuvaan \mbox{\cite[s.~93]{IEC61850-7-1}}).}
-	\label{fig:iec61850-data-reference}
-\end{figure}
+% \begin{figure}[ht!]
+%	\includegraphics[width=0.5\textwidth]{pictures/iec61850-data-reference.png}
+%	\caption{IEC 61850 -standardin määrittämä viitteen rakenne (pohjautuu kuvaan \mbox{\cite[s.~93]{IEC61850-7-1}}).}
+%	\label{fig:iec61850-data-reference}
+% \end{figure}
 
 Viite muodostuu suoraan laitteessa olevien luokkien instanssien nimien ja hierarkian mukaan. Loogisen laitteen (\emph{LD}) ja loogisen noodin (\emph{LN}) erottimena käytetään \emph{kauttaviivaa} (/), ja muiden osien erottimena käytetään \emph{pistettä} (.). Loogisella laitteella on aseman insinöörin määrittämä alle 65-merkkinen nimi. Muuten loogisen laitteen nimeen standardi ei puutu. Loogisen noodin instanssin nimi koostuu alku-, keski- ja loppuosasta. Alkuosan voi insinööri itse päättää. Esimerkiksi kuvassa \ref{fig:iec61850-data-reference} loogisen noodin nimestä Q0 on alkuosa. Nimen täytyy alkaa kirjaimella, mutta se voi sisältää myös numeroita. Keskiosan täytyy olla loogisen luokan nimi, josta instanssi on tehty. Tässä tapauksessa jo aikaisemmin mainittu katkaisijan luokka, XCBR. Tämä osuus on aina 4 kirjainta pitkä ja aina isoilla kirjaimilla. Loppuosa on instanssin numeerinen arvo, joka ei sisällä kirjaimia. Insinööri voi itse päättää loppuosan, jonka ei tarvitse välttämättä olla juokseva numero. Esimerkiksi kuvassa \ref{fig:iec61850-data-reference} loogisen noodin nimen loppuosa on 1. 
 Alku- ja loppuosan yhteenlaskettu merkkien pituus täytyy olla alle 13 merkkiä, eli koko loogisen noodin nimen pituus voi olla maksimissaan 17 merkkiä. Dataobjektien (\emph{DO}) ja attribuuttien (\emph{DA}) niminä käytetään standardin määrittämiä nimiä, jotka määritetään niitä vastaavissa luokissa osissa 7-3 ja 7-4 (katso taulukot \ref{tab:iec61850-xcbr-class-definition} ja \ref{tab:iec61850-DPC-class-definition}). Riippuen viittauksesta, näistä muodostuu loogisen noodin viite, dataobjektin viite ja data-attribuutin viite. Dataobjekti voi pitää sisällään toisen dataobjektin kuten aikaisemmin kuvassa \ref{fig:iec61850-class-hierarchy} esitettiin. Viittausta jatketaan liittämällä instanssien nimiä toisiinsa pisteellä aina data-attribuuttiin asti. Samoin toimitaan, kun data-attribuutti on tyypiltään rakennettu tyyppi, kuten Quality, jolla on alidata-attribuutteja. \mbox{\cite[s.~181--182]{IEC61850-7-2}} \mbox{\cite[s.~93--95]{IEC61850-7-1}}

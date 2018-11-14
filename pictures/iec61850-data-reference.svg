@@ -29,14 +29,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="331.7448"
-     inkscape:cy="511.94237"
+     inkscape:cx="139.81582"
+     inkscape:cy="588.71396"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1026"
-     inkscape:window-x="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      showguides="true"
@@ -222,89 +222,5 @@
          x="33.659828"
          y="210.67654"
          style="stroke-width:0.26458332">DA:n nimi</tspan></text>
-    <g
-       id="g1818"
-       style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
-       transform="matrix(1.0022137,0,0,1,-0.05621765,0)">
-      <path
-         sodipodi:nodetypes="cssc"
-         inkscape:connector-curvature="0"
-         id="path1788"
-         d="m 25.395068,157.88643 c 0,5.27838 7.798706,4.67704 26.428509,4.67704 3.928043,0 7.27,-0.006 10.099687,0.0548 10.590867,0.22744 14.005722,1.38938 14.114916,7.29482"
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 126.68129,157.88643 c 0,5.27838 -7.79871,4.67704 -26.42851,4.67704 -3.928041,0 -7.269997,-0.006 -10.099685,0.0548 -10.590866,0.22744 -14.005721,1.38938 -14.114915,7.29482"
-         id="path1790"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cssc" />
-    </g>
-    <g
-       id="g1822"
-       transform="matrix(0.98875753,0,0,1,0.28585571,-8.9958338)"
-       style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">
-      <path
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 25.426412,195.82629 c 0,5.65487 5.26014,4.67572 33.836958,4.67572 21.092488,0 31.002449,-0.87353 31.002449,7.34756"
-         id="path1792"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccc" />
-      <path
-         sodipodi:nodetypes="ccc"
-         inkscape:connector-curvature="0"
-         id="path1800"
-         d="m 155.10523,195.82629 c 0,5.65487 -5.26014,4.67572 -33.83696,4.67572 -21.09249,0 -31.002451,-0.87353 -31.002451,7.34756"
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
-    <g
-       id="g1826"
-       transform="matrix(1.0416965,0,0,1,-1.059936,-6.879167)"
-       style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">
-      <path
-         sodipodi:nodetypes="ccc"
-         inkscape:connector-curvature="0"
-         id="path1796"
-         d="m 25.420285,222.15397 c -0.02968,5.74793 9.591603,4.67445 40.830174,4.67445 29.85485,0 37.409851,-1.39377 37.409851,7.34558"
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 181.90034,222.15397 c 0.0297,5.74793 -9.59161,4.67445 -40.83018,4.67445 -29.85485,0 -37.40985,-1.39377 -37.40985,7.34558"
-         id="path1802"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccc" />
-    </g>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="55.84145"
-       y="179.6384"
-       id="text1806"><tspan
-         sodipodi:role="line"
-         id="tspan1804"
-         x="55.84145"
-         y="179.6384"
-         style="stroke-width:0.26458332">LN-viite</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="67.750084"
-       y="209.4772"
-       id="text1810"><tspan
-         sodipodi:role="line"
-         id="tspan1808"
-         x="67.750084"
-         y="209.4772"
-         style="stroke-width:0.26458332">DO-viite</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="86.035034"
-       y="238.71611"
-       id="text1814"><tspan
-         sodipodi:role="line"
-         id="tspan1812"
-         x="86.035034"
-         y="238.71611"
-         style="stroke-width:0.26458332">DA-viite</tspan></text>
   </g>
 </svg>
