@@ -3,7 +3,7 @@
 % Aihepiirijärjestys tutusta uuteen.
 % Tuttuja asioita: sähköasema, julkaisija-tilaaja-paradigma, viestejä voidaan tilata.
 % Luvussa käsiteltävät asiat.
-IEC 61850 -standardi määrittää säännöt, kuinka sähköaseman laitteet kommunikoivat keskenään verkon yli. Standardi koskee myös aseman kanssa kommunikoivia ohjelmistoja. Standardi on laaja monesta dokumentista koostuva kokonaisuus. Tämän takia tässä luvussa käsitellään vain standardista diplomityön kannalta tärkeitä asioita. Käsittely aloitetaan yleiskuvalla ja edetään tärkeään asiaan. Saatuja tietoja tullaan käyttämään myöhemmin pohjana järjestelmän arkkitehtuurin ja ohjelmiston suunnittelussa.
+IEC 61850 -standardi määrittää säännöt, kuinka sähköaseman laitteet kommunikoivat keskenään verkon yli. Standardi koskee myös aseman kanssa kommunikoivia ohjelmistoja. Standardi on laaja monesta dokumentista koostuva kokonaisuus. Tämän takia tässä luvussa standardista käsitellään vain diplomityön kannalta tärkeitä asioita. Käsittely aloitetaan yleiskuvalla ja edetään tärkeään asiaan. Saatuja tietoja tullaan käyttämään myöhemmin pohjana järjestelmän arkkitehtuurin ja ohjelmiston suunnittelussa.
 
 
 \section{Yleiskuva}
@@ -12,10 +12,11 @@ Sähköaseman tehtäviin kuuluu mm. jännitteen muuntaminen, verkon jakaminen ja
 
 % Standardi IED-laitteiden kommunikoinnin määrittämiseen.
 % Standardia voi toimia monella eri tekniikalla, mutta käytetään MMS-protokollan avulla.
-Kuinka IED-laitteet ja etäohjelmistot kommunikoivat keskenään, sen määrittää IEC 61850 -standardi. Standardin tarkoitus on asettaa yhteiset säännöt, jotta eri valmistajien laitteet ja ohjelmistot olisivat yhteensopivia keskenään. Standardi on määritetty tekniikasta riippumattomaan muotoon, joka erikseen mallinnetaan halutulle tekniikalle. Mallinnuksia on olemassa eri tekniikoille, mutta tässä työssä kommunikointi tapahtuu pelkästään MMS-protokollan (Manufacturing Message Specification) päällä. MMS-protokolla on TCP/IP-protokollaperheen päällä toimiva kommunikointiprotokolla.
+IEC 61850 -standardi määrittää kuinka IED-laitteet ja etäohjelmistot kommunikoivat keskenään. Standardin tarkoitus on asettaa yhteiset säännöt, jotta eri valmistajien laitteet ja ohjelmistot olisivat yhteensopivia keskenään. Standardi on määritetty tekniikasta riippumattomaan muotoon, joka erikseen mallinnetaan halutulle tekniikalle. Mallinnuksia on olemassa eri tekniikoille, mutta tässä työssä kommunikointi tapahtuu pelkästään MMS-protokollan (Manufacturing Message Specification) päällä. MMS-protokolla on TCP/IP-protokollaperheen päällä toimiva kommunikointiprotokolla.
 
 % Viestien tilauksen pääpiirteinen toiminta.
-Standardi määrittää säännöt kuinka asiakasohjelmat voivat tilata viestejä IED-laitteelta verkon yli. Viestien tilaus noudattaa julkaisija-tilaaja-paradigmaa, jossa IED-laite on julkaisija ja asiakasohjelmat tilaajia. Julkaisija-tilaaja-paradigma käsiteltiin aikaisemmin kappaleessa \ref{ch:julkaisija-tilaaja-paradigma}. Viestien sisältö on IED-laitteessa olevaa tietoa, kuten mittausdataa tai siihen kytketyn laitteen tilatietoa. Viestit tilataan IED-laitteelta olevalta muuttujalta, joka konfiguroidaan ennen tilausta. Standardi asettaa rajoituksia tilaajien määriin, jotka täytyy ottaa huomioon ohjelmiston suunnittelussa. Jotta näitä rajoituksia ja tilauksen toimintaa voidaan ymmärtää, täytyy ensin tarkastella, kuinka standardi määrittää muuttujia IED-laitteeseen.
+Standardi määrittää säännöt kuinka asiakasohjelmat voivat tilata viestejä IED-laitteelta verkon yli. Viestien tilaus noudattaa julkaisija-tilaaja-paradigmaa, jossa IED-laite on julkaisija ja asiakasohjelmat tilaajia. Julkaisija-tilaaja-paradigma käsiteltiin aikaisemmin kappaleessa \ref{ch:julkaisija-tilaaja-paradigma}. Viestien sisältö on IED-laitteessa olevaa tietoa, kuten mittausdataa tai siihen kytketyn laitteen tilatietoa. Viestit tilataan IED-laitteelta olevalta muuttujalta, joka konfiguroidaan ennen tilausta. 
+Standardi asettaa rajoituksia tilaajien määriin, jotka täytyy ottaa huomioon ohjelmiston suunnittelussa. Jotta näitä rajoituksia ja tilauksen toimintaa voidaan ymmärtää, täytyy ensin tarkastella, kuinka standardi määrittää muuttujia IED-laitteeseen.
 
 
 \section{Sähköaseman laiteiden mallinnus}
@@ -23,14 +24,14 @@ Standardi määrittää säännöt kuinka asiakasohjelmat voivat tilata viestej�
 Muuttujilla IED-laite mallintaa siihen kytkettyä sähköaseman laitetta kuten katkaisijaa tai muuntajaa. Muuttujat esittävät mm. linjasta mitattua jännitteen arvoa tai katkaisijan tilaa, joka voi olla auki tai kiinni. IED-laitteessa olevien muuttujien määrä vaihtelee sen mukaan mitä laitetta sen on tarkoitus ohjata.
 
 % Muuttujat muodostuvat valmiiksi määritetyistä luokista.
-Mitä muuttujia IED-laite sisältää määrittyy standardin mukaan. Standardi esittää luokkamäärityksiä kaikille sähköaseman laitteille mm. katkaisijoille ja muuntajille. Luokka määrittää mitä muuttujia sen instanssi tulee sisältämään ja jotka kuvaavat kyseistä laitetta. Luokkasta muodostetaan instanssi IED-laitteelle sen mukaan, mitä laitetta se ohjaa. Esimerkiksi jos IED-laite ohjaa linjan katkaisijaa, määritetään IED-laitteeseen standardin määrittämä katkaisijaluokan instanssi. Tällöin IED-laite sisältää muuttujia katkaisimen tilasta ja sen ohjauksesta.
+Mitä muuttujia IED-laite sisältää määrittyy standardin mukaan. Standardi esittää luokkamäärityksiä kaikille sähköaseman laitteille mm. katkaisijoille ja muuntajille. Luokka määrittää mitä muuttujia sen instanssi tulee sisältämään ja jotka kuvaavat kyseistä laitetta. Luokasta muodostetaan instanssi IED-laitteelle sen mukaan, mitä laitetta se ohjaa. Esimerkiksi jos IED-laite ohjaa linjan katkaisijaa, määritetään IED-laitteeseen standardin määrittämä katkaisijaluokan instanssi. Tällöin IED-laite sisältää muuttujia katkaisimen tilasta ja sen ohjauksesta.
 
 % Luokkat muodostavat hierarkian ja koostuvat toisistaan.
 Standardin luokkamääritykset sisältävät aliluokkia ja jotka taas sisältävät muuttujia tai muita aliluokkia. Standardissa luokkamääritykset toimivat samalla periaatteella kuin oliohjelmoinnin luokat. Luokat sisältävät samaan asiaan liittyviä muuttujia ja toiminnallisuutta. Näistä luokista ja muuttujista standardissa muodostuu oliopohjainen hierarkkinen rakenne. Esimerkiksi muuntajaa mallintava luokka sisältää aliluokkia mittaustiedon esittämisestä. Samaa aliluokkaa käytetään jonkin muun mittaustietoa sisältävän laitteen mallintamiseen. Voidaan sanoa, että standardin mukainen laitteen luokka koostuu muista aliluokista. Kun laitteen mallintavasta luokasta tehdään instanssi IED-laitteelle, samalla myös tehdään instanssi kaikista sen aliluokista. IED-laite siis sisältää myös kaikki aliluokkien muuttujat.
 
 \section{Muuttujien yksilöinti IED-laitteessa}
 % Viittaus muuttujiin hierarkiassa.
-IED-laite siis sisältää muuttujia hierarkiassa sen mukaan mitä laitetta se ohjaa. Näitä muuttujia voidaan lukea ja kirjoitaa standardin määrittämillä palvelukutsuilla. Jotta voidaan yksilöidä mitä muuttujia halutaan kutsulla lukea tai kirjoitaa, muuttujia täytyy pystyä yksilöimään hierarkiassa. Tätä varten standardi määrittää viittaustekniikan, jota käytetään kutsun yhteydessä yksilöimään mitä muuttujia se koskee. Tämä viittausformaatti on määritetty kuvassa \ref{fig:iec61850-data-reference}. Viittaus muodostuu hierarkiassa olevien luokkien instanssien ja muuttujien nimistä. Nimiä yhdistetään peräkkäin, jolloin viittausta voidaan seurata lukemalla minkä luokan instanssin mitä muuttujaa halutaan lukea tai kirjoittaa. Ensimmäisen ja toisen nimen väliin tulee kauttaviiva (/) ja loput yhdistetään pisteellä (.).
+IED-laite siis sisältää muuttujia hierarkiassa sen mukaan mitä laitetta se ohjaa. Näitä muuttujia voidaan lukea ja kirjoittaa standardin määrittämillä palvelukutsuilla. Jotta voidaan yksilöidä mitä muuttujia halutaan kutsulla lukea tai kirjoittaa, muuttujia täytyy pystyä yksilöimään hierarkiassa. Tätä varten standardi määrittää viittaustekniikan, jota käytetään kutsun yhteydessä yksilöimään mitä muuttujia se koskee. Tämä viittausformaatti on määritetty kuvassa \ref{fig:iec61850-data-reference}. Viittaus muodostuu hierarkiassa olevien luokkien instanssien ja muuttujien nimistä. Nimiä yhdistetään peräkkäin, jolloin viittausta voidaan seurata lukemalla minkä luokan instanssin mitä muuttujaa halutaan lukea tai kirjoittaa. Ensimmäisen ja toisen nimen väliin tulee kauttaviiva (/) ja loput yhdistetään pisteellä (.).
 
 \begin{figure}[ht!]
 	\includegraphics[width=0.5\textwidth]{pictures/iec61850-data-reference.png}
@@ -46,17 +47,26 @@ Viite muodostuu käsitteistä:
 	\item \emph{dataobjekti} (\emph{Data Object}, \emph{DO}) ja
 	\item \emph{data-attribuutti} (\emph{Data Attribute}, \emph{DA}).
 \end{itemize}
-viitteessä vasemmalta oikealle järjestyksessä. Käsitteet ovat standardissa tapa esittää minkä tason luokka tai muuttuja hierarkiassa on kyseessä. Tämä tieto on diplomityön ulkopuolella ja lukija voi ne tarkistaa tarvittessa standardista. Kuitenkin lyhyesti \emph{looginen laite} esittää jotakin aseman fyysistä kokonaisuutta, jota IED-laite ohjaa. \emph{Looginen noodi} on luokka laitteesta kuten muuntajasta tai katkaisijasta. \emph{Dataobjekti} on luokka joka sisältää muuttujia samaan asiaan liittyen, esimerkiksi mittaukseen. \emph{Data-attribuutti} on muuttuja, joka sisältää arvon mitatusta jännitteestä tai katkaisijan tilasta.
+viitteessä vasemmalta oikealle järjestyksessä. Käsitteet ovat standardissa tapa esittää minkä tason luokka tai muuttuja hierarkiassa on kyseessä. Tämä tieto on diplomityön ulkopuolella ja lukija voi ne tarkistaa tarvittaessa standardista. Kuitenkin lyhyesti \emph{looginen laite} esittää jotakin aseman fyysistä kokonaisuutta, jota IED-laite ohjaa. \emph{Looginen noodi} on luokka laitteesta kuten muuntajasta tai katkaisijasta. \emph{Dataobjekti} on luokka joka sisältää muuttujia samaan asiaan liittyen, esimerkiksi mittaukseen. \emph{Data-attribuutti} on muuttuja, joka sisältää arvon mitatusta jännitteestä tai katkaisijan tilasta.
 
 
 \section{Viestien tilaus}
 % Viestin tilauksen luokan toiminta.
-Standardi määrittää luokkia eri asioiden mallintamiseen, joista tehdään instansseja IED-laitteelle. Standardi myös määrittää luokan, joka vastaa viestien tilauksesta. Luokka sisältää muuttujia tilauksen konfigurointiin, aloittamiseen ja lopettamiseen. Näitä muuttujia tilajaa voi kirjoittaa ja lukea palvelukutsuilla. Palvelukutsut kohdistetaan viestiluokkaan sen nimellä edellä mainitulla viittaustekniikalla.
+Standardi määrittää luokkia eri asioiden mallintamiseen, joista tehdään instansseja IED-laitteelle tarpeen mukaan. Samaa periaatetta noudattaen standardi määrittää myös luokan, joka vastaa viestien tilauksesta. Luokasta on tehty instanssi muuttujien hierarkiaan ja sillä on nimi. Luokan instanssi sisältää sisältää muuttujia tilauksen konfigurointiin, aloittamiseen ja lopettamiseen. Näitä muuttujia tilajaa voi kirjoittaa ja lukea palvelukutsuilla jotka viittaavaat viestiluokan instanssiin. Esimerkki viitteestä viestiluokan arvojen kirjoittamiseen voi olla \emph{OmaLD/LLN0.BR.OmatViestit}.
+
+% Viestiluokkien datajoukot.
+Viestiluokka vastaa tilaajan tilauksen konfiguroinnista ja viestien lähettämisestä. Sisältö viestiin tulee standardin määrittämistä \emph{datajoukoista} (\emph{data set}). IED-laitteelle on mahdollista määrittää standardin mukaisia datajoukkoja. Datajoukko on kokoelma IED-laitteella olevista muuttujista, jotka on kerätty yhteen niiden tärkeyden takia, esimerkiksi kaikki mittauspisteet voivat kuulua yhteen datajoukkoon. Viestiluokka konfiguroidaan tarkkailemaan yhtä tällaista datajoukkoa, josta tilaaja on kiinnostunut. Datajoukossa tapahtuneen muutoksen myötä viestiluokka luo viestin, johon se sisällyttää muuttuneet arvot ja lähettää sen tilaajalle. Esimerkki tästä on jännitteen mitatun arvon muuttuminen uuteen, jonka tarkkaileva viestiluokka huomaa. Seurauksena viestiluokka luo uuden viestin, sisällyttää muuttuneet arvot viestiin ja lähettää sen tilaajalle. Sama toistuu minkä tahansa datajoukon muuttujan muuttuessa.
 
 % Viestiluokan rajoitteet.
+Standardi asettaa rajoitteita viestiluokan instanssiin. Yksi viestiluokan instanssi voi palvella vain yhtä tilaaja kerrallaan. Instanssi niin sanotusti varataan tilauksen aloitushetkellä, jolloin muiden tilaajien kirjoitus luokkaan estetään, niin kauan kunnes nykyinen tilaaja lopettaa tilauksen tai yhteys katkeaa. Monen tilaajan halutessa saman datajoukon tiedot muutoksista, täytyy IED-laitteeseen määrittää viestiluokan instansseja tarpeiden mukaan ja konfiguroida ne tarkkailemaan samaa datajoukkoa. Kuvassa \ref{fig:rcb-to-one-dataset} on esitetty tilanne, jossa kolme tilaaja tilaavat saman datajoukon käyttäen kolmea eri viestiluokan instanssia. Kuvassa neljäs tilaaja ei voi kirjoittaa jo varattua viestiluokkaa, jotan sen ei ole mahdollista tilata datajoukosta tulevia viestejä.
 
+\begin{figure}[ht!]
+	\includegraphics[width=1\textwidth]{pictures/rcbs-to-one-dataset.png}
+	\caption{Kolme viestiluokkaa IED-laitteessa palvelee kolmea tilaajaa samasta datajoukosta.}
+	\label{fig:rcb-to-one-dataset}
+\end{figure}
 
-% Datajoukko ja siitä tulevat viestit.
+% Huomioon otettavat rajoitukset suunnitelussa. (yhteenvetoon?)
 
 
 \section{Viestien sisältö}
