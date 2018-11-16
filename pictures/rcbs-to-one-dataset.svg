@@ -334,13 +334,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="394.47368"
-     inkscape:cy="655.24092"
+     inkscape:cx="258.75939"
+     inkscape:cy="652.38378"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1025"
+     inkscape:window-width="2560"
+     inkscape:window-height="1385"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -353,7 +353,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -379,14 +379,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="90.932541"
-       y="134.59869"
+       x="88.752853"
+       y="135.009"
        id="text1411"><tspan
          sodipodi:role="line"
-         x="90.932541"
-         y="134.59869"
+         x="88.752853"
+         y="135.009"
          style="stroke-width:0.26458332"
-         id="tspan1695">viestiluokka2</tspan></text>
+         id="tspan1695">RCB-instanssi2</tspan></text>
     <rect
        y="105.94563"
        x="83.276611"
@@ -396,15 +396,15 @@
        style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.41508496;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
     <text
        id="text3021"
-       y="113.999"
-       x="90.932541"
+       y="114.40931"
+       x="88.73632"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
          id="tspan4740"
          style="stroke-width:0.26458332"
-         y="113.999"
-         x="90.932541"
-         sodipodi:role="line">viestiluokka1</tspan></text>
+         y="114.40931"
+         x="88.73632"
+         sodipodi:role="line">RCB-instanssi1</tspan></text>
     <rect
        y="146.20009"
        x="83.276611"
@@ -414,15 +414,15 @@
        style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.41508496;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
     <text
        id="text3031"
-       y="154.25346"
-       x="90.932541"
+       y="154.66376"
+       x="88.71048"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
          id="tspan3029"
          style="stroke-width:0.26458332"
-         y="154.25346"
-         x="90.932541"
-         sodipodi:role="line">viestiluokka3</tspan></text>
+         y="154.66376"
+         x="88.71048"
+         sodipodi:role="line">RCB-instanssi3</tspan></text>
     <path
        inkscape:connector-curvature="0"
        id="path3047"
