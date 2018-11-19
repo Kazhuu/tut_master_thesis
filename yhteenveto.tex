@@ -1,25 +1,13 @@
 \chapter{Yhteenveto}
 \label{ch:yhteenveto}
-% TODO: Kirjoita taulukosta teksiin.
+% Diplomityön tuloksena saatiin ohjelmistokomponentti osaksi muuta sähköasemiin liittyvää järjestelmää.
 Diplomityön tuloksena saatiin ohjelmistokomponentti osaksi isompaa sähköasemiin liittyvää järjestelmää. Komponentti kykeni tilaamaan viestejä IED-laitteelta IEC 61850 -stan\-dar\-din mukaisesti, muuntamaan viestit JSON-muotoon ja jakamaan sen muun järjestelmän kanssa. Viestien jako järjestelmässä toteutettiin AMQP-standardiin pohjautuvalla välittäjäpalvelimella, joka käyttää julkaisija-tilaaja- ja viestijono-kom\-mu\-ni\-koin\-ti\-pa\-ra\-dig\-mo\-ja. Toteutetun systeemin arkkitehtuuri esitettiin kuvassa \ref{fig:planned-system-architecture}. Arkkitehtuurissa muu järjestelmä on vastuussa tilauksien orkestroinnissa ja rcb\_sub-prosessien suorituksesta.
 
-% Lähtökohtien avulla huomattiin että järjestelmän kommunikointiin tarvittiin viestijonoparadigma ja joukkokommunikointi tai julkaisija-tilaaja.
-Työssä ratkaisua lähdettiin etsimään tarkastelemalla ensin hajautetun järjestelmän teoriaa, sen kommunikointiparadigmoja ja IEC 61850 -standardin määrityksiä. Saatuja tietoja apuna käyttäen suunniteltiin arkkitehtuuri osaksi muuta järjestelmää. Huomattiin, että viestijonoparadigma tarvittiin viestien puskurointiin ja kommunikointiin sopi jouk\-ko\-kom\-mu\-ni\-koin\-ti- tai julkaisija-tilaaja-paradigma.
-
-% Toteutuksen tekniikaksi valittiin AMQP-standardi ja viesti päädyttiin muuntamaan JSON-muotoon.
-Järjestelmän kommunikointiin valittiin AMQP-standardi, jonka myötä julkaisija-tilaaja-paradigma päätyi toteutukseen joukkokommunikoinnin sijaan. AMQP ei suoraan ollut tarkoitettu joukkokommunikoinnin toteuttamiseen. IEC 61850 -standardi määritti, että viestit IED-laitteelta tilataan julkaisija-tilaaja-paradigman mukaan. Toteutetun ohjelmiston ja valittujen paradigmojen voidaan sanoa jatkavan IED-laitteen tilausmekanismia ja näin ollen sopivat toteutukseen. Toteutus sallii monen tilaajan tilata sama viesti, mitä IEC 61850 -standardi ei ilman erillistä RCB-instanssia mahdollistanut. Viestin sisältö päädyttiin muuttamaan JSON-muotoon helpomman luettavuuden takia verrattuna MMS-protokollan binääriseen esitysmuotoon. Ohjelman tekemä JSON-muoto on nähtävissä liitteessä \ref{ch:report-json-format}.
-
-% Demon ongelmat ja niiden syyt.
-Ennen diplomityön aloitusta tekijä oli yrityksessä toteuttanut demon ohjelmiston toimivuudesta. Demo oli tie oppia IEC 61850 -standardin toimintaa ja perehtyä aiheeseen tarkemmin ennen oikeaa toteutusta. Demossa oli kuitenkin ongelmia, mitkä haittasivat sen jatkokehitystä. Diplomityössä analysoitiin demon ongelmia, joita olivat huono suorituskyky, muistivuoto ja toiminnan epävarmuus. Toiminnan epävarmuuteen ja huonoon suorituskykyyn oli syynä Ruby-kielen oletustulkissa oleva globaali tulkkilukitus (GIL/GVL). Ja muistivuoto aiheutui huonon Ruby-koodin ja C-kielen integraatiosta.
-
-% Kuinka tekniset ongelmat ratkottiin toteutetussa ohjelmistossa.
-Toteutetun ohjelman suorituskykyä saatiin paremmaksi valitsemalla matalamman tason C-ohjelmointikieli. C on käännettävä kieli verrattuna Ruby:n tulkattavaan kieleen. Lisäksi C voi hyödyntää käyttöjärjestelmän säikeitä ilman rajoituksia verrattuna Ruby-tulkin globaaliin lukitukseen. Muistivuoto saatiin korjattua huolellisella ohjelmoinnilla ja varmistamalla, että muisti vapautettiin, kun sitä ei enää tarvittu. Kielen valinnalla ohjelman muistinkäyttö saatiin entiseen nähden pienemmäksi. Ruby:llä toteutettu demo käytti muistia noin 150 Mt ja rcb\_sub käytti noin 4 kt. Toteutetussa ohjelmassa ei ollut demossa havaittavia ongelmia ja on osoittanut tuotannossa toimivaksi muun järjestelmän kanssa.
-
-% Toteutettu ohjelma on toiminut hyvin ja päästiin asetettuihin tavoitteisiin.
-Toteutettu ohjelmisto on tuotannossa osana muuta järjestelmä ja diplomityön kirjoittamisen valmiiksi saamiseen asti on toiminut ongelmitta. Kappaleessa \ref{ch:arviointi} arvioitiin ja pohdittiin saatuja tuloksia. Näiden pohjalta voidaan sanoa, että diplomityössä suunniteltu toteutus pääsi asetettuihin tavoitteisiin ja tutkimuskysymyksiin löydettiin vastaus. Toteutus ei ole kuitenkaan täydellinen ja siinä on jatkokehitettävää. Näihin kohtiin tullaan yrityksessä palaamaan tulevaisuudessa ja muuttamaan niitä, mikäli tarve vaatii. Tämän diplomityön tulokset tarjoavat myös apua samankaltaisten järjestelmien suunnitteluun ja toteutukseen.
+% Yhteenveto asetetuista vaatimuksista ja kuinka ne saavutettiin.
+Diplomityön alussa asetettiin vaatimuksia jotka toteutuksen pitäisi pystyä täyttämään. Taulukossa \ref{tab:requirements-met} on esitetty yhteenveto asetetuista vaatimuksista ja kuinka ne tuontantoversiossa on täytetty. Taulukossa vaatimukset on esitetty niiden tunnuksilla, jotka asetettiin aikaisemmin kappaleessa \ref{ch:vaatimukset}.
 
 \begin{table}[ht!]
-	\caption{Yhteenveto asetetuista vaatimuksiin ja kuinka ne täytettiin (vaatimukset asetettiin kappaleessa \ref{ch:vaatimukset}).}
+	\caption{Yhteenveto asetetuista vaatimuksiin ja kuinka ne täytettiin.}
 	\label{tab:requirements-met}
 	\begin{tabular}{p{0.11\linewidth} | p{0.82\linewidth}}
 		\hline
@@ -60,3 +48,18 @@ Toteutettu ohjelmisto on tuotannossa osana muuta järjestelmä ja diplomityön k
 		\hline
 	\end{tabular}
 \end{table}
+
+% Lähtökohtien avulla huomattiin että järjestelmän kommunikointiin tarvittiin viestijonoparadigma ja joukkokommunikointi tai julkaisija-tilaaja.
+Työssä ratkaisua lähdettiin etsimään tarkastelemalla ensin hajautetun järjestelmän teoriaa, sen kommunikointiparadigmoja ja IEC 61850 -standardin määrityksiä. Saatuja tietoja apuna käyttäen suunniteltiin arkkitehtuuri osaksi muuta järjestelmää. Huomattiin, että viestijonoparadigma tarvittiin viestien puskurointiin ja kommunikointiin sopi jouk\-ko\-kom\-mu\-ni\-koin\-ti- tai julkaisija-tilaaja-paradigma.
+
+% Toteutuksen tekniikaksi valittiin AMQP-standardi ja viesti päädyttiin muuntamaan JSON-muotoon.
+Järjestelmän kommunikointiin valittiin AMQP-standardi, jonka myötä julkaisija-tilaaja-paradigma päätyi toteutukseen joukkokommunikoinnin sijaan. AMQP ei suoraan ollut tarkoitettu joukkokommunikoinnin toteuttamiseen. IEC 61850 -standardi määritti, että viestit IED-laitteelta tilataan julkaisija-tilaaja-paradigman mukaan. Toteutetun ohjelmiston ja valittujen paradigmojen voidaan sanoa jatkavan IED-laitteen tilausmekanismia ja näin ollen sopivat toteutukseen. Toteutus sallii monen tilaajan tilata sama viesti, mitä IEC 61850 -standardi ei ilman erillistä RCB-instanssia mahdollistanut. Viestin sisältö päädyttiin muuttamaan JSON-muotoon helpomman luettavuuden takia verrattuna MMS-protokollan binääriseen esitysmuotoon. Ohjelman tekemä JSON-muoto on nähtävissä liitteessä \ref{ch:report-json-format}. Edellä mainittujen pohjalta näiden osalta asetettuihin vaatimuksiin päästiin hyvin ja ne saatiin täytettyä. Nämä myös antavat vastaukset tutkimuskysymyksiin T1, T2 ja T3.
+
+% Demon ongelmat ja niiden syyt.
+Ennen diplomityön aloitusta tekijä oli yrityksessä toteuttanut demon ohjelmiston toimivuudesta. Demo oli tie oppia IEC 61850 -standardin toimintaa ja perehtyä aiheeseen tarkemmin ennen oikeaa toteutusta. Demossa oli kuitenkin ongelmia, mitkä haittasivat sen jatkokehitystä. Diplomityössä analysoitiin demon ongelmia, joita olivat huono suorituskyky, muistivuoto ja toiminnan epävarmuus. Toiminnan epävarmuuteen ja huonoon suorituskykyyn oli syynä Ruby-kielen oletustulkissa oleva globaali tulkkilukitus (GIL/GVL). Ja muistivuoto aiheutui huonosta Ruby-koodin ja C-kielen integraatiosta.
+
+% Kuinka tekniset ongelmat ratkottiin toteutetussa ohjelmistossa.
+Toteutetun ohjelman suorituskykyä saatiin paremmaksi valitsemalla matalamman tason C-ohjelmointikieli. C on käännettävä kieli verrattuna Ruby:n tulkattavaan kieleen. Lisäksi C voi hyödyntää käyttöjärjestelmän säikeitä ilman rajoituksia verrattuna Ruby-tulkin globaaliin lukitukseen. Muistivuoto saatiin korjattua huolellisella ohjelmoinnilla ja varmistamalla, että muisti vapautettiin, kun sitä ei enää tarvittu. Kielen valinnalla ohjelman muistinkäyttö saatiin entiseen nähden pienemmäksi. Ruby:llä toteutettu demo käytti muistia noin 150 Mt ja rcb\_sub käytti noin 4 kt. Toteutetussa ohjelmassa ei ollut demossa havaittavia ongelmia ja on osoittautunut tuotannossa toimivaksi muun järjestelmän kanssa. Edellä mainittujen perusteella demon analyysi onnistui ja sen pohjalta toteutukseen tehtiin oikeita teknisiä valintoja. Tämä myös vastaa tukimuskysymykseen T4.
+
+% Toteutettu ohjelma on toiminut hyvin ja päästiin asetettuihin tavoitteisiin.
+Toteutettu ohjelmisto on tuotannossa osana muuta järjestelmä ja diplomityön kirjoittamisen valmiiksi saamiseen asti on toiminut ongelmitta. Kappaleessa \ref{ch:arviointi} arvioitiin ja pohdittiin saatuja tuloksia. Näiden pohjalta voidaan sanoa, että diplomityössä suunniteltu toteutus pääsi asetettuihin tavoitteisiin ja tutkimuskysymyksiin löydettiin vastaus. Toteutus ei kuitenkaan ole täydellinen ja siinä on parannettavaa. Näihin kohtiin tullaan yrityksessä palaamaan tulevaisuudessa ja muuttamaan niitä, mikäli tarve vaatii. Tämän diplomityön tulokset tarjoavat myös apua samankaltaisten järjestelmien suunnitteluun ja toteutukseen.
