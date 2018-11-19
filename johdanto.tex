@@ -13,24 +13,24 @@ Tämän diplomityön rakenne alkaa pohjatietojen käsittelyllä. Ensin käydää
 
 \section{Vaatimukset}
 \label{ch:vaatimukset}
-Diplomityön suunnittelulle ja toteutukselle asetettiin vaatimuksia, jotka ohjelmiston pitää pystyä täyttämään. Vaatimuksien tehtävä on asettaa työlle selvät tavoitteet mitä järjestelmään halutaan tuoda lisää. Diplomityön tehtävä on tiedon analyysin ja tutkimustyön kautta löytää sopivat menetelmät suunnitteluun ja sen toteutukseen. Asetettuja vaatimuksia käytetään pohjana työssä tehdyille päätöksille. Pohdintaosiossa vaatimuksilla arvioidaan työn tavoitteisiin pääsyä ja eri ratkaisuvaihtoehtoja. Kaikki vaatimukset oli asetettu jo ennen työn aloittamista tai sen alkuvaiheessa.
+Diplomityön suunnittelulle ja toteutukselle asetettiin vaatimuksia, jotka ohjelmiston pitää pystyä täyttämään. Vaatimuksien tehtävä on asettaa työlle selvät tavoitteet mitä järjestelmään halutaan tuoda lisää. Diplomityön tehtävä on tiedon analyysin ja tutkimustyön kautta löytää sopivat menetelmät suunnitteluun ja sen toteutukseen. Asetettuja vaatimuksia käytetään pohjana työssä tehdyille päätöksille. Pohdintaosiossa vaatimuksilla arvioidaan työn tavoitteisiin pääsyä ja eri ratkaisuvaihtoehtoja. Kaikki vaatimukset oli asetettu jo ennen työn aloittamista tai sen alkuvaiheessa. Jokaiselle vaatimukselle on asetettu lyhenne, jolla siihen viitataan muualla tekstissä.
 
 Ohjelmistolle asetettiin mm. seuraavia vaatimuksia:
 \begin{itemize}
-	\item viestien tilaus sähköasemalta IEC 61850 -standardin mukaisesti,
-	\item tilattujen viestien jakaminen järjestelmässä siitä kiinnostuvien komponenttien kanssa,
-	\item tilattuja viestejä haluavien komponenttien määrä pitää pystyä muuttumaan järjestelmän tarpeiden mukaan,
-	\item muu järjestelmä ohjaa milloin viestien tilaus sähköasemilta aloitetaan ja lopetetaan,
-	\item komponenttien täytyy saada ilmoitus uudesta viestistä ilman erillistä kyselyä,
-	\item viestit puskuroidaan myöhempää käsittelyä varten jos komponentti ei ehdi niitä heti käsitellä,
-	\item komponentin pitää pystyä suodattamaan viestit sen lähteen identiteetin perusteella,
-	\item viestien jakamisen muoto pitää olla helposti ymmärrettävä järjestelmän osapuolien kesken,
-	\item sähköasemalta tilattavien viestien määrä pitää pystyä muuttumaan tilauksien välillä,
-	\item viestien välitystekniikka järjestelmässä täytyy tukea verkkopalvelun tapauksessa TCP/IP-pro\-to \-kol\-la\-mää\-ri\-tyk\-si\-ä, ja
-	\item tiedonsiirrossa lähetystakuu ei ole välttämättömyys.
+	\item V1: viestien tilaus sähköasemalta IEC 61850 -standardin mukaisesti,
+	\item V2: tilattujen viestien jakaminen järjestelmässä siitä kiinnostuvien komponenttien kanssa,
+	\item V3: tilattuja viestejä haluavien komponenttien määrä pitää pystyä muuttumaan järjestelmän tarpeiden mukaan,
+	\item V4: muu järjestelmä ohjaa milloin viestien tilaus sähköasemilta aloitetaan ja lopetetaan,
+	\item V5: komponenttien täytyy saada ilmoitus uudesta viestistä ilman erillistä kyselyä,
+	\item V6: viestit puskuroidaan myöhempää käsittelyä varten jos komponentti ei ehdi niitä heti käsitellä,
+	\item V7: komponentin pitää pystyä suodattamaan viestit sen lähteen identiteetin perusteella,
+	\item V8: viestien jakamisen muoto pitää olla helposti ymmärrettävä järjestelmän osapuolien kesken,
+	\item V9: sähköasemalta tilattavien viestien määrä pitää pystyä muuttumaan tilauksien välillä,
+	\item V10: viestien välitystekniikka järjestelmässä täytyy tukea verkkopalvelun tapauksessa TCP/IP-pro\-to \-kol\-la\-mää\-ri\-tyk\-si\-ä, ja
+	\item V11: tiedonsiirrossa lähetystakuu ei ole välttämättömyys.
 \end{itemize}
 
-Osa vaatimuksista tulevat muun järjestelmän toimintaperiaatteista ja kuinka sitä käytetään. Käyttäjän on tarkoitus pystyä ohjaamaan viestien tilausta sähköasemille käyttöliittymän kautta. Tästä seurauksena on vaatimus, jossa muun järjestelmän täytyy ohjata viestin hakuun liittyviä osia. Uusien järjestelmän komponenttien kehitys halutaan pitää helppona. Tämän takia viestin saamisen rajapinnat tulee suunnitella komponentissa helposti käytettäväksi. Rajapinnan tulee tarjota viestit helposti ymmärrettävässä muodossa, ilmoituksia uuden viestin saapumisesta ja sen puskurointi. Komponentille pitää tarjota mahdollisuus erottaa tai saada viestit sähköaseman ja sen automaatiolaitteen mukaan. Tämä sen takia, koska järjestelmä käsittelee paljon erilaisia sähköasemia ja niiden automaatiolaitteita. Komponenttien pitää pystyä erottamaan mikä on viestin alkuperä. Esimerkkinä tietyn automaatiolaitteen mittaustiedon näyttäminen. Tiedonsiirtoon ei alustavasti tarvittu lähetystakuita tiedon tyypin takia (mittausdata). Uusi viesti korvaa edellisen lähetyksen tiedot. Olisi tavoiteltavaa, että toteutus kuitenkin mahdollistaisi tämän tulevaisuuden varalta. Muu järjestelmä ja sen osat ovat toteutettu web-sovelluksena. Tästä tulee vaatimus, että viesti täytyy onnistua kuljettamaan osapuolten välillä TCP/IP-protokollaperheen avulla.
+Osa vaatimuksista tulevat muun järjestelmän toimintaperiaatteista ja siitä kuinka sitä käytetään. Käyttäjän on tarkoitus pystyä ohjaamaan viestien tilausta sähköasemille käyttöliittymän kautta. Tästä seurauksena on vaatimus, jossa muun järjestelmän täytyy ohjata viestin hakuun liittyviä osia. Uusien järjestelmän komponenttien kehitys halutaan pitää helppona. Tämän takia viestin saamisen rajapinnat tulee suunnitella komponentissa helposti käytettäväksi. Rajapinnan tulee tarjota viestit helposti ymmärrettävässä muodossa. Lisäksi ilmoitukset uuden viestin saapuessa ja niiden puskurointi, jos niitä ei ehditä heti käsitellä. Komponentille pitää tarjota mahdollisuus erottaa tai saada viestit sähköaseman ja sen automaatiolaitteen mukaan. Tämä sen takia, että järjestelmä käsittelee paljon erilaisia sähköasemia ja niiden automaatiolaitteita. Komponenttien pitää pystyä selvittämään viestien alkuperä. Tästä esimerkkinä on tietyn automaatiolaitteen mittaustiedon näyttäminen. Tiedonsiirtoon ei alustavasti tarvittu lähetystakuita tiedon tyypin takia (mittausdata). Uusi viesti korvaa edellisen lähetyksen tiedot. Olisi tavoiteltavaa, että toteutus kuitenkin mahdollistaisi tämän tulevaisuuden varalta. Muu järjestelmä ja sen osat ovat toteutettu web-sovelluksena. Tästä tulee vaatimus, että viesti täytyy onnistua kuljettamaan osapuolten välillä TCP/IP-protokollaperheen avulla.
 
 
 \section{Tutkimuskysymykset}
