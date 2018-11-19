@@ -1,5 +1,6 @@
 \chapter{Yhteenveto}
 \label{ch:yhteenveto}
+% TODO: Kirjoita taulukosta teksiin.
 Diplomityön tuloksena saatiin ohjelmistokomponentti osaksi isompaa sähköasemiin liittyvää järjestelmää. Komponentti kykeni tilaamaan viestejä IED-laitteelta IEC 61850 -stan\-dar\-din mukaisesti, muuntamaan viestit JSON-muotoon ja jakamaan sen muun järjestelmän kanssa. Viestien jako järjestelmässä toteutettiin AMQP-standardiin pohjautuvalla välittäjäpalvelimella, joka käyttää julkaisija-tilaaja- ja viestijono-kom\-mu\-ni\-koin\-ti\-pa\-ra\-dig\-mo\-ja. Toteutetun systeemin arkkitehtuuri esitettiin kuvassa \ref{fig:planned-system-architecture}. Arkkitehtuurissa muu järjestelmä on vastuussa tilauksien orkestroinnissa ja rcb\_sub-prosessien suorituksesta.
 
 % Lähtökohtien avulla huomattiin että järjestelmän kommunikointiin tarvittiin viestijonoparadigma ja joukkokommunikointi tai julkaisija-tilaaja.
@@ -16,3 +17,46 @@ Toteutetun ohjelman suorituskykyä saatiin paremmaksi valitsemalla matalamman ta
 
 % Toteutettu ohjelma on toiminut hyvin ja päästiin asetettuihin tavoitteisiin.
 Toteutettu ohjelmisto on tuotannossa osana muuta järjestelmä ja diplomityön kirjoittamisen valmiiksi saamiseen asti on toiminut ongelmitta. Kappaleessa \ref{ch:arviointi} arvioitiin ja pohdittiin saatuja tuloksia. Näiden pohjalta voidaan sanoa, että diplomityössä suunniteltu toteutus pääsi asetettuihin tavoitteisiin ja tutkimuskysymyksiin löydettiin vastaus. Toteutus ei ole kuitenkaan täydellinen ja siinä on jatkokehitettävää. Näihin kohtiin tullaan yrityksessä palaamaan tulevaisuudessa ja muuttamaan niitä, mikäli tarve vaatii. Tämän diplomityön tulokset tarjoavat myös apua samankaltaisten järjestelmien suunnitteluun ja toteutukseen.
+
+\begin{table}[ht!]
+	\caption{Yhteenveto asetetuista vaatimuksiin ja kuinka ne täytettiin (vaatimukset asetettiin kappaleessa \ref{ch:vaatimukset}).}
+	\label{tab:requirements-met}
+	\begin{tabular}{p{0.11\linewidth} | p{0.82\linewidth}}
+		\hline
+		\textbf{Vaatimus\-tunnus} & \textbf{Kuinka vaatimus täytettiin} \\
+		\hline
+		% viestien tilaus sähköasemalta IEC 61850 -standardin mukaisesti
+		V1 & Viestit tilattiin käyttämällä libIEC61850-kirjastoa, joka hoitaa standardin mukaisen matalan tason kommunikoinnin. \\
+		\hline
+		% tilattujen viestien jakaminen järjestelmässä siitä kiinnostuvien komponenttien kanssa
+		V2 & Viestien jakamiseen käytettiin viestijono- ja julkaisija-tilaaja-kommunikointiparadigmoja, jotka toteutettiin AMQP-standarin mukaisella RabbitMQ-välittäjäohjelmistolla. \\
+		\hline
+		% tilattuja viestejä haluavien komponenttien määrä pitää pystyä muuttumaan järjestelmän tarpeiden mukaan
+		V3 & Komponentit pystyvät tilaamaan viestejä RabbitMQ-välittäjältä julkaisija-tilaaja-paradigman mukaan. Tilaajien määrää ei ole rajoitettu. \\
+		\hline
+		% muu järjestelmä ohjaa milloin viestien tilaus sähköasemilta aloitetaan ja lopetetaan
+		V4 & Järjestelmä ajaa rcb\_sub-ohjelmaa taustaprosessina ja antaa tilauksen tarvittavat tiedot sille komentoriviparametreillä. \\
+		\hline
+		% komponenttien täytyy saada ilmoitus uudesta viestistä ilman erillistä kyselyä
+		V5 & RabbitMQ-välittäjä tarjoaa ilmoituksen tilaajalle kun uusi viesti julkaistaan. \\
+		\hline
+		% viestit puskuroidaan myöhempää käsittelyä varten jos komponentti ei ehdi niitä heti käsitellä
+		V6 & RabbitMQ-välittäjä tarjoaa viestijonoparadigman mukaisen jonon, jos tilaaja ei ehdi viestiä käsitellä. \\
+		\hline
+		% komponentin pitää pystyä suodattamaan viestit sen lähteen identiteetin perusteella
+		V7 & Rcb\_sub julkaisee viestit RabbitMQ-välittäjälle IED-laitteen tunnisteella, jolloin tilaaja voi tilata haluamansa viestit. \\
+		\hline
+		% viestien jakamisen muoto pitää olla helposti ymmärrettävä järjestelmän osapuolien kesken
+		V8 & IEC 61850 -standardin mukainen binääritason viesti muutettiin JSON-muotoon, joka on helpommin luettavissa ohjelmistolle ja ihmiselle. \\
+		\hline
+		% sähköasemalta tilattavien viestien määrä pitää pystyä muuttumaan tilauksien välillä
+		V9 & Rcb\_sub-ohjelmaa ajetaan taustaprosessina ja järjestelmä voi muuttaa tilauksen tietoja (RCB-instassien määrä) syöttämällä eri komentoriviparametrit käynnistyksen yhteydessä. \\
+		\hline
+		% viestien välitystekniikka järjestelmässä täytyy tukea verkkopalvelun tapauksessa TCP/IP-protokollamäärityksiä
+		V10 & MMS-protokolla ja valittu AMQP-standardi toimivat TCP/IP-protokollaperheen päällä. \\
+		\hline
+		% tiedonsiirrossa lähetystakuu ei ole välttämättömyys
+		V11 & AMQP tarjoaa lähetystakuumekanismit julkaisijoiden ja tilaajien välille. \\
+		\hline
+	\end{tabular}
+\end{table}
