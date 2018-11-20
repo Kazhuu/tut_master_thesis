@@ -71,10 +71,10 @@ Standardi asettaa rajoitteita viestien tilaukseen. Yksi RCB-instanssi voi palvel
 Tilaaja siis tilaa viestejä datajoukon muuttujien tapahtumista. RCB-instanssi puskuroi viestejä sille asetetun ajan ja kaikki tämän ajan sisällä tapahtuneet muuttujien tapahtumat sisällytetään samaan viestiin \cite[s.~98]{IEC61850-7-2}. Seurauksena on, että tilaajille lähetetyt viestit sisältävät taulukon arvoja, joka vaihtelee viestien välillä. Viestin siis koostuu yleisistä tiedoista ja taulukosta muuttujien arvoja \cite[s.~104]{IEC61850-7-2}. Viestin yleiset tiedot sisältävät kopioita RCB-instanssin muuttujista. Tämä toimii tietona tilaajalle millä arvoilla instanssi on konfiguroitu tilausta varten.
 
 % Viestin vaihtoehtoiset kentät ja liipaisimet.
-RCB-instanssi sallii tilaajan konfiguroida viestin kenttien määrää. Tilaaja voi poistaa viestistä tarpeetonta tietoa. Joitakin vaihtoehtoisia kenttiä ovat mm. syykoodit muuttujan sisältämiseen viestiin ja muuttujan viite arvon lisäksi. Tilaaja voi myös konfiguroida liipaisimia minkä tapahtumien pohjalta viesti lähetetään. \mbox{\cite[s.~90]{IEC61850-7-1}} \mbox{\cite[s.~98]{IEC61850-7-2}}
+RCB-instanssi sallii tilaajan konfiguroida viestin kenttien määrää. Tilaaja voi poistaa viestistä tarpeetonta tietoa. Joitakin vaihtoehtoisia kenttiä ovat mm. syykoodit muuttujan sisältämiseen viestiin ja muuttujan viite. Tilaaja voi myös konfiguroida liipaisimia minkä tapahtumien pohjalta viesti lähetetään. \mbox{\cite[s.~90]{IEC61850-7-1}} \mbox{\cite[s.~98]{IEC61850-7-2}}
 
 % Viesti pakataan biteiksi MMS-protokollan avulla.
-Edellä esitetty viestin muoto on standardin mukainen abstrahoitu määritys. MMS-protokollan avulla viesti pakataan binäärimuotoon ja läheteään verkon yli tilaajalle. IEC 61850 standardin MMS-protokollan osa kertoo missä järjestyksessä bitit ovat \cite{IEC61850-8-1}. Tilaaja on vastuussa viestin purkamisesta standardin mukaisesti ymmärrettävään muotoon.
+Edellä esitetty viestin muoto on standardin mukainen abstrahoitu määritys. MMS-pro\-to\-kol\-lan avulla viesti pakataan binäärimuotoon ja lähetetään verkon yli tilaajalle. IEC 61850 standardin MMS-pro\-to\-kol\-lan osa kertoo missä järjestyksessä bitit ovat \cite{IEC61850-8-1}. Tilaaja on vastuussa viestin purkamisesta standardin mukaisesti ymmärrettävään muotoon.
 
 
 \section{Yhteenveto}
