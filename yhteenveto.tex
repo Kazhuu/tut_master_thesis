@@ -4,7 +4,7 @@
 Diplomityön tuloksena saatiin ohjelmistokomponentti osaksi isompaa sähköasemiin liittyvää järjestelmää. Komponentti kykeni tilaamaan viestejä IED-laitteelta IEC 61850 -stan\-dar\-din mukaisesti, muuntamaan viestit JSON-muotoon ja jakamaan sen muun järjestelmän kanssa. Viestien jako järjestelmässä toteutettiin AMQP-standardiin pohjautuvalla välittäjäpalvelimella, joka käyttää julkaisija-tilaaja- ja viestijono-kom\-mu\-ni\-koin\-ti\-pa\-ra\-dig\-mo\-ja. Toteutetun systeemin arkkitehtuuri esitettiin kuvassa \ref{fig:planned-system-architecture}. Arkkitehtuurissa muu järjestelmä on vastuussa tilauksien orkestroinnissa ja rcb\_sub-prosessien suorituksesta.
 
 % Yhteenveto asetetuista vaatimuksista ja kuinka ne saavutettiin.
-Diplomityön alussa asetettiin vaatimuksia jotka toteutuksen pitäisi pystyä täyttämään. Taulukossa \ref{tab:requirements-met} on esitetty yhteenveto asetetuista vaatimuksista ja kuinka ne tuontantoversiossa on täytetty. Taulukossa vaatimukset on esitetty niiden tunnuksilla, jotka asetettiin aikaisemmin kappaleessa \ref{ch:vaatimukset}.
+Diplomityön alussa asetettiin vaatimuksia, jotka toteutuksen pitäisi pystyä täyttämään. Taulukossa \ref{tab:requirements-met} on esitetty yhteenveto asetetuista vaatimuksista ja kuinka ne tuontantoversiossa on täytetty. Taulukossa vaatimukset on esitetty niiden tunnuksilla, jotka asetettiin aikaisemmin kappaleessa \ref{ch:vaatimukset}.
 
 \begin{table}[ht!]
 	\caption{Yhteenveto asetetuista vaatimuksiin ja kuinka ne täytettiin.}
@@ -17,7 +17,7 @@ Diplomityön alussa asetettiin vaatimuksia jotka toteutuksen pitäisi pystyä t�
 		V1 & Viestit tilattiin käyttämällä libIEC61850-kirjastoa, joka hoitaa standardin mukaisen matalan tason kommunikoinnin. \\
 		\hline
 		% tilattujen viestien jakaminen järjestelmässä siitä kiinnostuvien komponenttien kanssa
-		V2 & Viestien jakamiseen käytettiin viestijono- ja julkaisija-tilaaja-kommunikointiparadigmoja, jotka toteutettiin AMQP-standarin mukaisella RabbitMQ-välittäjäohjelmistolla. \\
+		V2 & Viestien jakamiseen käytettiin viestijono- ja julkaisija-tilaaja-kommunikointiparadigmoja, jotka toteutettiin AMQP-standardin mukaisella RabbitMQ-välittäjäohjelmistolla. \\
 		\hline
 		% tilattuja viestejä haluavien komponenttien määrä pitää pystyä muuttumaan järjestelmän tarpeiden mukaan
 		V3 & Komponentit pystyvät tilaamaan viestejä RabbitMQ-välittäjältä julkaisija-tilaaja-paradigman mukaan. Tilaajien määrää ei ole rajoitettu. \\
@@ -26,7 +26,7 @@ Diplomityön alussa asetettiin vaatimuksia jotka toteutuksen pitäisi pystyä t�
 		V4 & Järjestelmä ajaa rcb\_sub-ohjelmaa taustaprosessina ja antaa tilauksen tarvittavat tiedot sille komentoriviparametreillä. \\
 		\hline
 		% komponenttien täytyy saada ilmoitus uudesta viestistä ilman erillistä kyselyä
-		V5 & RabbitMQ-välittäjä tarjoaa ilmoituksen tilaajalle kun uusi viesti julkaistaan. \\
+		V5 & RabbitMQ-välittäjä tarjoaa ilmoituksen tilaajalle, kun uusi viesti julkaistaan. \\
 		\hline
 		% viestit puskuroidaan myöhempää käsittelyä varten jos komponentti ei ehdi niitä heti käsitellä
 		V6 & RabbitMQ-välittäjä tarjoaa viestijonoparadigman mukaisen jonon, jos tilaaja ei ehdi viestiä käsitellä. \\
@@ -38,7 +38,7 @@ Diplomityön alussa asetettiin vaatimuksia jotka toteutuksen pitäisi pystyä t�
 		V8 & IEC 61850 -standardin mukainen binääritason viesti muutettiin JSON-muotoon, joka on helpommin luettavissa ohjelmistolle ja ihmiselle. \\
 		\hline
 		% sähköasemalta tilattavien viestien määrä pitää pystyä muuttumaan tilauksien välillä
-		V9 & Rcb\_sub-ohjelmaa ajetaan taustaprosessina ja järjestelmä voi muuttaa tilauksen tietoja (RCB-instassien määrä) syöttämällä eri komentoriviparametrit käynnistyksen yhteydessä. \\
+		V9 & Rcb\_sub-ohjelmaa ajetaan taustaprosessina ja järjestelmä voi muuttaa tilauksen tietoja (RCB-instanssien määrä) syöttämällä eri komentoriviparametrit käynnistyksen yhteydessä. \\
 		\hline
 		% viestien välitystekniikka järjestelmässä täytyy tukea verkkopalvelun tapauksessa TCP/IP-protokollamäärityksiä
 		V10 & MMS-protokolla ja valittu AMQP-standardi toimivat TCP/IP-protokollaperheen päällä. \\
@@ -59,7 +59,7 @@ Järjestelmän kommunikointiin valittiin AMQP-standardi, jonka myötä julkaisij
 Ennen diplomityön aloitusta tekijä oli yrityksessä toteuttanut demon ohjelmiston toimivuudesta. Demo oli tie oppia IEC 61850 -standardin toimintaa ja perehtyä aiheeseen tarkemmin ennen oikeaa toteutusta. Demossa oli kuitenkin ongelmia, mitkä haittasivat sen jatkokehitystä. Diplomityössä analysoitiin demon ongelmia, joita olivat huono suorituskyky, muistivuoto ja toiminnan epävarmuus. Toiminnan epävarmuuteen ja huonoon suorituskykyyn oli syynä Ruby-kielen oletustulkissa oleva globaali tulkkilukitus (GIL/GVL). Ja muistivuoto aiheutui huonosti toteutetusta Ruby- ja C-kielen välisestä liitoksesta.
 
 % Kuinka tekniset ongelmat ratkottiin toteutetussa ohjelmistossa.
-Toteutetun ohjelman suorituskykyä saatiin paremmaksi valitsemalla matalamman tason C-ohjelmointikieli. C on käännettävä kieli verrattuna Ruby:n tulkattavaan kieleen. Lisäksi C voi hyödyntää käyttöjärjestelmän säikeitä ilman rajoituksia verrattuna Ruby-tulkin globaaliin lukitukseen. Muistivuoto saatiin korjattua huolellisella ohjelmoinnilla ja varmistamalla, että muisti vapautettiin, kun sitä ei enää tarvittu. Kielen valinnalla ohjelman muistinkäyttö saatiin entiseen nähden pienemmäksi. Ruby:llä toteutettu demo käytti muistia noin 150 Mt ja rcb\_sub käytti noin 4 kt. Toteutetussa ohjelmassa ei ollut demossa havaittavia ongelmia ja on osoittautunut tuotannossa toimivaksi muun järjestelmän kanssa. Edellä mainittujen perusteella demon analyysi onnistui ja sen pohjalta toteutukseen tehtiin oikeita teknisiä valintoja. Tämä myös vastaa tukimuskysymykseen T4.
+Toteutetun ohjelman suorituskykyä saatiin paremmaksi valitsemalla matalamman tason C-ohjelmointikieli. C on käännettävä kieli verrattuna Ruby:n tulkattavaan kieleen. Lisäksi C voi hyödyntää käyttöjärjestelmän säikeitä ilman rajoituksia verrattuna Ruby-tulkin globaaliin lukitukseen. Muistivuoto saatiin korjattua huolellisella ohjelmoinnilla ja varmistamalla, että muisti vapautettiin, kun sitä ei enää tarvittu. Kielen valinnalla ohjelman muistinkäyttö saatiin entiseen nähden pienemmäksi. Ruby:llä toteutettu demo käytti muistia noin 150 Mt ja rcb\_sub käytti noin 4 kt. Toteutetussa ohjelmassa ei ollut demossa havaittavia ongelmia ja on osoittautunut tuotannossa toimivaksi muun järjestelmän kanssa. Edellä mainittujen perusteella demon analyysi onnistui ja sen pohjalta toteutukseen tehtiin oikeita teknisiä valintoja. Tämä myös vastaa tutkimuskysymykseen T4.
 
 % Toteutettu ohjelma on toiminut hyvin ja päästiin asetettuihin tavoitteisiin.
 Toteutettu ohjelmisto on tuotannossa osana muuta järjestelmä ja diplomityön kirjoittamisen valmiiksi saamiseen asti on toiminut ongelmitta. Kappaleessa \ref{ch:arviointi} arvioitiin ja pohdittiin saatuja tuloksia. Näiden pohjalta voidaan sanoa, että diplomityössä suunniteltu toteutus pääsi asetettuihin tavoitteisiin ja tutkimuskysymyksiin löydettiin vastaus. Toteutus ei kuitenkaan ole täydellinen ja siinä on parannettavaa. Näihin kohtiin tullaan yrityksessä palaamaan tulevaisuudessa ja muuttamaan niitä, mikäli tarve vaatii. Tämän diplomityön tulokset tarjoavat myös apua samankaltaisten järjestelmien suunnitteluun ja toteutukseen.

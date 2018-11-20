@@ -85,7 +85,7 @@ Viestin saapuessa libIEC61580-kirjasto kutsuu asetettua takaisinkutsufunktiota. 
 
 \begin{figure}[ht!]
 	\includegraphics[width=1\textwidth]{pictures/rcb-sub-report-to-json.png}
-	\caption{Sekvenssikaavio kuinka rcb\_sub muodostaa JSON:nin päätason kentät.}
+	\caption{Sekvenssikaavio kuinka rcb\_sub muodostaa JSON:in päätason kentät.}
 	\label{fig:rcb-sub-report-to-json-1}
 \end{figure}
 
@@ -97,4 +97,4 @@ Kuvassa \ref{fig:rcb-sub-report-to-json-1} suoritus alkaa, kun libIEC61850-kirja
 	\label{fig:rcb-sub-report-to-json-2}
 \end{figure}
 
-Päätason viestin kenttien jälkeen ohjelma käy läpi silmukassa viestiin sisällytetyt muuttujien arvot. Tässä vaiheessa ohjelma yhdistää aikaisemmin luetut muuttujien spesifikaatiot viestin muuttujiin. IEC 61850 -standardin mukainen viesti sisältää vain taulukon muuttujien arvoja. Jotta muuttujan arvon ja aikaisemmin luetun spesifikaation yhdistäminen on mahdollista. Ohjelma pakottaa vaihtoehtoisen syykoodi-kentän päälle viestiin. Tämän avulla saadaan saadaan selville tarvittava muuttujan indeksi, joka mahdollistaa tiedon yhdistämisen. Kokonaan muutettu viesti julkaistaan RabbitMQ:lle ja takaisinkutsufunktio palaa.
+Päätason viestin kenttien jälkeen ohjelma käy läpi silmukassa viestiin sisällytetyt muuttujien arvot. Tässä vaiheessa ohjelma yhdistää aikaisemmin luetut muuttujien spesifikaatiot viestin muuttujiin. IEC 61850 -standardin mukainen viesti sisältää vain taulukon muuttujien arvoja. Jotta muuttujan arvon ja aikaisemmin luetun spesifikaation yhdistäminen on mahdollista. Ohjelma pakottaa vaihtoehtoisen syykoodi-kentän päälle viestiin. Tämän avulla saadaan selville tarvittava muuttujan indeksi, joka mahdollistaa tiedon yhdistämisen. Kokonaan muutettu viesti julkaistaan RabbitMQ:lle ja takaisinkutsufunktio palaa.

@@ -93,11 +93,11 @@ Hyviä puolia matalan tason kommunikoinnissa on, että sillä saavutetaan saumat
 
 \subsection{Etäkutsu}
 \label{ch:remote-invocation}
-Etäkutsu paradigmoja ovat \emph{pyyntö-vastaus} (\emph{request-reply}), \emph{etäproseduurikutsu} (\emph{Remote Procedure Call}, \emph{RPC}) ja \emph{etämetodikutsu} (\emph{Remote Method Invocation}, \emph{RMI}). Etäkutsuja voivat suorittaa prosessit tai korkeamman tason objektit ja palvelut. Primitiivisin etäkutsu paradigmoista on pyyntö-vastaus, joka edustaa mallia aikaisemmin mainitun viestien välityksen päällä ja lisää siihen kaksisuuntaisen viestien vaihdon. Paradigmaa käytetään asiakas-palvelin kommunikoinnissa. \mbox{\cite[s.~185--186]{distributed-systems-concepts-and-design}}
+Etäkutsuparadigmoja ovat \emph{pyyntö-vastaus} (\emph{request-reply}), \emph{etäproseduurikutsu} (\emph{Remote Procedure Call}, \emph{RPC}) ja \emph{etämetodikutsu} (\emph{Remote Method Invocation}, \emph{RMI}). Etäkutsuja voivat suorittaa prosessit tai korkeamman tason objektit ja palvelut. Primitiivisin etäkutsu paradigmoista on pyyntö-vastaus, joka edustaa mallia aikaisemmin mainitun viestien välityksen päällä ja lisää siihen kaksisuuntaisen viestien vaihdon. Paradigmaa käytetään asiakas-palvelin kommunikoinnissa. \mbox{\cite[s.~185--186]{distributed-systems-concepts-and-design}}
 
 Todella tärkeä tekniikka nykypäivän hajautettujen järjestelmien kannalta oli etäproseduurikutsut (RPC). Tämän määrittivät Birrell ja Nelson vuonna 1984 \cite{implemeting-remote-procedure-calls}. Se mahdollistaa ohjelman kutsua etänä toisella koneella sijaitsevaa proseduuria samoin kuin paikallista proseduuria. RPC-systeemi piilottaa taustalle kaiken kutsuun tarvittavan teknisen toteutuksen, kuten tiedon siirron, pakkaamisen ja purkamisen \cite[s.~195--196]{distributed-systems-concepts-and-design}. Etämetodikutsun (RMI) toiminta on sama kuin RPC:n, mutta se on laajennettu toimivaksi olioilla. Olioiden metodeita voidaan kutsua niin kuin ne olisivat sen paikallisia metodeita \cite[s.~204]{distributed-systems-concepts-and-design}. Sekä RPC ja RMI tarjoavat saman tason abstraktion ohjelmoijalle ja piilottavat teknisen toteutuksen alleen.
 
-Etäkutsuparadigmat ovat korkeamman tason paradigmoja kuin aikaisemmin mainittu prosessien välinen kommunikointi. Hyvänä puolena paradigmoissa on, että ohjelmoijan ei välttämättä tarvitse kirjoittaa matalan tason rajapinnan ohjelmaa. Rajapinta on abstrahoitu helppokäyttöisemmäksi ja sen toteutus ei vie niin paljon aikaa ja resursseja kuin matalan tason implementointi. Etäkutsut kuitenkin kärsivät osapuolten välisistä vahvoista liitoksista kuten aikaisemmin mainittut prosessien väliset kutsut.
+Etäkutsuparadigmat ovat korkeamman tason paradigmoja kuin aikaisemmin mainittu prosessien välinen kommunikointi. Hyvänä puolena paradigmoissa on, että ohjelmoijan ei välttämättä tarvitse kirjoittaa matalan tason rajapinnan ohjelmaa. Rajapinta on abstrahoitu helppokäyttöisemmäksi ja sen toteutus ei vie niin paljon aikaa ja resursseja kuin matalan tason implementointi. Etäkutsut kuitenkin kärsivät osapuolten välisistä vahvoista liitoksista kuten aikaisemmin mainitut prosessien väliset kutsut.
 
 
 \subsection{Epäsuora kommunikaatio}
@@ -134,7 +134,7 @@ Osapuolien kommunikointi julkaisija-tilaaja-systeemin kanssa tapahtuu funktioill
 \end{figure}
 
 % Osapuolten kommunikointi epäsuoraa ja liitoksien vahvuudet.
-Osapuolten kommunikointi on epäsuoraa ja niiden välillä on heikko väliliitos ja vahva aikaliitos. Systeemi osapuolten välissä mahdollistaa heikon väliliitoksen, jolloin ne eivät tiedä toistensta identiteettiä. Jotta tilaaja saa viestin, täytyy sen olla olemassa samaan aikaan kuin julkaisijan. Seurauksena tästä on vahva aikaliitos osapuolien välille. 
+Osapuolten kommunikointi on epäsuoraa ja niiden välillä on heikko väliliitos ja vahva aikaliitos. Systeemi osapuolten välissä mahdollistaa heikon väliliitoksen, jolloin ne eivät tiedä toistensa identiteettiä. Jotta tilaaja saa viestin, täytyy sen olla olemassa samaan aikaan kuin julkaisijan. Seurauksena tästä on vahva aikaliitos osapuolien välille. 
 
 
 Yksinkertaisin julkaisija-tilaaja-systeemi on helppo implementoida yhdellä välittäjällä. Tämä voi kuitenkin tulla ongelmaksi tai pullonkaulaksi järjestelmässä, missä tiedon vaihto on nopeaa ja osapuolia on paljon tai välittäjä kaatuu kesken kaiken. Tällaisen systeemin skaalaaminen ylöspäin on vaikeampaa ja vaatii hajautettua välittäjäverkkoa \cite[s.~248--249]{distributed-systems-concepts-and-design}. Lisäksi systeemin epäsuoruus tuo mukanaan kommunikointiin vaikeutta ja suoritukseen kuormaa verrattuna suoraan kommunikointiin.
@@ -152,7 +152,7 @@ Viestijonoparadigmassa osapuolet kommunikoivat epäsuorasti jonon välityksellä
 Vastaanottaja voi poistaa viestejä jonosta kolmella eri periaatteella:
 \begin{itemize}
 	\item \emph{pysäyttävä vastaanotto} (\emph{blocking receive}), joka pysäyttää suorituksen, kunnes viesti on saatavissa,
-	\item \emph{ei pysäyttävä vastaanotto} (\emph{non-blocking receive}), joka tarkistaa jonon tilan ja palauttaa viestin jos saatavilla, ja
+	\item \emph{ei pysäyttävä vastaanotto} (\emph{non-blocking receive}), joka tarkistaa jonon tilan ja palauttaa viestin, jos saatavilla, ja
 	\item \emph{ilmoita} (\emph{notify}), joka lähettää tiedon uudesta viestistä, kun sellainen on saatavilla \cite[s.~254]{distributed-systems-concepts-and-design}.
 \end{itemize}
 Ei pysäyttävä vastaanotto on sama kuin vastaanottaja kyselisi viestejä jonosta tietyin väliajoin (poll). Viestijonosysteemissä jonoa ei ole rajoitettu yhteen lähettäjään ja vastaanottajaan. Systeemissä moni lähettäjä voi lähettää viestejä samaan jonoon ja moni vastaanottaja voi vastaanottaa niitä samasta jonosta. Jonojen jonotuspolitiikka on yleensä FIFO-periaate (First-In-First-Out). Moni systeemi kuitenkin tukee myös muitakin periaatteita, kuten viestien priorisointia, jossa ylemmän prioriteetin viestit käsitellään ennen alemman prioriteetin viestejä \cite[s.~120]{eugster2003many}.
